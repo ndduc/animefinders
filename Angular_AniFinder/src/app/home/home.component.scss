@@ -1,0 +1,161 @@
+//Setup
+@import url(https://fonts.googleapis.com/css?family=Open+Sans); 
+
+@mixin stagger-anim-delay($i, $initial-delay, $stagger-delay) {
+  @while $i > 0 {
+    &:nth-of-type(#{$i}) {
+      animation-delay: $initial-delay + $stagger-delay * $i;
+    }
+    $i: $i - 1;
+  }
+}
+
+$baseFontSize: 16px;
+$baseLineHeight: 1;
+
+$chartGap: 10px;
+$chartCount: 3;
+$chartOneCount: 11;
+$chartTwoCount: 2;
+$chartThreeCount: 4;
+$totalChartCount: $chartOneCount + $chartTwoCount + $chartThreeCount;
+
+$titleGap: 10px;
+$titleHeight: $baseFontSize * $baseLineHeight + $titleGap;
+
+$chartBarHeight: 30px;
+$chartBarGap: 10px;
+
+body {
+//   margin: 20px 0 40px;
+  font-family: "Open Sans", sans-serif;
+  color: #282828;
+}
+
+//Demo
+.skills {
+  width: 80%;
+  max-width: 960px;
+  height: 780px;
+  height: $totalChartCount * ($chartBarHeight + $chartBarGap) + ($chartCount * ($chartGap + $titleHeight));
+  margin: auto;
+
+  position: relative;
+}
+
+.lines {
+  height: 105%;
+  position: relative;
+}
+.line {
+  height: inherit;
+  width: 2px;
+
+  position: absolute;
+
+  background: rgba(#eee, 0.6);
+
+  &.l--0 {
+    left: 0;
+  }
+  &.l--25 {
+    left: 25%;
+  }
+  &.l--50 {
+    left: 50%;
+  }
+  &.l--75 {
+    left: 75%;
+  }
+  &.l--100 {
+    left: calc(100% - 1px);
+  }
+}
+.line__label {
+  display: block;
+  width: 200px;
+  text-align: center;
+
+  position: absolute;
+  bottom: -20px;
+  right: -100px;
+}
+
+.charts {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.chart {
+  &:not(:first-child) {
+    margin-top: $chartGap;
+  }
+}
+
+.chart__title {
+  display: block;
+  margin-top: 2%;
+  // margin: 0 0 10px;
+
+  font-weight: bold;
+
+  opacity: 0;
+
+  animation: 1s anim-lightspeed-in ease forwards;
+
+  .chart--prod & {
+    animation-delay: 3.3s;
+  }
+  .chart--design & {
+    animation-delay: 4.5s;
+  }
+}
+
+.chart--horiz {
+  overflow: hidden;
+}
+
+.chart__bar {
+  $border-rad: 4px;
+  height: $chartBarHeight;
+  margin-bottom: $chartBarGap;
+
+  background: linear-gradient(to left, #4cb8c4, #3cd3ad);
+  border-top-right-radius: $border-rad;
+  border-bottom-right-radius: $border-rad;
+  opacity: 0;
+
+  animation: 1s anim-lightspeed-in ease forwards;
+
+  .chart--dev & {
+    @include stagger-anim-delay($chartOneCount, 0.5s, 0.2s);
+  }
+  .chart--prod & {
+    @include stagger-anim-delay($chartTwoCount, 3.8s, 0.2s);
+  }
+  .chart--design & {
+    @include stagger-anim-delay($chartThreeCount, 5s, 0.2s);
+  }
+}
+
+.chart__label {
+  padding-left: 10px;
+  line-height: 30px;
+  color: white;
+}
+
+//Keyframes
+@keyframes anim-lightspeed-in {
+  0% {
+    transform: translateX(-200%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

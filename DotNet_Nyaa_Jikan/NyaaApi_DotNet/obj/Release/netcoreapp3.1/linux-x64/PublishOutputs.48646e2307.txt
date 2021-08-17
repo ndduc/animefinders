@@ -1,0 +1,10 @@
+C:\Users\ndduc\Desktop\Angular\Anime Hooker\NyaaApi_DotNet\NyaaApi_DotNet\NyaaApi_DotNet\bin\Release\netcoreapp3.1\publish\NyaaApi_DotNet.dll
+C:\Users\ndduc\Desktop\Angular\Anime Hooker\NyaaApi_DotNet\NyaaApi_DotNet\NyaaApi_DotNet\bin\Release\netcoreapp3.1\publish\NyaaApi_DotNet.deps.json
+C:\Users\ndduc\Desktop\Angular\Anime Hooker\NyaaApi_DotNet\NyaaApi_DotNet\NyaaApi_DotNet\bin\Release\netcoreapp3.1\publish\NyaaApi_DotNet.runtimeconfig.json
+C:\Users\ndduc\Desktop\Angular\Anime Hooker\NyaaApi_DotNet\NyaaApi_DotNet\NyaaApi_DotNet\bin\Release\netcoreapp3.1\publish\NyaaApi_DotNet.pdb
+C:\Users\ndduc\Desktop\Angular\Anime Hooker\NyaaApi_DotNet\NyaaApi_DotNet\NyaaApi_DotNet\bin\Release\netcoreapp3.1\publish\Amazon.Lambda.APIGatewayEvents.dll
+C:\Users\ndduc\Desktop\Angular\Anime Hooker\NyaaApi_DotNet\NyaaApi_DotNet\NyaaApi_DotNet\bin\Release\netcoreapp3.1\publish\Amazon.Lambda.Core.dll
+C:\Users\ndduc\Desktop\Angular\Anime Hooker\NyaaApi_DotNet\NyaaApi_DotNet\NyaaApi_DotNet\bin\Release\netcoreapp3.1\publish\Amazon.Lambda.Serialization.SystemTextJson.dll
+C:\Users\ndduc\Desktop\Angular\Anime Hooker\NyaaApi_DotNet\NyaaApi_DotNet\NyaaApi_DotNet\bin\Release\netcoreapp3.1\publish\AWSSDK.Core.dll
+C:\Users\ndduc\Desktop\Angular\Anime Hooker\NyaaApi_DotNet\NyaaApi_DotNet\NyaaApi_DotNet\bin\Release\netcoreapp3.1\publish\AWSSDK.DynamoDBv2.dll
+C:\Users\ndduc\Desktop\Angular\Anime Hooker\NyaaApi_DotNet\NyaaApi_DotNet\NyaaApi_DotNet\bin\Release\netcoreapp3.1\publish\Newtonsoft.Json.dll

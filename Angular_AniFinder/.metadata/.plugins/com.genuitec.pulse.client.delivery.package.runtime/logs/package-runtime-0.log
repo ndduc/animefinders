@@ -1,0 +1,22 @@
+Aug 07, 2021 3:36:08 AM com.genuitec.pulse.client.deliverypackage.runtime.internal.Activator initializeLoggers
+INFO: Package starting up at Sat Aug 07 03:36:08 MST 2021
+Aug 07, 2021 3:36:10 AM com.genuitec.pulse.client.deliverypackage.runtime.UpdatesService checkForWorkspaceUpdates
+INFO: Latest version of package has already been enabled in the workspace; check finished in 2ms
+Aug 07, 2021 3:36:14 AM org.glassfish.grizzly.nio.NIOTransport start
+INFO: Adjusting kernel thread pool to max size 25 to handle configured number of SelectorRunners
+Aug 07, 2021 3:36:14 AM org.glassfish.grizzly.http.server.NetworkListener start
+INFO: Started listener bound to [127.0.0.1:63794]
+Aug 07, 2021 3:36:14 AM org.glassfish.grizzly.http.server.HttpServer start
+INFO: [HttpServer] Started.
+Aug 07, 2021 3:36:14 AM org.glassfish.tyrus.server.Server start
+INFO: WebSocket Registered apps: URLs all start with ws://127.0.0.1:63794
+Aug 07, 2021 3:36:14 AM org.glassfish.tyrus.server.Server start
+INFO: WebSocket server started.
+Aug 07, 2021 3:36:41 AM com.genuitec.pulse.client.common.widgets.systemid.SystemIDService loadOrDetermineSystemID
+WARNING: Unable to determine system ID using common.system service
+Aug 07, 2021 3:36:41 AM com.genuitec.pulse.client.deliverypackage.runtime.UpdatesService checkForUpdates
+INFO: Latest version of package is installed; update check finished in 450ms
+Aug 07, 2021 3:38:02 AM org.glassfish.grizzly.http.server.NetworkListener shutdownNow
+INFO: Stopped listener bound to [127.0.0.1:63794]
+Aug 07, 2021 3:38:02 AM org.glassfish.tyrus.server.Server stop
+INFO: Websocket Server stopped.

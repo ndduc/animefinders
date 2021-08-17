@@ -1,0 +1,61 @@
+<div *ngIf="screen === 0">
+  <div class="modal-body">
+    <div class="d-flex justify-content-center">
+      <div class="d-flex flex-column">
+        <div class="d-flex justify-content-center">
+          <h2>{{title}}</h2>
+        </div>
+        <div class="d-flex justify-content-center">
+          <mat-chip-list>
+            <mat-chip class="tag">EP: {{episode}}</mat-chip>
+            <mat-chip class="tag">Type: {{type}}</mat-chip>
+          </mat-chip-list>
+        </div>
+        <div class="d-flex justify-content-center" style="margin-top: 2%;">
+          <img class="anime-image"  src="{{imageSrc}}" alt="Photo Content - Error">
+        </div>
+        <div *ngIf="isLoading" class="d-flex justify-content-center">
+          <img style="width: 50%; height: 100%;" class="" src="assets/images/loading-cute.gif" alt="Err">
+        </div>
+        <div *ngIf="!isLoading">
+            <div *ngFor="let episode of createRange(this.numberOfEpisode)">
+              <app-anime-torrent-holder [title]=title [episode]=episode></app-anime-torrent-holder>
+            </div>
+        </div>
+        
+      </div>
+    </div>		
+  </div>
+  <div class="modal-footer">
+    <button mat-flat-button (click)="activeModal.close('Close click')">Close</button>
+  </div>
+</div>
+
+<div *ngIf="screen === 1">
+  <div class="modal-body">
+    <div class="d-flex justify-content-center">
+      <div class="d-flex flex-column">
+        <div class="d-flex justify-content-center" style="text-align: center;">
+          <h3 style="font-weight: bold;">{{title}}</h3>
+        </div>
+        
+        <div style="text-align: center; width: 100%; height: 80%;">
+          <img class="anime-image"  src="{{imageSrc}}" alt="Photo Content - Error"  style="width: 80%; height: 100%;">
+        </div>
+
+        <div *ngIf="isLoading" class="d-flex justify-content-center">
+          <img style="width: 50%; height: 100%;" class="" src="assets/images/loading-cute.gif" alt="Err">
+        </div>
+
+        <div *ngIf="!isLoading">
+          <div *ngFor="let episode of createRange(this.numberOfEpisode)">
+            <app-anime-torrent-holder [title]=title [episode]=episode></app-anime-torrent-holder>
+          </div>
+        </div>
+      </div>
+    </div>		
+  </div>
+  <div class="modal-footer">
+    <button mat-flat-button (click)="activeModal.close('Close click')">Close</button>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+
+
+
+Shell#TunePanel,
+Shell#TunePanel > Composite,
+Shell#TunePanel > Composite > ImageHyperlink,
+Shell#TunePanel > Composite > Composite,
+Shell#TunePanel > Composite > Composite > Composite,
+Shell#TunePanel > Composite > Composite > Composite > Composite,
+Shell#TunePanel > Composite > Composite > Composite > Combo,
+Shell#TunePanel > Composite > Composite > Composite > Button,
+Shell#TunePanel > Composite > Composite > Composite > Label,
+Shell#TunePanel > Composite > Composite > Composite > Link,
+Shell#TunePanel > Composite > Composite > Composite > ImageHyperlink {
+color:#ebedef;
+}
+
+Shell#TunePanel > Composite > Composite > Composite > Combo#MacCombo { /*EXCLUDE_DARKMOJAVE*/
+background-color:#ffffff; /*EXCLUDE_DARKMOJAVE*/
+color:#000000; /*EXCLUDE_DARKMOJAVE*/
+} /*EXCLUDE_DARKMOJAVE*/
+
+Shell#TunePanel > Composite > Composite > Composite > Button#MacButton { /*EXCLUDE_DARKMOJAVE*/
+background-color:#ebedef; /*EXCLUDE_DARKMOJAVE*/
+color:#000000; /*EXCLUDE_DARKMOJAVE*/
+} /*EXCLUDE_DARKMOJAVE*/

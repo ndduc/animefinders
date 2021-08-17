@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="C:\Users\ndduc\Desktop\Angular\Anime Hooker\angular_proj_1\ani-hook"/>
+	</list>
+	<list key="installedFeatures">
+		<item value="com.genuitec.eclipse.code.angularide.feature:3.6.0.202007221454"/>
+		<item value="com.genuitec.eclipse.code.feature:3.6.0.202007221454"/>
+		<item value="com.genuitec.eclipse.code.navigation.feature:3.6.0.202007221454"/>
+		<item value="org.eclipse.egit:5.1.0.201809111528-r"/>
+		<item value="org.eclipse.emf.common:2.15.0.v20180723-1316"/>
+		<item value="org.eclipse.emf.ecore:2.15.0.v20180722-1159"/>
+		<item value="org.eclipse.epp.mpc:1.7.2.v20180829-1931"/>
+		<item value="org.eclipse.help:2.2.300.v20180906-0745"/>
+		<item value="org.eclipse.jgit:5.1.0.201809111528-r"/>
+		<item value="org.eclipse.platform:4.9.0.v20180906-1121"/>
+		<item value="org.eclipse.rcp:4.9.0.v20180906-1121"/>
+		<item value="org.eclipse.userstorage:1.1.0.v20170526-1605"/>
+		<item value="pack.angular:3.6.0.202007221454"/>
+	</list>
+</section>

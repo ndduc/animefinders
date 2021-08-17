@@ -1,0 +1,7 @@
+         {
+                    "httpMethod": "GET",
+                    "queryStringParameters": {
+                    "season": "winter", "year":"2019"
+                 
+                        }
+                    }

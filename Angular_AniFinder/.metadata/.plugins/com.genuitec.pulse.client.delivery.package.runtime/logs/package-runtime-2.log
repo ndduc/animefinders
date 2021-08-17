@@ -1,0 +1,16 @@
+Jul 23, 2021 2:44:54 AM com.genuitec.pulse.client.deliverypackage.runtime.internal.Activator initializeLoggers
+INFO: Package starting up at Fri Jul 23 02:44:54 MST 2021
+Jul 23, 2021 2:45:00 AM org.glassfish.grizzly.nio.NIOTransport start
+INFO: Adjusting kernel thread pool to max size 25 to handle configured number of SelectorRunners
+Jul 23, 2021 2:45:00 AM org.glassfish.grizzly.http.server.NetworkListener start
+INFO: Started listener bound to [127.0.0.1:52330]
+Jul 23, 2021 2:45:00 AM org.glassfish.grizzly.http.server.HttpServer start
+INFO: [HttpServer] Started.
+Jul 23, 2021 2:45:00 AM org.glassfish.tyrus.server.Server start
+INFO: WebSocket Registered apps: URLs all start with ws://127.0.0.1:52330
+Jul 23, 2021 2:45:00 AM org.glassfish.tyrus.server.Server start
+INFO: WebSocket server started.
+Jul 23, 2021 2:45:33 AM org.glassfish.grizzly.http.server.NetworkListener shutdownNow
+INFO: Stopped listener bound to [127.0.0.1:52330]
+Jul 23, 2021 2:45:33 AM org.glassfish.tyrus.server.Server stop
+INFO: Websocket Server stopped.

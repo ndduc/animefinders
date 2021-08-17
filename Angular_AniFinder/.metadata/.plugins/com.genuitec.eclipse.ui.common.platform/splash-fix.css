@@ -1,0 +1,7 @@
+#org-eclipse-ui-splash-progressText {
+  color: #a6bcd2;
+}
+
+#org-eclipse-ui-splash-progressPart {
+  background-image: url('me-custom:/platform:/plugin/com.genuitec.eclipse.code.angularide/splash.bmp');
+}

@@ -1,0 +1,18 @@
+.expan-torrent {
+    cursor: pointer;
+    background-color: #5CDB95; 
+    margin-top: 2%;
+}
+
+.expan-torrent-mobile {
+    width: 100%; 
+    cursor: pointer;
+    background-color: #34c97e; 
+    margin-top: 2%;
+}
+
+.text-torrent {
+    font-size: 18px;
+    color: #05386B;
+    text-align: center;
+}

@@ -1,0 +1,54 @@
+<mat-accordion *ngIf="screen === 0">
+    <mat-expansion-panel class="expan-torrent" (click)="getSearch(title, episode)" hideToggle  >
+      <mat-expansion-panel-header>
+        <mat-panel-title class="text-torrent">
+          Torrent - Episode {{episode}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+    <div *ngIf="isLoading" style="text-align:center;">
+      <!-- <mat-progress-bar mode="query"></mat-progress-bar> -->
+      <img style="width: 20%; height: 20%;" class="" src="assets/images/loading-cute.gif" alt="Err">
+    </div>
+
+
+    <div *ngIf="!isLoading">
+        <div *ngIf="isFound">
+            <div *ngFor="let item of searchList">
+                 <a href='{{getDownloadLink(item["download_url"])}}' target="_self" rel="torrent" download>{{item["name"]}}</a>
+            </div>
+        </div>
+        <div *ngIf="!isFound">
+            <a>No Results Found</a>
+        </div>
+    </div>
+      <!-- <p>This is the primary content of the panel.</p> -->
+    </mat-expansion-panel>
+</mat-accordion>
+
+
+<mat-accordion *ngIf="screen === 1">
+  <mat-expansion-panel class="expan-torrent-mobile" (click)="getSearch(title, episode)" hideToggle  >
+    <mat-expansion-panel-header>
+      <mat-panel-title class="text-torrent">
+        Torrent - Episode {{episode}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div *ngIf="isLoading" style="text-align:center;">
+        <!-- <mat-progress-bar mode="query"></mat-progress-bar> -->
+        <img style="width: 20%; height: 20%;" class="" src="assets/images/loading-cute.gif" alt="Err">
+    </div>
+
+    <div *ngIf="!isLoading">
+        <div *ngIf="isFound">
+            <div *ngFor="let item of searchList">
+              <a href='{{getDownloadLink(item["download_url"])}}' target="_blank" rel="torrent" download>{{item["name"]}}</a>
+            </div>
+        </div>
+        <div *ngIf="!isFound">
+            <a>No Results Found</a>
+        </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

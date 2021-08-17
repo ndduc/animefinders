@@ -1,0 +1,11 @@
+.modal-body, .modal-footer {
+    background-color: #EDF5E1;
+}
+
+.modal-body {
+    border-radius: 15px;
+}
+
+button, .tag {
+	background-color: #05386B;
+}

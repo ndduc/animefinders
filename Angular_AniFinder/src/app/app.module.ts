@@ -1,0 +1,74 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule} from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatIconModule} from '@angular/material/icon';
+import { AnimeComponent } from './anime/anime.component';
+import { ProjectComponent } from './project/project.component';
+import { NavigatorComponent } from './common/navigator/navigator.component';
+import { ConfigComponent } from './config/myaws/config.component';
+import { JikanComponent } from './config/jikan/jikan.component';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSelectModule} from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
+import {MatCardModule} from '@angular/material/card';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { AnimeModalComponent } from './common/modal/anime/anime-modal/anime-modal.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { AnimeTorrentHolderComponent } from './common/modal/anime/anime-torrent-holder/anime-torrent-holder.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    AnimeComponent,
+    ProjectComponent,
+    NavigatorComponent,
+    ConfigComponent,
+    JikanComponent,
+    AnimeModalComponent,
+    AnimeTorrentHolderComponent
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatSliderModule,
+    MatToolbarModule,
+    MatGridListModule,
+    NgbModule,
+    MatIconModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    FormsModule,
+    MatCardModule,
+    MatChipsModule,
+    MatExpansionModule,
+    MatDialogModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatSidenavModule,
+    MatPaginatorModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { 
+  
+}

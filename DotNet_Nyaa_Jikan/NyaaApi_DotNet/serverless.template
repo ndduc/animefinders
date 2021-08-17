@@ -1,0 +1,153 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Transform": "AWS::Serverless-2016-10-31",
+  "Description": "An AWS Serverless Application.",
+  "Resources": {
+    "GetSearch": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {        
+        "Handler": "NyaaApi_DotNet::NyaaApi_DotNet.View.NyaaFunctions::GetNyaaSearch",
+        "Runtime": "dotnetcore3.1",
+        "CodeUri": "",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": null,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "Events": {
+          "RootGet": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/search",
+              "Method": "GET"
+            }
+          }
+        }
+      }
+    },
+    "GetSearchByEp": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "NyaaApi_DotNet::NyaaApi_DotNet.View.NyaaFunctions::GetNyaaSearchByEp",
+        "Runtime": "dotnetcore3.1",
+        "CodeUri": "",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": null,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "Events": {
+          "RootGet": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/search/episode",
+              "Method": "GET"
+            }
+          }
+        }
+      }
+    },
+    "GetSeasonalAnimeJikan": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "NyaaApi_DotNet::NyaaApi_DotNet.View.NyaaFunctions::SearchAnimeSeasonal",
+        "Runtime": "dotnetcore3.1",
+        "CodeUri": "",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": null,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "Events": {
+          "RootGet": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/jikan/seasonal",
+              "Method": "GET"
+            }
+          }
+        }
+      }
+    },
+    "GetAnimeJikan": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "NyaaApi_DotNet::NyaaApi_DotNet.View.NyaaFunctions::SearchAnimeTmp",
+        "Runtime": "dotnetcore3.1",
+        "CodeUri": "",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": null,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "Events": {
+          "RootGet": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/jikan/search",
+              "Method": "GET"
+            }
+          }
+        }
+      }
+    }, 
+    "GetAnimeEpisodeJikan": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "NyaaApi_DotNet::NyaaApi_DotNet.View.NyaaFunctions::GetAnimeEpisode",
+        "Runtime": "dotnetcore3.1",
+        "CodeUri": "",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": null,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "Events": {
+          "RootGet": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/jikan/anime/episode",
+              "Method": "GET"
+            }
+          }
+        }
+      }
+    },
+    "GetAnimeDetailJikan": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "NyaaApi_DotNet::NyaaApi_DotNet.View.NyaaFunctions::GetAnimeDetail",
+        "Runtime": "dotnetcore3.1",
+        "CodeUri": "",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": null,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "Events": {
+          "RootGet": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/jikan/anime/detail",
+              "Method": "GET"
+            }
+          }
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "ApiURL": {
+      "Description": "API endpoint URL for Prod environment",
+      "Value": {
+        "Fn::Sub": "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+      }
+    }
+  }
+}
