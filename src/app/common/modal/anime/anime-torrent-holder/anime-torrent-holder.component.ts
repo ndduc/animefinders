@@ -53,12 +53,23 @@ export class AnimeTorrentHolderComponent implements OnInit {
         }
       );
     } else {
-      this.nyaaService.getSearchByNameEp(name, ep).subscribe(searchList => {
-        this.setSearchList(searchList);
-        },
-        (error)=> {
-          this.setSearchList(this.searchList);
+
+      if (this.nyaaService.respondMapAnimeEpisode[name + ep] != null) {
+        this.nyaaService.respondMapAnimeEpisode[name + ep].subscribe(searchList => {
+            this.setSearchList(searchList);
+          },
+          (error)=> {
+            this.setSearchList(this.searchList);
         });
+      } else {
+        this.nyaaService.setSearchByNameEp(name, ep);
+        this.nyaaService.respondMapAnimeEpisode[name + ep].subscribe(searchList => {
+          this.setSearchList(searchList);
+          },
+          (error)=> {
+            this.setSearchList(this.searchList);
+        });
+      }
     }
   }
 

@@ -109,45 +109,60 @@ export class JikanComponent implements OnInit {
 
 
   getSeasonalAnime(season: any, year: any) {
-    try {
-      if(season != null && year != null) {
-        this.jikanService.getAnimeBySeasonYear(season, year)
+    var tmpUrl = this.jikanService.jikan_url_aws + "/seasonal?year=" + year + "&season=" + season;
+
+    if(this.jikanService.respondMap[tmpUrl] != null) {
+      this.jikanService.respondMap[tmpUrl].subscribe(aniList => {
+        this.setAniList(aniList);
+      });
+    } else {
+      try {
+        if(season != null && year != null) {
+          this.jikanService.setAnimeBySeasonYear(season, year);
+          this.jikanService.respondMap[tmpUrl].subscribe(aniList => {
+            this.setAniList(aniList);
+          });
+  
+        } else {
+          this.jikanService.getSeasonalAnime()
+          .subscribe(
+            aniList => {
+              this.setAniList(aniList);
+            },
+            (error) => {
+              this.setAniList(this.aniList);
+            }
+          );
+        }
+      } catch (err) {
+        this.isAniEmpty = true;
+        this.isLoading = false;
+      }
+    }
+  }
+
+  getAnimeByTitle(title: any) {
+    var tmpUrl = this.jikanService.jikan_url_aws + "/search?title=" + title;
+    if(this.jikanService.respondMap[tmpUrl] != null) {
+      this.jikanService.respondMap[tmpUrl].subscribe(aniList => {
+        this.setAniList(aniList);
+      });
+    } else {
+      try {
+        this.jikanService.setAnimeByTitle(title);
+        this.jikanService.respondMap[tmpUrl]
         .subscribe(aniList => {
           this.setAniList(aniList);
-        });
-      } else {
-        this.jikanService.getSeasonalAnime()
-        .subscribe(
-          aniList => {
-            this.setAniList(aniList);
           },
           (error) => {
             this.setAniList(this.aniList);
           }
         );
+      } catch (err) {
+        this.isLoading = false;
+        this.isAniEmpty = true;
       }
-    } catch (err) {
-      this.isAniEmpty = true;
-      this.isLoading = false;
     }
-    
-  }
-
-  getAnimeByTitle(title: any) {
-    try {
-      this.jikanService.getAnimeByTitle(title)
-      .subscribe(aniList => {
-        this.setAniList(aniList);
-        },
-        (error) => {
-          this.setAniList(this.aniList);
-        }
-      );
-    } catch (err) {
-      this.isLoading = false;
-      this.isAniEmpty = true;
-    }
-
   }
 
   setAniList(lst: AniList[]) {

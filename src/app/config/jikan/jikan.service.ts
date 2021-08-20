@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map, retry, timeout } from 'rxjs/operators';
+import { catchError, map, retry, timeout, shareReplay} from 'rxjs/operators';
 import { AniList } from './animelist';
 import { AniEpisodesList } from './animeEpisodes';
 import { AniDetail } from './animeDetail';
@@ -15,8 +15,13 @@ import { AniDetail } from './animeDetail';
 export class JikanService {
  // jikan_url = 'https://api.jikan.moe/v3';
   jikan_url_aws = 'https://yr8xbnhel0.execute-api.us-west-1.amazonaws.com/Prod/jikan';
-
+  url;
+  public respondMap = new Map<string, any>();
+  public respondMapAnimeDetail = new Map<any, any>();
   constructor(private http: HttpClient) { }
+
+
+
 
 
   getSeasonalAnime(): Observable<AniList[]> {
@@ -45,31 +50,23 @@ export class JikanService {
     }
   }
 
-  getAnimeEpisodes(animeId: any) : Observable<AniEpisodesList[]> {
+  setAnimeDetail(animeId: any) {
     var _animeId = -1;
     if(animeId != null || animeId >= 0) {
       _animeId = animeId;
     }
-    var url = this.jikan_url_aws + "/anime/episode?animeid=" + _animeId;
-    return this.http.get<AniEpisodesList[]>(url).pipe(
-      map((data:any) => data.episodes), 
-      catchError((this.handleError))
-    );
-  }
-
-  getAnimeDetail(animeId: any) : Observable<AniDetail> {
-    var _animeId = -1;
-    if(animeId != null || animeId >= 0) {
-      _animeId = animeId;
-    }
-    var url = this.jikan_url_aws + "/anime/detail?animeid=" + _animeId;
-    return this.http.get<AniDetail>(url).pipe(
+    var tmpUrl = this.jikan_url_aws + "/anime/detail?animeid=" + _animeId;
+    this.url = tmpUrl;
+    var respondData = this.http.get<AniDetail[]>(tmpUrl).pipe(
       map((data:any) => data), 
+      shareReplay(1),
       catchError((this.handleError))
     );
+    this.respondMapAnimeDetail[animeId] = respondData;
+
   }
 
-  getAnimeBySeasonYear(season: any, year: any): Observable<AniList[]> {
+  setAnimeBySeasonYear(season: any, year: any) {
     var _season = "";
     var _year = "";
     if(season != null || season != "") {
@@ -79,28 +76,29 @@ export class JikanService {
     if (year != null || year != "") {
       _year = year
     }
-
-    //var url = this.jikan_url + "/season/" + _year + _season;
-    var url = this.jikan_url_aws + "/seasonal?year=" + _year + "&season=" + _season;
-    return this.http.get<AniList[]>(url).pipe(
+    var tmpUrl = this.jikan_url_aws + "/seasonal?year=" + _year + "&season=" + _season;
+    this.url = tmpUrl;
+    var respondData = this.http.get<AniList[]>(tmpUrl).pipe(
       map((data:any) => data.anime), 
+      shareReplay(1),
       catchError((this.handleError))
     );
+    this.respondMap[this.url] = respondData;
   }
 
-  getAnimeByTitle(title: any):Observable<AniList[]> {
+  setAnimeByTitle(title: any) {
     var _title = "";
     if(title != null || title != "") {
       _title = title
     }
-    // var url = this.jikan_url + "/search/anime?q=" + _title;
-    // return this.http.get<AniList[]>(url).pipe(
-    //   map((data:any) => data.results)
-    // )
-    var url = this.jikan_url_aws + "/search?title=" + _title;
-    return this.http.get<AniList[]>(url).pipe(
-      map((data:any) => data.results)
-    )
+    var tmpUrl = this.jikan_url_aws + "/search?title=" + _title;
+    this.url = tmpUrl;
+    var respondData = this.http.get<AniList[]>(tmpUrl).pipe(
+      map((data:any) => data.results), 
+      shareReplay(1),
+      catchError((this.handleError))
+    );
+    this.respondMap[this.url] = respondData;
   }
 
 

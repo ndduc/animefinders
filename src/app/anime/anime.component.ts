@@ -24,9 +24,17 @@ export class AnimeComponent implements OnInit {
         this.searchList = searchList;
       });
     } else {
-      this.nyaaService.getSearchByNameEp(name, ep).subscribe(searchList => {
-        this.searchList = searchList;
-      });
+
+      if (this.nyaaService.respondMapAnimeEpisode[name + ep] != null) {
+        this.nyaaService.respondMapAnimeEpisode[name + ep].subscribe(searchList => {
+          this.searchList = searchList;
+        });
+      } else {
+        this.nyaaService.setSearchByNameEp(name, ep);
+        this.nyaaService.respondMapAnimeEpisode[name + ep].subscribe(searchList => {
+          this.searchList = searchList;
+        });
+      }
     }
   }
   

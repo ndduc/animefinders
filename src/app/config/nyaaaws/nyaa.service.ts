@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map, retry } from 'rxjs/operators';
+import { catchError, map, retry, shareReplay } from 'rxjs/operators';
 import {searchList} from './searchList';
 
 @Injectable({
@@ -18,6 +18,8 @@ export class NyaaService {
   param_ep = "e=";
 
   search_url = this.aws_url + this.aws_env + this.aws_search;
+  url;
+  public respondMapAnimeEpisode = new Map<any, any>();
 
   constructor(private http: HttpClient) {
 
@@ -37,15 +39,25 @@ export class NyaaService {
 
   }
 
-  getSearchByNameEp(name: any, episode: any) : Observable<searchList[]> {
+  setSearchByNameEp(name: any, episode: any){
     var _url = this.search_url;
+    var tmpUrl;
     if(name != null || name != "") {
-      _url = _url + "?" + this.param_name + name + "&" + this.param_ep + episode;
+      tmpUrl = _url + "?" + this.param_name + name + "&" + this.param_ep + episode;
     }
 
-    return this.http.get<searchList[]>(_url).pipe(
-      map((data:any) => data), catchError(this.handleError)
+    // return this.http.get<searchList[]>(_url).pipe(
+    //   map((data:any) => data), catchError(this.handleError)
+    // );
+
+    
+    this.url = tmpUrl;
+    var respondData = this.http.get<searchList[]>(tmpUrl).pipe(
+      map((data:any) => data), 
+      shareReplay(1),
+      catchError((this.handleError))
     );
+    this.respondMapAnimeEpisode[name + episode] = respondData;
 
   }
 

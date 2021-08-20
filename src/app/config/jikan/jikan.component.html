@@ -207,6 +207,12 @@
 				</mat-grid-tile>
 			</div>
 		</mat-grid-list>
+
+		<mat-paginator class="paginator-mobile" *ngIf="screen === 0"  [length]="pageSize"
+		[pageSize]="48"
+		[pageSizeOptions]="[48 , 96]"
+		aria-label="Select page" (page)="onPageChange($event)">
+		</mat-paginator>
 	
 
 

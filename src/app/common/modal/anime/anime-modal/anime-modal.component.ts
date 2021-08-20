@@ -82,28 +82,75 @@ export class AnimeModalComponent implements OnInit {
         this.isLoading = false;
       });
     } else {
-      this.nyaaService.getSearchByNameEp(name, ep).subscribe(searchList => {
-        this.searchList = searchList;
-        this.isLoading = false;
-      });
+
+      if (this.nyaaService.respondMapAnimeEpisode[name + ep] != null) {
+        this.nyaaService.respondMapAnimeEpisode[name + ep].subscribe(searchList => {
+          this.searchList = searchList;
+          this.isLoading = false;
+        });
+      } else {
+        this.nyaaService.setSearchByNameEp(name, ep);
+        this.nyaaService.respondMapAnimeEpisode[name + ep].subscribe(searchList => {
+          this.searchList = searchList;
+          this.isLoading = false;
+        });
+      }
+      // this.nyaaService.getSearchByNameEp(name, ep).subscribe(searchList => {
+      //   this.searchList = searchList;
+      //   this.isLoading = false;
+      // });
     }
   }
 
 
+  // getAnimeDetail() {
+  //   this.jikanService.getAnimeDetail(this.animeId).subscribe(item => {
+  //     this.aniDetail = item;
+  //     if(item.status === "Not yet aired") {
+  //       this.numberOfEpisode = undefined;
+  //       this.isLoading = false;
+  //     } else if (item.status === "Currently Airing") {
+  //       this.getDifferenceInDays(item);
+  //     } else {
+  //       this.numberOfEpisode = this.episode;
+  //       this.isLoading = false;
+  //     }
+  //   })
+  // }
+
+
   getAnimeDetail() {
-    this.jikanService.getAnimeDetail(this.animeId).subscribe(item => {
-      this.aniDetail = item;
-      if(item.status === "Not yet aired") {
-        this.numberOfEpisode = undefined;
-        this.isLoading = false;
-      } else if (item.status === "Currently Airing") {
-        this.getDifferenceInDays(item);
-      } else {
-        this.numberOfEpisode = this.episode;
-        this.isLoading = false;
-      }
-    })
+    var tmpUrl = this.jikanService.jikan_url_aws + "/anime/detail?animeid=" + this.animeId;
+    if(this.jikanService.respondMapAnimeDetail[this.animeId] != null) {
+      this.jikanService.respondMapAnimeDetail[this.animeId].subscribe(item => {
+        this.aniDetail = item;
+        if(item.status === "Not yet aired") {
+          this.numberOfEpisode = undefined;
+          this.isLoading = false;
+        } else if (item.status === "Currently Airing") {
+          this.getDifferenceInDays(item);
+        } else {
+          this.numberOfEpisode = this.episode;
+          this.isLoading = false;
+        }
+      });
+    } else {
+      this.jikanService.setAnimeDetail(this.animeId);
+      this.jikanService.respondMapAnimeDetail[this.animeId].subscribe(item => {
+        this.aniDetail = item;
+        if(item.status === "Not yet aired") {
+          this.numberOfEpisode = undefined;
+          this.isLoading = false;
+        } else if (item.status === "Currently Airing") {
+          this.getDifferenceInDays(item);
+        } else {
+          this.numberOfEpisode = this.episode;
+          this.isLoading = false;
+        }
+      });
+    }
   }
+
 
   getDifferenceInDays(item) {
     var from = new Date(item.aired["from"]);
