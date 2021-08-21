@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NyaaService } from 'src/app/config/nyaaaws/nyaa.service';
 import { searchList } from 'src/app/config/nyaaaws/searchList';
 import { DeviceDetectorService } from 'ngx-device-detector';
-
+import { Validators } from '@angular/forms';
 @Component({
   selector: 'app-anime-torrent-holder',
   templateUrl: './anime-torrent-holder.component.html',
@@ -14,6 +14,7 @@ export class AnimeTorrentHolderComponent implements OnInit {
 
   @Input() title;
   @Input() episode;
+  @Input() longrun;
   searchList : searchList[] = [];
   constructor(private nyaaService : NyaaService, private deviceService: DeviceDetectorService) { }
 
@@ -43,7 +44,7 @@ export class AnimeTorrentHolderComponent implements OnInit {
   }
 
   getSearch(name: string, ep: number) {
-    if(ep <= -1) {
+    if(ep == -1) {
       this.nyaaService.getSearchByName(name).subscribe(
         searchList => {
         this.setSearchList(searchList);
@@ -53,9 +54,15 @@ export class AnimeTorrentHolderComponent implements OnInit {
         }
       );
     } else {
+      var str;
+      if(ep == -2) {
+        str = name;
+      } else {
+        str = name + ep;
+      }
 
-      if (this.nyaaService.respondMapAnimeEpisode[name + ep] != null) {
-        this.nyaaService.respondMapAnimeEpisode[name + ep].subscribe(searchList => {
+      if (this.nyaaService.respondMapAnimeEpisode[str] != null) {
+        this.nyaaService.respondMapAnimeEpisode[str].subscribe(searchList => {
             this.setSearchList(searchList);
           },
           (error)=> {
@@ -63,7 +70,7 @@ export class AnimeTorrentHolderComponent implements OnInit {
         });
       } else {
         this.nyaaService.setSearchByNameEp(name, ep);
-        this.nyaaService.respondMapAnimeEpisode[name + ep].subscribe(searchList => {
+        this.nyaaService.respondMapAnimeEpisode[str].subscribe(searchList => {
           this.setSearchList(searchList);
           },
           (error)=> {
@@ -87,6 +94,28 @@ export class AnimeTorrentHolderComponent implements OnInit {
 
   getDownloadLink(url_path: string) {
     return url_path.replace('http:','https:');
+  }
+
+  regAllInSquareBracket = '\\[(.*?)\\]';
+  regAllInRoundBracket = '\\((.*?)\\)';
+  regGlobal = 'g';
+  itemCategory: any;
+  itemCategoryRound: any;
+  
+  stringValidation(title: string) {
+    const regExp = new RegExp(this.regAllInSquareBracket, this.regGlobal)
+    const regExpRound = new RegExp(this.regAllInRoundBracket, this.regGlobal)
+    this.regexExtractionSquare(title, regExp);
+    this.regexExtractionRound(title, regExpRound);
+    return title.replace(regExp, '').replace(regExpRound, '');
+  }
+
+  regexExtractionSquare(title: string, reg: RegExp) {
+    this.itemCategory = title.match(reg);
+  }
+
+  regexExtractionRound(title: string, reg: RegExp) {
+    this.itemCategoryRound = title.match(reg);
   }
 
 }

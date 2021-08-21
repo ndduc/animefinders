@@ -1,5 +1,5 @@
 .expan-torrent {
-    cursor: pointer;
+    /* cursor: pointer; */
     background-color: #5CDB95; 
     margin-top: 2%;
 }
@@ -15,4 +15,27 @@
     font-size: 18px;
     color: #05386B;
     text-align: center;
+}
+
+.torrent-div {
+    background-color: #379683;
+    margin: 2%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    text-align: center;
+    border-radius: 15px;
+    font-size: 15px;
+    -webkit-box-shadow:0px 1px 1px black;
+    -moz-box-shadow:0px 1px 1px black;
+    box-shadow:0px 1px 1px black;
+}
+
+.torrent-div-item-2 {
+    margin-right: 2%;
+}
+
+.side-icon-image {
+    width: 15px;
+    height: 15px;
+    margin-left: 2%;
 }

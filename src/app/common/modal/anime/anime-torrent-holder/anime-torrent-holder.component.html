@@ -1,9 +1,17 @@
 <mat-accordion *ngIf="screen === 0">
     <mat-expansion-panel class="expan-torrent" (click)="getSearch(title, episode)" hideToggle  >
       <mat-expansion-panel-header>
-        <mat-panel-title class="text-torrent">
-          Torrent - Episode {{episode}}
-        </mat-panel-title>
+        <div *ngIf="episode == -2">
+          <mat-panel-title class="text-torrent">
+            Torrent - Latest Torrent
+          </mat-panel-title>
+        </div> 
+        <div *ngIf="episode != -2">
+          <mat-panel-title class="text-torrent">
+            Torrent - Episode {{episode}}
+          </mat-panel-title>
+        </div> 
+
       </mat-expansion-panel-header>
 
     <div *ngIf="isLoading" style="text-align:center;">
@@ -15,7 +23,25 @@
     <div *ngIf="!isLoading">
         <div *ngIf="isFound">
             <div *ngFor="let item of searchList">
-                 <a href='{{getDownloadLink(item["download_url"])}}' target="_self" rel="torrent" download>{{item["name"]}}</a>
+              <div class="torrent-div d-flex flex-column">
+                  <div class="d-flex justify-content-center">
+                    <a href='{{getDownloadLink(item["download_url"])}}' target="_self" rel="torrent" download>
+                      {{this.stringValidation(item["name"])}}
+                    </a>
+                    <!-- <img class="side-icon-image" src="assets/images/magnet.png" alt="Proj"> -->
+                  </div>
+                  <div>
+                    {{this.itemCategory}}
+                  </div>
+                  <div>
+                    {{this.itemCategoryRound}}
+                  </div>
+                  <div class="d-flex justify-content-center">
+                    <div class="torrent-div-item-2">{{ "Leed: " + item["leechers"]}}</div>
+                    <div class="torrent-div-item-2">{{ "Seed: " + item["seeders"]}}</div>
+                    <div class="torrent-div-item-2">{{ "Size: " + item["size"]}}</div>
+                  </div>
+              </div>
             </div>
         </div>
         <div *ngIf="!isFound">
@@ -30,9 +56,16 @@
 <mat-accordion *ngIf="screen === 1">
   <mat-expansion-panel class="expan-torrent-mobile" (click)="getSearch(title, episode)" hideToggle  >
     <mat-expansion-panel-header>
-      <mat-panel-title class="text-torrent">
-        Torrent - Episode {{episode}}
-      </mat-panel-title>
+      <div *ngIf="episode == -2">
+        <mat-panel-title class="text-torrent">
+          Torrent - Latest Torrent
+        </mat-panel-title>
+      </div> 
+      <div *ngIf="episode != -2">
+        <mat-panel-title class="text-torrent">
+          Torrent - Episode {{episode}}
+        </mat-panel-title>
+      </div> 
     </mat-expansion-panel-header>
 
     <div *ngIf="isLoading" style="text-align:center;">
@@ -43,7 +76,25 @@
     <div *ngIf="!isLoading">
         <div *ngIf="isFound">
             <div *ngFor="let item of searchList">
-              <a href='{{getDownloadLink(item["download_url"])}}' target="_blank" rel="torrent" download>{{item["name"]}}</a>
+              <div class="torrent-div d-flex flex-column">
+                <div class="d-flex justify-content-center">
+                  <a href='{{getDownloadLink(item["download_url"])}}' target="_self" rel="torrent" download>
+                    {{this.stringValidation(item["name"])}}
+                  </a>
+                  <!-- <img class="side-icon-image" src="assets/images/magnet.png" alt="Proj"> -->
+                </div>
+                <div>
+                  {{this.itemCategory}}
+                </div>
+                <div>
+                  {{this.itemCategoryRound}}
+                </div>
+                <div class="d-flex justify-content-center">
+                  <div class="torrent-div-item-2">{{ "Leed: " + item["leechers"]}}</div>
+                  <div class="torrent-div-item-2">{{ "Seed: " + item["seeders"]}}</div>
+                  <div class="torrent-div-item-2">{{ "Size: " + item["size"]}}</div>
+                </div>
+              </div>
             </div>
         </div>
         <div *ngIf="!isFound">

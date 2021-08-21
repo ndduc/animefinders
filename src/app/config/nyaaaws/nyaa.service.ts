@@ -42,8 +42,15 @@ export class NyaaService {
   setSearchByNameEp(name: any, episode: any){
     var _url = this.search_url;
     var tmpUrl;
+    var str;
     if(name != null || name != "") {
-      tmpUrl = _url + "?" + this.param_name + name + "&" + this.param_ep + episode;
+      if (episode == -2) {
+        str = name;
+        tmpUrl = _url + "?" + this.param_name + name + "&" + this.param_ep + "";
+      } else {
+        str = name + episode;
+        tmpUrl = _url + "?" + this.param_name + name + "&" + this.param_ep + episode;
+      }
     }
 
     // return this.http.get<searchList[]>(_url).pipe(
@@ -57,7 +64,7 @@ export class NyaaService {
       shareReplay(1),
       catchError((this.handleError))
     );
-    this.respondMapAnimeEpisode[name + episode] = respondData;
+    this.respondMapAnimeEpisode[str] = respondData;
 
   }
 

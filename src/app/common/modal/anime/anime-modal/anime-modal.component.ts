@@ -36,7 +36,7 @@ export class AnimeModalComponent implements OnInit {
   isNonMal: boolean = false;
 
 
-  numberOfEpisode: number | undefined;
+  numberOfEpisode: any;
 
   constructor(private nyaaService : NyaaService, 
     public activeModal: NgbActiveModal, 
