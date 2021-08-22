@@ -161,6 +161,7 @@ export class JikanComponent implements OnInit {
       } catch (err) {
         this.isLoading = false;
         this.isAniEmpty = true;
+        this.strTitle = '';
       }
     }
   }
@@ -181,6 +182,8 @@ export class JikanComponent implements OnInit {
       this.pageSize = this.aniList.length;  
 
     }
+
+    this.strTitle = '';
   }
 
 

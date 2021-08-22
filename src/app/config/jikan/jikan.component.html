@@ -1,6 +1,7 @@
 <router-outlet></router-outlet>
 <!-- <app-navigator></app-navigator> -->
 
+<body class="container-xxl">
 <div *ngIf="!isAniEmpty">
 <mat-toolbar *ngIf="screen === 0" class="nav-bar-animelist">
 	<div>
@@ -65,12 +66,15 @@
 		</div>
 			
 	</div>
-	<div class="input-search-container">
+	<div class="input-search-container d-flex  justify-content-end">
 		<mat-form-field class="input-search" floatLabel="never" >
 			<input matInput (keydown.enter)="clear(); getAnimeByTitle(strTitle);" placeholder="Search"  [(ngModel)]="strTitle">
 		</mat-form-field>
-		<button mat-flat-button class="btn-advance" (click)="toggleAdvSearch(); ">Advance</button>
    	</div>
+	<button mat-flat-button class="btn-advance" (click)="clear(); getAnimeByTitle(strTitle);" [(ngModel)]="strTitle">
+		Search</button>
+	<button mat-flat-button class="btn-advance" (click)="toggleAdvSearch(); ">Advance</button>
+
 </mat-toolbar>
 
 <mat-toolbar *ngIf="screen === 1" class="nav-bar-animelist-mobile d-flex justify-content-end">
@@ -169,7 +173,6 @@
 
 
 <div *ngIf="isLoading" style="text-align:center;">
-	<!-- <mat-progress-bar mode="query"></mat-progress-bar> -->
 	<img style="width: 30%; height: 30%;" class="" src="assets/images/loading-cute.gif" alt="Err">
 </div>
 <div *ngIf="!isLoading">
@@ -269,3 +272,4 @@
 </div>
 <p *ngIf="error" class="error">{{error | json}}</p>
 
+</body>
