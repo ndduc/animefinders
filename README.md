@@ -1,4 +1,4 @@
-# AniHook
+# Anime Finders
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.3.
 
@@ -28,3 +28,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Color Schemes
 https://visme.co/blog/website-color-schemes/
+
+
+# ENDPOINT
+## JIKAN(MAL) API 
+https://github.com/ndduc/AN_DotNet
+## NYYA API
+https://github.com/ndduc/AN_Python
