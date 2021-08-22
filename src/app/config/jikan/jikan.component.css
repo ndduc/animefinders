@@ -9,6 +9,7 @@
 	background-color: #379683;
 }
 
+
 .nav-bar-animelist-2 {
 	display: flex; 
 	justify-content: flex-end;
@@ -17,7 +18,7 @@
 }
 
 .input-search-container {
-	width: 30%;
+	width: 100%;
 }
 .input-search {
 	width: 75%;
@@ -31,7 +32,7 @@
 }
 
 .btn-advance {
-	/* width: 25%; */
+	width: 10%;
 	border-radius: 5px;
 	margin-left: 10px;
 }
@@ -40,11 +41,21 @@ button, .tag {
 	background-color: #05386B;
 }
 
-
 .anime-card {
 	overflow: auto;
-	width: 95%;
-	height: 95%;
+	margin: 1%;
+	width: 100%;
+	height: 98%;
+	text-align: center;
+	background-color: #EDF5E1;
+}
+
+
+.anime-card-mobile {
+	overflow: auto;
+	margin: 1%;
+	width: 100%;
+	height: 98%;
 	text-align: center;
 	background-color: #EDF5E1;
 }
@@ -73,20 +84,14 @@ button, .tag {
 	padding: 1%;
 }
 
-
-.anime-card-mobile {
-	overflow: auto;
-	width: 95%;
-	height: 100%;
-	margin-top: 5%;
-	text-align: center;
-	background-color: #EDF5E1;
+.anime-body-desc p {
+	font-size: 12px;
 }
 
 .anime-body {
 	padding: 1%;
 	width: 100%;
-	height: 66%;
+	height: 60%;
 	border-radius: 15px;
 	border-style: outset;
 }
@@ -101,6 +106,7 @@ button, .tag {
 
 .anime-image {
 	width: 50%;
+	/* min-width: 150px; */
 	height: 100%;
 	border-radius: 15px;
 	border-style: outset;

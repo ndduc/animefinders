@@ -17,17 +17,27 @@
     text-align: center;
 }
 
+.text-torrent-exp-parent {
+    background-color: #8EE4AF;
+}
+
 .torrent-div {
-    background-color: #379683;
+    color: black;
+    background-color: #EDF5E1;
     margin: 2%;
     padding-top: 1%;
     padding-bottom: 1%;
     text-align: center;
-    border-radius: 15px;
+    border-radius: 5px;
     font-size: 15px;
-    -webkit-box-shadow:0px 1px 1px black;
-    -moz-box-shadow:0px 1px 1px black;
-    box-shadow:0px 1px 1px black;
+    -webkit-box-shadow:0px 1px 1px gray;
+    -moz-box-shadow:0px 1px 1px gray;
+    box-shadow:0px 1px 1px gray;
+}
+
+.text-torrent-exp-child {
+    color: black;
+    font-size: 15px;
 }
 
 .torrent-div-item-2 {

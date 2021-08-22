@@ -101,13 +101,15 @@ export class AnimeTorrentHolderComponent implements OnInit {
   regGlobal = 'g';
   itemCategory: any;
   itemCategoryRound: any;
+  itemTitle: any;
   
   stringValidation(title: string) {
     const regExp = new RegExp(this.regAllInSquareBracket, this.regGlobal)
     const regExpRound = new RegExp(this.regAllInRoundBracket, this.regGlobal)
     this.regexExtractionSquare(title, regExp);
     this.regexExtractionRound(title, regExpRound);
-    return title.replace(regExp, '').replace(regExpRound, '');
+    this.itemTitle = title.replace(regExp, '').replace(regExpRound, '').replace(' ', '');
+    return this.itemTitle;
   }
 
   regexExtractionSquare(title: string, reg: RegExp) {
