@@ -172,18 +172,38 @@ export class JikanComponent implements OnInit {
       this.isLoading = false;
     } else {
       this.isAniEmpty = false;
-      this.aniList = lst;
+      this.aniList = this.recurRemoveHentai(lst);
       this.isLoading = false;
       if(this.screen === 1) {
         this.aniListShow = this.aniList.slice(0, 5);
       } else {
-        this.aniListShow = this.aniList;
+        this.aniListShow = this.aniList.slice(0, 48);
       }
       this.pageSize = this.aniList.length;  
+    }
+    this.strTitle = '';
+  }
 
+  recurRemoveHentai(lst: AniList[]) {
+    if(lst[0].genres == undefined) {
+      for(var i = 0; i < lst.length; i++) {
+          if(lst[i].rated === "Rx") {
+            lst.splice(i,1);
+            this.recurRemoveHentai(lst);
+          }
+      }
+    } else {
+      for(var i = 0; i < lst.length; i++) {
+        for(var j = 0; j < lst[i].genres.length; j++) {
+          if(lst[i].genres[j]["mal_id"] === 12) {
+            lst.splice(i,1);
+            this.recurRemoveHentai(lst);
+          }
+        }
+      }
     }
 
-    this.strTitle = '';
+    return lst;
   }
 
 
