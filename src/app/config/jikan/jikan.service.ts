@@ -27,10 +27,6 @@ export class JikanService {
   getSeasonalAnime(): Observable<AniList[]> {
     var currentYear = new Date().getFullYear();
     var currentMonth = new Date().getMonth() - 1;
-    // return this.http.get<AniList[]>(this.jikan_url + "/season/" + currentYear + "/" + this.getCurrentSeason(currentMonth)).pipe(
-    //   map((data:any) => data.anime), 
-    //   catchError(this.handleError)
-    // );
       return this.http.get<AniList[]>(this.jikan_url_aws + "/seasonal?year=" + currentYear + "&season=" + this.getCurrentSeason(currentMonth)).pipe(
       map((data:any) => data.anime), 
       catchError(this.handleError)
@@ -79,7 +75,11 @@ export class JikanService {
     var tmpUrl = this.jikan_url_aws + "/seasonal?year=" + _year + "&season=" + _season;
     this.url = tmpUrl;
     var respondData = this.http.get<AniList[]>(tmpUrl).pipe(
-      map((data:any) => data.anime), 
+      map(
+        (data:any) => 
+        {
+          return data.anime;
+        }), 
       shareReplay(1),
       catchError((this.handleError))
     );

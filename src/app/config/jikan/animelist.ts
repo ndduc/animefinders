@@ -11,6 +11,6 @@ export interface AniList {
 	type: string;
 	score: string;
 	rated: string;
-
+	genres: any
 
 }

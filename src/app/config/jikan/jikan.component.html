@@ -71,7 +71,7 @@
 			<input matInput (keydown.enter)="clear(); getAnimeByTitle(strTitle);" placeholder="Search"  [(ngModel)]="strTitle">
 		</mat-form-field>
    	</div>
-	<button mat-flat-button class="btn-advance" (click)="clear(); getAnimeByTitle(strTitle);" [(ngModel)]="strTitle">
+	<button mat-flat-button class="btn-advance" (click)="clear(); getAnimeByTitle(strTitle);">
 		Search</button>
 	<button mat-flat-button class="btn-advance" (click)="toggleAdvSearch(); ">Advance</button>
 
