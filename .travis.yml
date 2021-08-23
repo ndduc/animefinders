@@ -1,23 +1,22 @@
 dist: trusty
-sudo: false
-
+sudo: required
 language: node_js
 node_js:
   - '16'
-
-addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
-
-cache:
-  directories:
-    - ./node_modules
-
+os:
+  - linux
+env:
+  global:
+    - DBUS_SESSION_BUS_ADDRESS=/dev/null
+    - DISPLAY=:99.0
+    - CHROME_BIN=chromium-browser
+before_script:
+  - sh -e /etc/init.d/xvfb start
 install:
-  - npm install
-
+  - yarn
 script:
-  - npm run test -- --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox
+  - yarn run lint
+  - yarn run test -- --watch=false
+  - yarn run pree2e
+  - yarn run e2e
+cache: yarn
