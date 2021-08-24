@@ -39,6 +39,14 @@
 	margin-left: 10px;
 }
 
+.btn-advance-sort {
+	font-size: 10px;
+	text-align: center;
+	width: 2%;
+	border-radius: 5px;
+	margin-left: 10px;
+}
+
 button, .tag {
 	background-color: #05386B;
 }
@@ -155,4 +163,12 @@ button, .tag {
 
 .paginator-mobile {
 	background-color: #379683;
+}
+
+.modal-body {
+	background-color: #EDF5E1;
+}
+
+.option-sort {
+	color: black;
 }

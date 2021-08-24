@@ -32,6 +32,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { NavigatorCategoryComponent } from './common/navigator-category/navigator-category.component';
 import { MangaComponent } from './manga/manga.component';
 import { LightNovelComponent } from './light-novel/light-novel.component';
+import { EnumOptionComponent } from './common/enum/enum-option/enum-option.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { LightNovelComponent } from './light-novel/light-novel.component';
     AnimeTorrentHolderComponent,
     NavigatorCategoryComponent,
     MangaComponent,
-    LightNovelComponent
+    LightNovelComponent,
+    EnumOptionComponent
   ],
   imports: [
     BrowserModule,

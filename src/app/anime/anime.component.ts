@@ -8,6 +8,7 @@ import { searchList } from '../config/nyaaaws/searchList';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { AnimeModalComponent } from '../common/modal/anime/anime-modal/anime-modal.component';
+import { sortOptionEnum } from '../common/enum/enum-option/enum-option';
 
 @Component({
   selector: 'app-anime',
@@ -16,8 +17,9 @@ import { AnimeModalComponent } from '../common/modal/anime/anime-modal/anime-mod
   styleUrls: ['./anime.component.css']
 })
 export class AnimeComponent implements OnInit {
-  isLoading: boolean = true;
   
+  sortOption = sortOptionEnum;
+  isLoading: boolean = true;
   strYear: string = '';
   strTitle: string = '';
   isHidden = true;
@@ -168,6 +170,57 @@ export class AnimeComponent implements OnInit {
     }
   }
 
+  optionSortObject = [{"name": "Select Sort Option", "type": "NOTHING"}, {"name": "Sort By Rate", "type":"RATE"}, {"name": "Sort By Type", "type":"TYPE"}];
+  selectedOptionSort = this.optionSortObject[0];
+  sort_type = 0;
+  sort_rate = 0;
+  selectedSort;
+  onSortChange(value) {
+    console.log("On sort change\t\t" + value.type);
+    this.selectedSort = value.name;
+    if(value.type == "RATE") {
+      this.selectedSort = sortOptionEnum.RATE;
+    } else if (value.type == "TYPE") {
+      this.selectedSort = sortOptionEnum.TYPE;
+    } else {
+      this.selectedSort = "NOTHING";
+    }
+  }
+  sortAniList(opt: sortOptionEnum) {
+
+    switch(opt) {
+      case sortOptionEnum.RATE:
+        if(this.sort_rate == 0) {
+          this.aniList = this.aniList.sort((a, b) => a.score < b.score ? 1 : -1);
+          this.sort_rate = 1;
+        } else {
+          this.aniList = this.aniList.sort((a, b) => a.score > b.score ? 1 : -1);
+          this.sort_rate = 0;
+        }
+        break;
+      case sortOptionEnum.TYPE:
+        if(this.sort_type == 0) {
+          this.aniList = this.aniList.sort((a, b) => a.type < b.type ? 1 : -1);
+          this.sort_type = 1;
+        } else {
+          this.aniList = this.aniList.sort((a, b) => a.type > b.type ? 1 : -1);
+          this.sort_type = 0;
+        }
+
+        break;
+      default:
+        this.aniList = this.aniList
+        break;
+    };
+
+    if(this.screen === 1) {
+      this.aniListShow = this.aniList.slice(0, 5);
+    } else {
+      this.aniListShow = this.aniList.slice(0, 48);
+    }
+    this.pageSize = this.aniList.length;  
+  }
+
   setAniList(lst: AniList[]) {
     if(lst == null || lst.length === 0) {
       this.isAniEmpty = true;
@@ -262,5 +315,31 @@ export class AnimeComponent implements OnInit {
   convertToTitleCase(value:string): string {
     let first = value.substr(0,1).toUpperCase();
     return first + value.substr(1); 
+  }
+
+
+  closeResult = '';
+  open(content) {
+    this.modelService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  modelSaveClick() {
+    if(this.selectedSort !== 'NOTHING') {
+      this.sortAniList(this.selectedSort);
+    }
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 }

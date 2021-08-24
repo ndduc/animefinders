@@ -31,12 +31,10 @@
                   </mat-expansion-panel-header>
                   <div class="torrent-div d-flex flex-column">
                     <div class="d-flex justify-content-center">
-                      <a href='{{getDownloadLink(item["download_url"])}}' target="_self" rel="torrent" download>
-                        {{this.itemTitle}}
-                      </a>
+                      {{this.itemTitle}}
                     </div>
                     <div>
-                      {{this.itemCategory}}
+                      {{this.itemCategory}} 
                     </div>
                     <div>
                       {{this.itemCategoryRound}}
@@ -46,6 +44,17 @@
                       <div class="torrent-div-item-2">{{ "Seed: " + item["seeders"]}}</div>
                       <div class="torrent-div-item-2">{{ "Size: " + item["size"]}}</div>
                     </div>
+                    <div class="d-flex justify-content-center">
+                      <a href='{{getDownloadLink(item["download_url"])}}' target="_self" rel="torrent" download>
+                        Torrent File
+                      </a>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                      <a [href]="processMagnet(item.magnet)" class="card-footer-item">
+                        <i class="fa fa-magnet fa-fw"></i>Magnet
+                      </a>
+                    </div> 
+
                   </div>
                 </mat-expansion-panel>
               </div>

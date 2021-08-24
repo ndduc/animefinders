@@ -3,10 +3,35 @@
 <!-- <app-navigator></app-navigator> -->
 
 <body class="container-xxl">
+
+	<ng-template #content let-modal>
+		<div class="modal-header">
+			<h4 class="modal-title" id="modal-basic-title">Filter Panel</h4>
+		</div>
+		<div class="modal-body d-flex flex-column">
+			<div>
+				<label for="dateOfBirth">Sort: </label>
+				<select [ngModel]="selectedOptionSort" (ngModelChange)="onSortChange($event)" name="sel3">
+					<option [ngValue]="i" *ngFor="let i of optionSortObject">{{i.name}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn-advance" (click)="this.modelSaveClick(); modal.close('Save click')">Save</button>
+		</div>
+	</ng-template>
+
+
 <div *ngIf="!isAniEmpty">
 <mat-toolbar *ngIf="screen === 0" class="nav-bar-animelist">
 	<div>
 		<div class="d-flex" *ngIf="seasonLis">
+			<button class="button-spring" 
+				mat-flat-button>
+					<div>
+						Top Anime (In process)
+					</div>
+				</button>
 			<div *ngFor="let item of seasonLis">
 				<button class="button-spring"  *ngIf="item['season'] === 'spring'"
 				(click)="clear(); getSeasonalAnime(item['season'], item['year']);" 
@@ -75,6 +100,8 @@
 	<button mat-flat-button class="btn-advance" (click)="clear(); getAnimeByTitle(strTitle);">
 		Search</button>
 	<button mat-flat-button class="btn-advance" (click)="toggleAdvSearch(); ">Advance</button>
+
+
 
 </mat-toolbar>
 
@@ -165,7 +192,9 @@
 				<mat-option value="winter">Winter</mat-option>
 			</mat-select>
 		</mat-form-field>
-		<button mat-flat-button class="btn-adv-search" (click)="clear(); getSeasonalAnime(selected, strYear); ">Search</button>
+		<button mat-flat-button class="btn-advance" (click)="clear(); getSeasonalAnime(selected, strYear); ">Adv Search</button>
+		<button mat-flat-button class="btn-advance-sort" (click)="open(content)">Filter</button>
+
 </mat-toolbar>
 
 

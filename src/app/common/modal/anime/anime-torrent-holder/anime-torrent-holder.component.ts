@@ -4,19 +4,21 @@ import { NyaaService } from 'src/app/config/nyaaaws/nyaa.service';
 import { searchList } from 'src/app/config/nyaaaws/searchList';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Validators } from '@angular/forms';
+import {DomSanitizer} from '@angular/platform-browser';
+import { Pipe, PipeTransform } from '@angular/core';
 @Component({
   selector: 'app-anime-torrent-holder',
   templateUrl: './anime-torrent-holder.component.html',
   styleUrls: ['./anime-torrent-holder.component.css'],
   providers: [NyaaService]
 })
-export class AnimeTorrentHolderComponent implements OnInit {
+export class AnimeTorrentHolderComponent implements OnInit, PipeTransform  {
 
   @Input() title;
   @Input() episode;
   @Input() longrun;
   searchList : searchList[] = [];
-  constructor(private nyaaService : NyaaService, private deviceService: DeviceDetectorService) { }
+  constructor(private nyaaService : NyaaService, private deviceService: DeviceDetectorService, private sanitizer:DomSanitizer) { }
 
   isLoading: boolean = true;
   isFound: boolean = false;
@@ -119,5 +121,18 @@ export class AnimeTorrentHolderComponent implements OnInit {
   regexExtractionRound(title: string, reg: RegExp) {
     this.itemCategoryRound = title.match(reg);
   }
+
+  processMagnet(magnet: string) {
+
+    var mag = magnet.replace('&', '&amp;');
+    console.log("THIS MAGNET\t\t" + mag);
+    return this.sanitizer.bypassSecurityTrustUrl (mag);
+    //return this.transform(mag);
+  }
+
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
 
 }
