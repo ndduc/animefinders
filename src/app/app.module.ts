@@ -29,6 +29,9 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { AnimeTorrentHolderComponent } from './common/modal/anime/anime-torrent-holder/anime-torrent-holder.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { NavigatorCategoryComponent } from './common/navigator-category/navigator-category.component';
+import { MangaComponent } from './manga/manga.component';
+import { LightNovelComponent } from './light-novel/light-novel.component';
 
 
 @NgModule({
@@ -41,7 +44,10 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     ConfigComponent,
     JikanComponent,
     AnimeModalComponent,
-    AnimeTorrentHolderComponent
+    AnimeTorrentHolderComponent,
+    NavigatorCategoryComponent,
+    MangaComponent,
+    LightNovelComponent
   ],
   imports: [
     BrowserModule,
