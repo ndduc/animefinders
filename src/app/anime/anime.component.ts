@@ -38,6 +38,12 @@ export class AnimeComponent implements OnInit {
 
   screen: number = 0;
   pageSize;
+
+  optionSortObject = [{"name": "Select Sort Option", "type": "NOTHING"}, {"name": "Sort By Rate", "type":"RATE"}, {"name": "Sort By Type", "type":"TYPE"}];
+  selectedOptionSort = this.optionSortObject[0];
+  sort_type = 0;
+  sort_rate = 0;
+  selectedSort;
   
   constructor(private jikanService: JikanService, 
     private configService: ConfigService, public modelService: NgbModal,
@@ -143,6 +149,8 @@ export class AnimeComponent implements OnInit {
         this.isLoading = false;
       }
     }
+
+    this.clearSort();
   }
 
   getAnimeByTitle(title: any) {
@@ -168,13 +176,10 @@ export class AnimeComponent implements OnInit {
         this.strTitle = '';
       }
     }
+    this.clearSort();
   }
 
-  optionSortObject = [{"name": "Select Sort Option", "type": "NOTHING"}, {"name": "Sort By Rate", "type":"RATE"}, {"name": "Sort By Type", "type":"TYPE"}];
-  selectedOptionSort = this.optionSortObject[0];
-  sort_type = 0;
-  sort_rate = 0;
-  selectedSort;
+
   onSortChange(value) {
     console.log("On sort change\t\t" + value.type);
     this.selectedSort = value.name;
@@ -300,10 +305,13 @@ export class AnimeComponent implements OnInit {
     }
   }
 
+  clearSort() {
+    this.sort_type = 0;
+    this.sort_rate = 0;
+  }
+
 
   onPageChange($event) {
-    //this.aniListShow =  this.aniList.slice($event.pageIndex*$event.pageSize, $event.pageIndex*$event.pageSize + $event.pageSize);
-
     let startIndex = $event.pageIndex * $event.pageSize;
     let endIndex = startIndex + $event.pageSize;
     if(endIndex > this.pageSize){

@@ -100,17 +100,26 @@ export class AnimeTorrentHolderComponent implements OnInit, PipeTransform  {
 
   regAllInSquareBracket = '\\[(.*?)\\]';
   regAllInRoundBracket = '\\((.*?)\\)';
+  regCheckType = '\\b( \\.)[a-zA-Z]*';
+  regCheckTypeNoSpace = '\\b(\\.)[a-zA-Z]*';
   regGlobal = 'g';
   itemCategory: any;
   itemCategoryRound: any;
   itemTitle: any;
+  itemType: any;
   
   stringValidation(title: string) {
     const regExp = new RegExp(this.regAllInSquareBracket, this.regGlobal)
     const regExpRound = new RegExp(this.regAllInRoundBracket, this.regGlobal)
+    const regExpType = new RegExp(this.regCheckType, this.regGlobal)
+    const regExpTypeNoSpace = new RegExp(this.regCheckTypeNoSpace, this.regGlobal)
     this.regexExtractionSquare(title, regExp);
     this.regexExtractionRound(title, regExpRound);
-    this.itemTitle = title.replace(regExp, '').replace(regExpRound, '').replace(' ', '');
+    this.itemTitle = title.replace(regExp, '').replace(regExpRound, '').replace('  ', '').replace(' ', '');
+    this.regexExtractionType(this.itemTitle, regExpType);
+    this.itemTitle = this.itemTitle.replace(regExpType, '');
+    this.regexExtractionType(this.itemTitle, regExpTypeNoSpace);
+    this.itemTitle =  this.itemTitle.replace(regExpTypeNoSpace, '');
     return this.itemTitle;
   }
 
@@ -122,10 +131,18 @@ export class AnimeTorrentHolderComponent implements OnInit, PipeTransform  {
     this.itemCategoryRound = title.match(reg);
   }
 
+  regexExtractionType(title: string, reg: RegExp) {
+    this.itemType = title.match(reg);
+  }
+
+  regexExtractionTypeNoSpace(title: string, reg: RegExp) {
+    this.itemType = this.itemType + title.match(reg);;
+  }
+  
+
   processMagnet(magnet: string) {
 
     var mag = magnet.replace('&', '&amp;');
-    console.log("THIS MAGNET\t\t" + mag);
     return this.sanitizer.bypassSecurityTrustUrl (mag);
     //return this.transform(mag);
   }
