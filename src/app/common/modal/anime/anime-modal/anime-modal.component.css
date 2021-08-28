@@ -3,12 +3,12 @@
 }
 
 .modal-body, .modal-body-mobile {
-
-    /* border-radius: 15px; */
+    border-radius: 15px;
 }
 
 .modal-body, .modal-footer {
-    width: 150%;
+    /* margin-left: -50%; */
+    width: 100%;
 }
 button, .tag {
 	background-color: #05386B;

@@ -22,11 +22,12 @@
       <div *ngIf="!isLoading">
           <div *ngIf="isFound">
               <div *ngFor="let item of searchList">
+                
                 <mat-expansion-panel class="expan-torrent" (click)="getSearch(title, episode)" hideToggle  >
                   <mat-expansion-panel-header class="text-torrent-exp-parent">
           
                       <mat-panel-title class="text-torrent-exp-child row">
-                        <div class="col-8">
+                        <div class="col-8" style="font-size: 10px;">
                           {{this.stringValidation(item["name"].replace('1080p','').replace('60fps','')
                           .replace('x265','').replace('10bit','').replace(' ',''))}}
                         </div>

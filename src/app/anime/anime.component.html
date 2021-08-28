@@ -26,12 +26,13 @@
 <mat-toolbar *ngIf="screen === 0" class="nav-bar-animelist">
 	<div>
 		<div class="d-flex" *ngIf="seasonLis">
-			<!-- <button class="button-spring" 
+			<button class="button-spring" 
+			(click)="clear(); getTopAnime('1', '');" 
 				mat-flat-button>
 					<div>
-						Top Anime (In process)
+						Top Anime
 					</div>
-			</button> -->
+			</button>
 			<div *ngFor="let item of seasonLis">
 				<button class="button-spring"  *ngIf="item['season'] === 'spring'"
 				(click)="clear(); getSeasonalAnime(item['season'], item['year']);" 
@@ -115,6 +116,7 @@
 
 <mat-toolbar *ngIf="screen === 1" class="nav-bar-animelist-mobile d-flex justify-content-end">
 		<div style="overflow: auto;" class="d-flex" *ngIf="seasonLis">
+
 			<div *ngFor="let item of seasonLis">
 				<button class="button-spring"  *ngIf="item['season'] === 'spring'"
 				(click)="clear(); getSeasonalAnime(item['season'], item['year']);" 
@@ -206,7 +208,7 @@
 	<img style="width: 30%; height: 30%;" class="" src="assets/images/loading-cute.gif" alt="Err">
 </div>
 <div *ngIf="!isLoading">
-	<div *ngIf="!isAniEmpty">
+	<div *ngIf="!isAniEmpty && !isTopAnime">
 		<mat-grid-list *ngIf="screen === 0" cols="4" rowHeight="2.7:3">
 			<div *ngFor="let aniList of aniListShow">
 				<mat-grid-tile class="anime-grid-tile" >
@@ -240,7 +242,6 @@
 				</mat-grid-tile>
 			</div>
 		</mat-grid-list>
-
 		<mat-paginator class="paginator-mobile" *ngIf="screen === 0"  [length]="pageSize"
 		[pageSize]="48"
 		[pageSizeOptions]="[48 , 96]"
@@ -270,6 +271,91 @@
 							<div class="anime-body-desc">
 								<p>{{aniList.synopsis}}</p>
 							</div>
+						</div>
+						<mat-card-content class="anime-content">
+						</mat-card-content>
+						<div (click)="openTorrentModal(aniList.title, aniList.image_url, 
+						checkIsNumber(aniList.episodes) ? aniList.episodes : 24, 
+						aniList.type, aniList.mal_id);" class="border rounded d-flex p-2" style="cursor: pointer; background-color: #5CDB95;">
+							<span style="font-size: 20px;">Torrent</span>
+						</div>
+					</mat-card>
+
+				</mat-grid-tile>
+			</div>
+		</mat-grid-list>
+
+		<mat-paginator class="paginator-mobile" *ngIf="screen === 1"  [length]="pageSize"
+		[pageSize]="5"
+		[pageSizeOptions]="[5, 10, 25, 100]"
+		aria-label="Select page" (page)="onPageChange($event)">
+		</mat-paginator>
+
+	</div>
+
+	<div *ngIf="!isAniEmpty && isTopAnime">
+		<mat-grid-list *ngIf="screen === 0" cols="4" rowHeight="2.7:3">
+			<div *ngFor="let aniList of aniTopShow">
+				<mat-grid-tile class="anime-grid-tile" >
+					<mat-card class="anime-card" >
+						<div class="anime-header">
+							<h2>{{aniList.title}}</h2>
+							</div>
+						<div class="anime-top-chip">
+							<mat-chip-list >
+								<mat-chip class="tag">EP: {{checkIsNumber(aniList.episodes) ? aniList.episodes : 24}}</mat-chip>
+								<mat-chip class="tag">Type: {{aniList.type}}</mat-chip>
+								<mat-chip class="tag">Score: {{aniList.score}}</mat-chip>
+							</mat-chip-list>
+						</div>
+						
+						<div class="anime-body d-flex">
+							<img class="anime-image"  src="{{aniList.image_url}}" alt="Photo Content - Error">
+							<div class="anime-body-desc">
+								<p>Currently Not Available, Use Search Feature To Get Anime Description</p>
+							</div>
+						</div>
+						<mat-card-content class="anime-content">
+						</mat-card-content>
+						<div class="torrent-button" (click)="openTorrentModal(aniList.title, aniList.image_url, 
+						checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id);"
+						 class="border rounded d-flex p-2" style="cursor: pointer; background-color: #34c97e;">
+							<span style="font-size: 20px;">Torrent</span>
+						</div>
+					</mat-card>
+
+				</mat-grid-tile>
+			</div>
+		</mat-grid-list>
+		<mat-paginator class="paginator-mobile" *ngIf="screen === 0"  [length]="100"
+		[pageSize]="1"
+		[pageSizeOptions]="[1]"
+		aria-label="Select page" (page)="topAnimeOnPageChange($event)">
+		</mat-paginator>
+	
+
+
+		<mat-grid-list *ngIf="screen === 1" cols="1" rowHeight="1:1">
+			<div *ngFor="let aniList of aniTopShow">
+				<mat-grid-tile class="anime-grid-tile-mobile">
+					
+					<mat-card class="anime-card-mobile">
+						<div class="anime-header-anime">
+							<h3>{{aniList.title}}</h3>
+							</div>
+						<div class="anime-top-chip">
+							<mat-chip-list >
+								<mat-chip class="tag">EP: {{checkIsNumber(aniList.episodes) ? aniList.episodes : 24}}</mat-chip>
+								<mat-chip class="tag">Type: {{aniList.type}}</mat-chip>
+								<mat-chip class="tag">Score: {{aniList.score}}</mat-chip>
+							</mat-chip-list>
+						</div>
+						
+						<div class="anime-body-anime d-flex">
+							<img class="anime-image-mobile"  src="{{aniList.image_url}}" alt="Photo Content - Error">
+							<!-- <div class="anime-body-desc">
+								<p>{{aniList.synopsis}}</p>
+							</div> -->
 						</div>
 						<mat-card-content class="anime-content">
 						</mat-card-content>
