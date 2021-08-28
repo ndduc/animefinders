@@ -9,6 +9,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { AnimeModalComponent } from '../common/modal/anime/anime-modal/anime-modal.component';
 import { sortOptionEnum } from '../common/enum/enum-option/enum-option';
+import { AniTop } from '../config/jikan/animeTop';
 
 @Component({
   selector: 'app-anime',
@@ -26,11 +27,15 @@ export class AnimeComponent implements OnInit {
   selected = '';
   aniList: AniList[] = [];
   aniListShow: AniList[] = [];
+  aniTop: AniTop[] = [];
+  aniTopShow: AniTop[] = [];
   searchList: Search[] = [];
   error: any;
   headers: string[] = [];
   seasonLis: Array<{}> = [];
   panelOpenState = false;
+
+  isTopAnime: boolean = false;
 
   isAniEmpty : boolean = true;
 
@@ -38,6 +43,12 @@ export class AnimeComponent implements OnInit {
 
   screen: number = 0;
   pageSize;
+
+  optionSortObject = [{"name": "Select Sort Option", "type": "NOTHING"}, {"name": "Sort By Rate", "type":"RATE"}, {"name": "Sort By Type", "type":"TYPE"}];
+  selectedOptionSort = this.optionSortObject[0];
+  sort_type = 0;
+  sort_rate = 0;
+  selectedSort;
   
   constructor(private jikanService: JikanService, 
     private configService: ConfigService, public modelService: NgbModal,
@@ -111,6 +122,33 @@ export class AnimeComponent implements OnInit {
     this.seasonLis.push(tmpMap);
   }
 
+  getTopAnime(page: string, subtype: string) {
+    var tmpUrl = this.jikanService.jikan_url_aws + "/anime/top?page=" + page + "&subtype=" + subtype;
+    if(this.jikanService.respondMap[tmpUrl] != null) {
+      this.jikanService.respondMap[tmpUrl].subscribe(aniTop => {
+        this.setAniTopList(aniTop);
+      });
+    } else {
+      try {
+          this.jikanService.setTopAnime(page, subtype);
+          this.jikanService.respondMap[tmpUrl]
+          .subscribe(
+            aniTop => {
+              this.setAniTopList(aniTop);
+            },
+            (error) => {
+              this.setAniTopList(this.aniTop);
+            }
+          );
+        
+      } catch (err) {
+        this.isAniEmpty = true;
+        this.isLoading = false;
+      }
+    }
+
+    this.clearSort();
+  }
 
   getSeasonalAnime(season: any, year: any) {
     var tmpUrl = this.jikanService.jikan_url_aws + "/seasonal?year=" + year + "&season=" + season;
@@ -143,6 +181,8 @@ export class AnimeComponent implements OnInit {
         this.isLoading = false;
       }
     }
+
+    this.clearSort();
   }
 
   getAnimeByTitle(title: any) {
@@ -168,15 +208,12 @@ export class AnimeComponent implements OnInit {
         this.strTitle = '';
       }
     }
+    this.clearSort();
   }
 
-  optionSortObject = [{"name": "Select Sort Option", "type": "NOTHING"}, {"name": "Sort By Rate", "type":"RATE"}, {"name": "Sort By Type", "type":"TYPE"}];
-  selectedOptionSort = this.optionSortObject[0];
-  sort_type = 0;
-  sort_rate = 0;
-  selectedSort;
+
   onSortChange(value) {
-    console.log("On sort change\t\t" + value.type);
+    // console.log("On sort change\t\t" + value.type);
     this.selectedSort = value.name;
     if(value.type == "RATE") {
       this.selectedSort = sortOptionEnum.RATE;
@@ -236,6 +273,21 @@ export class AnimeComponent implements OnInit {
       }
       this.pageSize = this.aniList.length;  
     }
+    this.strTitle = '';
+    this.isTopAnime = false;
+  }
+
+  setAniTopList(lst: AniTop[]) {
+    if(lst == null || lst.length === 0) {
+      this.isAniEmpty = true;
+      this.isLoading = false;
+    } else {
+      this.isAniEmpty = false;
+      this.aniTop = lst;
+      this.isLoading = false;
+      this.aniTopShow = this.aniTop;
+    }
+    this.isTopAnime = true;
     this.strTitle = '';
   }
 
@@ -300,16 +352,29 @@ export class AnimeComponent implements OnInit {
     }
   }
 
+  clearSort() {
+    this.sort_type = 0;
+    this.sort_rate = 0;
+  }
+
 
   onPageChange($event) {
-    //this.aniListShow =  this.aniList.slice($event.pageIndex*$event.pageSize, $event.pageIndex*$event.pageSize + $event.pageSize);
-
     let startIndex = $event.pageIndex * $event.pageSize;
     let endIndex = startIndex + $event.pageSize;
     if(endIndex > this.pageSize){
       endIndex = this.pageSize;
     }
     this.aniListShow = this.aniList.slice(startIndex, endIndex);
+  }
+
+  topAnimeIndex: any;
+  topAnimeOnPageChange($event) {
+    var idx = $event.pageIndex;
+    this.topAnimeIndex = +idx + 1;
+    console.log("PAGE IDX\t\t" + this.topAnimeIndex);
+
+    // this.clear(); 
+    this.getTopAnime(this.topAnimeIndex.toString(), '')
   }
 
   convertToTitleCase(value:string): string {

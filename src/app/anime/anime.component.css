@@ -90,6 +90,7 @@ button, .tag {
 }
 
 .anime-body-desc {
+    width: 50%;
 	overflow: auto;
 	padding: 1%;
 }
@@ -115,9 +116,7 @@ button, .tag {
 }
 
 .anime-image {
-	width: 50%;
-	/* min-width: 150px; */
-	height: 100%;
+	/* width: 50%; */
 	border-radius: 15px;
 	border-style: outset;
 }

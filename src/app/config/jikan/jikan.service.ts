@@ -6,6 +6,7 @@ import { catchError, map, retry, timeout, shareReplay} from 'rxjs/operators';
 import { AniList } from './animelist';
 import { AniEpisodesList } from './animeEpisodes';
 import { AniDetail } from './animeDetail';
+import { AniTop } from './animeTop';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,7 @@ export class JikanService {
       catchError(this.handleError)
     );
   }
+
 
   getCurrentSeason(month: number) {
     //January-March, April-June, July-September, October-December
@@ -85,6 +87,34 @@ export class JikanService {
     );
     this.respondMap[this.url] = respondData;
   }
+
+  
+  setTopAnime(page: string, subtype: string) {
+    //   if(subtype.length <= 1) {
+    //     subtype = "";
+    //   }
+    //   return this.http.get<AniList[]>(this.jikan_url_aws + "/anime/top?page=" + page + "&subtype=" + subtype).pipe(
+    //   map((data:any) => data.top), 
+    //   catchError(this.handleError)
+    // );
+
+
+    if(subtype.length <= 1) {
+      subtype = "";
+    }
+    var tmpUrl = this.jikan_url_aws + "/anime/top?page=" + page + "&subtype=" + subtype;
+    this.url = tmpUrl;
+    var respondData = this.http.get<AniTop[]>(tmpUrl).pipe(
+      map(
+        (data:any) => 
+        {
+          return data.top;
+        }), 
+      shareReplay(1),
+      catchError((this.handleError))
+    );
+    this.respondMap[this.url] = respondData;
+}
 
   setAnimeByTitle(title: any) {
     var _title = "";
