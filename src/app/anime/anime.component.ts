@@ -34,21 +34,18 @@ export class AnimeComponent implements OnInit {
   headers: string[] = [];
   seasonLis: Array<{}> = [];
   panelOpenState = false;
-
   isTopAnime: boolean = false;
-
   isAniEmpty : boolean = true;
-
-  deviceInfo;
-
+  deviceInfo: any;
   screen: number = 0;
-  pageSize;
-
+  pageSize: any;
   optionSortObject = [{"name": "Select Sort Option", "type": "NOTHING"}, {"name": "Sort By Rate", "type":"RATE"}, {"name": "Sort By Type", "type":"TYPE"}];
   selectedOptionSort = this.optionSortObject[0];
   sort_type = 0;
   sort_rate = 0;
-  selectedSort;
+  selectedSort: any;
+  closeResult = '';
+  topAnimeIndex: any;
   
   constructor(private jikanService: JikanService, 
     private configService: ConfigService, public modelService: NgbModal,
@@ -367,7 +364,7 @@ export class AnimeComponent implements OnInit {
     this.aniListShow = this.aniList.slice(startIndex, endIndex);
   }
 
-  topAnimeIndex: any;
+
   topAnimeOnPageChange($event) {
     var idx = $event.pageIndex;
     this.topAnimeIndex = +idx + 1;
@@ -383,7 +380,7 @@ export class AnimeComponent implements OnInit {
   }
 
 
-  closeResult = '';
+
   open(content) {
     this.modelService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;

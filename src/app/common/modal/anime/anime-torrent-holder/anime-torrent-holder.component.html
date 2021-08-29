@@ -2,6 +2,12 @@
 <mat-accordion *ngIf="screen === 0">
     <mat-expansion-panel class="expan-torrent" (click)="getSearch(title, episode)" hideToggle  >
       <mat-expansion-panel-header>
+        <div *ngIf="episode == -3">
+          <mat-panel-title class="text-torrent">
+            Torrent - Latest Torrent -3
+          </mat-panel-title>
+        </div> 
+
         <div *ngIf="episode == -2">
           <mat-panel-title class="text-torrent">
             Torrent - Latest Torrent
