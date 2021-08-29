@@ -33,6 +33,7 @@ import { NavigatorCategoryComponent } from './common/navigator-category/navigato
 import { MangaComponent } from './manga/manga.component';
 import { LightNovelComponent } from './light-novel/light-novel.component';
 import { EnumOptionComponent } from './common/enum/enum-option/enum-option.component';
+import { AnimeTorrentHolderCustomComponent } from './common/modal/anime/anime-torrent-holder-custom/anime-torrent-holder-custom.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { EnumOptionComponent } from './common/enum/enum-option/enum-option.compo
     NavigatorCategoryComponent,
     MangaComponent,
     LightNovelComponent,
-    EnumOptionComponent
+    EnumOptionComponent,
+    AnimeTorrentHolderCustomComponent
   ],
   imports: [
     BrowserModule,

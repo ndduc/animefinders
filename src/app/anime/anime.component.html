@@ -2,6 +2,10 @@
 <!-- <app-navigator-category></app-navigator-category> -->
 <!-- <app-navigator></app-navigator> -->
 
+<div *ngIf="isLoading" style="text-align:center;">
+	<img style="width: 30%; height: 30%;" class="" src="assets/images/loading-cute.gif" alt="Err">
+</div>
+
 <body class="container-xxl">
 
 	<ng-template #content let-modal>
@@ -204,9 +208,7 @@
 
 
 
-<div *ngIf="isLoading" style="text-align:center;">
-	<img style="width: 30%; height: 30%;" class="" src="assets/images/loading-cute.gif" alt="Err">
-</div>
+
 <div *ngIf="!isLoading">
 
 	<!--SEASONAL & SEARCH ANIME DESKTOP REGION START-->

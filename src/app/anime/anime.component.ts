@@ -34,21 +34,16 @@ export class AnimeComponent implements OnInit {
   headers: string[] = [];
   seasonLis: Array<{}> = [];
   panelOpenState = false;
-
   isTopAnime: boolean = false;
-
   isAniEmpty : boolean = true;
-
-  deviceInfo;
-
+  deviceInfo: any;
   screen: number = 0;
-  pageSize;
-
+  pageSize: any;
   optionSortObject = [{"name": "Select Sort Option", "type": "NOTHING"}, {"name": "Sort By Rate", "type":"RATE"}, {"name": "Sort By Type", "type":"TYPE"}];
   selectedOptionSort = this.optionSortObject[0];
   sort_type = 0;
   sort_rate = 0;
-  selectedSort;
+  selectedSort: any;
   closeResult = '';
   topAnimeIndex: any;
   
