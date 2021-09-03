@@ -16,6 +16,7 @@ import { AniTop } from './animeTop';
 export class JikanService {
  // jikan_url = 'https://api.jikan.moe/v3';
   jikan_url_aws = 'https://yr8xbnhel0.execute-api.us-west-1.amazonaws.com/Prod/jikan';
+  qa_url_aws = 'https://yr8xbnhel0.execute-api.us-west-1.amazonaws.com/Prod/qa';
   url;
   public respondMap = new Map<string, any>();
   public respondMapAnimeDetail = new Map<any, any>();
@@ -23,6 +24,15 @@ export class JikanService {
 
 
 
+  addQuestion(question: any): Observable<any> {
+    var body = { question: question };
+    var currentYear = new Date().getFullYear();
+    var currentMonth = new Date().getMonth() - 1;
+      return this.http.post<any>(this.qa_url_aws, body).pipe(
+      map((data:any) => data), 
+      catchError(this.handleError)
+    );
+  }
 
 
   getSeasonalAnime(): Observable<AniList[]> {

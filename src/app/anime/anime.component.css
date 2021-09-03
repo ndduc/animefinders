@@ -214,3 +214,13 @@ button, .tag {
 .option-sort {
 	color: black;
 }
+
+.btn-qa-sticky {
+  position: -webkit-fixed;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  /* float: right; */
+  background-color: #F3872F;
+  font-size: 20px;
+}

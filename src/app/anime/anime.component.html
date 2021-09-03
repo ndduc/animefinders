@@ -406,3 +406,6 @@
 <p *ngIf="error" class="error">{{error | json}}</p>
 
 </body>
+
+<button *ngIf="screen === 0" mat-flat-button class="btn-qa-sticky" 
+(click)="openQAModal(); ">Question/Comment</button>
