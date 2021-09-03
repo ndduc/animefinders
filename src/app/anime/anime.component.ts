@@ -10,6 +10,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { AnimeModalComponent } from '../common/modal/anime/anime-modal/anime-modal.component';
 import { sortOptionEnum } from '../common/enum/enum-option/enum-option';
 import { AniTop } from '../config/jikan/animeTop';
+import { QuestionModalComponent } from '../common/modal/question/question-modal/question-modal.component';
 
 @Component({
   selector: 'app-anime',
@@ -80,27 +81,28 @@ export class AnimeComponent implements OnInit {
     this.isAniEmpty = true;
   }
 
+
   setSeasonInterval() {
     var year = new Date().getFullYear();
     var month = new Date().getMonth() - 1;
     if(month >= 1 && month <= 3 ) {
-      this.setSeasonIntervalHelper("summer", year, "future"); //up coming
+      this.setSeasonIntervalHelper("summer", year+1, "future"); //up coming
       this.setSeasonIntervalHelper("spring", year, "current");
       this.setSeasonIntervalHelper("winter", year-1, "past");
       this.setSeasonIntervalHelper("fall", year-1, "past");
       this.setSeasonIntervalHelper("summer", year-1, "past");
     } else if (month >= 4 && month <= 6) {
-      this.setSeasonIntervalHelper("fall", year, "future"); //up coming
+      this.setSeasonIntervalHelper("fall", year+1, "future"); //up coming
       this.setSeasonIntervalHelper("summer", year, "current");
       this.setSeasonIntervalHelper("spring", year, "past");
       this.setSeasonIntervalHelper("winter", year-1, "past");
       this.setSeasonIntervalHelper("fall", year-1, "past");
     } else if (month >= 7 && month <= 9) {
-      this.setSeasonIntervalHelper("winter", year, "future"); //up coming
+      this.setSeasonIntervalHelper("winter", year+1, "future"); //up coming
       this.setSeasonIntervalHelper("fall", year, "current");
       this.setSeasonIntervalHelper("summer", year, "past");
       this.setSeasonIntervalHelper("spring", year, "past");
-      this.setSeasonIntervalHelper("winter", year-1, "past");
+      this.setSeasonIntervalHelper("winter", year, "past");
     } else {
       this.setSeasonIntervalHelper("spring", year+1, "future"); //up coming
       this.setSeasonIntervalHelper("winter", year, "current");
@@ -146,6 +148,8 @@ export class AnimeComponent implements OnInit {
 
     this.clearSort();
   }
+
+  
 
   getSeasonalAnime(season: any, year: any) {
     var tmpUrl = this.jikanService.jikan_url_aws + "/seasonal?year=" + year + "&season=" + season;
@@ -210,7 +214,6 @@ export class AnimeComponent implements OnInit {
 
 
   onSortChange(value) {
-    // console.log("On sort change\t\t" + value.type);
     this.selectedSort = value.name;
     if(value.type == "RATE") {
       this.selectedSort = sortOptionEnum.RATE;
@@ -341,6 +344,17 @@ export class AnimeComponent implements OnInit {
 
   }
 
+
+  openQAModal() {
+    const modalRef = this.modelService.open(QuestionModalComponent);
+    modalRef.componentInstance.title = "TEST";
+    modalRef.componentInstance.imageSrc = "TEST";
+    modalRef.componentInstance.episode = "TEST";
+    modalRef.componentInstance.type = "TEST";
+    modalRef.componentInstance.animeId = "TEST";
+
+  }
+
   checkIsNumber(episode) {
     if(episode > 0) {
       return true;
@@ -368,9 +382,6 @@ export class AnimeComponent implements OnInit {
   topAnimeOnPageChange($event) {
     var idx = $event.pageIndex;
     this.topAnimeIndex = +idx + 1;
-    console.log("PAGE IDX\t\t" + this.topAnimeIndex);
-
-    // this.clear(); 
     this.getTopAnime(this.topAnimeIndex.toString(), '')
   }
 

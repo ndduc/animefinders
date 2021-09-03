@@ -1,0 +1,29 @@
+.modal-body, .modal-footer,.modal-footer-mobile, .modal-body-mobile {
+    background-color: #EDF5E1;
+}
+
+.modal-body, .modal-body-mobile {
+    border-radius: 15px;
+}
+
+.modal-body, .modal-footer {
+    /* margin-left: -50%; */
+    width: 100%;
+}
+button, .tag {
+	background-color: #05386B;
+}
+
+.qa-form {
+
+}
+
+.qa-form-field {
+
+    width: 100%;
+}
+
+
+.qa-form-field mat-label, .qa-form-field input, .qa-form-field mat-hint {
+    color: black;
+}
