@@ -35,6 +35,8 @@ import { LightNovelComponent } from './light-novel/light-novel.component';
 import { EnumOptionComponent } from './common/enum/enum-option/enum-option.component';
 import { AnimeTorrentHolderCustomComponent } from './common/modal/anime/anime-torrent-holder-custom/anime-torrent-holder-custom.component';
 import { QuestionModalComponent } from './common/modal/question/question-modal/question-modal.component';
+import { HentaiComponent } from './hentai/hentai.component';
+import { ErogeComponent } from './eroge/eroge.component';
 
 
 @NgModule({
@@ -53,7 +55,9 @@ import { QuestionModalComponent } from './common/modal/question/question-modal/q
     LightNovelComponent,
     EnumOptionComponent,
     AnimeTorrentHolderCustomComponent,
-    QuestionModalComponent
+    QuestionModalComponent,
+    HentaiComponent,
+    ErogeComponent
   ],
   imports: [
     BrowserModule,
