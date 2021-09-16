@@ -7,7 +7,7 @@ import { AniList } from './animelist';
 import { AniEpisodesList } from './animeEpisodes';
 import { AniDetail } from './animeDetail';
 import { AniTop } from './animeTop';
-
+import { HentaiTop } from './animeTop';
 @Injectable({
   providedIn: 'root'
 })
@@ -100,15 +100,6 @@ export class JikanService {
 
   
   setTopAnime(page: string, subtype: string) {
-    //   if(subtype.length <= 1) {
-    //     subtype = "";
-    //   }
-    //   return this.http.get<AniList[]>(this.jikan_url_aws + "/anime/top?page=" + page + "&subtype=" + subtype).pipe(
-    //   map((data:any) => data.top), 
-    //   catchError(this.handleError)
-    // );
-
-
     if(subtype.length <= 1) {
       subtype = "";
     }
@@ -124,7 +115,23 @@ export class JikanService {
       catchError((this.handleError))
     );
     this.respondMap[this.url] = respondData;
-}
+  }
+
+
+  setTopHentai(page: string) {
+    var tmpUrl = this.jikan_url_aws + "/hentai/top?page=" + page;
+    this.url = tmpUrl;
+    var respondData = this.http.get<HentaiTop[]>(tmpUrl).pipe(
+      map(
+        (data:any) => 
+        {
+          return data.results;
+        }), 
+      shareReplay(1),
+      catchError((this.handleError))
+    );
+    this.respondMap[this.url] = respondData;
+  }
 
   setAnimeByTitle(title: any) {
     var _title = "";

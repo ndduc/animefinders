@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
+import { HentaiComponent } from './hentai/hentai.component';
 import { HomeComponent } from './home/home.component';
 import { AnimeComponent } from './anime/anime.component';
 import { ProjectComponent } from './project/project.component';
@@ -31,6 +31,10 @@ const routes: Routes = [
   {
     path: 'jikan',
     component: JikanComponent
+  },
+  {
+    path: 'hentai',
+    component: HentaiComponent
   },
 ];
 
