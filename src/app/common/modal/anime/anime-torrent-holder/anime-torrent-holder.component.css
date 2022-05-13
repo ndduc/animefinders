@@ -12,13 +12,16 @@
 }
 
 .text-torrent {
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    font-weight: bold;
+    color: black;
     font-size: 18px;
-    color: #05386B;
     text-align: center;
 }
 
 .text-torrent-exp-parent {
     background-color: #8EE4AF;
+    height: 100px;
 }
 
 .torrent-div {

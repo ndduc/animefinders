@@ -4,13 +4,13 @@ import { JikanService } from '../config/jikan/jikan.service';
 import { ConfigService } from '../config/myaws/config.service';
 import { Search } from '../config/myaws/search';
 import { NyaaService } from '../config/nyaaaws/nyaa.service';
-import { searchList } from '../config/nyaaaws/searchList';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { AnimeModalComponent } from '../common/modal/anime/anime-modal/anime-modal.component';
 import { sortOptionEnum } from '../common/enum/enum-option/enum-option';
 import { AniTop } from '../config/jikan/animeTop';
 import { QuestionModalComponent } from '../common/modal/question/question-modal/question-modal.component';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-anime',
@@ -48,6 +48,11 @@ export class AnimeComponent implements OnInit {
   closeResult = '';
   topAnimeIndex: any;
   
+  public searchForm = new FormGroup({});
+  public searchName = 'searchName';
+  public searchControl = new FormControl(null, Validators.required);
+
+  
   constructor(private jikanService: JikanService, 
     private configService: ConfigService, public modelService: NgbModal,
     private deviceService: DeviceDetectorService) { 
@@ -57,6 +62,12 @@ export class AnimeComponent implements OnInit {
     this.setSeasonInterval();
     this.getSeasonalAnime(null,null);
     this.screenDetector();
+    this.setUpForm();
+  }
+
+  
+  private setUpForm(): void {
+    this.searchForm.addControl(this.searchName, this.searchControl);
   }
 
   screenDetector() {
@@ -65,13 +76,15 @@ export class AnimeComponent implements OnInit {
     const isTablet = this.deviceService.isTablet();
     const isDesktopDevice = this.deviceService.isDesktop();
     if(isMobile) {
+      // 1 as Mobile
       this.screen = 1;
     } else if (isTablet) {
+      // 2 as Tablet Size
       this.screen = 2;
     } else {
-      this.screen = 0;
+      // 0 as Normal Desktop Screen
+      this.screen = 0;  
     }
-
   }
 
   clear() {
@@ -84,31 +97,37 @@ export class AnimeComponent implements OnInit {
 
   setSeasonInterval() {
     var year = new Date().getFullYear();
-    var month = new Date().getMonth() - 1;
+    var month = new Date().getMonth() + 1;
+    /**
+     * Winter == 1st quarter == JAN to MARCH
+     * Spring == 2nd quarter == APR to JUN
+     * Summer == 3rd quarter == JUL to SEP
+     * Fall == 4th quarter == Oct to Dec
+    */
     if(month >= 1 && month <= 3 ) {
-      this.setSeasonIntervalHelper("summer", year+1, "future"); //up coming
-      this.setSeasonIntervalHelper("spring", year, "current");
-      this.setSeasonIntervalHelper("winter", year-1, "past");
+      this.setSeasonIntervalHelper("spring", year, "future"); //up coming
+      this.setSeasonIntervalHelper("winter", year, "current");
       this.setSeasonIntervalHelper("fall", year-1, "past");
       this.setSeasonIntervalHelper("summer", year-1, "past");
+      this.setSeasonIntervalHelper("spring", year-1, "past");
     } else if (month >= 4 && month <= 6) {
-      this.setSeasonIntervalHelper("fall", year+1, "future"); //up coming
+      this.setSeasonIntervalHelper("summer", year, "future"); //up coming
+      this.setSeasonIntervalHelper("spring", year, "current");
+      this.setSeasonIntervalHelper("winter", year, "past");
+      this.setSeasonIntervalHelper("fall", year-1, "past");
+      this.setSeasonIntervalHelper("summer", year-1, "past");
+    } else if (month >= 7 && month <= 9) {
+      this.setSeasonIntervalHelper("fall", year, "future"); //up coming
       this.setSeasonIntervalHelper("summer", year, "current");
       this.setSeasonIntervalHelper("spring", year, "past");
-      this.setSeasonIntervalHelper("winter", year-1, "past");
+      this.setSeasonIntervalHelper("winter", year, "past");
       this.setSeasonIntervalHelper("fall", year-1, "past");
-    } else if (month >= 7 && month <= 9) {
+    } else {
       this.setSeasonIntervalHelper("winter", year+1, "future"); //up coming
       this.setSeasonIntervalHelper("fall", year, "current");
       this.setSeasonIntervalHelper("summer", year, "past");
       this.setSeasonIntervalHelper("spring", year, "past");
       this.setSeasonIntervalHelper("winter", year, "past");
-    } else {
-      this.setSeasonIntervalHelper("spring", year+1, "future"); //up coming
-      this.setSeasonIntervalHelper("winter", year, "current");
-      this.setSeasonIntervalHelper("fall", year, "past");
-      this.setSeasonIntervalHelper("summer", year, "past");
-      this.setSeasonIntervalHelper("spring", year, "past");
     }
   }
 
@@ -145,6 +164,7 @@ export class AnimeComponent implements OnInit {
         this.isLoading = false;
       }
     }
+
 
     this.clearSort();
   }
@@ -275,6 +295,8 @@ export class AnimeComponent implements OnInit {
     }
     this.strTitle = '';
     this.isTopAnime = false;
+
+    console.log(this.aniList);
   }
 
   setAniTopList(lst: AniTop[]) {
@@ -334,14 +356,14 @@ export class AnimeComponent implements OnInit {
   }
 
 
-  openTorrentModal(title, imageSrc, episode, type, animeId) {
+  openTorrentModal(title, imageSrc, episode, type, animeId, animeObject) {
     const modalRef = this.modelService.open(AnimeModalComponent);
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.imageSrc = imageSrc;
     modalRef.componentInstance.episode = episode;
     modalRef.componentInstance.type = type;
     modalRef.componentInstance.animeId = animeId;
-
+    modalRef.componentInstance.aniObject = animeObject;
   }
 
 

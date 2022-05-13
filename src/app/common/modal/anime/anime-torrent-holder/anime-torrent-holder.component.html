@@ -4,18 +4,18 @@
       <mat-expansion-panel-header>
         <div *ngIf="episode == -3">
           <mat-panel-title class="text-torrent">
-            Torrent - Latest Torrent -3
+            Search Latest Torrent -3
           </mat-panel-title>
         </div> 
 
         <div *ngIf="episode == -2">
           <mat-panel-title class="text-torrent">
-            Torrent - Latest Torrent
+            Search Latest Torrent
           </mat-panel-title>
         </div> 
         <div *ngIf="episode != -2">
           <mat-panel-title class="text-torrent">
-            Torrent - Episode {{episode}}
+            Search Episode {{episode}}
           </mat-panel-title>
         </div> 
 
@@ -34,8 +34,9 @@
           
                       <mat-panel-title class="text-torrent-exp-child row">
                         <div class="col-8" style="font-size: 10px;">
-                          {{this.stringValidation(item["name"].replace('1080p','').replace('60fps','')
-                          .replace('x265','').replace('10bit','').replace(' ',''))}}
+                          {{item["name"]}}
+                          <!-- {{this.stringValidation(item["name"].replace('1080p','').replace('60fps','')
+                          .replace('x265','').replace('10bit','').replace(' ',''))}} -->
                         </div>
                         <div class="col-4" style="text-align: end;">
                           <div class="row justify-content-end">
@@ -82,7 +83,7 @@
               </div>
           </div>
           <div *ngIf="!isFound">
-              <a>No Results Found</a>
+              <a>No Results Found, Try Custom Search</a>
           </div>
       </div>
     </mat-expansion-panel>

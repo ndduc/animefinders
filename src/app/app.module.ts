@@ -37,6 +37,7 @@ import { AnimeTorrentHolderCustomComponent } from './common/modal/anime/anime-to
 import { QuestionModalComponent } from './common/modal/question/question-modal/question-modal.component';
 import { HentaiComponent } from './hentai/hentai.component';
 import { ErogeComponent } from './eroge/eroge.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import { ErogeComponent } from './eroge/eroge.component';
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatSidenavModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

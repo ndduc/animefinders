@@ -7,7 +7,12 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { JikanService } from 'src/app/config/jikan/jikan.service';
 import { AniDetail } from 'src/app/config/jikan/animeDetail';
 import { importExpr } from '@angular/compiler/src/output/output_ast';
+import { AniList } from 'src/app/config/jikan/animelist';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+/*
+  This modal hold anime's torrent detail
+*/
 @Component({
   selector: 'app-anime-modal',
   templateUrl: './anime-modal.component.html',
@@ -21,6 +26,11 @@ export class AnimeModalComponent implements OnInit {
   @Input() episode;
   @Input() type;
   @Input() animeId;
+  // This can either be, aniList, aniTop, etc ..etc
+  @Input() aniObject;
+
+
+  
   panelOpenState = false;
   param_name:string = "";
   param_ep: string = "";
@@ -47,6 +57,7 @@ export class AnimeModalComponent implements OnInit {
     this.screenDetector();
     this.getAnimeDetail();
   }
+
 
   screenDetector() {
     this.deviceInfo = this.deviceService.getDeviceInfo();
