@@ -11,5 +11,56 @@
     width: 100%;
 }
 button, .tag {
-	background-color: #05386B;
+	background-color: #F3A8BC;
 }
+
+/* .cdk-overlay-pane.my-dialog {
+    position: relative!important;
+  } */
+.close {
+    background-color: #EDF5E1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    line-height: 14px;
+    min-width: auto;
+    text-align: right;
+}
+
+.close-image {
+    width: 60%;
+}
+
+.anime-image, .anime-div {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.anime-div {
+    overflow: hidden;
+    width: 50%;
+}
+
+.anime-image {
+    border-radius: 15px;
+    margin: 2%;
+}
+
+.anime-container {
+    /* height: 40%; */
+    height: 350px;
+}
+
+.anime-div-description {
+    margin-top: 10%;
+    overflow-x: auto;
+    height: 80%;
+}
+
+::ng-deep .mat-chip-list-wrapper {
+    /* flex-wrap: unset !important; */
+    width: 100%;
+    overflow-x: auto;
+    align-items: center;
+  }

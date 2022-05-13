@@ -8,6 +8,15 @@
 		},
 		{
 			"path": "..\\..\\..\\..\\..\\..\\..\\..\\..\\Gearfire\\Web\\Cust_Admin_Web\\v2\\CustomerAdmin_Web"
+		},
+		{
+			"path": "E:\\Gearfire Legacy\\DevDocker\\docker-env"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\..\\..\\..\\..\\Gearfire\\Web\\CusEcommer\\ECommmer\\V4\\CustomerEComm_Web"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\..\\..\\..\\..\\Gearfire\\LOI\\unittestrepo\\angular-starting-project"
 		}
 	],
 	"settings": {}

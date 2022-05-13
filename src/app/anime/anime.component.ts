@@ -65,12 +65,17 @@ export class AnimeComponent implements OnInit {
     const isTablet = this.deviceService.isTablet();
     const isDesktopDevice = this.deviceService.isDesktop();
     if(isMobile) {
+      // 1 as Mobile
       this.screen = 1;
     } else if (isTablet) {
+      // 2 as Tablet Size
       this.screen = 2;
     } else {
-      this.screen = 0;
+      // 0 as Normal Desktop Screen
+      this.screen = 0;  
     }
+
+    console.log(this.screen);
 
   }
 
@@ -152,6 +157,7 @@ export class AnimeComponent implements OnInit {
   
 
   getSeasonalAnime(season: any, year: any) {
+    console.log(season + "  " + year);
     var tmpUrl = this.jikanService.jikan_url_aws + "/seasonal?year=" + year + "&season=" + season;
 
     if(this.jikanService.respondMap[tmpUrl] != null) {
@@ -334,14 +340,14 @@ export class AnimeComponent implements OnInit {
   }
 
 
-  openTorrentModal(title, imageSrc, episode, type, animeId) {
+  openTorrentModal(title, imageSrc, episode, type, animeId, animeObject) {
     const modalRef = this.modelService.open(AnimeModalComponent);
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.imageSrc = imageSrc;
     modalRef.componentInstance.episode = episode;
     modalRef.componentInstance.type = type;
     modalRef.componentInstance.animeId = animeId;
-
+    modalRef.componentInstance.aniObject = animeObject;
   }
 
 

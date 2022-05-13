@@ -1,13 +1,18 @@
 <router-outlet></router-outlet>
-<!-- <app-navigator-category></app-navigator-category> -->
-<!-- <app-navigator></app-navigator> -->
 
+<!-- 
+	If Loading display a GIF object, otherwise display whatever the app suppose to display
+ -->
 <div *ngIf="isLoading" style="text-align:center;">
 	<img style="width: 30%; height: 30%;" class="" src="assets/images/loading-cute.gif" alt="Err">
 </div>
 
 <body class="container-xxl">
 
+	<!-- 
+		this is filter section
+		definitely need some work here
+	 -->
 	<ng-template #content let-modal>
 		<div class="modal-header">
 			<h4 class="modal-title" id="modal-basic-title">Filter Panel</h4>
@@ -25,7 +30,10 @@
 		</div>
 	</ng-template>
 
-
+<!-- 
+	Header section, where the app displays TAG such as 
+	Seasons, search box,etc...
+ -->
 <div *ngIf="!isAniEmpty">
 <mat-toolbar *ngIf="screen === 0" class="nav-bar-animelist">
 	<div>
@@ -208,11 +216,17 @@
 
 
 
-
+<!-- 
+	Main Component is here,
+	shall display after isloading is set to false
+ -->
 <div *ngIf="!isLoading">
 
 	<!--SEASONAL & SEARCH ANIME DESKTOP REGION START-->
 	<div *ngIf="!isAniEmpty && !isTopAnime">
+		<!-- 
+			Grid display anime info
+		 -->
 		<mat-grid-list *ngIf="screen === 0" cols="4" rowHeight="2.7:3">
 			<div *ngFor="let aniList of aniListShow">
 				<mat-grid-tile class="anime-grid-tile" >
@@ -237,7 +251,7 @@
 						<mat-card-content class="anime-content">
 						</mat-card-content>
 						<div class="torrent-button" (click)="openTorrentModal(aniList.title, aniList.image_url, 
-						checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id);"
+						checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id, aniList);"
 						 class="border rounded d-flex p-2" style="cursor: pointer; background-color: #34c97e;">
 							<span style="font-size: 20px;">Torrent</span>
 						</div>
@@ -280,7 +294,7 @@
 						</mat-card-content>
 						<div (click)="openTorrentModal(aniList.title, aniList.image_url, 
 						checkIsNumber(aniList.episodes) ? aniList.episodes : 24, 
-						aniList.type, aniList.mal_id);" class="border rounded d-flex p-2" style="cursor: pointer; background-color: #5CDB95;">
+						aniList.type, aniList.mal_id, aniList);" class="border rounded d-flex p-2" style="cursor: pointer; background-color: #5CDB95;">
 							<span style="font-size: 20px;">Torrent</span>
 						</div>
 					</mat-card>
@@ -324,7 +338,7 @@
 								<div class="anime-bot-top d-flex justify-content-center">
 									<button class="torrent-button-top" 
 									(click)="openTorrentModal(aniList.title, aniList.image_url, 
-									checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id);"
+									checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id, aniList);"
 									mat-button>
 										Torrent
 									</button>
@@ -377,7 +391,7 @@
 						</mat-card-content>
 						<div (click)="openTorrentModal(aniList.title, aniList.image_url, 
 						checkIsNumber(aniList.episodes) ? aniList.episodes : 24, 
-						aniList.type, aniList.mal_id);" class="border rounded d-flex p-2" style="cursor: pointer; background-color: #5CDB95;">
+						aniList.type, aniList.mal_id, aniList);" class="border rounded d-flex p-2" style="cursor: pointer; background-color: #5CDB95;">
 							<span style="font-size: 20px;">Torrent</span>
 						</div>
 					</mat-card>
