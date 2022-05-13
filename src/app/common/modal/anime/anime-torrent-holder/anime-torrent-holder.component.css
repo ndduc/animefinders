@@ -56,3 +56,8 @@
 .torrent-body {
     width: 100%;
 }
+
+::ng-deep .mat-expansion-panel-header:not([aria-disabled=true]) {
+    min-height: 40px;
+    height: auto;
+}
