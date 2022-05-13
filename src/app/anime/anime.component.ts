@@ -37,6 +37,7 @@ export class AnimeComponent implements OnInit {
   panelOpenState = false;
   isTopAnime: boolean = false;
   isAniEmpty : boolean = true;
+  isConnectionError: boolean = false;
   deviceInfo: any;
   screen: number = 0;
   pageSize: any;
@@ -92,6 +93,7 @@ export class AnimeComponent implements OnInit {
     this.isLoading = true;
     this.headers = [];
     this.isAniEmpty = true;
+    this.isConnectionError = false;
   }
 
 
@@ -160,6 +162,7 @@ export class AnimeComponent implements OnInit {
           );
         
       } catch (err) {
+        this.isConnectionError = true;
         this.isAniEmpty = true;
         this.isLoading = false;
       }
@@ -198,6 +201,7 @@ export class AnimeComponent implements OnInit {
           );
         }
       } catch (err) {
+        this.isConnectionError = true;
         this.isAniEmpty = true;
         this.isLoading = false;
       }
@@ -224,6 +228,7 @@ export class AnimeComponent implements OnInit {
           }
         );
       } catch (err) {
+        this.isConnectionError = true;
         this.isLoading = false;
         this.isAniEmpty = true;
         this.strTitle = '';
@@ -280,9 +285,11 @@ export class AnimeComponent implements OnInit {
 
   setAniList(lst: AniList[]) {
     if(lst == null || lst.length === 0) {
+      this.isConnectionError = false;
       this.isAniEmpty = true;
       this.isLoading = false;
     } else {
+      this.isConnectionError = false;
       this.isAniEmpty = false;
       this.aniList = this.recurRemoveHentai(lst);
       this.isLoading = false;
@@ -295,15 +302,15 @@ export class AnimeComponent implements OnInit {
     }
     this.strTitle = '';
     this.isTopAnime = false;
-
-    console.log(this.aniList);
   }
 
   setAniTopList(lst: AniTop[]) {
     if(lst == null || lst.length === 0) {
+      this.isConnectionError = false;
       this.isAniEmpty = true;
       this.isLoading = false;
     } else {
+      this.isConnectionError = false;
       this.isAniEmpty = false;
       this.aniTop = lst;
       this.isLoading = false;
