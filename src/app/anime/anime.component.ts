@@ -85,9 +85,6 @@ export class AnimeComponent implements OnInit {
       // 0 as Normal Desktop Screen
       this.screen = 0;  
     }
-
-    console.log(this.screen);
-
   }
 
   clear() {
@@ -100,31 +97,37 @@ export class AnimeComponent implements OnInit {
 
   setSeasonInterval() {
     var year = new Date().getFullYear();
-    var month = new Date().getMonth() - 1;
+    var month = new Date().getMonth() + 1;
+    /**
+     * Winter == 1st quarter == JAN to MARCH
+     * Spring == 2nd quarter == APR to JUN
+     * Summer == 3rd quarter == JUL to SEP
+     * Fall == 4th quarter == Oct to Dec
+    */
     if(month >= 1 && month <= 3 ) {
-      this.setSeasonIntervalHelper("summer", year+1, "future"); //up coming
-      this.setSeasonIntervalHelper("spring", year, "current");
-      this.setSeasonIntervalHelper("winter", year-1, "past");
+      this.setSeasonIntervalHelper("spring", year, "future"); //up coming
+      this.setSeasonIntervalHelper("winter", year, "current");
       this.setSeasonIntervalHelper("fall", year-1, "past");
       this.setSeasonIntervalHelper("summer", year-1, "past");
+      this.setSeasonIntervalHelper("spring", year-1, "past");
     } else if (month >= 4 && month <= 6) {
-      this.setSeasonIntervalHelper("fall", year+1, "future"); //up coming
+      this.setSeasonIntervalHelper("summer", year, "future"); //up coming
+      this.setSeasonIntervalHelper("spring", year, "current");
+      this.setSeasonIntervalHelper("winter", year, "past");
+      this.setSeasonIntervalHelper("fall", year-1, "past");
+      this.setSeasonIntervalHelper("summer", year-1, "past");
+    } else if (month >= 7 && month <= 9) {
+      this.setSeasonIntervalHelper("fall", year, "future"); //up coming
       this.setSeasonIntervalHelper("summer", year, "current");
       this.setSeasonIntervalHelper("spring", year, "past");
-      this.setSeasonIntervalHelper("winter", year-1, "past");
+      this.setSeasonIntervalHelper("winter", year, "past");
       this.setSeasonIntervalHelper("fall", year-1, "past");
-    } else if (month >= 7 && month <= 9) {
+    } else {
       this.setSeasonIntervalHelper("winter", year+1, "future"); //up coming
       this.setSeasonIntervalHelper("fall", year, "current");
       this.setSeasonIntervalHelper("summer", year, "past");
       this.setSeasonIntervalHelper("spring", year, "past");
       this.setSeasonIntervalHelper("winter", year, "past");
-    } else {
-      this.setSeasonIntervalHelper("spring", year+1, "future"); //up coming
-      this.setSeasonIntervalHelper("winter", year, "current");
-      this.setSeasonIntervalHelper("fall", year, "past");
-      this.setSeasonIntervalHelper("summer", year, "past");
-      this.setSeasonIntervalHelper("spring", year, "past");
     }
   }
 
@@ -169,7 +172,6 @@ export class AnimeComponent implements OnInit {
   
 
   getSeasonalAnime(season: any, year: any) {
-    console.log(season + "  " + year);
     var tmpUrl = this.jikanService.jikan_url_aws + "/seasonal?year=" + year + "&season=" + season;
 
     if(this.jikanService.respondMap[tmpUrl] != null) {
@@ -293,6 +295,8 @@ export class AnimeComponent implements OnInit {
     }
     this.strTitle = '';
     this.isTopAnime = false;
+
+    console.log(this.aniList);
   }
 
   setAniTopList(lst: AniTop[]) {
@@ -307,8 +311,6 @@ export class AnimeComponent implements OnInit {
     }
     this.isTopAnime = true;
     this.strTitle = '';
-
-    console.log(this.aniTop);
   }
 
   recurRemoveHentai(lst: AniList[]) {

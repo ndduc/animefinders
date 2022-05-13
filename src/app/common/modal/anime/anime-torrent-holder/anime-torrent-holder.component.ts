@@ -46,7 +46,6 @@ export class AnimeTorrentHolderComponent implements OnInit, PipeTransform  {
   }
 
   getSearch(name: string, ep: number) {
-    console.log("GET SEARCH");
     if(ep == -1) {
       this.nyaaService.getSearchByName(name).subscribe(
         searchList => {
@@ -93,8 +92,6 @@ export class AnimeTorrentHolderComponent implements OnInit, PipeTransform  {
       this.isFound = true;
       this.searchList = lst;
     }
-
-    console.log(this.searchList);
   }
 
   getDownloadLink(url_path: string) {
