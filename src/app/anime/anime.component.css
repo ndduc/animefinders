@@ -17,13 +17,6 @@
 	background-color: #5CDB95;
 }
 
-.input-search-container {
-	width: 100%;
-}
-.input-search {
-	width: 75%;
-}
-
 .input-search-container-mobile {
 	width: 100%;
 }
@@ -35,7 +28,7 @@
 	background-color: #F3A8BC;
 	font-size: 15px;
 	text-align: center;
-	width: 25%;
+	/* width: 25%; */
 	border-radius: 5px;
 	margin-left: 10px;
 	cursor: pointer;

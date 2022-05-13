@@ -106,14 +106,19 @@
 			
 	</div>
 
-	<div class="input-search-container d-flex  justify-content-end">
-		
-		<mat-form-field class="input-search" floatLabel="never" >
-			<input matInput (keydown.enter)="clear(); getAnimeByTitle(strTitle);" placeholder="Search"  [(ngModel)]="strTitle">
-		</mat-form-field>
-   	</div>
-	<div mat-flat-button class="btn-advance" (click)="clear(); getAnimeByTitle(strTitle);">
-		Search</div>
+	<form [formGroup]="searchForm" class="search-form">
+
+			<mat-form-field >
+				<input matInput formControlName="{{searchName}}" placeholder="Search"  [(ngModel)]="strTitle">
+				<mat-error *ngIf="searchForm.get(searchName)?.hasError('required')">Required</mat-error>
+
+			</mat-form-field>
+
+			<button mat-flat-button class="btn-advance" (click)="clear(); getAnimeByTitle(strTitle);" disabled="{{searchForm.invalid || !searchForm.dirty}}" >
+				Search
+			</button>
+	</form>
+
 
 		<!-- This is a functional button, but need some more work -->
 	<!-- <button mat-flat-button class="btn-advance" (click)="toggleAdvSearch(); ">Advance</button> -->

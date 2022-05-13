@@ -4,7 +4,6 @@ import { JikanService } from '../config/jikan/jikan.service';
 import { ConfigService } from '../config/myaws/config.service';
 import { Search } from '../config/myaws/search';
 import { NyaaService } from '../config/nyaaaws/nyaa.service';
-import { searchList } from '../config/nyaaaws/searchList';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { AnimeModalComponent } from '../common/modal/anime/anime-modal/anime-modal.component';
