@@ -162,6 +162,7 @@ export class AnimeComponent implements OnInit {
       }
     }
 
+
     this.clearSort();
   }
 
@@ -306,6 +307,8 @@ export class AnimeComponent implements OnInit {
     }
     this.isTopAnime = true;
     this.strTitle = '';
+
+    console.log(this.aniTop);
   }
 
   recurRemoveHentai(lst: AniList[]) {

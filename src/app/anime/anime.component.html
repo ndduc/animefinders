@@ -120,7 +120,7 @@
 	</form>
 
 
-		<!-- This is a functional button, but need some more work -->
+	<!-- This is a functional button, but need some more work -->
 	<!-- <button mat-flat-button class="btn-advance" (click)="toggleAdvSearch(); ">Advance</button> -->
 
 
@@ -331,12 +331,14 @@
 						
 						<div class="anime-body-top d-flex" (click)="openTorrentModal(aniList.title, aniList.image_url, 
 						checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id, aniList);">
+							
 							<img class="anime-image-top"  src="{{aniList.image_url}}" alt="Photo Content - Error">
 
 							<div class="anime-detail-top d-flex flex-column">
 								<div class="anime-header">
 									<h2>{{aniList.title}}</h2>
-									</div>
+								</div>
+
 								<div class="anime-top-chip">
 									<mat-chip-list >
 										<mat-chip class="tag">EP: {{checkIsNumber(aniList.episodes) ? aniList.episodes : 24}}</mat-chip>
@@ -356,8 +358,6 @@
 								
 							</div>
 							
-
-
 						</div>
 						<mat-card-content class="anime-content">
 						</mat-card-content>
