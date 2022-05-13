@@ -4,7 +4,7 @@
           <mat-expansion-panel-header>
             <div *ngIf="episode == -3">
               <mat-panel-title class="text-torrent">
-                Torrent - Custom Torrent - Test
+                Torrent - Custom Torrent
               </mat-panel-title>
             </div> 
     
@@ -13,9 +13,9 @@
           <div class="d-flex">
             <mat-form-field floatLabel="never" style="width: 80%; color: black;">
               <input matInput placeholder="Search"  [(ngModel)]="strSearch">
-              <mat-hint align="start"><strong>Enter Search String To Fetch Torrents</strong> </mat-hint>
+              <mat-hint class="custom-remark"><strong>Enter Search String To Fetch Torrents</strong> </mat-hint>
             </mat-form-field>
-            <div class="d-flex flex-column justify-content-center">
+            <div class="btn-search-container d-flex flex-column justify-content-center">
               <button class="btn-search" mat-flat-button (click)="clear(); getSearch(strSearch, -1)">
                 Search
               </button>
@@ -33,11 +33,11 @@
               <div *ngIf="isFound">
                   <div *ngFor="let item of searchList">
                     
-                    <mat-expansion-panel class="expan-torrent" (click)="getSearch(title, episode)" hideToggle  >
+                    <mat-expansion-panel class="expan-torrent" hideToggle  >
                       <mat-expansion-panel-header class="text-torrent-exp-parent">
               
                           <mat-panel-title class="text-torrent-exp-child row">
-                            <div class="col-8" style="font-size: 10px;">
+                            <div class="anime-torrent-detail col-8">
                               {{this.stringValidation(item["name"].replace('1080p','').replace('60fps','')
                               .replace('x265','').replace('10bit','').replace(' ',''))}}
                             </div>
@@ -85,7 +85,7 @@
                     </mat-expansion-panel>
                   </div>
               </div>
-              <div *ngIf="!isFound">
+              <div class="no-result" *ngIf="!isFound">
                   <a>No Result Found</a>
               </div>
           </div>

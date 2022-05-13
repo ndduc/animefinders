@@ -52,6 +52,7 @@ export class AnimeTorrentHolderCustomComponent implements OnInit, PipeTransform 
     this.searchList = [];
   }
   getSearch(name: string, ep: number) {
+    console.log("GET SEARCH CUSTOM");
     if(ep == -1) {
       this.nyaaService.getSearchByName(name).subscribe(
         searchList => {

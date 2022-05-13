@@ -32,6 +32,7 @@ button, .tag {
     width: 60%;
 }
 
+
 .anime-image, .anime-div {
     margin-top: 5%;
     margin-bottom: 5%;
@@ -58,9 +59,8 @@ button, .tag {
     height: 80%;
 }
 
-::ng-deep .mat-chip-list-wrapper {
-    /* flex-wrap: unset !important; */
+/* ::ng-deep .mat-chip-list-wrapper {
     width: 100%;
     overflow-x: auto;
     align-items: center;
-  }
+  } */

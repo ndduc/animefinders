@@ -11,6 +11,7 @@ import { AnimeModalComponent } from '../common/modal/anime/anime-modal/anime-mod
 import { sortOptionEnum } from '../common/enum/enum-option/enum-option';
 import { AniTop } from '../config/jikan/animeTop';
 import { QuestionModalComponent } from '../common/modal/question/question-modal/question-modal.component';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-anime',
@@ -48,6 +49,11 @@ export class AnimeComponent implements OnInit {
   closeResult = '';
   topAnimeIndex: any;
   
+  public searchForm = new FormGroup({});
+  public searchName = 'searchName';
+  public searchControl = new FormControl(null, Validators.required);
+
+  
   constructor(private jikanService: JikanService, 
     private configService: ConfigService, public modelService: NgbModal,
     private deviceService: DeviceDetectorService) { 
@@ -57,6 +63,12 @@ export class AnimeComponent implements OnInit {
     this.setSeasonInterval();
     this.getSeasonalAnime(null,null);
     this.screenDetector();
+    this.setUpForm();
+  }
+
+  
+  private setUpForm(): void {
+    this.searchForm.addControl(this.searchName, this.searchControl);
   }
 
   screenDetector() {

@@ -32,11 +32,13 @@
 }
 
 .btn-advance {
-	font-size: 10px;
+	background-color: #F3A8BC;
+	font-size: 15px;
 	text-align: center;
-	width: 10%;
+	width: 25%;
 	border-radius: 5px;
 	margin-left: 10px;
+	cursor: pointer;
 }
 
 .btn-advance-sort {
@@ -47,8 +49,12 @@
 	margin-left: 10px;
 }
 
-button, .tag {
+button {
 	background-color: #05386B;
+}
+
+.tag {
+	background-color: #F3A8BC;
 }
 
 .anime-card-top {
@@ -139,6 +145,7 @@ button, .tag {
 	height: 100%;
 	border-radius: 15px;
 	border-style: outset;
+	cursor: pointer;
 }
 
 .anime-body-anime {
@@ -223,4 +230,18 @@ button, .tag {
   /* float: right; */
   background-color: #F3872F;
   font-size: 20px;
+}
+
+.torrent-button-grid {
+	cursor: pointer; 
+	background-color: #34c97e;
+	height: 40px;
+	align-items: center;
+}
+
+.find-torrent-text {
+	font-family: "Comic Sans MS", "Comic Sans", cursive;
+	font-weight: bold;
+	color: black;
+	font-size: 20px;
 }

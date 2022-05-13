@@ -105,14 +105,18 @@
 		</div>
 			
 	</div>
+
 	<div class="input-search-container d-flex  justify-content-end">
+		
 		<mat-form-field class="input-search" floatLabel="never" >
 			<input matInput (keydown.enter)="clear(); getAnimeByTitle(strTitle);" placeholder="Search"  [(ngModel)]="strTitle">
 		</mat-form-field>
    	</div>
-	<button mat-flat-button class="btn-advance" (click)="clear(); getAnimeByTitle(strTitle);">
-		Search</button>
-	<button mat-flat-button class="btn-advance" (click)="toggleAdvSearch(); ">Advance</button>
+	<div mat-flat-button class="btn-advance" (click)="clear(); getAnimeByTitle(strTitle);">
+		Search</div>
+
+		<!-- This is a functional button, but need some more work -->
+	<!-- <button mat-flat-button class="btn-advance" (click)="toggleAdvSearch(); ">Advance</button> -->
 
 
 
@@ -252,8 +256,8 @@
 						</mat-card-content>
 						<div class="torrent-button" (click)="openTorrentModal(aniList.title, aniList.image_url, 
 						checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id, aniList);"
-						 class="border rounded d-flex p-2" style="cursor: pointer; background-color: #34c97e;">
-							<span style="font-size: 20px;">Torrent</span>
+						 class="torrent-button-grid border rounded d-flex p-2">
+							<span class="find-torrent-text">Find Torrent</span>
 						</div>
 					</mat-card>
 
@@ -320,7 +324,8 @@
 					<mat-card class="anime-card-top" >
 						
 						
-						<div class="anime-body-top d-flex">
+						<div class="anime-body-top d-flex" (click)="openTorrentModal(aniList.title, aniList.image_url, 
+						checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id, aniList);">
 							<img class="anime-image-top"  src="{{aniList.image_url}}" alt="Photo Content - Error">
 
 							<div class="anime-detail-top d-flex flex-column">
@@ -335,14 +340,14 @@
 									</mat-chip-list>
 								</div>
 	
-								<div class="anime-bot-top d-flex justify-content-center">
+								<!-- <div class="anime-bot-top d-flex justify-content-center">
 									<button class="torrent-button-top" 
 									(click)="openTorrentModal(aniList.title, aniList.image_url, 
 									checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id, aniList);"
 									mat-button>
 										Torrent
 									</button>
-								</div>
+								</div> -->
 								
 							</div>
 							

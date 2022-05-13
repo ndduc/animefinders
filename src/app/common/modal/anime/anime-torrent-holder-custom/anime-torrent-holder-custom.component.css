@@ -12,8 +12,9 @@
 }
 
 .text-torrent {
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    font-weight: bold;
     font-size: 18px;
-    color: #05386B;
     text-align: center;
 }
 
@@ -22,7 +23,6 @@
 }
 
 .torrent-div {
-    color: black;
     background-color: #EDF5E1;
     margin: 2%;
     padding-top: 1%;
@@ -36,7 +36,6 @@
 }
 
 .text-torrent-exp-child {
-    color: black;
     font-size: 15px;
 }
 
@@ -56,9 +55,17 @@
 
 
 .btn-search {
-	font-size: 10px;
+    background-color: #F3A8BC;
+	font-size: 15px;
 	text-align: center;
-	width: 50px;
-	border-radius: 5px;
+	border-radius: 10px;
 	margin-left: 10px;
+}
+
+.custom-remark, .no-result, .text-torrent-exp-child, .torrent-div, .text-torrent {
+    color: black;
+}
+
+.anime-torrent-detail  {
+    font-size: 10px;
 }
