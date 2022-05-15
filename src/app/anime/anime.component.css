@@ -6,7 +6,10 @@
 }
 
 .nav-bar-animelist-mobile {
-	background-color: #379683;
+	display: flex; 
+	justify-content: flex-end;
+	flex-direction: row;
+	background-color: #5CDB95;
 }
 
 

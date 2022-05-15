@@ -36,7 +36,7 @@
 		Seasons, search box,etc...
 	-->
 	<div *ngIf="!isConnectionError && !isLoading">
-		<mat-toolbar *ngIf="screen === 0" class="nav-bar-animelist">
+		<mat-toolbar class="nav-bar-animelist">
 			<div>
 				<div class="d-flex" *ngIf="seasonLis">
 					<button class="button-spring" 
@@ -107,6 +107,23 @@
 					
 			</div>
 
+			<form [formGroup]="searchForm" class="search-form" *ngIf="!isMobile">
+
+					<mat-form-field >
+						<input matInput formControlName="{{searchName}}" placeholder="Search"  [(ngModel)]="strTitle">
+						<mat-error *ngIf="searchForm.get(searchName)?.hasError('required')">Required</mat-error>
+
+					</mat-form-field>
+
+					<button mat-flat-button class="btn-advance" (click)="clear(); getAnimeByTitle(strTitle);" disabled="{{searchForm.invalid || !searchForm.dirty}}" >
+						Search
+					</button>
+			</form>
+		</mat-toolbar>
+	</div>
+
+	<div *ngIf="!isConnectionError && !isLoading && isMobile">
+		<mat-toolbar class="nav-bar-animelist-mobile">
 			<form [formGroup]="searchForm" class="search-form">
 
 					<mat-form-field >
@@ -119,82 +136,12 @@
 						Search
 					</button>
 			</form>
-
-
-			<!-- This is a functional button, but need some more work -->
-			<!-- <button mat-flat-button class="btn-advance" (click)="toggleAdvSearch(); ">Advance</button> -->
-
-
-
 		</mat-toolbar>
-
-
-		<!-- <mat-toolbar *ngIf="screen === 1" class="nav-bar-animelist-mobile d-flex justify-content-end">
-				<div style="overflow: auto;" class="d-flex" *ngIf="seasonLis">
-
-					<div *ngFor="let item of seasonLis">
-						<button class="button-spring"  *ngIf="item['season'] === 'spring'"
-						(click)="clear(); getSeasonalAnime(item['season'], item['year']);" 
-						mat-flat-button>
-							<div *ngIf="item['opt'] === 'current'">
-								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Current)"}}
-							</div>
-							<div *ngIf="item['opt'] === 'future'">
-								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Incoming)"}}
-							</div>
-							<div *ngIf="item['opt'] === 'past'">
-								{{convertToTitleCase(item["season"]) + " - " + item["year"]}}
-							</div>
-						</button>
-
-						<button class="button-summer"  *ngIf="item['season'] === 'summer'"
-						(click)="clear(); getSeasonalAnime(item['season'], item['year']);" 
-						mat-flat-button>
-							<div *ngIf="item['opt'] === 'current'">
-								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Current)"}}
-							</div>
-							<div *ngIf="item['opt'] === 'future'">
-								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Incoming)"}}
-							</div>
-							<div *ngIf="item['opt'] === 'past'">
-								{{convertToTitleCase(item["season"]) + " - " + item["year"]}}
-							</div>
-						</button>
-
-						<button class="button-winter" *ngIf="item['season'] === 'winter'"
-						(click)="clear(); getSeasonalAnime(item['season'], item['year']);" 
-						mat-flat-button>
-							<div *ngIf="item['opt'] === 'current'">
-								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Current)"}}
-							</div>
-							<div *ngIf="item['opt'] === 'future'">
-								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Incoming)"}}
-							</div>
-							<div *ngIf="item['opt'] === 'past'">
-								{{convertToTitleCase(item["season"]) + " - " + item["year"]}}
-							</div>
-						</button>
-
-						<button class="button-fall"  *ngIf="item['season'] === 'fall'"
-						(click)="clear(); getSeasonalAnime(item['season'], item['year']);" 
-						mat-flat-button>
-							<div *ngIf="item['opt'] === 'current'">
-								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Current)"}}
-							</div>
-							<div *ngIf="item['opt'] === 'future'">
-								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Incoming)"}}
-							</div>
-							<div *ngIf="item['opt'] === 'past'">
-								{{convertToTitleCase(item["season"]) + " - " + item["year"]}}
-							</div>
-						</button>
-					</div>
-				</div>
-					
-		</mat-toolbar>
-	 -->
 	</div>
 
+	<!-- 
+		This part is for the adv search
+	 -->
 	<div *ngIf="!isConnectionError  && !isLoading">
 		<mat-toolbar class="nav-bar-animelist-2" [hidden] ="isHidden">
 				<mat-form-field class="input-search-adv" floatLabel="never">

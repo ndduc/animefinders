@@ -43,7 +43,7 @@ export class AnimeComponent implements OnInit, AfterViewInit {
   isTopAnime: boolean = false;
   isAniEmpty : boolean = true;
   isConnectionError: boolean = false;
-  deviceInfo: any;
+  // deviceInfo: any;
   screen: number = 0;
   pageSize: any;
   optionSortObject = [{"name": "Select Sort Option", "type": "NOTHING"}, {"name": "Sort By Rate", "type":"RATE"}, {"name": "Sort By Type", "type":"TYPE"}];
@@ -56,6 +56,7 @@ export class AnimeComponent implements OnInit, AfterViewInit {
   
   topAnimeNumberOfColumn = 4;
   seasonAnimeNumberOfColumn = 4;
+  isMobile = false;
 
   public searchForm = new FormGroup({});
   public searchName = 'searchName';
@@ -72,7 +73,7 @@ export class AnimeComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.setSeasonInterval();
     this.getSeasonalAnime(null,null);
-    this.screenDetector();
+    // this.screenDetector();
     this.setUpForm();
     this.breakpointObserverEvent();
   }
@@ -96,18 +97,23 @@ export class AnimeComponent implements OnInit, AfterViewInit {
       if (result.breakpoints[Breakpoints.XLarge]) {
         this.topAnimeNumberOfColumn = 4;
         this.seasonAnimeNumberOfColumn = 4;
+        this.isMobile = false;
       } else if (result.breakpoints[Breakpoints.Large]) {
         this.topAnimeNumberOfColumn = 4;
         this.seasonAnimeNumberOfColumn = 4;
+        this.isMobile = false;
       } else if (result.breakpoints[Breakpoints.Medium]) {
         this.topAnimeNumberOfColumn = 3;
         this.seasonAnimeNumberOfColumn = 3;
+        this.isMobile = false;
       } else if (result.breakpoints[Breakpoints.Small]) {
         this.topAnimeNumberOfColumn = 2;
         this.seasonAnimeNumberOfColumn = 2;
+        this.isMobile = true;
       } else {
         this.topAnimeNumberOfColumn = 1;
         this.seasonAnimeNumberOfColumn = 1;
+        this.isMobile = true;
       }
     });
   }
@@ -117,22 +123,22 @@ export class AnimeComponent implements OnInit, AfterViewInit {
     this.searchForm.addControl(this.searchName, this.searchControl);
   }
 
-  screenDetector() {
-    this.deviceInfo = this.deviceService.getDeviceInfo();
-    const isMobile = this.deviceService.isMobile();
-    const isTablet = this.deviceService.isTablet();
-    const isDesktopDevice = this.deviceService.isDesktop();
-    if(isMobile) {
-      // 1 as Mobile
-      this.screen = 1;
-    } else if (isTablet) {
-      // 2 as Tablet Size
-      this.screen = 2;
-    } else {
-      // 0 as Normal Desktop Screen
-      this.screen = 0;  
-    }
-  }
+  // screenDetector() {
+  //   this.deviceInfo = this.deviceService.getDeviceInfo();
+  //   const isMobile = this.deviceService.isMobile();
+  //   const isTablet = this.deviceService.isTablet();
+  //   const isDesktopDevice = this.deviceService.isDesktop();
+  //   if(isMobile) {
+  //     // 1 as Mobile
+  //     this.screen = 1;
+  //   } else if (isTablet) {
+  //     // 2 as Tablet Size
+  //     this.screen = 2;
+  //   } else {
+  //     // 0 as Normal Desktop Screen
+  //     this.screen = 0;  
+  //   }
+  // }
 
   clear() {
     this.error = undefined;
