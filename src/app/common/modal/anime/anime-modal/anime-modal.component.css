@@ -37,7 +37,7 @@ button, .tag {
 }
 
 
-.anime-image, .anime-div {
+.anime-div {
     margin-top: 5%;
     margin-bottom: 5%;
 }
@@ -49,7 +49,8 @@ button, .tag {
 
 .anime-image {
     border-radius: 15px;
-    margin: 2%;
+    /* margin: 2%; */
+    width: 50%;
 }
 
 .anime-container {
