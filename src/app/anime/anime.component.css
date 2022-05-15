@@ -155,6 +155,7 @@ button {
 }
 
 .anime-image {
+	width: 50%;
 	border-radius: 15px;
 	border-style: outset;
 }
@@ -218,28 +219,44 @@ button {
 	/* font-family: "Comic Sans MS", "Comic Sans", cursive; */
 }
 
-.question-container {
+.question-container, .question-container-mobile {
   position: -webkit-fixed;
   position: fixed;
   bottom: 0;
-  left: 0;
   font-size: 20px;
   border-radius: 5px; 
   margin-left: 5px;
   margin-bottom: 5px;
-
 }
 
-.btn-qa-sticky {
+.question-container {
+	left: 0;
+}
+
+.question-container-mobile {
+	margin-bottom: 50px;
+	right: 0;
+}
+
+.btn-qa-sticky, .btn-qa-sticky-mobile {
 	background-color: #F3872F;
 }
 
-.btn-qa-sticky-back-to-top {
+.btn-qa-sticky-back-to-top, .btn-qa-sticky-back-to-top-mobile {
 	background-color: #B3DAF1;
 }
 
-.btn-qa-sticky, .btn-qa-sticky-back-to-top  {
+.btn-qa-sticky, .btn-qa-sticky-back-to-top, .btn-qa-sticky-mobile, .btn-qa-sticky-back-to-top-mobile  {
 	margin-right: 5px;
+}
+
+.btn-qa-sticky-back-to-top-mobile {
+	margin-top: 2px;
+}
+
+.btn-qa-sticky-mobile, .btn-qa-sticky-back-to-top-mobile {
+	width: 100px;
+	text-align: center;
 }
 
 .torrent-button-grid {

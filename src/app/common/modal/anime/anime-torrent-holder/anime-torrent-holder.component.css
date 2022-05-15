@@ -40,6 +40,8 @@
 .text-torrent-exp-child {
     color: black;
     font-size: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .torrent-div-item-2 {

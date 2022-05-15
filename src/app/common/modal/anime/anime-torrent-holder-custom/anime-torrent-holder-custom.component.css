@@ -64,6 +64,9 @@
 
 .custom-remark, .no-result, .text-torrent-exp-child, .torrent-div, .text-torrent {
     color: black;
+    font-size: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .anime-torrent-detail  {
