@@ -9,6 +9,7 @@ import { AniDetail } from 'src/app/config/jikan/animeDetail';
 import { importExpr } from '@angular/compiler/src/output/output_ast';
 import { AniList } from 'src/app/config/jikan/animelist';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 /*
   This modal hold anime's torrent detail
@@ -37,7 +38,6 @@ export class AnimeModalComponent implements OnInit {
   searchList : searchList[] = [];
   aniEpList: AniEpisodesList[] = [];
   aniDetail: AniDetail | undefined;
-  deviceInfo;
   screen: number = 0;
 
   nonMalAnimeEpisode: number | undefined;
@@ -45,34 +45,43 @@ export class AnimeModalComponent implements OnInit {
   isFound: boolean = false;
   isNonMal: boolean = false;
 
-
+  isMobile: boolean = false;
   numberOfEpisode: any;
 
   constructor(private nyaaService : NyaaService, 
     public activeModal: NgbActiveModal, 
     private deviceService: DeviceDetectorService,
-    private jikanService: JikanService ) { }
+    private jikanService: JikanService,
+    private breakpointObserver: BreakpointObserver ) { }
 
   ngOnInit() {
-    this.screenDetector();
     this.getAnimeDetail();
+    this.breakpointObserverEvent();
   }
 
-
-  screenDetector() {
-    this.deviceInfo = this.deviceService.getDeviceInfo();
-    const isMobile = this.deviceService.isMobile();
-    const isTablet = this.deviceService.isTablet();
-    const isDesktopDevice = this.deviceService.isDesktop();
-    if(isMobile) {
-      this.screen = 1;
-    } else if (isTablet) {
-      this.screen = 2;
-    } else {
-      this.screen = 0;
-    }
-
+  
+  breakpointObserverEvent() {
+    this.breakpointObserver.observe([
+      Breakpoints.XSmall,
+      Breakpoints.Small,
+      Breakpoints.Medium,
+      Breakpoints.Large,
+      Breakpoints.XLarge
+    ]).subscribe(result => {
+      if (result.breakpoints[Breakpoints.XLarge]) {
+        this.isMobile = false;
+      } else if (result.breakpoints[Breakpoints.Large]) {
+        this.isMobile = false;
+      } else if (result.breakpoints[Breakpoints.Medium]) {
+        this.isMobile = false;
+      } else if (result.breakpoints[Breakpoints.Small]) {
+        this.isMobile = true;
+      } else {
+        this.isMobile = true;
+      }
+    });
   }
+
 
   clean() {
     this.isLoading = true;
@@ -106,28 +115,8 @@ export class AnimeModalComponent implements OnInit {
           this.isLoading = false;
         });
       }
-      // this.nyaaService.getSearchByNameEp(name, ep).subscribe(searchList => {
-      //   this.searchList = searchList;
-      //   this.isLoading = false;
-      // });
     }
   }
-
-
-  // getAnimeDetail() {
-  //   this.jikanService.getAnimeDetail(this.animeId).subscribe(item => {
-  //     this.aniDetail = item;
-  //     if(item.status === "Not yet aired") {
-  //       this.numberOfEpisode = undefined;
-  //       this.isLoading = false;
-  //     } else if (item.status === "Currently Airing") {
-  //       this.getDifferenceInDays(item);
-  //     } else {
-  //       this.numberOfEpisode = this.episode;
-  //       this.isLoading = false;
-  //     }
-  //   })
-  // }
 
 
   getAnimeDetail() {

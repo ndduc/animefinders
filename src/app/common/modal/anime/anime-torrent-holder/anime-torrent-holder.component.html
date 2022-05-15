@@ -1,5 +1,5 @@
 <div class="torrent-body">
-<mat-accordion *ngIf="screen === 0">
+<mat-accordion>
     <mat-expansion-panel class="expan-torrent" (click)="getSearch(title, episode)" hideToggle  >
       <mat-expansion-panel-header>
         <div *ngIf="episode == -3">
@@ -87,58 +87,6 @@
           </div>
       </div>
     </mat-expansion-panel>
-</mat-accordion>
-
-
-<mat-accordion *ngIf="screen === 1">
-  <mat-expansion-panel class="expan-torrent-mobile" (click)="getSearch(title, episode)" hideToggle  >
-    <mat-expansion-panel-header>
-      <div *ngIf="episode == -2">
-        <mat-panel-title class="text-torrent">
-          Torrent - Latest Torrent
-        </mat-panel-title>
-      </div> 
-      <div *ngIf="episode != -2">
-        <mat-panel-title class="text-torrent">
-          Torrent - Episode {{episode}}
-        </mat-panel-title>
-      </div> 
-    </mat-expansion-panel-header>
-
-    <div *ngIf="isLoading" style="text-align:center;">
-        <!-- <mat-progress-bar mode="query"></mat-progress-bar> -->
-        <img style="width: 20%; height: 20%;" class="" src="assets/images/loading-cute.gif" alt="Err">
-    </div>
-
-    <div *ngIf="!isLoading">
-        <div *ngIf="isFound">
-            <div *ngFor="let item of searchList">
-              <div class="torrent-div d-flex flex-column">
-                <div class="d-flex justify-content-center">
-                  <a href='{{getDownloadLink(item["download_url"])}}' target="_self" rel="torrent" download>
-                    {{this.stringValidation(item["name"])}}
-                  </a>
-                  <!-- <img class="side-icon-image" src="assets/images/magnet.png" alt="Proj"> -->
-                </div>
-                <div>
-                  {{this.itemCategory}}
-                </div>
-                <div>
-                  {{this.itemCategoryRound}}
-                </div>
-                <div class="d-flex justify-content-center">
-                  <div class="torrent-div-item-2">{{ "Leed: " + item["leechers"]}}</div>
-                  <div class="torrent-div-item-2">{{ "Seed: " + item["seeders"]}}</div>
-                  <div class="torrent-div-item-2">{{ "Size: " + item["size"]}}</div>
-                </div>
-              </div>
-            </div>
-        </div>
-        <div *ngIf="!isFound">
-            <a>No Results Found</a>
-        </div>
-    </div>
-  </mat-expansion-panel>
 </mat-accordion>
 
 </div>

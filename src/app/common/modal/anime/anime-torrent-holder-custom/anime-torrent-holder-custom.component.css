@@ -12,7 +12,6 @@
 }
 
 .text-torrent {
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
     font-weight: bold;
     font-size: 18px;
     text-align: center;
@@ -50,6 +49,7 @@
 }
 
 .torrent-body {
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
     width: 100%;
 }
 
@@ -68,4 +68,9 @@
 
 .anime-torrent-detail  {
     font-size: 10px;
+}
+
+::ng-deep .mat-expansion-panel-header:not([aria-disabled=true]) {
+    min-height: 40px;
+    height: auto;
 }

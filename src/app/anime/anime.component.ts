@@ -11,6 +11,9 @@ import { sortOptionEnum } from '../common/enum/enum-option/enum-option';
 import { AniTop } from '../config/jikan/animeTop';
 import { QuestionModalComponent } from '../common/modal/question/question-modal/question-modal.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { AfterViewInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-anime',
@@ -18,6 +21,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   providers: [NyaaService],
   styleUrls: ['./anime.component.css']
 })
+
+
 export class AnimeComponent implements OnInit {
   
   sortOption = sortOptionEnum;
@@ -37,7 +42,7 @@ export class AnimeComponent implements OnInit {
   panelOpenState = false;
   isTopAnime: boolean = false;
   isAniEmpty : boolean = true;
-  deviceInfo: any;
+  isConnectionError: boolean = false;
   screen: number = 0;
   pageSize: any;
   optionSortObject = [{"name": "Select Sort Option", "type": "NOTHING"}, {"name": "Sort By Rate", "type":"RATE"}, {"name": "Sort By Type", "type":"TYPE"}];
@@ -48,6 +53,10 @@ export class AnimeComponent implements OnInit {
   closeResult = '';
   topAnimeIndex: any;
   
+  topAnimeNumberOfColumn = 4;
+  seasonAnimeNumberOfColumn = 4;
+  isMobile = false;
+
   public searchForm = new FormGroup({});
   public searchName = 'searchName';
   public searchControl = new FormControl(null, Validators.required);
@@ -55,14 +64,50 @@ export class AnimeComponent implements OnInit {
   
   constructor(private jikanService: JikanService, 
     private configService: ConfigService, public modelService: NgbModal,
-    private deviceService: DeviceDetectorService) { 
+    private deviceService: DeviceDetectorService,
+    private breakpointObserver: BreakpointObserver) { 
     }
+
 
   ngOnInit(): void {
     this.setSeasonInterval();
     this.getSeasonalAnime(null,null);
-    this.screenDetector();
+    // this.screenDetector();
     this.setUpForm();
+    this.breakpointObserverEvent();
+  }
+
+
+  breakpointObserverEvent() {
+    this.breakpointObserver.observe([
+      Breakpoints.XSmall,
+      Breakpoints.Small,
+      Breakpoints.Medium,
+      Breakpoints.Large,
+      Breakpoints.XLarge
+    ]).subscribe(result => {
+      if (result.breakpoints[Breakpoints.XLarge]) {
+        this.topAnimeNumberOfColumn = 4;
+        this.seasonAnimeNumberOfColumn = 4;
+        this.isMobile = false;
+      } else if (result.breakpoints[Breakpoints.Large]) {
+        this.topAnimeNumberOfColumn = 4;
+        this.seasonAnimeNumberOfColumn = 4;
+        this.isMobile = false;
+      } else if (result.breakpoints[Breakpoints.Medium]) {
+        this.topAnimeNumberOfColumn = 3;
+        this.seasonAnimeNumberOfColumn = 3;
+        this.isMobile = false;
+      } else if (result.breakpoints[Breakpoints.Small]) {
+        this.topAnimeNumberOfColumn = 2;
+        this.seasonAnimeNumberOfColumn = 2;
+        this.isMobile = true;
+      } else {
+        this.topAnimeNumberOfColumn = 1;
+        this.seasonAnimeNumberOfColumn = 1;
+        this.isMobile = true;
+      }
+    });
   }
 
   
@@ -70,28 +115,12 @@ export class AnimeComponent implements OnInit {
     this.searchForm.addControl(this.searchName, this.searchControl);
   }
 
-  screenDetector() {
-    this.deviceInfo = this.deviceService.getDeviceInfo();
-    const isMobile = this.deviceService.isMobile();
-    const isTablet = this.deviceService.isTablet();
-    const isDesktopDevice = this.deviceService.isDesktop();
-    if(isMobile) {
-      // 1 as Mobile
-      this.screen = 1;
-    } else if (isTablet) {
-      // 2 as Tablet Size
-      this.screen = 2;
-    } else {
-      // 0 as Normal Desktop Screen
-      this.screen = 0;  
-    }
-  }
-
   clear() {
     this.error = undefined;
     this.isLoading = true;
     this.headers = [];
     this.isAniEmpty = true;
+    this.isConnectionError = false;
   }
 
 
@@ -160,6 +189,7 @@ export class AnimeComponent implements OnInit {
           );
         
       } catch (err) {
+        this.isConnectionError = true;
         this.isAniEmpty = true;
         this.isLoading = false;
       }
@@ -198,6 +228,7 @@ export class AnimeComponent implements OnInit {
           );
         }
       } catch (err) {
+        this.isConnectionError = true;
         this.isAniEmpty = true;
         this.isLoading = false;
       }
@@ -224,6 +255,7 @@ export class AnimeComponent implements OnInit {
           }
         );
       } catch (err) {
+        this.isConnectionError = true;
         this.isLoading = false;
         this.isAniEmpty = true;
         this.strTitle = '';
@@ -280,9 +312,11 @@ export class AnimeComponent implements OnInit {
 
   setAniList(lst: AniList[]) {
     if(lst == null || lst.length === 0) {
+      this.isConnectionError = false;
       this.isAniEmpty = true;
       this.isLoading = false;
     } else {
+      this.isConnectionError = false;
       this.isAniEmpty = false;
       this.aniList = this.recurRemoveHentai(lst);
       this.isLoading = false;
@@ -295,15 +329,15 @@ export class AnimeComponent implements OnInit {
     }
     this.strTitle = '';
     this.isTopAnime = false;
-
-    console.log(this.aniList);
   }
 
   setAniTopList(lst: AniTop[]) {
     if(lst == null || lst.length === 0) {
+      this.isConnectionError = false;
       this.isAniEmpty = true;
       this.isLoading = false;
     } else {
+      this.isConnectionError = false;
       this.isAniEmpty = false;
       this.aniTop = lst;
       this.isLoading = false;
