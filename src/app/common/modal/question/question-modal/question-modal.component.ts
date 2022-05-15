@@ -8,6 +8,7 @@ import { JikanService } from 'src/app/config/jikan/jikan.service';
 import { AniDetail } from 'src/app/config/jikan/animeDetail';
 import { importExpr } from '@angular/compiler/src/output/output_ast';
 import { ModalServiceService } from '../../modal-service.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-question-modal',
@@ -28,9 +29,7 @@ export class QuestionModalComponent implements OnInit {
   searchList : searchList[] = [];
   aniEpList: AniEpisodesList[] = [];
   aniDetail: AniDetail | undefined;
-  deviceInfo;
-  screen: number = 0;
-
+  isMobile: boolean = false;
   nonMalAnimeEpisode: number | undefined;
   isLoading: boolean = false;
   isFound: boolean = false;
@@ -45,11 +44,35 @@ export class QuestionModalComponent implements OnInit {
     public activeModal: NgbActiveModal, 
     private deviceService: DeviceDetectorService,
     private jikanService: JikanService,
-    private qaService: ModalServiceService ) { }
+    private qaService: ModalServiceService,
+    private breakpointObserver: BreakpointObserver ) { }
 
   ngOnInit() {
-    this.screenDetector();
+    this.breakpointObserverEvent();
   }
+  
+  breakpointObserverEvent() {
+    this.breakpointObserver.observe([
+      Breakpoints.XSmall,
+      Breakpoints.Small,
+      Breakpoints.Medium,
+      Breakpoints.Large,
+      Breakpoints.XLarge
+    ]).subscribe(result => {
+      if (result.breakpoints[Breakpoints.XLarge]) {
+        this.isMobile = false;
+      } else if (result.breakpoints[Breakpoints.Large]) {
+        this.isMobile = false;
+      } else if (result.breakpoints[Breakpoints.Medium]) {
+        this.isMobile = false;
+      } else if (result.breakpoints[Breakpoints.Small]) {
+        this.isMobile = true;
+      } else {
+        this.isMobile = true;
+      }
+    });
+  }
+
 
   addQuestion(question: any) {
     if(question.length > 5) {
@@ -58,21 +81,6 @@ export class QuestionModalComponent implements OnInit {
       );
       this.activeModal.close('Close click');
     }
-  }
-
-  screenDetector() {
-    this.deviceInfo = this.deviceService.getDeviceInfo();
-    const isMobile = this.deviceService.isMobile();
-    const isTablet = this.deviceService.isTablet();
-    const isDesktopDevice = this.deviceService.isDesktop();
-    if(isMobile) {
-      this.screen = 1;
-    } else if (isTablet) {
-      this.screen = 2;
-    } else {
-      this.screen = 0;
-    }
-
   }
 
   clean() {

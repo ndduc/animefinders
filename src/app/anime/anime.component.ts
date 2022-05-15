@@ -23,7 +23,7 @@ import { AfterViewInit } from '@angular/core';
 })
 
 
-export class AnimeComponent implements OnInit, AfterViewInit {
+export class AnimeComponent implements OnInit {
   
   sortOption = sortOptionEnum;
   isLoading: boolean = true;
@@ -76,12 +76,6 @@ export class AnimeComponent implements OnInit, AfterViewInit {
     this.setUpForm();
     this.breakpointObserverEvent();
   }
-  
-  ngAfterViewInit(): void {
-    console.log("AFTER");
-    this.breakpointObserverEvent();
-  }
-
 
 
   breakpointObserverEvent() {
@@ -92,7 +86,6 @@ export class AnimeComponent implements OnInit, AfterViewInit {
       Breakpoints.Large,
       Breakpoints.XLarge
     ]).subscribe(result => {
-      console.log(result);
       if (result.breakpoints[Breakpoints.XLarge]) {
         this.topAnimeNumberOfColumn = 4;
         this.seasonAnimeNumberOfColumn = 4;

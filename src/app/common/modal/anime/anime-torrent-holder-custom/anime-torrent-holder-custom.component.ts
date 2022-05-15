@@ -6,6 +6,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { Validators } from '@angular/forms';
 import {DomSanitizer} from '@angular/platform-browser';
 import { Pipe, PipeTransform } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-anime-torrent-holder-custom',
@@ -19,32 +20,39 @@ export class AnimeTorrentHolderCustomComponent implements OnInit, PipeTransform 
   @Input() episode;
   @Input() longrun;
   searchList : searchList[] = [];
-  constructor(private nyaaService : NyaaService, private deviceService: DeviceDetectorService, private sanitizer:DomSanitizer) { }
+  constructor(private nyaaService : NyaaService, private deviceService: DeviceDetectorService, private sanitizer:DomSanitizer,
+    private breakpointObserver: BreakpointObserver) { }
 
   isLoading: boolean = false;
   isFound: boolean = false;
   strSearch: any;
-  deviceInfo;
   screen: number = 0;
-
+  isMobile: boolean = false;
   ngOnInit(): void {
     this.strSearch = this.title;
-    this.screenDetector();
+    this.breakpointObserverEvent();
   }
 
-  screenDetector() {
-    this.deviceInfo = this.deviceService.getDeviceInfo();
-    const isMobile = this.deviceService.isMobile();
-    const isTablet = this.deviceService.isTablet();
-    const isDesktopDevice = this.deviceService.isDesktop();
-    if(isMobile) {
-      this.screen = 1;
-    } else if (isTablet) {
-      this.screen = 2;
-    } else {
-      this.screen = 0;
-    }
-
+  breakpointObserverEvent() {
+    this.breakpointObserver.observe([
+      Breakpoints.XSmall,
+      Breakpoints.Small,
+      Breakpoints.Medium,
+      Breakpoints.Large,
+      Breakpoints.XLarge
+    ]).subscribe(result => {
+      if (result.breakpoints[Breakpoints.XLarge]) {
+        this.isMobile = false;
+      } else if (result.breakpoints[Breakpoints.Large]) {
+        this.isMobile = false;
+      } else if (result.breakpoints[Breakpoints.Medium]) {
+        this.isMobile = false;
+      } else if (result.breakpoints[Breakpoints.Small]) {
+        this.isMobile = true;
+      } else {
+        this.isMobile = true;
+      }
+    });
   }
 
   clear() {

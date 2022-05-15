@@ -67,7 +67,6 @@ button, .tag {
 	font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
 
-.torrent-detail-container {
-    overflow-y: auto;
-    height: 450px;
+::ng-deep .modal-content {
+    overflow: auto;
 }
