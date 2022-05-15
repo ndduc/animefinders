@@ -187,6 +187,7 @@
 								</div>
 							<div class="anime-top-chip">
 								<mat-chip-list >
+									<!-- This bull shit need to be updated -->
 									<mat-chip class="tag">EP: {{checkIsNumber(aniList.episodes) ? aniList.episodes : 24}}</mat-chip>
 									<mat-chip class="tag">Type: {{aniList.type}}</mat-chip>
 									<mat-chip class="tag">Score: {{aniList.score}}</mat-chip>
@@ -294,8 +295,9 @@
 
 	</body>
 
-	<button mat-flat-button class="btn-qa-sticky" 
-	(click)="openQAModal(); ">Question/Comment</button>
-
+	<div class ="question-container">
+		<button mat-flat-button class="btn-qa-sticky" (click)="openQAModal(); ">Question/Comment</button>
+		<button *ngIf="!isMobile" mat-flat-button class="btn-qa-sticky-back-to-top" (click)="backToTop($event); ">Back To Top</button>
+	</div>
 
 </div>

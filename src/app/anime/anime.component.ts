@@ -471,4 +471,12 @@ export class AnimeComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+
+  backToTop(event) {
+    window.scroll({ 
+            top: 0, 
+            left: 0, 
+            behavior: 'smooth' 
+     });
+ }
 }
