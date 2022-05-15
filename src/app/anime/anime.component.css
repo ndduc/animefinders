@@ -213,7 +213,7 @@ button {
 .search-form, .find-torrent-text, .anime-body p,.anime-body-anime p, .anime-content h2, .anime-header h2,.anime-header h3, 
 .btn-advance, .tag, .btn-qa-sticky, .btn-qa-sticky-back-to-top  {
 	color: black;
-	font-family: "Comic Sans MS", "Comic Sans", cursive;
+	/* font-family: "Comic Sans MS", "Comic Sans", cursive; */
 }
 
 .question-container {

@@ -64,7 +64,7 @@ button, .tag {
 
 .anime-modal-body {
     color: black;
-	font-family: "Comic Sans MS", "Comic Sans", cursive;
+	/* font-family: "Comic Sans MS", "Comic Sans", cursive; */
 }
 
 ::ng-deep .modal-content {

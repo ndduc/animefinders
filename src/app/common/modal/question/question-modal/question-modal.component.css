@@ -17,7 +17,7 @@
 
 .question-body, .promp-text, .qa-form-field, .qa-form-field mat-label, .qa-form-field input, .qa-form-field mat-hint, .modal-footer button {
     color: black;
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    /* font-family: "Comic Sans MS", "Comic Sans", cursive; */
 }
 
 .loading-image {
