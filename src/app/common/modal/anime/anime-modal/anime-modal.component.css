@@ -64,3 +64,7 @@ button, .tag {
     overflow-x: auto;
     align-items: center;
   } */
+.anime-modal-body {
+    color: black;
+	font-family: "Comic Sans MS", "Comic Sans", cursive;
+}

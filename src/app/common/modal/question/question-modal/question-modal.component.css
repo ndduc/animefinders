@@ -7,23 +7,29 @@
 }
 
 .modal-body, .modal-footer {
-    /* margin-left: -50%; */
     width: 100%;
-}
-button, .tag {
-	background-color: #05386B;
-}
-
-.qa-form {
-
 }
 
 .qa-form-field {
-
     width: 100%;
 }
 
 
 .qa-form-field mat-label, .qa-form-field input, .qa-form-field mat-hint {
+    color: black;
+}
+
+.question-body {
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
+.loading-image {
+    width: 50%; 
+    height: 100%;
+}
+
+
+.modal-footer button {
+    background-color: #F3A8BC;
     color: black;
 }

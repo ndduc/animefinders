@@ -12,7 +12,6 @@
 }
 
 .text-torrent {
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
     font-weight: bold;
     font-size: 18px;
     text-align: center;
@@ -50,6 +49,7 @@
 }
 
 .torrent-body {
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
     width: 100%;
 }
 
