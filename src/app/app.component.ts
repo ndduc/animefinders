@@ -8,8 +8,3 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'ani-hook';
 }
-
-
-// btnClick(){
-//   this.router.navigate(['/anime']);
-// };

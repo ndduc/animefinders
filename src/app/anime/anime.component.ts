@@ -11,6 +11,9 @@ import { sortOptionEnum } from '../common/enum/enum-option/enum-option';
 import { AniTop } from '../config/jikan/animeTop';
 import { QuestionModalComponent } from '../common/modal/question/question-modal/question-modal.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { AfterViewInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-anime',
@@ -18,7 +21,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   providers: [NyaaService],
   styleUrls: ['./anime.component.css']
 })
-export class AnimeComponent implements OnInit {
+
+
+export class AnimeComponent implements OnInit, AfterViewInit {
   
   sortOption = sortOptionEnum;
   isLoading: boolean = true;
@@ -49,6 +54,9 @@ export class AnimeComponent implements OnInit {
   closeResult = '';
   topAnimeIndex: any;
   
+  topAnimeNumberOfColumn = 4;
+  seasonAnimeNumberOfColumn = 4;
+
   public searchForm = new FormGroup({});
   public searchName = 'searchName';
   public searchControl = new FormControl(null, Validators.required);
@@ -56,14 +64,52 @@ export class AnimeComponent implements OnInit {
   
   constructor(private jikanService: JikanService, 
     private configService: ConfigService, public modelService: NgbModal,
-    private deviceService: DeviceDetectorService) { 
+    private deviceService: DeviceDetectorService,
+    private breakpointObserver: BreakpointObserver) { 
     }
+
 
   ngOnInit(): void {
     this.setSeasonInterval();
     this.getSeasonalAnime(null,null);
     this.screenDetector();
     this.setUpForm();
+    this.breakpointObserverEvent();
+  }
+  
+  ngAfterViewInit(): void {
+    console.log("AFTER");
+    this.breakpointObserverEvent();
+  }
+
+
+
+  breakpointObserverEvent() {
+    this.breakpointObserver.observe([
+      Breakpoints.XSmall,
+      Breakpoints.Small,
+      Breakpoints.Medium,
+      Breakpoints.Large,
+      Breakpoints.XLarge
+    ]).subscribe(result => {
+      console.log(result);
+      if (result.breakpoints[Breakpoints.XLarge]) {
+        this.topAnimeNumberOfColumn = 4;
+        this.seasonAnimeNumberOfColumn = 4;
+      } else if (result.breakpoints[Breakpoints.Large]) {
+        this.topAnimeNumberOfColumn = 4;
+        this.seasonAnimeNumberOfColumn = 4;
+      } else if (result.breakpoints[Breakpoints.Medium]) {
+        this.topAnimeNumberOfColumn = 3;
+        this.seasonAnimeNumberOfColumn = 3;
+      } else if (result.breakpoints[Breakpoints.Small]) {
+        this.topAnimeNumberOfColumn = 2;
+        this.seasonAnimeNumberOfColumn = 2;
+      } else {
+        this.topAnimeNumberOfColumn = 1;
+        this.seasonAnimeNumberOfColumn = 1;
+      }
+    });
   }
 
   

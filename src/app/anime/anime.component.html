@@ -237,7 +237,7 @@
 			<!-- 
 				Grid display anime info
 			-->
-			<mat-grid-list *ngIf="screen === 0" cols="4" rowHeight="2.7:3">
+			<mat-grid-list *ngIf="screen === 0" cols="{{this.seasonAnimeNumberOfColumn}}" rowHeight="2.7:3">
 				<div *ngFor="let aniList of aniListShow">
 					<mat-grid-tile class="anime-grid-tile" >
 						<mat-card class="anime-card" >
@@ -324,7 +324,7 @@
 
 		<!--TOP ANIME DESKTOP REGION START-->
 		<div *ngIf="!isAniEmpty && isTopAnime">
-			<mat-grid-list *ngIf="screen === 0" cols="4" rowHeight="6:2.5">
+			<mat-grid-list *ngIf="screen === 0" cols="{{this.topAnimeNumberOfColumn}}" rowHeight="6:2.5">
 				<div *ngFor="let aniList of aniTopShow">
 					<mat-grid-tile class="anime-grid-tile" >
 						<mat-card class="anime-card-top" >
