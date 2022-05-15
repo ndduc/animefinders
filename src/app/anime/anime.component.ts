@@ -43,7 +43,6 @@ export class AnimeComponent implements OnInit, AfterViewInit {
   isTopAnime: boolean = false;
   isAniEmpty : boolean = true;
   isConnectionError: boolean = false;
-  // deviceInfo: any;
   screen: number = 0;
   pageSize: any;
   optionSortObject = [{"name": "Select Sort Option", "type": "NOTHING"}, {"name": "Sort By Rate", "type":"RATE"}, {"name": "Sort By Type", "type":"TYPE"}];
@@ -122,23 +121,6 @@ export class AnimeComponent implements OnInit, AfterViewInit {
   private setUpForm(): void {
     this.searchForm.addControl(this.searchName, this.searchControl);
   }
-
-  // screenDetector() {
-  //   this.deviceInfo = this.deviceService.getDeviceInfo();
-  //   const isMobile = this.deviceService.isMobile();
-  //   const isTablet = this.deviceService.isTablet();
-  //   const isDesktopDevice = this.deviceService.isDesktop();
-  //   if(isMobile) {
-  //     // 1 as Mobile
-  //     this.screen = 1;
-  //   } else if (isTablet) {
-  //     // 2 as Tablet Size
-  //     this.screen = 2;
-  //   } else {
-  //     // 0 as Normal Desktop Screen
-  //     this.screen = 0;  
-  //   }
-  // }
 
   clear() {
     this.error = undefined;
