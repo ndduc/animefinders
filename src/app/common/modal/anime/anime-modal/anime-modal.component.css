@@ -7,16 +7,20 @@
 }
 
 .modal-body, .modal-footer {
-    /* margin-left: -50%; */
     width: 100%;
 }
-button, .tag {
-	background-color: #F3A8BC;
+
+.modal-body {
+    height: 100%;
+    display: block;
 }
 
-/* .cdk-overlay-pane.my-dialog {
-    position: relative!important;
-  } */
+button, .tag {
+	background-color: #F3A8BC;
+    color: black;
+}
+
+
 .close {
     background-color: #EDF5E1;
     position: absolute;
@@ -49,7 +53,6 @@ button, .tag {
 }
 
 .anime-container {
-    /* height: 40%; */
     height: 350px;
 }
 
@@ -59,12 +62,12 @@ button, .tag {
     height: 80%;
 }
 
-/* ::ng-deep .mat-chip-list-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    align-items: center;
-  } */
 .anime-modal-body {
     color: black;
 	font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
+.torrent-detail-container {
+    overflow-y: auto;
+    height: 450px;
 }

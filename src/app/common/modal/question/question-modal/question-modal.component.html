@@ -3,7 +3,7 @@
       <div class="modal-body">
         <div class="d-flex justify-content-center">
           <div class="d-flex flex-column">
-            <div class="d-flex justify-content-center" style="text-align: center;">
+            <div class="promp-text d-flex justify-content-center" style="text-align: center;">
               <h2>Notice An Issue? Or Having Any Requests Regarding About The Site. Please Submit The Following Form With Your Concern.</h2>
             </div>
           
@@ -13,16 +13,13 @@
 
 
             <div>
-              <!-- <form class="qa-form"> -->
                 <mat-form-field class="qa-form-field" appearance="fill">
                   <mat-label>Message</mat-label>
                   <input required minlength="4" matInput #message placeholder="Ex. I need help with..." [(ngModel)]="question">
-                  <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint>
+                  <mat-hint><strong>Don't disclose personal info</strong> </mat-hint>
                 </mat-form-field>
-              <!-- </form> -->
             </div>
-            
-            
+
           </div>
         </div>		
       </div>

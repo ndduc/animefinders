@@ -207,7 +207,8 @@ button {
 
 
 .option-sort,::ng-deep .mat-select-value, .paginator-mobile, .button-spring, .button-winter, .button-fall, .button-summer, 
-.search-form, .find-torrent-text, .anime-body p,.anime-body-anime p, .anime-content h2, .anime-header h2,.anime-header h3 {
+.search-form, .find-torrent-text, .anime-body p,.anime-body-anime p, .anime-content h2, .anime-header h2,.anime-header h3, 
+.btn-advance, .tag, .btn-qa-sticky {
 	color: black;
 	font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
