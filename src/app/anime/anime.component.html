@@ -211,11 +211,18 @@
 					</mat-grid-tile>
 				</div>
 			</mat-grid-list>
-			<mat-paginator class="paginator-mobile"  [length]="pageSize"
+			<mat-paginator class="paginator-mobile"  [length]="pageSize" *ngIf="!isMobile"
 			[pageSize]="48"
 			[pageSizeOptions]="[48 , 96]"
 			aria-label="Select page" (page)="onPageChange($event)">
 			</mat-paginator>
+
+			<mat-paginator class="paginator-mobile" *ngIf="isMobile"  [length]="pageSize"
+			[pageSize]="5"
+			[pageSizeOptions]="[5, 10, 25, 100]"
+			aria-label="Select page" (page)="onPageChange($event)">
+			</mat-paginator>
+
 		</div>
 		<!--SEASONAL & SEARCH ANIME DESKTOP REGION END-->	
 
