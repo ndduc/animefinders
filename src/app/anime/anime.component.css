@@ -211,18 +211,33 @@ button {
 
 .option-sort,::ng-deep .mat-select-value, .paginator-mobile, .button-spring, .button-winter, .button-fall, .button-summer, 
 .search-form, .find-torrent-text, .anime-body p,.anime-body-anime p, .anime-content h2, .anime-header h2,.anime-header h3, 
-.btn-advance, .tag, .btn-qa-sticky {
+.btn-advance, .tag, .btn-qa-sticky, .btn-qa-sticky-back-to-top  {
 	color: black;
 	font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
 
-.btn-qa-sticky {
+.question-container {
   position: -webkit-fixed;
   position: fixed;
   bottom: 0;
   left: 0;
-  background-color: #F3872F;
   font-size: 20px;
+  border-radius: 5px; 
+  margin-left: 5px;
+  margin-bottom: 5px;
+
+}
+
+.btn-qa-sticky {
+	background-color: #F3872F;
+}
+
+.btn-qa-sticky-back-to-top {
+	background-color: #B3DAF1;
+}
+
+.btn-qa-sticky, .btn-qa-sticky-back-to-top  {
+	margin-right: 5px;
 }
 
 .torrent-button-grid {
@@ -239,4 +254,20 @@ button {
 
 ::ng-deep .nav-bar-animelist {
 	overflow: auto;
+}
+
+@media (max-width: 400px) {
+
+}
+
+@media (max-width: 1700px) {
+	::ng-deep .mat-chip-list-wrapper {
+		flex-wrap: unset !important;
+		overflow-x: scroll;
+	
+	}
+
+	::ng-deep .tag {
+		height: 40px;
+	} 
 }

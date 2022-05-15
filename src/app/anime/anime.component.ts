@@ -258,7 +258,7 @@ export class AnimeComponent implements OnInit {
         this.isConnectionError = true;
         this.isLoading = false;
         this.isAniEmpty = true;
-        this.strTitle = '';
+        // this.strTitle = '';
       }
     }
     this.clearSort();
@@ -302,7 +302,7 @@ export class AnimeComponent implements OnInit {
         break;
     };
 
-    if(this.screen === 1) {
+    if(this.isMobile) {
       this.aniListShow = this.aniList.slice(0, 5);
     } else {
       this.aniListShow = this.aniList.slice(0, 48);
@@ -320,14 +320,14 @@ export class AnimeComponent implements OnInit {
       this.isAniEmpty = false;
       this.aniList = this.recurRemoveHentai(lst);
       this.isLoading = false;
-      if(this.screen === 1) {
+      if(this.isMobile) {
         this.aniListShow = this.aniList.slice(0, 5);
       } else {
         this.aniListShow = this.aniList.slice(0, 48);
       }
       this.pageSize = this.aniList.length;  
     }
-    this.strTitle = '';
+    // this.strTitle = '';
     this.isTopAnime = false;
   }
 
@@ -344,7 +344,7 @@ export class AnimeComponent implements OnInit {
       this.aniTopShow = this.aniTop;
     }
     this.isTopAnime = true;
-    this.strTitle = '';
+    // this.strTitle = '';
   }
 
   recurRemoveHentai(lst: AniList[]) {
@@ -471,4 +471,12 @@ export class AnimeComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+
+  backToTop(event) {
+    window.scroll({ 
+            top: 0, 
+            left: 0, 
+            behavior: 'smooth' 
+     });
+ }
 }
