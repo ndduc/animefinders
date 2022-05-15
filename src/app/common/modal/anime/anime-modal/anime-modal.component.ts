@@ -29,6 +29,7 @@ export class AnimeModalComponent implements OnInit {
   @Input() animeId;
   // This can either be, aniList, aniTop, etc ..etc
   @Input() aniObject;
+  @Input() isTopAnime;
 
 
   
@@ -57,6 +58,7 @@ export class AnimeModalComponent implements OnInit {
   ngOnInit() {
     this.getAnimeDetail();
     this.breakpointObserverEvent();
+    console.log("TOP\t\t" + this.isTopAnime);
   }
 
   

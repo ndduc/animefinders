@@ -398,6 +398,8 @@ export class AnimeComponent implements OnInit {
     modalRef.componentInstance.type = type;
     modalRef.componentInstance.animeId = animeId;
     modalRef.componentInstance.aniObject = animeObject;
+    modalRef.componentInstance.isTopAnime = this.isTopAnime;
+
   }
 
 

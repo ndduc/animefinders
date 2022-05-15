@@ -122,6 +122,8 @@ button {
 	text-align: center;
 	width: 100%;
 	overflow: auto;
+	margin-left: 5px;
+	margin-right: 5px;
 }
 .anime-bot-top {
 	margin-top: 5%;
