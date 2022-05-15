@@ -260,7 +260,7 @@ button {
 
 }
 
-@media (max-width: 1700px) {
+@media (max-width: 1750px) {
 	::ng-deep .mat-chip-list-wrapper {
 		flex-wrap: unset !important;
 		overflow-x: scroll;
