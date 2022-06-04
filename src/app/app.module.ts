@@ -38,6 +38,7 @@ import { QuestionModalComponent } from './common/modal/question/question-modal/q
 import { HentaiComponent } from './hentai/hentai.component';
 import { ErogeComponent } from './eroge/eroge.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DmcaComponentComponent } from './policy/dmca/dmca-component/dmca-component.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AnimeTorrentHolderCustomComponent,
     QuestionModalComponent,
     HentaiComponent,
-    ErogeComponent
+    ErogeComponent,
+    DmcaComponentComponent
   ],
   imports: [
     BrowserModule,

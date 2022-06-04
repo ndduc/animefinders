@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ViewportScroller } from "@angular/common";
 import { Router } from "@angular/router";
 import { SideBarState } from './side-bar-state.component';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -14,10 +15,10 @@ export class HomeComponent implements OnInit {
   my_name: string = "Duke Ng";
   my_title: string = "(Weeboo Lord)"
 
-  constructor(private scroller: ViewportScroller, private router: Router) {}
+  constructor(private scroller: ViewportScroller, private router: Router, private sanitizer:DomSanitizer) {}
   
   ngOnInit() {
-    this.router.navigate(["/"]);
+    // this.router.navigate(["/"]);
   }
 
   sideBarClick(state: SideBarState) {
@@ -36,6 +37,9 @@ export class HomeComponent implements OnInit {
     this.router.navigate([], { fragment: "targetGreen" });
   }
 
-
-
+  processResume() {
+    var mag = "http://localhost:4200/assets/images/sushi.jpg" ;//magnet.replace('&', '&amp;');
+    return this.sanitizer.bypassSecurityTrustUrl (mag);
+    //return this.transform(mag);
+  }
 }
