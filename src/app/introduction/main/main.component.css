@@ -1,7 +1,7 @@
 body {background-color: #5CDB95;}
-/* ::ng-deep .mat-typography {
-    background-color: #f3b184;
-} */
+::ng-deep .mat-typography {
+    background-color: #5CDB95;
+}
 
 .my-image {
     width: 100%;

@@ -24,7 +24,6 @@ export class AppComponent {
 
   /// Transition Animation
   prepareRoute(outlet: RouterOutlet) {
-    console.log("TEST");
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
   }
 }

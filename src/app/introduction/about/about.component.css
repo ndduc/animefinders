@@ -5,15 +5,20 @@ body {background-color: white;}
 */
 ::ng-deep mgl-timeline-entry .mgl-timeline-entry-card .mgl-timeline-entry-card-header, 
 ::ng-deep mgl-timeline-entry .mgl-timeline-entry-card   {
-    border-radius: 20px;
+    border-radius: 10px;
+}
 
+::ng-deep mgl-timeline-entry .mgl-timeline-entry-card .mgl-timeline-entry-card-header {
+    position: revert !important;
 }
 
 /* 
     This is the divider bar
 */
 ::ng-deep mgl-timeline .mgl-timeline-line {
-    border-radius: 20px;
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+    border-radius: 10px;
     width: 5px !important;
 }
 
@@ -24,11 +29,11 @@ body {background-color: white;}
     /* 
             top px, left px
     */
-    padding: 50px 400px;
+    padding: 50px 65px;
   }
   
 ::ng-deep mgl-timeline.mobile {
-    padding-right: 20px;
+    padding-right: 10px;
 }
 
 /* 
@@ -36,6 +41,7 @@ body {background-color: white;}
 */
 ::ng-deep mgl-timeline-entry .mgl-timeline-entry-card {
     cursor: pointer !important;
+    margin-right: 5px !important;
 }
  
 /* 
@@ -54,6 +60,10 @@ body {background-color: white;}
 ::ng-deep mgl-timeline-entry-side.alternate, ::ng-deep mgl-timeline-entry-side {
     font-size: 40px;
     font-weight: bold;
+    height: 100% !important ;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 ::ng-deep mgl-timeline-entry-side {
@@ -71,3 +81,5 @@ https://openbase.com/js/angular-mgl-timeline
 https://stackblitz.com/edit/angular-mgl-timeline-thqhta?file=theme.scss,app%2Fapp.component.html
 
 */
+
+

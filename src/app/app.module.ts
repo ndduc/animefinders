@@ -43,7 +43,6 @@ import { MainComponent } from './introduction/main/main.component';
 import { AboutComponent } from './introduction/about/about.component';
 import { ProjectIntroComponent } from './introduction/project-intro/project-intro.component';
 import { MglTimelineModule } from 'angular-mgl-timeline';
-import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
