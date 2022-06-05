@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewportScroller } from "@angular/common";
 import { Router } from "@angular/router";
-import { SideBarState } from './side-bar-state.component';
 import { DomSanitizer } from '@angular/platform-browser';
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss', './home.component.css'],
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.css']
 })
 
-export class HomeComponent implements OnInit {
-  sideState = SideBarState;
-  _sideState = SideBarState.INTRO;
+export class MainComponent implements OnInit {
+
   my_name: string = "Duke Ng";
   my_title: string = "(Weeboo Lord)"
 
@@ -24,10 +22,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     // this.router.navigate(["/"]);
   }
-
-  sideBarClick(state: SideBarState) {
-    this._sideState = state;
-  } 
 
   goDown(id) {
     this.scroller.scrollToAnchor(id);

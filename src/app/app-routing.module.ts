@@ -7,6 +7,7 @@ import { ProjectComponent } from './project/project.component';
 import { ConfigComponent } from './config/myaws/config.component';
 import { JikanComponent } from './config/jikan/jikan.component';
 import { DmcaComponentComponent } from './policy/dmca/dmca-component/dmca-component.component';
+import { MainComponent } from './introduction/main/main.component';
 const routes: Routes = [
   {
     path: '',
@@ -16,6 +17,10 @@ const routes: Routes = [
   { 
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path: 'intro',
+    component: MainComponent
   },
   {
     path: 'dmca',

@@ -39,6 +39,9 @@ import { HentaiComponent } from './hentai/hentai.component';
 import { ErogeComponent } from './eroge/eroge.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DmcaComponentComponent } from './policy/dmca/dmca-component/dmca-component.component';
+import { MainComponent } from './introduction/main/main.component';
+import { AboutComponent } from './introduction/about/about.component';
+import { ProjectIntroComponent } from './introduction/project-intro/project-intro.component';
 
 
 @NgModule({
@@ -60,7 +63,10 @@ import { DmcaComponentComponent } from './policy/dmca/dmca-component/dmca-compon
     QuestionModalComponent,
     HentaiComponent,
     ErogeComponent,
-    DmcaComponentComponent
+    DmcaComponentComponent,
+    MainComponent,
+    AboutComponent,
+    ProjectIntroComponent
   ],
   imports: [
     BrowserModule,

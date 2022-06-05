@@ -1,0 +1,71 @@
+body {background-color: #f3b184;}
+/* ::ng-deep .mat-typography {
+    background-color: #f3b184;
+} */
+
+.my-image {
+    width: 100%;
+}
+
+
+.intro-div p b {
+    color: #010101;
+}
+
+.intro-div p {
+    color: #010101;
+}
+
+.main-text-1 {
+    font-size: 40px;
+}
+
+.main-text-2 {
+    font-size: 30px;
+}
+
+.intro-div-parent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.intro-div, .intro-div-contact {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.intro-icon-div {
+    margin-left: 7%;
+}
+
+.intro-div-contact {
+    margin-top: 5%;
+}
+
+.intro-icon-div{
+    margin-top: 1%;
+}
+
+.img-git, .img-link, .img-resume{
+    width: 30px;
+    height: 30px;
+}
+
+.img-email, .img-phone {
+    width: 30px;
+    height: 30px;
+}
+
+.nav-spacer {
+    display:inline-block; 
+    width: 2%;
+}
+
+.sub-text {
+    margin-left: 2%;
+}
+
+
+
+/* https://muffingroup.com/blog/orange-color-palette/ */
