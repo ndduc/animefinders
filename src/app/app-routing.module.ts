@@ -8,6 +8,7 @@ import { ConfigComponent } from './config/myaws/config.component';
 import { JikanComponent } from './config/jikan/jikan.component';
 import { DmcaComponentComponent } from './policy/dmca/dmca-component/dmca-component.component';
 import { MainComponent } from './introduction/main/main.component';
+import { AboutComponent } from './introduction/about/about.component';
 const routes: Routes = [
   {
     path: '',
@@ -20,7 +21,17 @@ const routes: Routes = [
   },
   {
     path: 'intro',
-    component: MainComponent
+    component: MainComponent,
+    data: {
+      animation: 'HomePage'
+    } 
+  },
+  { 
+    path: 'about', 
+    component: AboutComponent,
+    data: {
+      animation: 'AboutPage'
+    } 
   },
   {
     path: 'dmca',
@@ -46,6 +57,7 @@ const routes: Routes = [
     path: 'hentai',
     component: HentaiComponent
   },
+
 ];
 
 @NgModule({

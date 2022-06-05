@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewportScroller } from "@angular/common";
-import { Router } from "@angular/router";
+import { Router, RouterOutlet } from "@angular/router";
 import { DomSanitizer } from '@angular/platform-browser';
+
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -9,12 +11,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 
 export class MainComponent implements OnInit {
-
+  public animationsDisabled = false;
   my_name: string = "Duke Ng";
   my_title: string = "(Weeboo Lord)"
 
-  isHome: boolean = true;
-  isAbout: boolean = false;
+  isHome: boolean = false;
+  isAbout: boolean = true;
   isProject: boolean = false;
 
   constructor(private scroller: ViewportScroller, private router: Router, private sanitizer:DomSanitizer) {}
@@ -22,6 +24,13 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     // this.router.navigate(["/"]);
   }
+
+
+  
+  toggleAnimations() {
+    this.animationsDisabled = !this.animationsDisabled;
+  }
+
 
   goDown(id) {
     this.scroller.scrollToAnchor(id);
@@ -57,7 +66,7 @@ export class MainComponent implements OnInit {
         break;
       default:
         /// this bound back to Home
-        this.isHome = true;
+        this.isHome = false;
         this.isAbout = false;
         this.isProject = false;
         break;

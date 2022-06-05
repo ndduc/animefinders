@@ -42,7 +42,8 @@ import { DmcaComponentComponent } from './policy/dmca/dmca-component/dmca-compon
 import { MainComponent } from './introduction/main/main.component';
 import { AboutComponent } from './introduction/about/about.component';
 import { ProjectIntroComponent } from './introduction/project-intro/project-intro.component';
-
+import { MglTimelineModule } from 'angular-mgl-timeline';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { ProjectIntroComponent } from './introduction/project-intro/project-intr
     MatProgressBarModule,
     MatSidenavModule,
     MatPaginatorModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MglTimelineModule
   ],
   providers: [],
   bootstrap: [AppComponent]
