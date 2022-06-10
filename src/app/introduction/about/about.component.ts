@@ -29,6 +29,7 @@ export class AboutComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    
   }
   
 

@@ -15,4 +15,15 @@ export class IntroNavigatorComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  navigaterToPage(path: string): void {
+    this.router.navigate([path]);
+  }
+
+  navigaterToPageThenReload(path: string): void {
+    this.router.navigate([path])
+    .then(() => {
+      window.location.reload();
+    });
+  }
+
 }
