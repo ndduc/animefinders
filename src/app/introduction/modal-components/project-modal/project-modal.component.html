@@ -1,0 +1,40 @@
+<div class="anime-modal-body">
+    <div>
+      <div class="modal-body">
+        <div class="d-flex justify-content-center flex-column">
+            
+            <div class="title d-flex justify-content-center">
+              <h2>{{this.project.description}}</h2>
+            </div>
+  
+            <div class="chip-container">
+              <mat-chip-list>
+                <mat-chip class="tag">EP: </mat-chip>
+                <mat-chip class="tag">Score: </mat-chip>
+              </mat-chip-list>
+            </div>
+            <div class="anime-container d-flex justify-content-center">
+              
+              <div class="anime-image-modal-container">
+                <img class="anime-image-modal"  src="{{this.project.image_url}}" alt="Photo Content - Error">
+              </div>
+    
+              <div class="anime-div">
+                    {{this.project.long_description}}
+              </div>
+              
+            </div>
+
+            
+            <div class="torrent-detail-container">
+
+
+            </div>
+  
+        </div>		
+      </div>
+      <div class="close">
+        <img class="close-image" src="assets/images/close_icon.png" alt='image' (click)="activeModal.close('Close click')">
+      </div>
+    </div>
+  </div>
