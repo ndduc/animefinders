@@ -43,6 +43,7 @@ import { MainComponent } from './introduction/main/main.component';
 import { AboutComponent } from './introduction/about/about.component';
 import { ProjectIntroComponent } from './introduction/project-intro/project-intro.component';
 import { MglTimelineModule } from 'angular-mgl-timeline';
+import { IntroNavigatorComponent } from './introduction/intro-navigator/intro-navigator.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { MglTimelineModule } from 'angular-mgl-timeline';
     DmcaComponentComponent,
     MainComponent,
     AboutComponent,
-    ProjectIntroComponent
+    ProjectIntroComponent,
+    IntroNavigatorComponent
   ],
   imports: [
     BrowserModule,

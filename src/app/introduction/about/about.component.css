@@ -1,4 +1,7 @@
-body {background-color: white;}
+body {background-color: #5CDB95;}
+::ng-deep .mat-typography {
+    background-color: #5CDB95;
+}
 
 /* 
     This time line entry

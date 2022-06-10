@@ -9,6 +9,7 @@ import { JikanComponent } from './config/jikan/jikan.component';
 import { DmcaComponentComponent } from './policy/dmca/dmca-component/dmca-component.component';
 import { MainComponent } from './introduction/main/main.component';
 import { AboutComponent } from './introduction/about/about.component';
+import { ProjectIntroComponent } from './introduction/project-intro/project-intro.component';
 const routes: Routes = [
   {
     path: '',
@@ -19,6 +20,7 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent
   },
+  //// START INTRODUCTION
   {
     path: 'intro',
     component: MainComponent,
@@ -33,6 +35,14 @@ const routes: Routes = [
       animation: 'AboutPage'
     } 
   },
+  { 
+    path: 'intro-project', 
+    component: ProjectIntroComponent,
+    data: {
+      animation: 'IntroProjectPage'
+    } 
+  },
+  //// END INTRODUCTION
   {
     path: 'dmca',
     component: DmcaComponentComponent

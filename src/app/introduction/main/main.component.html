@@ -1,18 +1,9 @@
 
 
 <div>
-    <mat-toolbar class="nav-bar">
-        <a (click)="clickEvent('HOME')">Home</a>
-        <div class="nav-spacer"></div>
-        <a (click)="clickEvent('ABOUT')">About</a>
-        <div class="nav-spacer"></div>
-        <a (click)="clickEvent('PROJECT')">Projects</a>
-        <div class="nav-spacer"></div>
-        <a (click)="clickEvent('TEST')" id="about" routerLink="/about" routerLinkActive="active">About</a>
+    <app-intro-navigator></app-intro-navigator>
 
-    </mat-toolbar>
-
-    <body *ngIf="isHome" class="d-flex flex-column">
+    <body class="d-flex flex-column">
     <!-- Top Section -->
     <div class="container-xxl intro-container ">
         <div class="row intro-parent">
@@ -60,17 +51,12 @@
     </div>
     </body>
 
-    <body *ngIf="isAbout" class="d-flex flex-column">
-        <div class="container-xxl intro-container">
-            <app-about></app-about>
-        </div>
-    </body>
 
-    <body *ngIf="isProject" class="d-flex flex-column">
+    <!-- <body *ngIf="isProject" class="d-flex flex-column">
         <div class="container-xxl intro-container">
             <app-project-intro></app-project-intro>
         </div>
-    </body>
+    </body> -->
 
       
 </div>
