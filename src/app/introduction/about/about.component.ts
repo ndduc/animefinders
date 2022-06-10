@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { trigger, transition, state, animate, style, AnimationEvent, AUTO_STYLE } from '@angular/animations';
 import { AfterViewInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 const DEFAULT_DURATION = 1200;
 
@@ -22,17 +23,41 @@ export class AboutComponent implements OnInit, AfterViewInit {
   isDisabled = false;
   isCollapse = true;
 
-  constructor() { }
+  numberOfGrid: number = 8;
+  constructor( private breakpointObserver: BreakpointObserver) { }
 
   ngAfterViewInit(): void {
     this.isCollapse = false;
   }
 
   ngOnInit(): void {
-    
+    this.breakpointEvent();
   }
+
+  breakpointEvent(): void {
+    this.breakpointObserver.observe([
+      Breakpoints.XSmall,
+      Breakpoints.Small,
+      Breakpoints.Medium,
+      Breakpoints.Large,
+      Breakpoints.XLarge
+    ]).subscribe(result => {
+      if (result.breakpoints[Breakpoints.XLarge]) {
+        this.numberOfGrid = 8;
+      } else if (result.breakpoints[Breakpoints.Large]) {
+        this.numberOfGrid = 8;
+      } else if (result.breakpoints[Breakpoints.Medium]) {
+        this.numberOfGrid = 4;
+      } else if (result.breakpoints[Breakpoints.Small]) {
+        this.numberOfGrid = 4;
+      } else {
+        this.numberOfGrid = 4;
+      }
+    });
+  }
+}
   
 
 
 
-}
+

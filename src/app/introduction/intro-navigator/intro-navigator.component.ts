@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ViewportScroller } from "@angular/common";
 import { Router, RouterOutlet } from "@angular/router";
 import { DomSanitizer } from '@angular/platform-browser';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-intro-navigator',
@@ -21,7 +22,8 @@ export class IntroNavigatorComponent implements OnInit {
 
   navigaterToPageThenReload(path: string): void {
     this.router.navigate([path])
-    .then(() => {
+    .then(async () => {
+      await delay(1000);
       window.location.reload();
     });
   }

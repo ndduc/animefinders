@@ -2,7 +2,7 @@
     <app-intro-navigator></app-intro-navigator>
 
     <div>
-        <mat-grid-list cols="4" rowHeight="2.7:3">
+        <mat-grid-list cols="{{this.numberOfGrid}}" rowHeight="2.7:3">
             <div *ngFor="let item of projectList">
                 <mat-grid-tile class="anime-grid-tile" >
                     <mat-card class="anime-card" >

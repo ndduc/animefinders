@@ -87,7 +87,7 @@
                     <div class="container-animate container-education-detail" data-aos="fade-down-left">
                         <mat-card>
                             <div class="row">
-                                <div class="col-2">
+                                <div class="col-2 summary-image-container">
                                     <img class="img-education" src="assets/images/icon_gf.jpg" alt="Err">
                                 </div>
                                 <div class="col-7">
@@ -108,7 +108,7 @@
                     <div class="container-animate spacer container-education-detail" data-aos="fade-down-left">
                         <mat-card>
                             <div class="row">
-                                <div class="col-2">
+                                <div class="col-2 summary-image-container">
                                     <img class="img-education" src="assets/images/icon_embry.jpg" alt="Err">
                                 </div>
                                 <div class="col-7">
@@ -129,7 +129,7 @@
                     <div class="container-animate spacer container-education-detail" data-aos="fade-down-left">
                         <mat-card>
                             <div class="row">
-                                <div class="col-2">
+                                <div class="col-2 summary-image-container">
                                     <img class="img-education" src="assets/images/icon_softpoint.jpg" alt="Err">
                                 </div>
                                 <div class="col-7">
@@ -150,7 +150,7 @@
                     <div class="container-animate spacer container-education-detail" data-aos="fade-down-left">
                         <mat-card>
                             <div class="row">
-                                <div class="col-2">
+                                <div class="col-2 summary-image-container">
                                     <img class="img-education" src="assets/images/icon_leelee.jpg" alt="Err">
                                 </div>
                                 <div class="col-7">
@@ -180,7 +180,7 @@
                     <div class="container-animate container-education-detail" data-aos="fade-down-left">
                         <mat-card>
                             <div class="row">
-                                <div class="col-2">
+                                <div class="col-2 summary-image-container">
                                     <img class="img-education" src="assets/images/icon_asu.jpg" alt="Err">
                                 </div>
                                 <div class="col-7">
@@ -201,7 +201,7 @@
                     <div class="container-animate spacer container-education-detail" data-aos="fade-down-left">
                         <mat-card>
                             <div class="row">
-                                <div class="col-2">
+                                <div class="col-2 summary-image-container">
                                     <img class="img-education" src="assets/images/icon_mcc.jpg" alt="Err">
                                 </div>
                                 <div class="col-7">
@@ -222,7 +222,7 @@
                     <div class="container-animate spacer container-education-detail" data-aos="fade-down-left">
                         <mat-card>
                             <div class="row">
-                                <div class="col-2">
+                                <div class="col-2 summary-image-container">
                                     <img class="img-education" src="assets/images/icon_dobson.jpg" alt="Err">
                                 </div>
                                 <div class="col-7">
@@ -257,7 +257,7 @@
                 </div>
                 <div class="stack-container d-flex flex-column">
                     <div class="" data-aos="fade-down-left">
-                        <mat-grid-list cols="8" rowHeight="2:2">
+                        <mat-grid-list cols="{{this.numberOfGrid}}" rowHeight="2:2">
                             <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
                             data-aos-easing="ease-out-cubic"
                             data-aos-duration="2000">
@@ -324,7 +324,7 @@
                 </div>
                 <div class="stack-container d-flex flex-column">
                     <div class="" data-aos="fade-down-left">
-                        <mat-grid-list cols="8" rowHeight="2:2">
+                        <mat-grid-list cols="{{this.numberOfGrid}}" rowHeight="2:2">
                             <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
                             data-aos-easing="ease-out-cubic"
                             data-aos-duration="2000">
@@ -360,7 +360,7 @@
                 </div>
                 <div class="stack-container d-flex flex-column">
                     <div class="" data-aos="fade-down-left">
-                        <mat-grid-list cols="8" rowHeight="2:2">
+                        <mat-grid-list cols="{{this.numberOfGrid}}" rowHeight="2:2">
                             <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
                             data-aos-easing="ease-out-cubic"
                             data-aos-duration="2000">
@@ -396,7 +396,7 @@
                             data-aos-easing="ease-out-cubic"
                             data-aos-duration="2000">
                                     <img class="image-stack" src="assets/images/icon-dynamodb.jpg" alt="Err">
-                                    <div>AWS DynamoDb</div>
+                                    <div>DynamoDb</div>
                             </mat-grid-tile>
                         </mat-grid-list>
 
@@ -409,7 +409,7 @@
                 </div>
                 <div class="stack-container d-flex flex-column">
                     <div class="" data-aos="fade-down-left">
-                        <mat-grid-list cols="8" rowHeight="2:2">
+                        <mat-grid-list cols="{{this.numberOfGrid}}" rowHeight="2:2">
                             <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
                             data-aos-easing="ease-out-cubic"
                             data-aos-duration="2000">
@@ -479,7 +479,7 @@
                 </div>
                 <div class="stack-container d-flex flex-column">
                     <div class="" data-aos="fade-down-left">
-                        <mat-grid-list cols="8" rowHeight="2:2">
+                        <mat-grid-list cols="{{this.numberOfGrid}}" rowHeight="2:2">
                             <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
                             data-aos-easing="ease-out-cubic"
                             data-aos-duration="2000">
@@ -509,4 +509,3 @@
         </div>
     </body>
 </div>
-

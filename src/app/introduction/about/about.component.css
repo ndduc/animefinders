@@ -138,7 +138,7 @@ body {
 }
 
 .img-education {
-    width: 55px;
+    width: 75px;
     border-radius: 50px;
 }
 
@@ -184,6 +184,63 @@ body {
 ::ng-deep .mat-card {
     max-width: 700px;
 }
+
+.summary-image-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+@media (max-width: 1000px) {
+    .timeline-intro {
+        float: none;
+        position: relative;
+        width: 100%;
+        right: auto;
+        top: auto;
+        text-align: center;
+        margin-top: 2%;
+        margin-bottom: 2%;
+    }
+
+    .container-animate {
+        margin: auto;
+        margin-top: 1%;
+        margin-left: 2%;
+        margin-right: 2%;
+        font-weight: normal;
+        font-size: 14px;
+        width: 96%;
+    }
+
+    .img-education {
+        width: 45px;
+        border-radius: 2px;
+    }
+    
+    .stack-container {
+        margin-left: 2%;
+        font-size: 12px;
+    }
+
+    ::ng-deep .mat-grid-tile-content {
+        display: flex !important;
+        flex-direction: column !important;
+        background-color: #424242;
+        width: 80px !important;
+        height: 80px !important;
+        color: white;
+        border-radius: 5px !important;
+    }
+    
+    .image-stack {
+        height: 50px;
+        width: 50px;
+        border-radius: 5px;
+        text-align: center;
+    }
+}
+
 /* 
 https://openbase.com/js/angular-mgl-timeline
 https://stackblitz.com/edit/angular-mgl-timeline-thqhta?file=theme.scss,app%2Fapp.component.html
