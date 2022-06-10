@@ -10,6 +10,7 @@ import {
 
 import { slideInAnimation } from 'src/app/animation/slice-animation';
 import { RouterOutlet } from '@angular/router';
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-root',
@@ -21,9 +22,17 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'ani-hook';
+  constructor() {
+    console.log(AOS);
+  }
+
+  ngOnInit() {
+    AOS.init();
+  }
 
   /// Transition Animation
   prepareRoute(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
   }
+
 }

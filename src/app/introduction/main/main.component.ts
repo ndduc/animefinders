@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ViewportScroller } from "@angular/common";
 import { Router, RouterOutlet } from "@angular/router";
 import { DomSanitizer } from '@angular/platform-browser';
-
-
+import { AfterViewInit } from '@angular/core';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -13,11 +12,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class MainComponent implements OnInit {
   public animationsDisabled = false;
 
-  constructor(private scroller: ViewportScroller, private router: Router, private sanitizer:DomSanitizer) {}
+  constructor(private scroller: ViewportScroller, private router: Router, private sanitizer:DomSanitizer) {
+
+  }
   
   ngOnInit() {
-    // this.router.navigate(["/"]);
   }
+
 
 
   
