@@ -1,12 +1,15 @@
 <router-outlet></router-outlet>
+<app-navigator></app-navigator>
+
+<div *ngIf="isLoading" class="d-flex justify-content-center">
+	<img style="width: 30%; height: 30%;" class="" src="assets/images/loading-cute.gif" alt="Err">
+</div>
+
 
 <div class="anime-body-container">
 	<!-- 
 		If Loading display a GIF object, otherwise display whatever the app suppose to display
 	-->
-	<div *ngIf="isLoading" style="text-align:center;">
-		<img style="width: 30%; height: 30%;" class="" src="assets/images/loading-cute.gif" alt="Err">
-	</div>
 
 	<body class="container-xxl">
 
@@ -220,7 +223,6 @@
 
 			<mat-paginator class="paginator-mobile" *ngIf="isMobile"  [length]="pageSize"
 			[pageSize]="5"
-			[pageSizeOptions]="[5, 10, 25, 100]"
 			aria-label="Select page" (page)="onPageChange($event)">
 			</mat-paginator>
 
@@ -229,7 +231,7 @@
 
 		<!--TOP ANIME DESKTOP REGION START-->
 		<div *ngIf="!isAniEmpty && isTopAnime">
-			<mat-grid-list cols="{{this.topAnimeNumberOfColumn}}" rowHeight="6:2.5">
+			<mat-grid-list cols="{{this.topAnimeNumberOfColumn}}" rowHeight="6:3">
 				<div *ngFor="let aniList of aniTopShow">
 					<mat-grid-tile class="anime-grid-tile" >
 						<mat-card class="anime-card-top" >
@@ -267,7 +269,6 @@
 			<!-- The Paginator here is fucking broken, fix needed -->
 			<mat-paginator class="paginator-mobile" *ngIf="isTopAnime"  [length]="100"
 			[pageSize]="1"
-			[pageSizeOptions]="[1]"
 			aria-label="Select page" (page)="topAnimeOnPageChange($event)">
 			</mat-paginator>
 	
@@ -295,9 +296,19 @@
 
 	</body>
 
-	<div class ="question-container">
+	<div *ngIf="!isMobile" class ="question-container">
 		<button mat-flat-button class="btn-qa-sticky" (click)="openQAModal(); ">Question/Comment</button>
-		<button *ngIf="!isMobile" mat-flat-button class="btn-qa-sticky-back-to-top" (click)="backToTop($event); ">Back To Top</button>
+		<button mat-flat-button class="btn-qa-sticky-back-to-top" (click)="backToTop($event); ">Back To Top</button>
 	</div>
+
+	<div *ngIf="isMobile"  class ="question-container-mobile">
+		<div class="d-flex flex-column">
+			<button mat-flat-button class="btn-qa-sticky-mobile" (click)="openQAModal(); ">Question</button>
+			<button mat-flat-button class="btn-qa-sticky-back-to-top-mobile" (click)="backToTop($event); ">Top</button>
+		</div>
+
+	</div>
+
+
 
 </div>

@@ -6,7 +6,9 @@
         <!-- <a routerLink="/home" routerLinkActive="active">Home</a> 
         <a routerLink="/anime" routerLinkActive="active">Anime</a>  -->
 
-        <router-outlet></router-outlet>
+        <div [@routeAnimations]="prepareRoute(outlet)">
+                <router-outlet #outlet="outlet"></router-outlet>
+        </div>
 
 
 

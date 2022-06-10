@@ -38,7 +38,12 @@ import { QuestionModalComponent } from './common/modal/question/question-modal/q
 import { HentaiComponent } from './hentai/hentai.component';
 import { ErogeComponent } from './eroge/eroge.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { DmcaComponentComponent } from './policy/dmca/dmca-component/dmca-component.component';
+import { MainComponent } from './introduction/main/main.component';
+import { AboutComponent } from './introduction/about/about.component';
+import { ProjectIntroComponent } from './introduction/project-intro/project-intro.component';
+import { MglTimelineModule } from 'angular-mgl-timeline';
+import { IntroNavigatorComponent } from './introduction/intro-navigator/intro-navigator.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +63,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     AnimeTorrentHolderCustomComponent,
     QuestionModalComponent,
     HentaiComponent,
-    ErogeComponent
+    ErogeComponent,
+    DmcaComponentComponent,
+    MainComponent,
+    AboutComponent,
+    ProjectIntroComponent,
+    IntroNavigatorComponent
   ],
   imports: [
     BrowserModule,
@@ -82,11 +92,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatProgressBarModule,
     MatSidenavModule,
     MatPaginatorModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MglTimelineModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { 
-  
+
 }

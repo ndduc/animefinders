@@ -1,0 +1,152 @@
+body {
+    font-family: Helvetica,Tahoma;
+    background-color: #5CDB95;
+}
+::ng-deep .mat-typography {
+    background-color: #5CDB95;
+}
+
+/* 
+    This time line entry
+*/
+::ng-deep mgl-timeline-entry .mgl-timeline-entry-card .mgl-timeline-entry-card-header, 
+::ng-deep mgl-timeline-entry .mgl-timeline-entry-card   {
+    border-radius: 10px;
+}
+
+::ng-deep mgl-timeline-entry .mgl-timeline-entry-card .mgl-timeline-entry-card-header {
+    position: revert !important;
+}
+
+.timeline-intro {
+    float: right;
+    background-color: transparent;
+    width: 25%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 10%;
+    top: 45%;
+    margin: auto;
+    font-weight: normal;
+    font-size: 40px;
+}
+
+.container-animate, .container-animate-title  {
+    float: left;
+    background-color: transparent;
+    margin: auto;
+    font-weight: normal;
+    font-size: 40px;
+    width: 70%;
+}
+
+.container-animate-title {
+    margin-left: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.container-animate {
+    margin-left: 10%;
+    width: 60%;
+}
+/* 
+    This is the divider bar
+*/
+::ng-deep mgl-timeline .mgl-timeline-line {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+    border-radius: 10px;
+    width: 5px !important;
+}
+
+/* 
+    Side Margin 
+*/
+::ng-deep mgl-timeline:not(.mobile) {
+    /* 
+            top px, left px
+    */
+    padding: 50px 65px;
+  }
+  
+::ng-deep mgl-timeline.mobile {
+    padding-right: 10px;
+}
+
+/* 
+    Content
+*/
+::ng-deep mgl-timeline-entry .mgl-timeline-entry-card {
+    cursor: pointer !important;
+    margin-right: 5px !important;
+}
+ 
+/* 
+    Entry Dot and its shape after evented
+*/
+
+::ng-deep mgl-timeline-entry-dot.primary {
+    cursor: pointer !important;
+    background-color: #379683;
+    border-radius: 10px !important; 
+}
+
+/* 
+    Selelectr such as YEAR
+*/
+::ng-deep mgl-timeline-entry-side.alternate, ::ng-deep mgl-timeline-entry-side {
+    font-size: 40px;
+    font-weight: bold;
+    height: 100% !important ;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+::ng-deep mgl-timeline-entry-side {
+   text-align: left !important;
+   padding-left: 5% !important;
+}
+
+::ng-deep mgl-timeline-entry-side.alternate {
+   text-align: right !important;
+   padding-right: 5% !important;
+}
+
+.section-title {
+    margin-top: 5%;
+    text-align: center;
+    color: black;
+    text-transform: uppercase;
+    font-weight: normal;
+    padding: 30px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    width: 100%;
+    clear: both;
+    font-size: 40px;
+}
+
+.spacer {
+    margin-top: 10px;
+}
+
+.img-education {
+    width: 55px;
+    border-radius: 50px;
+}
+
+.container-education-detail {
+    font-size: 20px;
+}
+/* 
+https://openbase.com/js/angular-mgl-timeline
+https://stackblitz.com/edit/angular-mgl-timeline-thqhta?file=theme.scss,app%2Fapp.component.html
+
+*/
+
+

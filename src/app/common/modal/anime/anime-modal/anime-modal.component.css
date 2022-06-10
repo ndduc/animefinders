@@ -36,35 +36,52 @@ button, .tag {
     width: 60%;
 }
 
-
-.anime-image, .anime-div {
+/* 
+.anime-div {
     margin-top: 5%;
     margin-bottom: 5%;
-}
+} */
 
 .anime-div {
-    overflow: hidden;
     width: 50%;
+    /* height: 80%; */
+    margin-left: 5px;
+    margin-right: 5px; 
 }
 
-.anime-image {
+.anime-image-modal {
     border-radius: 15px;
-    margin: 2%;
+    height: 100%;
+}
+
+.anime-image-modal-container {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+}
+
+.chip-container {
+    display: flex;
+    justify-content: center;
 }
 
 .anime-container {
-    height: 350px;
+    margin-top: 5%;
+    overflow: auto;
+    height: 300px;
+    /* height: 350px; */
 }
-
+/* 
 .anime-div-description {
-    margin-top: 10%;
     overflow-x: auto;
     height: 80%;
-}
+    margin-left: 5px;
+    margin-right: 5px;
+} */
 
 .anime-modal-body {
     color: black;
-	font-family: "Comic Sans MS", "Comic Sans", cursive;
+	/* font-family: "Comic Sans MS", "Comic Sans", cursive; */
 }
 
 ::ng-deep .modal-content {

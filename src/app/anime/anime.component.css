@@ -122,6 +122,8 @@ button {
 	text-align: center;
 	width: 100%;
 	overflow: auto;
+	margin-left: 5px;
+	margin-right: 5px;
 }
 .anime-bot-top {
 	margin-top: 5%;
@@ -153,6 +155,7 @@ button {
 }
 
 .anime-image {
+	width: 50%;
 	border-radius: 15px;
 	border-style: outset;
 }
@@ -213,31 +216,47 @@ button {
 .search-form, .find-torrent-text, .anime-body p,.anime-body-anime p, .anime-content h2, .anime-header h2,.anime-header h3, 
 .btn-advance, .tag, .btn-qa-sticky, .btn-qa-sticky-back-to-top  {
 	color: black;
-	font-family: "Comic Sans MS", "Comic Sans", cursive;
+	/* font-family: "Comic Sans MS", "Comic Sans", cursive; */
 }
 
-.question-container {
+.question-container, .question-container-mobile {
   position: -webkit-fixed;
   position: fixed;
   bottom: 0;
-  left: 0;
   font-size: 20px;
   border-radius: 5px; 
   margin-left: 5px;
   margin-bottom: 5px;
-
 }
 
-.btn-qa-sticky {
+.question-container {
+	left: 0;
+}
+
+.question-container-mobile {
+	margin-bottom: 50px;
+	right: 0;
+}
+
+.btn-qa-sticky, .btn-qa-sticky-mobile {
 	background-color: #F3872F;
 }
 
-.btn-qa-sticky-back-to-top {
+.btn-qa-sticky-back-to-top, .btn-qa-sticky-back-to-top-mobile {
 	background-color: #B3DAF1;
 }
 
-.btn-qa-sticky, .btn-qa-sticky-back-to-top  {
+.btn-qa-sticky, .btn-qa-sticky-back-to-top, .btn-qa-sticky-mobile, .btn-qa-sticky-back-to-top-mobile  {
 	margin-right: 5px;
+}
+
+.btn-qa-sticky-back-to-top-mobile {
+	margin-top: 2px;
+}
+
+.btn-qa-sticky-mobile, .btn-qa-sticky-back-to-top-mobile {
+	width: 100px;
+	text-align: center;
 }
 
 .torrent-button-grid {
@@ -260,7 +279,7 @@ button {
 
 }
 
-@media (max-width: 1700px) {
+@media (max-width: 1750px) {
 	::ng-deep .mat-chip-list-wrapper {
 		flex-wrap: unset !important;
 		overflow-x: scroll;

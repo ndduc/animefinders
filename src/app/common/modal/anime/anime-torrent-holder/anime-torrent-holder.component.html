@@ -33,19 +33,22 @@
                   <mat-expansion-panel-header class="text-torrent-exp-parent">
           
                       <mat-panel-title class="text-torrent-exp-child row">
-                        <div class="col-8" style="font-size: 10px;">
-                          {{item["name"]}}
+                        <div class="col-8">
+                          {{item["name"]}} 
                           <!-- {{this.stringValidation(item["name"].replace('1080p','').replace('60fps','')
                           .replace('x265','').replace('10bit','').replace(' ',''))}} -->
                         </div>
-                        <div class="col-4" style="text-align: end;">
-                          <div class="row justify-content-end">
+                        <div class="col-4" style="text-align: start;">
+                          <div class="row justify-content-start">
                             <div class="col-4">{{item["size"].replace(' ', '').replace('i', '')}}</div>
                             <div class="col-4"></div>
                           </div>
-                          <div class="row justify-content-end">
-                            <div class="col-4" style="text-align: end; color: blue;">S:{{item["seeders"]}}</div>
-                            <div class="col-4" style="text-align: end; color: red;">L:{{item["leechers"]}}</div>
+                          <div class="row justify-content-start">
+                            <div class="col-4" style="text-align: start; color: blue;">S:{{item["seeders"]}}</div>
+                          </div>
+
+                          <div class="row justify-content-start">
+                            <div class="col-4" style="text-align: start; color: red;">L:{{item["leechers"]}}</div>
                           </div>
             
                         </div>
@@ -62,10 +65,10 @@
                     <div>
                       {{this.itemCategoryRound}}
                     </div>
-                    <div class="d-flex justify-content-center">
-                      <div class="torrent-div-item-2">{{ "Leed: " + item["leechers"]}}</div>
-                      <div class="torrent-div-item-2">{{ "Seed: " + item["seeders"]}}</div>
-                      <div class="torrent-div-item-2">{{ "Size: " + item["size"]}}</div>
+                    <div class="d-flex justify-content-start flex-column">
+                      <div class="torrent-div-item-2">{{ "Category: " + item["category"]}}</div>
+                      <div class="torrent-div-item-2">{{ "Completed Downloads: " + item["completed_downloads"]}}</div>
+                      <div class="torrent-div-item-2">{{ "Date: " + item["date"]}}</div>
                     </div>
                     <div class="d-flex justify-content-center">
                       <a href='{{getDownloadLink(item["download_url"])}}' target="_self" rel="torrent" download>
