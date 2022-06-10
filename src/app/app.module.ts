@@ -44,6 +44,7 @@ import { AboutComponent } from './introduction/about/about.component';
 import { ProjectIntroComponent } from './introduction/project-intro/project-intro.component';
 import { MglTimelineModule } from 'angular-mgl-timeline';
 import { IntroNavigatorComponent } from './introduction/intro-navigator/intro-navigator.component';
+import { ProjectModalComponent } from './introduction/modal-components/project-modal/project-modal.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { IntroNavigatorComponent } from './introduction/intro-navigator/intro-na
     MainComponent,
     AboutComponent,
     ProjectIntroComponent,
-    IntroNavigatorComponent
+    IntroNavigatorComponent,
+    ProjectModalComponent
   ],
   imports: [
     BrowserModule,

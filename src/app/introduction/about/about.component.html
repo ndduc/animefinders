@@ -1,49 +1,56 @@
 <div>
     <app-intro-navigator></app-intro-navigator>
+
     <body class>
         <div class="d-flex flex-column">
             <div class="container-xxl intro-container">
-                <div class="timeline-intro" data-aos="fade-up">
-                    Welcome To My Timeline
+                <div class="timeline-intro d-flex flex-column" >
+                    <div class="timeline-text" data-aos="fade-down">Welcome To My Timeline</div>
+                    <div data-aos="fade-up" class="scroll-down-timeline" (click)="scroll(summarySection)">
+                        <div >Scroll Down</div>
+                        <img class="img-chev" src="assets/images/chevron_down_1.gif" alt="Err">
+
+                    </div>
                 </div>
 
                 <mgl-timeline  [alternate]="false">
-                    <mgl-timeline-entry>
-                        <mgl-timeline-entry-header  class="collapsible" >Started working as assisstant manager at Lee Lee Int. Market</mgl-timeline-entry-header>
+                    <mgl-timeline-entry data-aos="flip-left">
+                        <!-- [@collapse]="isCollapse" -->
+                        <mgl-timeline-entry-header  class="collapsible"  >Started working as assisstant manager at Lee Lee Int. Market</mgl-timeline-entry-header>
                         <mgl-timeline-entry-content>Content</mgl-timeline-entry-content>
                         <mgl-timeline-entry-side>2011</mgl-timeline-entry-side>
                         <mgl-timeline-entry-dot [size]="10"  >
                         </mgl-timeline-entry-dot>
                     </mgl-timeline-entry>
-                    <mgl-timeline-entry>
-                        <mgl-timeline-entry-header class="collapsible" >Finished high school degree</mgl-timeline-entry-header>
+                    <mgl-timeline-entry  data-aos="flip-left" >
+                        <mgl-timeline-entry-header class="collapsible">Finished high school degree</mgl-timeline-entry-header>
                         <mgl-timeline-entry-content>Content</mgl-timeline-entry-content>
                         <mgl-timeline-entry-side>2014</mgl-timeline-entry-side>
                         <mgl-timeline-entry-dot [size]="10">
                         </mgl-timeline-entry-dot>
                     </mgl-timeline-entry>
-                    <mgl-timeline-entry>
+                    <mgl-timeline-entry data-aos="flip-left">
                         <mgl-timeline-entry-header class="collapsible" >Fishined associate degree in Computer Programming and Started working as Price Analyst for Lee Lee Int. Market</mgl-timeline-entry-header>
                         <mgl-timeline-entry-content>Content</mgl-timeline-entry-content>
                         <mgl-timeline-entry-side>2017</mgl-timeline-entry-side>
                         <mgl-timeline-entry-dot [size]="10">
                         </mgl-timeline-entry-dot>
                     </mgl-timeline-entry>
-                    <mgl-timeline-entry>
+                    <mgl-timeline-entry data-aos="flip-left">
                         <mgl-timeline-entry-header class="collapsible" >Started B.S. program in ASU and Worted as Applicateion Developr for Lee Lee Int. Market</mgl-timeline-entry-header>
                         <mgl-timeline-entry-content>Created alter. POS for the Lee Lee, utilized my experience as a long time employee in which I created Java blah...</mgl-timeline-entry-content>
                         <mgl-timeline-entry-side>2018</mgl-timeline-entry-side>
                         <mgl-timeline-entry-dot [size]="10">
                         </mgl-timeline-entry-dot>
                     </mgl-timeline-entry>
-                    <mgl-timeline-entry>
+                    <mgl-timeline-entry data-aos="flip-left">
                         <mgl-timeline-entry-header class="collapsible"  >Joined Software developer Intership program at Softpoint LLC and Stepped down to Software support for Lee Lee </mgl-timeline-entry-header>
                         <mgl-timeline-entry-content>blah...</mgl-timeline-entry-content>
                         <mgl-timeline-entry-side>June-2020</mgl-timeline-entry-side>
                         <mgl-timeline-entry-dot [size]="10">
                         </mgl-timeline-entry-dot>
                     </mgl-timeline-entry>
-                    <mgl-timeline-entry>
+                    <mgl-timeline-entry data-aos="flip-left">
                         <mgl-timeline-entry-header class="collapsible"  >Promoted to Full Stack Developer at Softpoint LLC</mgl-timeline-entry-header>
                         <mgl-timeline-entry-content>
                             <div>blah...blah...</div>
@@ -55,14 +62,14 @@
                         <mgl-timeline-entry-dot [size]="10">
                         </mgl-timeline-entry-dot>
                     </mgl-timeline-entry>
-                    <mgl-timeline-entry>
+                    <mgl-timeline-entry data-aos="flip-left">
                         <mgl-timeline-entry-header class="collapsible" >Joined Embry Health as Software Engineer</mgl-timeline-entry-header>
                         <mgl-timeline-entry-content>blah...</mgl-timeline-entry-content>
                         <mgl-timeline-entry-side>NOV-2020</mgl-timeline-entry-side>
                         <mgl-timeline-entry-dot [size]="10">
                         </mgl-timeline-entry-dot>
                     </mgl-timeline-entry>
-                    <mgl-timeline-entry>
+                    <mgl-timeline-entry data-aos="flip-left">
                         <mgl-timeline-entry-header class="collapsible" >Earn B.S. degree and Joined Gearfire as Software Engineer</mgl-timeline-entry-header>
                         <mgl-timeline-entry-content>blah...</mgl-timeline-entry-content>
                         <mgl-timeline-entry-side>2021</mgl-timeline-entry-side>
@@ -73,171 +80,438 @@
             </div>
             
 
-            <section class="section">
+            <section #summarySection class="section">
                 <div class="container d-flex flex-column">
                     <h2 class="section-title"> Summary </h2>
                 </div>
 
-                <div class="container-animate-title" data-aos="fade-down-left">
+                <div class="container-animate-title" data-aos="zoom-in">
                     Work History
                 </div>
 
-
-                <div class="container-animate container-education-detail" data-aos="fade-down-left">
-                    <mat-card>
-                        <div class="row">
-                            <div class="col-2">
-                                <img class="img-education" src="assets/images/icon_gf.jpg" alt="Err">
+                <div  class="container-animate-detail-parent d-flex flex-column">
+                    <div class="container-animate container-education-detail" data-aos="fade-down-left">
+                        <mat-card>
+                            <div class="row">
+                                <div class="col-2 summary-image-container">
+                                    <img class="img-education" src="assets/images/icon_gf.jpg" alt="Err">
+                                </div>
+                                <div class="col-7">
+                                    <div>
+                                        Gearfire
+                                    </div>
+                                    <div>
+                                        Software Engineer
+                                    </div>
+                                    <div>
+                                        2018 - 2021
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-7">
-                                <div>
-                                    Gearfire
+                        </mat-card>
+                    </div>
+    
+                    <div class="container-animate spacer container-education-detail" data-aos="fade-down-left">
+                        <mat-card>
+                            <div class="row">
+                                <div class="col-2 summary-image-container">
+                                    <img class="img-education" src="assets/images/icon_embry.jpg" alt="Err">
                                 </div>
-                                <div>
-                                    Software Engineer
-                                </div>
-                                <div>
-                                    2018 - 2021
+                                <div class="col-7">
+                                    <div>
+                                        Embry Health
+                                    </div>
+                                    <div>
+                                        Software Engineer
+                                    </div>
+                                    <div>
+                                        2018 - 2021
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </mat-card>
+                        </mat-card>
+                    </div>
+    
+                    <div class="container-animate spacer container-education-detail" data-aos="fade-down-left">
+                        <mat-card>
+                            <div class="row">
+                                <div class="col-2 summary-image-container">
+                                    <img class="img-education" src="assets/images/icon_softpoint.jpg" alt="Err">
+                                </div>
+                                <div class="col-7">
+                                    <div>
+                                        Soft Point
+                                    </div>
+                                    <div>
+                                        Full Stack Developer
+                                    </div>
+                                    <div>
+                                        2018 - 2021
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+    
+                    <div class="container-animate spacer container-education-detail" data-aos="fade-down-left">
+                        <mat-card>
+                            <div class="row">
+                                <div class="col-2 summary-image-container">
+                                    <img class="img-education" src="assets/images/icon_leelee.jpg" alt="Err">
+                                </div>
+                                <div class="col-7">
+                                    <div>
+                                        Lee Lee International Market
+                                    </div>
+                                    <div>
+                                        Application Developer
+                                    </div>
+                                    <div>
+                                        2018 - 2021
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+    
+                    
                 </div>
+                
 
-                <div class="container-animate spacer container-education-detail" data-aos="fade-down-left">
-                    <mat-card>
-                        <div class="row">
-                            <div class="col-2">
-                                <img class="img-education" src="assets/images/icon_embry.jpg" alt="Err">
-                            </div>
-                            <div class="col-7">
-                                <div>
-                                    Embry Health
-                                </div>
-                                <div>
-                                    Software Engineer
-                                </div>
-                                <div>
-                                    2018 - 2021
-                                </div>
-                            </div>
-                        </div>
-                    </mat-card>
-                </div>
-
-                <div class="container-animate spacer container-education-detail" data-aos="fade-down-left">
-                    <mat-card>
-                        <div class="row">
-                            <div class="col-2">
-                                <img class="img-education" src="assets/images/icon_softpoint.jpg" alt="Err">
-                            </div>
-                            <div class="col-7">
-                                <div>
-                                    Soft Point
-                                </div>
-                                <div>
-                                    Full Stack Developer
-                                </div>
-                                <div>
-                                    2018 - 2021
-                                </div>
-                            </div>
-                        </div>
-                    </mat-card>
-                </div>
-
-                <div class="container-animate spacer container-education-detail" data-aos="fade-down-left">
-                    <mat-card>
-                        <div class="row">
-                            <div class="col-2">
-                                <img class="img-education" src="assets/images/icon_leelee.jpg" alt="Err">
-                            </div>
-                            <div class="col-7">
-                                <div>
-                                    Lee Lee International Market
-                                </div>
-                                <div>
-                                    Application Developer
-                                </div>
-                                <div>
-                                    2018 - 2021
-                                </div>
-                            </div>
-                        </div>
-                    </mat-card>
-                </div>
-
-
-                <div class="container-animate-title" data-aos="fade-down-left">
+                <div class="container-animate-title" data-aos="zoom-in">
                     Education
                 </div>
 
-
-                <div class="container-animate container-education-detail" data-aos="fade-down-left">
-                    <mat-card>
-                        <div class="row">
-                            <div class="col-2">
-                                <img class="img-education" src="assets/images/icon_asu.jpg" alt="Err">
-                            </div>
-                            <div class="col-7">
-                                <div>
-                                    Arizona State University
+                <div class="container-animate-detail-parent d-flex flex-column">
+                    <div class="container-animate container-education-detail" data-aos="fade-down-left">
+                        <mat-card>
+                            <div class="row">
+                                <div class="col-2 summary-image-container">
+                                    <img class="img-education" src="assets/images/icon_asu.jpg" alt="Err">
                                 </div>
-                                <div>
-                                    Bachelor of Engineering - BE, Computer Software Engineering
-                                </div>
-                                <div>
-                                    2018 - 2021
-                                </div>
-                            </div>
-                        </div>
-                    </mat-card>
-                </div>
-
-                <div class="container-animate spacer container-education-detail" data-aos="fade-down-left">
-                    <mat-card>
-                        <div class="row">
-                            <div class="col-2">
-                                <img class="img-education" src="assets/images/icon_mcc.jpg" alt="Err">
-                            </div>
-                            <div class="col-7">
-                                <div>
-                                    Arizona State University
-                                </div>
-                                <div>
-                                    Bachelor of Engineering - BE, Computer Software Engineering
-                                </div>
-                                <div>
-                                    2018 - 2021
+                                <div class="col-7">
+                                    <div>
+                                        Arizona State University
+                                    </div>
+                                    <div>
+                                        Bachelor of Engineering - BE, Computer Software Engineering
+                                    </div>
+                                    <div>
+                                        2018 - 2021
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </mat-card>
-                </div>
-
-                <div class="container-animate spacer container-education-detail" data-aos="fade-down-left">
-                    <mat-card>
-                        <div class="row">
-                            <div class="col-2">
-                                <img class="img-education" src="assets/images/icon_dobson.jpg" alt="Err">
-                            </div>
-                            <div class="col-7">
-                                <div>
-                                    Arizona State University
-                                </div>
-                                <div>
-                                    Bachelor of Engineering - BE, Computer Software Engineering
-                                </div>
-                                <div>
-                                    2018 - 2021
-                                </div>
-                            </div>
-                        </div>
-                    </mat-card>
-                </div>
+                        </mat-card>
+                    </div>
     
+                    <div class="container-animate spacer container-education-detail" data-aos="fade-down-left">
+                        <mat-card>
+                            <div class="row">
+                                <div class="col-2 summary-image-container">
+                                    <img class="img-education" src="assets/images/icon_mcc.jpg" alt="Err">
+                                </div>
+                                <div class="col-7">
+                                    <div>
+                                        Arizona State University
+                                    </div>
+                                    <div>
+                                        Bachelor of Engineering - BE, Computer Software Engineering
+                                    </div>
+                                    <div>
+                                        2018 - 2021
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+    
+                    <div class="container-animate spacer container-education-detail" data-aos="fade-down-left">
+                        <mat-card>
+                            <div class="row">
+                                <div class="col-2 summary-image-container">
+                                    <img class="img-education" src="assets/images/icon_dobson.jpg" alt="Err">
+                                </div>
+                                <div class="col-7">
+                                    <div>
+                                        Arizona State University
+                                    </div>
+                                    <div>
+                                        Bachelor of Engineering - BE, Computer Software Engineering
+                                    </div>
+                                    <div>
+                                        2018 - 2021
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+                </div>
+                
+
+
+    
+            </section>
+
+
+            <section class="section d-flex flex-column">
+                <div class="container d-flex flex-column">
+                    <h2 class="section-title">  Skills </h2>
+                </div>
+
+                <div class="container-animate-title" data-aos="zoom-in">
+                    Stack
+                </div>
+                <div class="stack-container d-flex flex-column">
+                    <div class="" data-aos="fade-down-left">
+                        <mat-grid-list cols="{{this.numberOfGrid}}" rowHeight="2:2">
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-java.png" alt="Err">
+                                    <div>Java</div>
+                            </mat-grid-tile>
+                            
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-dart.png" alt="Err">
+                                    <div>Dart</div>
+                            </mat-grid-tile>
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-csharp.png" alt="Err">
+                                    <div>C#</div>
+                            </mat-grid-tile>
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-js.png" alt="Err">
+                                    <div>Javascript</div>
+                            </mat-grid-tile>
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-php.png" alt="Err">
+                                    <div>Php</div>
+                            </mat-grid-tile>
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-html.png" alt="Err">
+                                    <div>Html</div>
+                            </mat-grid-tile>
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-css.png" alt="Err">
+                                    <div>Css</div>
+                            </mat-grid-tile>
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-sql.png" alt="Err">
+                                    <div>Sql</div>
+                            </mat-grid-tile>
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-ts.png" alt="Err">
+                                    <div>Typescript</div>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+
+
+                    </div>
+                </div>
+
+                <div class="container-animate-title" data-aos="zoom-in">
+                    Framework
+                </div>
+                <div class="stack-container d-flex flex-column">
+                    <div class="" data-aos="fade-down-left">
+                        <mat-grid-list cols="{{this.numberOfGrid}}" rowHeight="2:2">
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-flutter.png" alt="Err">
+                                    <div>Flutter</div>
+                            </mat-grid-tile>
+                            
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-bootstrap.png" alt="Err">
+                                    <div>Bootstrap</div>
+                            </mat-grid-tile>
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-angular.png" alt="Err">
+                                    <div>Angular</div>
+                            </mat-grid-tile>
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-ant.png" alt="Err">
+                                    <div>Ant</div>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+
+
+                    </div>
+                </div>
+                <div class="container-animate-title" data-aos="zoom-in">
+                    Database
+                </div>
+                <div class="stack-container d-flex flex-column">
+                    <div class="" data-aos="fade-down-left">
+                        <mat-grid-list cols="{{this.numberOfGrid}}" rowHeight="2:2">
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-mysql.png" alt="Err">
+                                    <div>MySql</div>
+                            </mat-grid-tile>
+                            
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-mssql.png" alt="Err">
+                                    <div>MsSql</div>
+                            </mat-grid-tile>
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-sqlite.jpg" alt="Err">
+                                    <div>Sqlite</div>
+                            </mat-grid-tile>
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-postgre.png" alt="Err">
+                                    <div>Postgres</div>
+                            </mat-grid-tile>
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-es.png" alt="Err">
+                                    <div>Elastic Search</div>
+                            </mat-grid-tile>
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-dynamodb.jpg" alt="Err">
+                                    <div>DynamoDb</div>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+
+
+                    </div>
+                </div>
+
+                <div class="container-animate-title" data-aos="zoom-in">
+                    Technology & Cloud Service
+                </div>
+                <div class="stack-container d-flex flex-column">
+                    <div class="" data-aos="fade-down-left">
+                        <mat-grid-list cols="{{this.numberOfGrid}}" rowHeight="2:2">
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-api.png" alt="Err">
+                                    <div>API Dev.</div>
+                            </mat-grid-tile>
+                            
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-micro.png" alt="Err">
+                                    <div>Microservice</div>
+                            </mat-grid-tile>
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-sqs.png" alt="Err">
+                                    <div>AWS SQS</div>
+                            </mat-grid-tile>
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-sns.png" alt="Err">
+                                    <div>AWS SNS</div>
+                            </mat-grid-tile>
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-cloudformation.png" alt="Err">
+                                    <div>AWS Cloud Formation</div>
+                            </mat-grid-tile>
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-cloudfront.png" alt="Err">
+                                    <div>AWS Cloud Front</div>
+                            </mat-grid-tile>
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-53.jpg" alt="Err">
+                                    <div>AWS Route 53</div>
+                            </mat-grid-tile>
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-lambda.png" alt="Err">
+                                    <div>AWS Lambda Func (.Net)</div>
+                            </mat-grid-tile>
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-gateway.png" alt="Err">
+                                    <div>AWS Api Gateway</div>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+
+
+                    </div>
+
+                    
+                </div>
+
+
+                <div class="container-animate-title" data-aos="zoom-in">
+                    DevOps
+                </div>
+                <div class="stack-container d-flex flex-column">
+                    <div class="" data-aos="fade-down-left">
+                        <mat-grid-list cols="{{this.numberOfGrid}}" rowHeight="2:2">
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-git.png" alt="Err">
+                                    <div>Github</div>
+                            </mat-grid-tile>
+                            
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-bit.png" alt="Err">
+                                    <div>BitBucket</div>
+                            </mat-grid-tile>
+                            <mat-grid-tile class="d-flex flex-column" data-aos="flip-left"
+                            data-aos-easing="ease-out-cubic"
+                            data-aos-duration="2000">
+                                    <img class="image-stack" src="assets/images/icon-azure.jpg" alt="Err">
+                                    <div>Azure DevOps</div>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+
+
+                    </div>
+                </div>
+
             </section>
         </div>
     </body>
 </div>
-

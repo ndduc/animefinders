@@ -3,6 +3,9 @@ import { ViewportScroller } from "@angular/common";
 import { Router, RouterOutlet } from "@angular/router";
 import { DomSanitizer } from '@angular/platform-browser';
 import { ProjectModel } from '../model/project-model';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { ProjectModalComponent } from '../modal-components/project-modal/project-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-project-intro',
@@ -67,9 +70,38 @@ export class ProjectIntroComponent implements OnInit {
       image_url: "http://localhost:4200/assets/images/GF-Internal.png"
     } as ProjectModel
   ];
-  constructor(private scroller: ViewportScroller, private router: Router, private sanitizer:DomSanitizer) {}
-  
+  constructor(
+    private scroller: ViewportScroller, 
+    private router: Router, 
+    private sanitizer:DomSanitizer,  
+    private breakpointObserver: BreakpointObserver,
+    public modelService: NgbModal
+    ) {}
+  numberOfGrid: number = 4;
   ngOnInit(): void {
+    this.breakpointEvent();
+  }
+
+  breakpointEvent(): void {
+    this.breakpointObserver.observe([
+      Breakpoints.XSmall,
+      Breakpoints.Small,
+      Breakpoints.Medium,
+      Breakpoints.Large,
+      Breakpoints.XLarge
+    ]).subscribe(result => {
+      if (result.breakpoints[Breakpoints.XLarge]) {
+        this.numberOfGrid = 4;
+      } else if (result.breakpoints[Breakpoints.Large]) {
+        this.numberOfGrid = 4;
+      } else if (result.breakpoints[Breakpoints.Medium]) {
+        this.numberOfGrid = 1;
+      } else if (result.breakpoints[Breakpoints.Small]) {
+        this.numberOfGrid = 1;
+      } else {
+        this.numberOfGrid = 1;
+      }
+    });
   }
 
   onPageChange($event) {
@@ -79,6 +111,12 @@ export class ProjectIntroComponent implements OnInit {
       endIndex = this.pageSize;
     }
     // this.aniListShow = this.aniList.slice(startIndex, endIndex);
+  }
+
+  openProjectModal(project: ProjectModel) {
+    const modalRef = this.modelService.open(ProjectModalComponent);
+    modalRef.componentInstance.project = project;
+
   }
 
 

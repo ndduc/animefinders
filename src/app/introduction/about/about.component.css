@@ -1,6 +1,8 @@
 body {
     font-family: Helvetica,Tahoma;
     background-color: #5CDB95;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 ::ng-deep .mat-typography {
     background-color: #5CDB95;
@@ -32,6 +34,7 @@ body {
     margin: auto;
     font-weight: normal;
     font-size: 40px;
+    z-index: 2;
 }
 
 .container-animate, .container-animate-title  {
@@ -51,7 +54,7 @@ body {
 
 .container-animate {
     margin-left: 10%;
-    width: 60%;
+    width: 50%;
 }
 /* 
     This is the divider bar
@@ -71,10 +74,12 @@ body {
             top px, left px
     */
     padding: 50px 65px;
+    z-index: 1;
   }
   
 ::ng-deep mgl-timeline.mobile {
     padding-right: 10px;
+    z-index: 1;
 }
 
 /* 
@@ -136,13 +141,125 @@ body {
 }
 
 .img-education {
-    width: 55px;
+    width: 75px;
     border-radius: 50px;
+}
+
+.img-stack {
+    width: 100px;
 }
 
 .container-education-detail {
     font-size: 20px;
 }
+
+.container-animate-detail-parent {
+    width: 100%;
+}
+
+.stack-description {
+    margin-left: 5px;
+}
+
+.stack-container {
+    margin-left: 7%;
+    font-size: 12px;
+}
+
+.image-stack {
+    height: 100px;
+    width: 100px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+::ng-deep .mat-grid-tile-content {
+    display: flex !important;
+    flex-direction: column !important;
+    background-color: #424242;
+    width: 150px !important;
+    height: 150px !important;
+    color: white;
+    border-radius: 5px !important;
+}
+
+
+::ng-deep .mat-card {
+    max-width: 700px;
+}
+
+.summary-image-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.timeline-text {
+    width: 100%;
+}
+.scroll-down-timeline {
+    font-size: 25px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 2%;
+}
+
+.img-chev {
+    width: 50px;
+    margin-top: 2%;
+}
+
+@media (max-width: 1000px) {
+    .timeline-intro {
+        float: none;
+        position: relative;
+        width: 100%;
+        right: auto;
+        top: auto;
+        text-align: center;
+        margin-top: 2%;
+        margin-bottom: 2%;
+    }
+
+    .container-animate {
+        margin: auto;
+        margin-top: 1%;
+        margin-left: 2%;
+        margin-right: 2%;
+        font-weight: normal;
+        font-size: 14px;
+        width: 96%;
+    }
+
+    .img-education {
+        width: 45px;
+        border-radius: 2px;
+    }
+    
+    .stack-container {
+        margin-left: 2%;
+        font-size: 12px;
+    }
+
+    ::ng-deep .mat-grid-tile-content {
+        display: flex !important;
+        flex-direction: column !important;
+        background-color: #424242;
+        width: 80px !important;
+        height: 80px !important;
+        color: white;
+        border-radius: 5px !important;
+    }
+    
+    .image-stack {
+        height: 50px;
+        width: 50px;
+        border-radius: 5px;
+        text-align: center;
+    }
+}
+
 /* 
 https://openbase.com/js/angular-mgl-timeline
 https://stackblitz.com/edit/angular-mgl-timeline-thqhta?file=theme.scss,app%2Fapp.component.html

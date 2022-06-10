@@ -2,9 +2,9 @@
     <app-intro-navigator></app-intro-navigator>
 
     <div>
-        <mat-grid-list cols="4" rowHeight="2.7:3">
+        <mat-grid-list cols="{{this.numberOfGrid}}" rowHeight="2.7:3">
             <div *ngFor="let item of projectList">
-                <mat-grid-tile class="anime-grid-tile" >
+                <mat-grid-tile class="anime-grid-tile" data-aos="fade-up" >
                     <mat-card class="anime-card" >
                         <div class="anime-header">
                             <h1>{{item.description}}</h1>
@@ -17,7 +17,7 @@
                         </div>
                         <mat-card-content class="anime-content">
                         </mat-card-content>
-                        <div class="torrent-button"
+                        <div class="torrent-button" (click)="openProjectModal(item)"
                         class="torrent-button-grid border rounded d-flex p-2">
                             <span class="find-torrent-text">Find Out More</span>
                         </div>
