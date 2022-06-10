@@ -51,7 +51,7 @@ body {
 
 .container-animate {
     margin-left: 10%;
-    width: 60%;
+    width: 50%;
 }
 /* 
     This is the divider bar
@@ -140,9 +140,44 @@ body {
     border-radius: 50px;
 }
 
+.img-stack {
+    width: 100px;
+}
+
 .container-education-detail {
     font-size: 20px;
 }
+
+.container-animate-detail-parent {
+    width: 100%;
+}
+
+.stack-description {
+    margin-left: 5px;
+}
+
+.stack-container {
+    margin-left: 7%;
+    font-size: 12px;
+}
+
+.image-stack {
+    height: 100px;
+    width: 100px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+::ng-deep .mat-grid-tile-content {
+    display: flex !important;
+    flex-direction: column !important;
+    background-color: #424242;
+    width: 150px !important;
+    height: 150px !important;
+    color: white;
+    border-radius: 5px !important;
+}
+
 /* 
 https://openbase.com/js/angular-mgl-timeline
 https://stackblitz.com/edit/angular-mgl-timeline-thqhta?file=theme.scss,app%2Fapp.component.html
