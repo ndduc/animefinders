@@ -3,6 +3,7 @@ import { ViewportScroller } from "@angular/common";
 import { Router, RouterOutlet } from "@angular/router";
 import { DomSanitizer } from '@angular/platform-browser';
 import { AfterViewInit } from '@angular/core';
+import { delay } from 'rxjs/operators';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -20,6 +21,13 @@ export class MainComponent implements OnInit {
   }
 
 
+  navigaterToPageThenReload(path: string): void {
+    this.router.navigate([path])
+    .then(async () => {
+      await delay(1000);
+      window.location.reload();
+    });
+  }
 
   
   toggleAnimations() {

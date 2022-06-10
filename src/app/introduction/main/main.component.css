@@ -1,4 +1,7 @@
-body {background-color: #5CDB95;}
+body {
+    background-color: #5CDB95;
+    overflow: hidden;
+}
 ::ng-deep .mat-typography {
     background-color: #5CDB95;
 }

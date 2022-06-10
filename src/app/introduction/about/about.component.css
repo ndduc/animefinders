@@ -34,6 +34,7 @@ body {
     margin: auto;
     font-weight: normal;
     font-size: 40px;
+    z-index: 2;
 }
 
 .container-animate, .container-animate-title  {
@@ -73,10 +74,12 @@ body {
             top px, left px
     */
     padding: 50px 65px;
+    z-index: 1;
   }
   
 ::ng-deep mgl-timeline.mobile {
     padding-right: 10px;
+    z-index: 1;
 }
 
 /* 
@@ -189,6 +192,22 @@ body {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+}
+
+.timeline-text {
+    width: 100%;
+}
+.scroll-down-timeline {
+    font-size: 25px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 2%;
+}
+
+.img-chev {
+    width: 50px;
+    margin-top: 2%;
 }
 
 @media (max-width: 1000px) {

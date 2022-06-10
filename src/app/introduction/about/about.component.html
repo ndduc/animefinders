@@ -3,8 +3,13 @@
     <body class>
         <div class="d-flex flex-column">
             <div class="container-xxl intro-container">
-                <div class="timeline-intro" data-aos="fade-up">
-                    Welcome To My Timeline
+                <div class="timeline-intro d-flex flex-column" >
+                    <div class="timeline-text" data-aos="fade-down">Welcome To My Timeline</div>
+                    <div class="scroll-down-timeline" (click)="scroll(summarySection)">
+                        <div  data-aos="fade-up" >Scroll Down</div>
+                        <img class="img-chev" src="assets/images/chevron_down_1.gif" alt="Err">
+
+                    </div>
                 </div>
 
                 <mgl-timeline  [alternate]="false">
@@ -74,7 +79,7 @@
             </div>
             
 
-            <section class="section">
+            <section #summarySection class="section">
                 <div class="container d-flex flex-column">
                     <h2 class="section-title"> Summary </h2>
                 </div>
