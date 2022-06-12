@@ -8,14 +8,16 @@
                     <mat-card class="anime-card" >
                         <div class="anime-header">
                             <h1>{{item.description}}</h1>
-                            </div>
-                        <div class="anime-body d-flex">
-                            <img class="anime-image"  src="{{item.image_url}}" alt="Photo Content - Error">
-                            <div class="anime-body-desc">
-                                <p>{{item.long_description}}</p>
-                            </div>
                         </div>
+
+            
+                        <img class="anime-image"  src="{{item.image_url}}" alt="Photo Content - Error">
+
                         <mat-card-content class="anime-content">
+
+                            <div>
+                                {{item.long_description}}
+                            </div>
                         </mat-card-content>
                         <div class="torrent-button" (click)="openProjectModal(item)"
                         class="torrent-button-grid border rounded d-flex p-2">

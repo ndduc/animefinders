@@ -29,9 +29,14 @@ body {background-color: #5CDB95;}
 }
 
 .option-sort,::ng-deep .mat-select-value, .paginator-mobile, .button-spring, .button-winter, .button-fall, .button-summer, 
-.search-form, .find-torrent-text, .anime-body p,.anime-body-anime p, .anime-content h2, .anime-header h1,.anime-header h3, 
+.search-form, .find-torrent-text, .anime-body p,.anime-body-anime p, .anime-content h2, .anime-content, .anime-header h1,.anime-header h3, 
 .btn-advance, .tag, .btn-qa-sticky, .btn-qa-sticky-back-to-top  {
 	color: black;
+}
+
+.anime-content {
+	margin-top: 1%;;
+	font-size: 18px;
 }
 
 .anime-top-chip {
@@ -44,28 +49,10 @@ body {background-color: #5CDB95;}
 	background-color: #F3A8BC;
 }
 
-.anime-body {
-	padding: 1%;
-	width: 100%;
-	height: 60%;
-	border-radius: 15px;
-	border-style: outset;
-}
 
 .anime-image {
-	width: 50%;
-	border-radius: 15px;
-	border-style: outset;
-}
-
-.anime-body-desc {
-    width: 50%;
-	overflow: auto;
-	padding: 1%;
-}
-
-.anime-body-desc p {
-	font-size: 12px;
+	border-radius: 5px;
+	height: 60%;	
 }
 
 .torrent-button-grid {

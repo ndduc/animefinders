@@ -45,6 +45,7 @@ import { ProjectIntroComponent } from './introduction/project-intro/project-intr
 import { MglTimelineModule } from 'angular-mgl-timeline';
 import { IntroNavigatorComponent } from './introduction/intro-navigator/intro-navigator.component';
 import { ProjectModalComponent } from './introduction/modal-components/project-modal/project-modal.component';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { ProjectModalComponent } from './introduction/modal-components/project-m
     MatSidenavModule,
     MatPaginatorModule,
     ReactiveFormsModule,
-    MglTimelineModule
+    MglTimelineModule,
+    NgImageSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ViewportScroller } from "@angular/common";
 import { Router, RouterOutlet } from "@angular/router";
 import { DomSanitizer } from '@angular/platform-browser';
@@ -12,64 +12,155 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './project-intro.component.html',
   styleUrls: ['./project-intro.component.css']
 })
-export class ProjectIntroComponent implements OnInit {
+export class ProjectIntroComponent implements OnInit, AfterViewInit {
   pageSize: any;
   projectList: ProjectModel[] = [
     {
       id: 1,
       description: "Anime Finder",
       long_description: "This is project 1 which was created in xxx Years, and built by n Language for x Company",
-      image_url: "http://localhost:4200/assets/images/demo.PNG"
+      image_url: "http://localhost:4200/assets/images/demo.PNG",
+      image_urls: ["http://localhost:4200/assets/images/demo.PNG", "http://localhost:4200/assets/images/VT_receive_2.png", "http://localhost:4200/assets/images/Web_App1.png"],
+      stacks: ["java","c#","c++"],
+      techs: ["flutter", "asp.net"],
+      developments: ["web app", "api", "aws - blah"],
+      source_code_url: "http://localhost:4200/assets/images/demo.PNG",
+      document_url: "http://localhost:4200/assets/images/demo.PNG",
+      reference_url: "http://localhost:4200/assets/images/demo.PNG"
     } as ProjectModel,
     {
       id: 1,
-      description: "Asset Management",
+      description: "Anime Finder",
       long_description: "This is project 1 which was created in xxx Years, and built by n Language for x Company",
-      image_url: "http://localhost:4200/assets/images/Asset_home_1.png"
+      image_url: "http://localhost:4200/assets/images/demo.PNG",
+      image_urls: ["http://localhost:4200/assets/images/demo.PNG", "http://localhost:4200/assets/images/VT_receive_2.png", "http://localhost:4200/assets/images/Web_App1.png"],
+      stacks: ["java","c#","c++"],
+      techs: ["flutter", "asp.net"],
+      developments: ["web app", "api", "aws - blah"],
+      source_code_url: "http://localhost:4200/assets/images/demo.PNG",
+      document_url: "http://localhost:4200/assets/images/demo.PNG",
+      reference_url: "http://localhost:4200/assets/images/demo.PNG"
     } as ProjectModel,
     {
       id: 1,
-      description: "Asset Real-Time Tracker",
+      description: "Anime Finder",
       long_description: "This is project 1 which was created in xxx Years, and built by n Language for x Company",
-      image_url: "http://localhost:4200/assets/images/EYE_menu.png"
+      image_url: "http://localhost:4200/assets/images/demo.PNG",
+      image_urls: ["http://localhost:4200/assets/images/demo.PNG", "http://localhost:4200/assets/images/VT_receive_2.png", "http://localhost:4200/assets/images/Web_App1.png"],
+      stacks: ["java","c#","c++"],
+      techs: ["flutter", "asp.net"],
+      developments: ["web app", "api", "aws - blah"],
+      source_code_url: "http://localhost:4200/assets/images/demo.PNG",
+      document_url: "http://localhost:4200/assets/images/demo.PNG",
+      reference_url: "http://localhost:4200/assets/images/demo.PNG"
     } as ProjectModel,
     {
       id: 1,
-      description: "Zebra Label Printer",
+      description: "Anime Finder",
       long_description: "This is project 1 which was created in xxx Years, and built by n Language for x Company",
-      image_url: "http://localhost:4200/assets/images/Pricing_App.png"
+      image_url: "http://localhost:4200/assets/images/demo.PNG",
+      image_urls: ["http://localhost:4200/assets/images/demo.PNG", "http://localhost:4200/assets/images/VT_receive_2.png", "http://localhost:4200/assets/images/Web_App1.png"],
+      stacks: ["java","c#","c++"],
+      techs: ["flutter", "asp.net"],
+      developments: ["web app", "api", "aws - blah"],
+      source_code_url: "http://localhost:4200/assets/images/demo.PNG",
+      document_url: "http://localhost:4200/assets/images/demo.PNG",
+      reference_url: "http://localhost:4200/assets/images/demo.PNG"
     } as ProjectModel,
     {
       id: 1,
-      description: "Product Management",
+      description: "Anime Finder",
       long_description: "This is project 1 which was created in xxx Years, and built by n Language for x Company",
-      image_url: "http://localhost:4200/assets/images/Pricing_App2.png"
+      image_url: "http://localhost:4200/assets/images/demo.PNG",
+      image_urls: ["http://localhost:4200/assets/images/demo.PNG", "http://localhost:4200/assets/images/VT_receive_2.png", "http://localhost:4200/assets/images/Web_App1.png"],
+      stacks: ["java","c#","c++"],
+      techs: ["flutter", "asp.net"],
+      developments: ["web app", "api", "aws - blah"],
+      source_code_url: "http://localhost:4200/assets/images/demo.PNG",
+      document_url: "http://localhost:4200/assets/images/demo.PNG",
+      reference_url: "http://localhost:4200/assets/images/demo.PNG"
     } as ProjectModel,
     {
       id: 1,
-      description: "Vaccine Management",
+      description: "Anime Finder",
       long_description: "This is project 1 which was created in xxx Years, and built by n Language for x Company",
-      image_url: "http://localhost:4200/assets/images/VT_menu_1.png"
+      image_url: "http://localhost:4200/assets/images/demo.PNG",
+      image_urls: ["http://localhost:4200/assets/images/demo.PNG", "http://localhost:4200/assets/images/VT_receive_2.png", "http://localhost:4200/assets/images/Web_App1.png"],
+      stacks: ["java","c#","c++"],
+      techs: ["flutter", "asp.net"],
+      developments: ["web app", "api", "aws - blah"],
+      source_code_url: "http://localhost:4200/assets/images/demo.PNG",
+      document_url: "http://localhost:4200/assets/images/demo.PNG",
+      reference_url: "http://localhost:4200/assets/images/demo.PNG"
     } as ProjectModel,
     {
       id: 1,
-      description: "Employee Internal Product Lookup",
+      description: "Anime Finder",
       long_description: "This is project 1 which was created in xxx Years, and built by n Language for x Company",
-      image_url: "http://localhost:4200/assets/images/Web_App1.png"
+      image_url: "http://localhost:4200/assets/images/demo.PNG",
+      image_urls: ["http://localhost:4200/assets/images/demo.PNG", "http://localhost:4200/assets/images/VT_receive_2.png", "http://localhost:4200/assets/images/Web_App1.png"],
+      stacks: ["java","c#","c++"],
+      techs: ["flutter", "asp.net"],
+      developments: ["web app", "api", "aws - blah"],
+      source_code_url: "http://localhost:4200/assets/images/demo.PNG",
+      document_url: "http://localhost:4200/assets/images/demo.PNG",
+      reference_url: "http://localhost:4200/assets/images/demo.PNG"
     } as ProjectModel,
     {
       id: 1,
-      description: "Ecommerce Solution",
+      description: "Anime Finder",
       long_description: "This is project 1 which was created in xxx Years, and built by n Language for x Company",
-      image_url: "http://localhost:4200/assets/images/GF-Ecom.png"
+      image_url: "http://localhost:4200/assets/images/demo.PNG",
+      image_urls: ["http://localhost:4200/assets/images/demo.PNG", "http://localhost:4200/assets/images/VT_receive_2.png", "http://localhost:4200/assets/images/Web_App1.png"],
+      stacks: ["java","c#","c++"],
+      techs: ["flutter", "asp.net"],
+      developments: ["web app", "api", "aws - blah"],
+      source_code_url: "http://localhost:4200/assets/images/demo.PNG",
+      document_url: "http://localhost:4200/assets/images/demo.PNG",
+      reference_url: "http://localhost:4200/assets/images/demo.PNG"
     } as ProjectModel,
     {
       id: 1,
-      description: "Internal Project Management",
+      description: "Anime Finder",
       long_description: "This is project 1 which was created in xxx Years, and built by n Language for x Company",
-      image_url: "http://localhost:4200/assets/images/GF-Internal.png"
-    } as ProjectModel
+      image_url: "http://localhost:4200/assets/images/demo.PNG",
+      image_urls: ["http://localhost:4200/assets/images/demo.PNG", "http://localhost:4200/assets/images/VT_receive_2.png", "http://localhost:4200/assets/images/Web_App1.png"],
+      stacks: ["java","c#","c++"],
+      techs: ["flutter", "asp.net"],
+      developments: ["web app", "api", "aws - blah"],
+      source_code_url: "http://localhost:4200/assets/images/demo.PNG",
+      document_url: "http://localhost:4200/assets/images/demo.PNG",
+      reference_url: "http://localhost:4200/assets/images/demo.PNG"
+    } as ProjectModel,
+    {
+      id: 1,
+      description: "Anime Finder",
+      long_description: "This is project 1 which was created in xxx Years, and built by n Language for x Company",
+      image_url: "http://localhost:4200/assets/images/demo.PNG",
+      image_urls: ["http://localhost:4200/assets/images/demo.PNG", "http://localhost:4200/assets/images/VT_receive_2.png", "http://localhost:4200/assets/images/Web_App1.png"],
+      stacks: ["java","c#","c++"],
+      techs: ["flutter", "asp.net"],
+      developments: ["web app", "api", "aws - blah"],
+      source_code_url: "http://localhost:4200/assets/images/demo.PNG",
+      document_url: "http://localhost:4200/assets/images/demo.PNG",
+      reference_url: "http://localhost:4200/assets/images/demo.PNG"
+    } as ProjectModel,
+    {
+      id: 1,
+      description: "Anime Finder",
+      long_description: "This is project 1 which was created in xxx Years, and built by n Language for x Company",
+      image_url: "http://localhost:4200/assets/images/demo.PNG",
+      image_urls: ["http://localhost:4200/assets/images/demo.PNG", "http://localhost:4200/assets/images/VT_receive_2.png", "http://localhost:4200/assets/images/Web_App1.png"],
+      stacks: ["java","c#","c++"],
+      techs: ["flutter", "asp.net"],
+      developments: ["web app", "api", "aws - blah"],
+      source_code_url: "http://localhost:4200/assets/images/demo.PNG",
+      document_url: "http://localhost:4200/assets/images/demo.PNG",
+      reference_url: "http://localhost:4200/assets/images/demo.PNG"
+    } as ProjectModel,
   ];
+
+ 
   constructor(
     private scroller: ViewportScroller, 
     private router: Router, 
@@ -81,6 +172,12 @@ export class ProjectIntroComponent implements OnInit {
   ngOnInit(): void {
     this.breakpointEvent();
   }
+
+  ngAfterViewInit(){
+
+
+  }
+  
 
   breakpointEvent(): void {
     this.breakpointObserver.observe([
@@ -118,6 +215,8 @@ export class ProjectIntroComponent implements OnInit {
     modalRef.componentInstance.project = project;
 
   }
+
+
 
 
 }

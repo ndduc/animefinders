@@ -50,6 +50,30 @@ export class ProjectModalComponent implements OnInit {
 
   ngOnInit() {
     this.breakpointObserverEvent();
+    this.setImageObject();
+
+  }
+  
+  setImageObject() {
+    console.log("CHECK 1");
+   
+    var imageObject: Array<object> = [];
+    if (this.project && this.project.image_urls) {
+      this.project.image_urls.forEach(element => {
+        imageObject.push(
+          {
+            image : element,
+            thumbImage: element,
+            alt: "Alt Image",
+            title: this.project.description
+          }
+        );
+      });
+    }
+    this.project.imageObject = imageObject;
+    console.log(this.project.imageObject.length);
+
+    
   }
 
   

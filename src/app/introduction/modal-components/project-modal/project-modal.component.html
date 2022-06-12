@@ -1,4 +1,5 @@
 <div class="anime-modal-body">
+
     <div>
       <div class="modal-body">
         <div class="d-flex justify-content-center flex-column">
@@ -7,22 +8,76 @@
               <h2>{{this.project.description}}</h2>
             </div>
   
-            <div class="chip-container">
-              <mat-chip-list>
-                <mat-chip class="tag">EP: </mat-chip>
-                <mat-chip class="tag">Score: </mat-chip>
-              </mat-chip-list>
-            </div>
-            <div class="anime-container d-flex justify-content-center">
-              
-              <div class="anime-image-modal-container">
-                <img class="anime-image-modal"  src="{{this.project.image_url}}" alt="Photo Content - Error">
-              </div>
-    
+   
+
+            <ng-image-slider 
+            [images]="this.project.imageObject" 
+            [imagePopup]="false"
+            [imageSize]="{height:'300px', width:'100%'}"
+            #nav
+            ></ng-image-slider>
+
+            <div class="anime-container d-flex flex-column">
+
               <div class="anime-div">
                     {{this.project.long_description}}
               </div>
+
+              <div class="chip-container">
+                <div>Stack: </div>
+                <mat-chip-list>
+                  <div *ngFor="let item of this.project.stacks">
+                    <mat-chip class="tag">{{item}}</mat-chip>
+                  </div>
+                </mat-chip-list>
+              </div> 
               
+
+              <div class="chip-container">
+                <div>Techs: </div>
+                <mat-chip-list>
+                  <div *ngFor="let item of this.project.techs">
+                    <mat-chip class="tag">{{item}}</mat-chip>
+                  </div>
+                </mat-chip-list>
+              </div> 
+
+              <div class="chip-container">
+                <div>Techs: </div>
+                <mat-chip-list>
+                  <div *ngFor="let item of this.project.developments">
+                    <mat-chip class="tag">{{item}}</mat-chip>
+                  </div>
+                </mat-chip-list>
+              </div> 
+
+              <div>
+                <div>
+                  Source:
+                </div>
+                <div>
+                  {{this.project.source_code_url}}
+                </div>
+              </div>
+
+              <div>
+                <div>
+                  Doccument:
+                </div>
+                <div>
+                  {{this.project.document_url}}
+                </div>
+              </div>
+
+              <div>
+                <div>
+                  Reference:
+                </div>
+                <div>
+                  {{this.project.reference_url}}
+                </div>
+              </div>
+
             </div>
 
             

@@ -42,20 +42,11 @@ button, .tag {
     margin-right: 5px; 
 }
 
-.anime-image-modal {
-    border-radius: 15px;
-    height: 100%;
-}
 
-.anime-image-modal-container {
-    display: flex;
-    flex-direction: column;
-}
 
-.chip-container {
+ .chip-container {
     display: flex;
-    justify-content: center;
-}
+} 
 
 .anime-container {
     margin-top: 5%;
