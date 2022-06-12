@@ -20,10 +20,10 @@ export class IntroNavigatorComponent implements OnInit {
     this.router.navigate([path]);
   }
 
-  navigaterToPageThenReload(path: string): void {
+  async navigaterToPageThenReload(path: string): Promise<void> {
+    // await delay(50000);s
     this.router.navigate([path])
     .then(async () => {
-      await delay(1000);
       window.location.reload();
     });
   }

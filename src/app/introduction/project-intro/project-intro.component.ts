@@ -160,6 +160,7 @@ export class ProjectIntroComponent implements OnInit, AfterViewInit {
     } as ProjectModel,
   ];
 
+  isLoading: boolean = true;
  
   constructor(
     private scroller: ViewportScroller, 
@@ -171,6 +172,7 @@ export class ProjectIntroComponent implements OnInit, AfterViewInit {
   numberOfGrid: number = 4;
   ngOnInit(): void {
     this.breakpointEvent();
+    this.isLoading = false;
   }
 
   ngAfterViewInit(){

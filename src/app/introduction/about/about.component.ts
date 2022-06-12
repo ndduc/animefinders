@@ -19,6 +19,7 @@ const DEFAULT_DURATION = 1200;
   ],
 })
 export class AboutComponent implements OnInit, AfterViewInit {
+  isLoading = true;
   isOpen = true;
   isDisabled = false;
   isCollapse = true;
@@ -32,6 +33,7 @@ export class AboutComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.breakpointEvent();
+    this.isLoading = false
   }
 
   breakpointEvent(): void {

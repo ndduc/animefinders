@@ -1,7 +1,6 @@
-<div>
-    <app-intro-navigator></app-intro-navigator>
-
-    <body class>
+<div *ngIf="!this.isLoading">
+    <body>
+        <app-intro-navigator></app-intro-navigator>
         <div class="d-flex flex-column">
             <div class="container-xxl intro-container">
                 <div class="timeline-intro d-flex flex-column" >

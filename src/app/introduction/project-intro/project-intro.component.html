@@ -1,7 +1,8 @@
 
-    <app-intro-navigator></app-intro-navigator>
 
-    <div>
+
+    <div *ngIf="!this.isLoading">
+        <app-intro-navigator></app-intro-navigator>
         <mat-grid-list cols="{{this.numberOfGrid}}" rowHeight="2.7:3">
             <div *ngFor="let item of projectList">
                 <mat-grid-tile class="anime-grid-tile" data-aos="fade-up" >
