@@ -4,6 +4,8 @@ body {
 }
 ::ng-deep .mat-typography {
     background-color: #5CDB95;
+    display: flex;
+    align-items: center;
 }
 
 .my-image {
@@ -68,7 +70,6 @@ body {
 .sub-text {
     margin-left: 2%;
 }
-
 
 
 /* https://muffingroup.com/blog/orange-color-palette/ */
