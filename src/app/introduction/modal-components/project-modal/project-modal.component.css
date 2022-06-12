@@ -37,21 +37,29 @@ button, .tag {
 }
 
 .anime-div {
-    width: 50%;
-    margin-left: 5px;
-    margin-right: 5px; 
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 2px ;
+
 }
 
 
 
  .chip-container {
     display: flex;
+    margin-top: 5px;
+    margin-bottom: 5px;
 } 
 
 .anime-container {
     margin-top: 5%;
     overflow: auto;
     height: 300px;
+}
+
+.chip-list, .url-container {
+    margin-left: 2% !important;
 }
 
 
@@ -61,4 +69,13 @@ button, .tag {
 
 ::ng-deep .modal-content {
     overflow: auto;
+}
+
+.chip-title {
+    display: flex;
+    align-items: center;
+}
+
+.margin-top-seperator {
+    margin-top: 2%;
 }
