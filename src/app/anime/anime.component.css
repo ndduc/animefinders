@@ -36,6 +36,7 @@
 	cursor: pointer;
 }
 
+
 .btn-advance-sort {
 	font-size: 10px;
 	text-align: center;
@@ -272,7 +273,7 @@ button {
 }
 
 ::ng-deep .nav-bar-animelist {
-	overflow: auto;
+	overflow: hidden;
 }
 
 @media (max-width: 400px) {
@@ -289,4 +290,14 @@ button {
 	::ng-deep .tag {
 		height: 40px;
 	} 
+}
+
+
+.nav-spacer {
+    display:inline-block; 
+    width: 1%;
+}
+
+.searchNameField-mobile {
+	width: 150px !important;
 }

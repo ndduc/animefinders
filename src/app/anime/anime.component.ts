@@ -13,6 +13,7 @@ import { QuestionModalComponent } from '../common/modal/question/question-modal/
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AfterViewInit } from '@angular/core';
+import { AnimeSortModel } from './model/anime-sort-model.model';
 
 
 @Component({
@@ -27,6 +28,8 @@ export class AnimeComponent implements OnInit {
   
   sortOption = sortOptionEnum;
   isLoading: boolean = true;
+  isAdv: boolean = false;
+  isFilter: boolean = false;
   strYear: string = '';
   strTitle: string = '';
   isHidden: boolean = true;
@@ -45,8 +48,21 @@ export class AnimeComponent implements OnInit {
   isConnectionError: boolean = false;
   screen: number = 0;
   pageSize: any;
-  optionSortObject = [{"name": "Select Sort Option", "type": "NOTHING"}, {"name": "Sort By Rate", "type":"RATE"}, {"name": "Sort By Type", "type":"TYPE"}];
-  selectedOptionSort = this.optionSortObject[0];
+  sortOptionObject = [
+    {
+      name: "Select Sort Option",
+      type: "NOTHING"
+    } as AnimeSortModel,
+    {
+      name: "Sort By Rate",
+      type: "RATE"
+    } as AnimeSortModel,
+    {
+      name: "Sort By Type",
+      type: "TYPE"
+    } as AnimeSortModel
+  ] as AnimeSortModel[];
+  selectedOptionSort = this.sortOptionObject[0];
   sort_type: number = 0;
   sort_rate: number = 0;
   selectedSort: any;
@@ -60,6 +76,10 @@ export class AnimeComponent implements OnInit {
   public searchForm = new FormGroup({});
   public searchName: string = 'searchName';
   public searchControl = new FormControl(null, Validators.required);
+
+  public searchYearForm = new FormGroup({});
+  public searchYearName: string = 'searchYear';
+  public searchAdvControl = new FormControl(null, Validators.required);
   
   constructor(private jikanService: JikanService, 
     public modelService: NgbModal,
@@ -69,7 +89,6 @@ export class AnimeComponent implements OnInit {
   ngOnInit(): void {
     this.setSeasonInterval();
     this.getSeasonalAnime(null,null);
-    // this.screenDetector();
     this.setUpForm();
     this.breakpointObserverEvent();
   }
@@ -108,6 +127,7 @@ export class AnimeComponent implements OnInit {
   
   private setUpForm(): void {
     this.searchForm.addControl(this.searchName, this.searchControl);
+    this.searchYearForm.addControl(this.searchYearName, this.searchAdvControl);
   }
 
   public clear() {
@@ -257,52 +277,6 @@ export class AnimeComponent implements OnInit {
     this.isAniEmpty = true;
   }
 
-  public onSortChange(value) {
-    this.selectedSort = value.name;
-    if(value.type == "RATE") {
-      this.selectedSort = sortOptionEnum.RATE;
-    } else if (value.type == "TYPE") {
-      this.selectedSort = sortOptionEnum.TYPE;
-    } else {
-      this.selectedSort = "NOTHING";
-    }
-  }
-  
-  private sortAniList(opt: sortOptionEnum) {
-
-    switch(opt) {
-      case sortOptionEnum.RATE:
-        if(this.sort_rate == 0) {
-          this.aniList = this.aniList.sort((a, b) => a.score < b.score ? 1 : -1);
-          this.sort_rate = 1;
-        } else {
-          this.aniList = this.aniList.sort((a, b) => a.score > b.score ? 1 : -1);
-          this.sort_rate = 0;
-        }
-        break;
-      case sortOptionEnum.TYPE:
-        if(this.sort_type == 0) {
-          this.aniList = this.aniList.sort((a, b) => a.type < b.type ? 1 : -1);
-          this.sort_type = 1;
-        } else {
-          this.aniList = this.aniList.sort((a, b) => a.type > b.type ? 1 : -1);
-          this.sort_type = 0;
-        }
-
-        break;
-      default:
-        this.aniList = this.aniList
-        break;
-    };
-
-    if(this.isMobile) {
-      this.aniListShow = this.aniList.slice(0, 5);
-    } else {
-      this.aniListShow = this.aniList.slice(0, 48);
-    }
-    this.pageSize = this.aniList.length;  
-  }
-
   private setAniList(lst: AniList[]) {
     if(lst == null || lst.length === 0) {
       this.isConnectionError = false;
@@ -401,7 +375,6 @@ export class AnimeComponent implements OnInit {
     this.sort_rate = 0;
   }
 
-
   public onPageChange($event) {
     let startIndex = $event.pageIndex * $event.pageSize;
     let endIndex = startIndex + $event.pageSize;
@@ -422,28 +395,63 @@ export class AnimeComponent implements OnInit {
     return first + value.substr(1); 
   }
 
-  public open(content) {
-    this.modelService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  public modelSaveClick() {
-    if(this.selectedSort !== 'NOTHING') {
-      this.sortAniList(this.selectedSort);
-    }
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
+  public enablingAdvanceSearch() {
+    if (this.isAdv) {
+      this.isAdv = false;
+      this.isFilter = false;
     } else {
-      return `with: ${reason}`;
+      this.isAdv = true;
+      this.isFilter = false;
     }
+  }
+
+  public enablingFilter() {
+    if (this.isFilter) {
+      this.isFilter = false;
+      this.isAdv = false;
+    } else {
+      this.isFilter = true;
+      this.isAdv = false;
+    }
+  }
+
+  public onSortChange(value) {
+    this.selectedSort = sortOptionEnum.NOTHING;
+
+    switch(value) {
+      case "RATE":
+        this.selectedSort = sortOptionEnum.RATE;
+        break;
+      default:
+        this.selectedSort = sortOptionEnum.NOTHING;
+        break;
+    }
+    this.sortAniList(this.selectedSort);
+  }
+  
+  private sortAniList(opt: sortOptionEnum) {
+    switch(opt) {
+      case sortOptionEnum.RATE:
+        console.log("HIT");
+        if(this.sort_rate == 0) {
+          this.aniList = this.aniList.sort((a, b) => a.score < b.score ? 1 : -1);
+          this.sort_rate = 1;
+        } else {
+          this.aniList = this.aniList.sort((a, b) => a.score > b.score ? 1 : -1);
+          this.sort_rate = 0;
+        }
+        break;
+      default:
+        this.aniList = this.aniList
+        break;
+    };
+
+    if(this.isMobile) {
+      this.aniListShow = this.aniList.slice(0, 5);
+    } else {
+      this.aniListShow = this.aniList.slice(0, 48);
+    }
+    this.pageSize = this.aniList.length;  
   }
 
   public backToTop(event) {

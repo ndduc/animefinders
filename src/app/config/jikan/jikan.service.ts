@@ -108,7 +108,6 @@ export class JikanService {
   resetCache() {
     // reset cache object whenever if contain more than x records
     if (this.respondCachedModel.length > 6) {
-      console.log("RESET");
       this.respondCachedModel = [] as CacheModel[];
     }
   }
