@@ -126,17 +126,19 @@
 	<div *ngIf="!isConnectionError  && !isLoading && isAdv">
 			<mat-toolbar class="nav-bar-animelist-2">
 				<form [formGroup]="searchYearForm" class="search-form">
+					
 					<mat-form-field class="input-search-adv" floatLabel="never">
-						<input matInput placeholder="Year" [(ngModel)]="strYear"
+						<input matInput placeholder="Year" [(ngModel)]="strYear" type="number"
 						formControlName="{{searchYearName}}"
 					>
 					</mat-form-field>
+
 					<div class="nav-spacer">
 					</div>
+
 					<mat-form-field floatLabel="never">
 						<mat-label>Season</mat-label>
-						<mat-select [(value)]="selected">
-							<mat-option>None</mat-option>
+						<mat-select [(value)]="selected" formControlName="{{searchSeasonName}}">
 							<mat-option value="spring">Spring</mat-option>
 							<mat-option value="summer">Summer</mat-option>
 							<mat-option value="fall">Fall</mat-option>

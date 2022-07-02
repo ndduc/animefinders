@@ -80,6 +80,8 @@ export class AnimeComponent implements OnInit {
   public searchYearForm = new FormGroup({});
   public searchYearName: string = 'searchYear';
   public searchAdvControl = new FormControl(null, Validators.required);
+  public searchSeasonName: string = 'searchSeason';
+  public searchSeasonControl = new FormControl(null, Validators.required);
   
   constructor(private jikanService: JikanService, 
     public modelService: NgbModal,
@@ -128,6 +130,7 @@ export class AnimeComponent implements OnInit {
   private setUpForm(): void {
     this.searchForm.addControl(this.searchName, this.searchControl);
     this.searchYearForm.addControl(this.searchYearName, this.searchAdvControl);
+    this.searchYearForm.addControl(this.searchSeasonName, this.searchSeasonControl);
   }
 
   public clear() {
@@ -438,7 +441,6 @@ export class AnimeComponent implements OnInit {
   private sortAniList(opt: sortOptionEnum) {
     switch(opt) {
       case sortOptionEnum.RATE:
-        console.log("HIT");
         if(this.sort_rate == 0) {
           this.aniList = this.aniList.sort((a, b) => a.score < b.score ? 1 : -1);
           this.sort_rate = 1;
