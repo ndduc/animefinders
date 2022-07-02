@@ -39,12 +39,7 @@ import { HentaiComponent } from './hentai/hentai.component';
 import { ErogeComponent } from './eroge/eroge.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DmcaComponentComponent } from './policy/dmca/dmca-component/dmca-component.component';
-import { MainComponent } from './introduction/main/main.component';
-import { AboutComponent } from './introduction/about/about.component';
-import { ProjectIntroComponent } from './introduction/project-intro/project-intro.component';
 import { MglTimelineModule } from 'angular-mgl-timeline';
-import { IntroNavigatorComponent } from './introduction/intro-navigator/intro-navigator.component';
-import { ProjectModalComponent } from './introduction/modal-components/project-modal/project-modal.component';
 import { NgImageSliderModule } from 'ng-image-slider';
 
 @NgModule({
@@ -67,11 +62,6 @@ import { NgImageSliderModule } from 'ng-image-slider';
     HentaiComponent,
     ErogeComponent,
     DmcaComponentComponent,
-    MainComponent,
-    AboutComponent,
-    ProjectIntroComponent,
-    IntroNavigatorComponent,
-    ProjectModalComponent
   ],
   imports: [
     BrowserModule,
