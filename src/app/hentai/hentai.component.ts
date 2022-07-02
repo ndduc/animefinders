@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AniList } from '../config/jikan/animelist';
+import { AniList } from '../config/jikan/model/animelist.models';
 import { JikanService } from '../config/jikan/jikan.service';
 import { ConfigService } from '../config/myaws/config.service';
 import { Search } from '../config/myaws/search';
@@ -9,8 +9,8 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { AnimeModalComponent } from '../common/modal/anime/anime-modal/anime-modal.component';
 import { sortOptionEnum } from '../common/enum/enum-option/enum-option';
-import { AniTop } from '../config/jikan/animeTop';
-import { HentaiTop } from '../config/jikan/animeTop';
+import { AniTop } from '../config/jikan/model/animeTop.model';
+import { HentaiTop } from '../config/jikan/model/animeTop.model';
 import { QuestionModalComponent } from '../common/modal/question/question-modal/question-modal.component';
 @Component({
   selector: 'app-hentai',

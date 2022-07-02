@@ -200,14 +200,14 @@
 							</div>
 							
 							<div class="anime-body d-flex">
-								<img class="anime-image"  src="{{aniList.images.jpg.image_url}}" alt="Photo Content - Error">
+								<img class="anime-image"  src="{{aniList.image_url}}" alt="Photo Content - Error">
 								<div class="anime-body-desc">
 									<p>{{aniList.synopsis}}</p>
 								</div>
 							</div>
 							<mat-card-content class="anime-content">
 							</mat-card-content>
-							<div class="torrent-button" (click)="openTorrentModal(aniList.title, aniList.images.jpg.image_url, 
+							<div class="torrent-button" (click)="openTorrentModal(aniList.title, aniList.image_url, 
 							checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id, aniList);"
 							class="torrent-button-grid border rounded d-flex p-2">
 								<span class="find-torrent-text">Find Torrent</span>

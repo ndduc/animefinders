@@ -3,11 +3,11 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, retry, timeout, shareReplay} from 'rxjs/operators';
-import { AniList } from './animelist';
-import { AniEpisodesList } from './animeEpisodes';
-import { AniDetail } from './animeDetail';
-import { AniTop } from './animeTop';
-import { HentaiTop } from './animeTop';
+import { AniList } from './model/animelist.models';
+import { AniEpisodesList } from './model/animeEpisodes.model';
+import { AniDetail } from './model/animeDetail.model';
+import { AniTop } from './model/animeTop.model';
+import { HentaiTop } from './model/animeTop.model';
 import { CacheModel } from './model/cache-model.model';
 @Injectable({
   providedIn: 'root'
@@ -41,7 +41,7 @@ export class JikanService {
     var currentYear = new Date().getFullYear();
     var currentMonth = new Date().getMonth() - 1;
       return this.http.get<AniList[]>(this.jikan_url_aws + "/seasonal?year=" + currentYear + "&season=" + this.getCurrentSeason(currentMonth)).pipe(
-      map((x:any) => x.data), 
+      map((data:any) => data.anime), 
       catchError(this.handleError)
     );
   }
@@ -90,9 +90,9 @@ export class JikanService {
     this.url = tmpUrl;
     var respondData = this.http.get<AniList[]>(tmpUrl).pipe(
       map(
-        (x:any) => 
+        (data:any) => 
         {
-          return x.data;
+          return data.anime;
         }), 
       shareReplay(1),
       catchError((this.handleError))

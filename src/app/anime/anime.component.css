@@ -1,4 +1,5 @@
 .nav-bar-animelist {
+	overflow-x: auto;
 	background-color: #34c97e;
 	display: flex;
 	flex-direction: row;
@@ -6,6 +7,7 @@
 }
 
 .nav-bar-animelist-mobile {
+	overflow-x: auto;
 	display: flex; 
 	justify-content: flex-end;
 	flex-direction: row;
@@ -220,6 +222,9 @@ button {
 	/* font-family: "Comic Sans MS", "Comic Sans", cursive; */
 }
 
+.search-form {
+	overflow-x: auto;
+}
 .question-container, .question-container-mobile {
   position: -webkit-fixed;
   position: fixed;
