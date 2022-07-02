@@ -58,7 +58,6 @@ export class AnimeModalComponent implements OnInit {
   ngOnInit() {
     this.getAnimeDetail();
     this.breakpointObserverEvent();
-    console.log("TOP\t\t" + this.isTopAnime);
   }
 
   

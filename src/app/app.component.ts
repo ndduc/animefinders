@@ -23,7 +23,6 @@ import * as AOS from 'aos';
 export class AppComponent {
   title = 'ani-hook';
   constructor() {
-    console.log(AOS);
   }
 
   ngOnInit() {

@@ -59,7 +59,6 @@ export class AboutComponent implements OnInit, AfterViewInit {
   }
 
   scroll(el: HTMLElement) {
-    console.log("TEST");
     el.scrollIntoView({behavior: 'smooth'});
   }
 }

@@ -100,7 +100,6 @@ export class AnimeTorrentHolderComponent implements OnInit, PipeTransform  {
       this.searchList = lst;
     }
 
-    console.log(this.searchList);
   }
 
   getDownloadLink(url_path: string) {
