@@ -41,7 +41,7 @@ export class JikanService {
     var currentYear = new Date().getFullYear();
     var currentMonth = new Date().getMonth() - 1;
       return this.http.get<AniList[]>(this.jikan_url_aws + "/seasonal?year=" + currentYear + "&season=" + this.getCurrentSeason(currentMonth)).pipe(
-      map((data:any) => data.anime), 
+      map((x:any) => x.data), 
       catchError(this.handleError)
     );
   }
@@ -90,9 +90,9 @@ export class JikanService {
     this.url = tmpUrl;
     var respondData = this.http.get<AniList[]>(tmpUrl).pipe(
       map(
-        (data:any) => 
+        (x:any) => 
         {
-          return data.anime;
+          return x.data;
         }), 
       shareReplay(1),
       catchError((this.handleError))

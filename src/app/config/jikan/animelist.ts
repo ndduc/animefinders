@@ -5,6 +5,7 @@ export interface AniList {
 	season_year: string;
 	url: string;
 	image_url: string;
+	images: any;
 	airing_start: string;
 	episodes: number;
 	synopsis: string;
