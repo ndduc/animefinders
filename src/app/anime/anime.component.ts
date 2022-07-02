@@ -29,7 +29,7 @@ export class AnimeComponent implements OnInit {
   isLoading: boolean = true;
   strYear: string = '';
   strTitle: string = '';
-  isHidden = true;
+  isHidden: boolean = true;
   selected = '';
   aniList: AniList[] = [];
   aniListShow: AniList[] = [];
@@ -39,7 +39,7 @@ export class AnimeComponent implements OnInit {
   error: any;
   headers: string[] = [];
   seasonLis: Array<{}> = [];
-  panelOpenState = false;
+  panelOpenState: boolean = false;
   isTopAnime: boolean = false;
   isAniEmpty : boolean = true;
   isConnectionError: boolean = false;
@@ -47,27 +47,24 @@ export class AnimeComponent implements OnInit {
   pageSize: any;
   optionSortObject = [{"name": "Select Sort Option", "type": "NOTHING"}, {"name": "Sort By Rate", "type":"RATE"}, {"name": "Sort By Type", "type":"TYPE"}];
   selectedOptionSort = this.optionSortObject[0];
-  sort_type = 0;
-  sort_rate = 0;
+  sort_type: number = 0;
+  sort_rate: number = 0;
   selectedSort: any;
   closeResult = '';
   topAnimeIndex: any;
   
-  topAnimeNumberOfColumn = 4;
-  seasonAnimeNumberOfColumn = 4;
-  isMobile = false;
+  topAnimeNumberOfColumn: number = 4;
+  seasonAnimeNumberOfColumn: number = 4;
+  isMobile: boolean = false;
 
   public searchForm = new FormGroup({});
-  public searchName = 'searchName';
+  public searchName: string = 'searchName';
   public searchControl = new FormControl(null, Validators.required);
-
   
   constructor(private jikanService: JikanService, 
-    private configService: ConfigService, public modelService: NgbModal,
-    private deviceService: DeviceDetectorService,
+    public modelService: NgbModal,
     private breakpointObserver: BreakpointObserver) { 
     }
-
 
   ngOnInit(): void {
     this.setSeasonInterval();
@@ -77,8 +74,7 @@ export class AnimeComponent implements OnInit {
     this.breakpointObserverEvent();
   }
 
-
-  breakpointObserverEvent() {
+  private breakpointObserverEvent() {
     this.breakpointObserver.observe([
       Breakpoints.XSmall,
       Breakpoints.Small,
@@ -109,13 +105,12 @@ export class AnimeComponent implements OnInit {
       }
     });
   }
-
   
   private setUpForm(): void {
     this.searchForm.addControl(this.searchName, this.searchControl);
   }
 
-  clear() {
+  public clear() {
     this.error = undefined;
     this.isLoading = true;
     this.headers = [];
@@ -123,8 +118,7 @@ export class AnimeComponent implements OnInit {
     this.isConnectionError = false;
   }
 
-
-  setSeasonInterval() {
+  public setSeasonInterval() {
     var year = new Date().getFullYear();
     var month = new Date().getMonth() + 1;
     /**
@@ -160,7 +154,7 @@ export class AnimeComponent implements OnInit {
     }
   }
 
-  setSeasonIntervalHelper(season, year, opt) {
+  private setSeasonIntervalHelper(season, year, opt) {
     //var tmpMap: Map<string, number> = new Map<string, number>();
     var tmpMap = {};
     tmpMap["season"] = season;
@@ -169,58 +163,54 @@ export class AnimeComponent implements OnInit {
     this.seasonLis.push(tmpMap);
   }
 
-  getTopAnime(page: string, subtype: string) {
+  public getTopAnime(page: string, subtype: string) {
     var tmpUrl = this.jikanService.jikan_url_aws + "/anime/top?page=" + page + "&subtype=" + subtype;
-    if(this.jikanService.respondMap[tmpUrl] != null) {
-      this.jikanService.respondMap[tmpUrl].subscribe(aniTop => {
-        this.setAniTopList(aniTop);
+    this.jikanService.resetCache();
+    var foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
+    if(foundObservable && foundObservable.url == tmpUrl) {
+      foundObservable.data.subscribe(x => {
+        this.setAniTopList(x);
       });
     } else {
       try {
           this.jikanService.setTopAnime(page, subtype);
-          this.jikanService.respondMap[tmpUrl]
-          .subscribe(
-            aniTop => {
-              this.setAniTopList(aniTop);
+          foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
+          foundObservable?.data.subscribe(
+            x => {
+              this.setAniTopList(x);
             },
             (error) => {
               this.setAniTopList(this.aniTop);
             }
           );
-        
       } catch (err) {
-        this.isConnectionError = true;
-        this.isAniEmpty = true;
-        this.isLoading = false;
+        this.animeSubcriptionErrorHandler();
       }
     }
-
-
     this.clearSort();
   }
 
-  
-
-  getSeasonalAnime(season: any, year: any) {
+  public getSeasonalAnime(season: any, year: any) {
     var tmpUrl = this.jikanService.jikan_url_aws + "/seasonal?year=" + year + "&season=" + season;
-
-    if(this.jikanService.respondMap[tmpUrl] != null) {
-      this.jikanService.respondMap[tmpUrl].subscribe(aniList => {
-        this.setAniList(aniList);
+    this.jikanService.resetCache();
+    var foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
+    if(foundObservable && foundObservable.url == tmpUrl) {
+      foundObservable.data.subscribe(x => {
+        this.setAniList(x);
       });
     } else {
       try {
         if(season != null && year != null) {
           this.jikanService.setAnimeBySeasonYear(season, year);
-          this.jikanService.respondMap[tmpUrl].subscribe(aniList => {
-            this.setAniList(aniList);
+          foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
+          foundObservable?.data.subscribe(x => {
+            this.setAniList(x);
           });
-  
         } else {
           this.jikanService.getSeasonalAnime()
           .subscribe(
-            aniList => {
-              this.setAniList(aniList);
+            x => {
+              this.setAniList(x);
             },
             (error) => {
               this.setAniList(this.aniList);
@@ -228,44 +218,46 @@ export class AnimeComponent implements OnInit {
           );
         }
       } catch (err) {
-        this.isConnectionError = true;
-        this.isAniEmpty = true;
-        this.isLoading = false;
+        this.animeSubcriptionErrorHandler();
       }
     }
-
     this.clearSort();
   }
 
-  getAnimeByTitle(title: any) {
+  public getAnimeByTitle(title: any) {
     var tmpUrl = this.jikanService.jikan_url_aws + "/search?title=" + title;
-    if(this.jikanService.respondMap[tmpUrl] != null) {
-      this.jikanService.respondMap[tmpUrl].subscribe(aniList => {
-        this.setAniList(aniList);
+    this.jikanService.resetCache();
+    var foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
+    if(foundObservable && foundObservable.url == tmpUrl) {
+      foundObservable.data.subscribe(x => {
+        this.setAniList(x);
       });
     } else {
       try {
         this.jikanService.setAnimeByTitle(title);
-        this.jikanService.respondMap[tmpUrl]
-        .subscribe(aniList => {
-          this.setAniList(aniList);
+        foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
+        foundObservable?.data.subscribe(x => {
+          this.setAniList(x);
           },
           (error) => {
             this.setAniList(this.aniList);
           }
         );
       } catch (err) {
-        this.isConnectionError = true;
-        this.isLoading = false;
-        this.isAniEmpty = true;
+        this.animeSubcriptionErrorHandler();
         // this.strTitle = '';
       }
     }
     this.clearSort();
   }
 
+  private animeSubcriptionErrorHandler() {
+    this.isConnectionError = true;
+    this.isLoading = false;
+    this.isAniEmpty = true;
+  }
 
-  onSortChange(value) {
+  public onSortChange(value) {
     this.selectedSort = value.name;
     if(value.type == "RATE") {
       this.selectedSort = sortOptionEnum.RATE;
@@ -275,7 +267,8 @@ export class AnimeComponent implements OnInit {
       this.selectedSort = "NOTHING";
     }
   }
-  sortAniList(opt: sortOptionEnum) {
+  
+  private sortAniList(opt: sortOptionEnum) {
 
     switch(opt) {
       case sortOptionEnum.RATE:
@@ -310,7 +303,7 @@ export class AnimeComponent implements OnInit {
     this.pageSize = this.aniList.length;  
   }
 
-  setAniList(lst: AniList[]) {
+  private setAniList(lst: AniList[]) {
     if(lst == null || lst.length === 0) {
       this.isConnectionError = false;
       this.isAniEmpty = true;
@@ -331,7 +324,7 @@ export class AnimeComponent implements OnInit {
     this.isTopAnime = false;
   }
 
-  setAniTopList(lst: AniTop[]) {
+  private setAniTopList(lst: AniTop[]) {
     if(lst == null || lst.length === 0) {
       this.isConnectionError = false;
       this.isAniEmpty = true;
@@ -347,7 +340,7 @@ export class AnimeComponent implements OnInit {
     // this.strTitle = '';
   }
 
-  recurRemoveHentai(lst: AniList[]) {
+  private recurRemoveHentai(lst: AniList[]) {
     if(lst[0].genres == undefined) {
       for(var i = 0; i < lst.length; i++) {
           if(lst[i].rated === "Rx") {
@@ -369,28 +362,11 @@ export class AnimeComponent implements OnInit {
     return lst;
   }
 
-
-
-  
-  getNyaaSearch() {
-    this.configService.getNyaaSearch().subscribe(searchList => {
-        this.searchList = searchList;
-      });
-  }
-  createRange(number){
-    var items: number[] = [];
-    for(var i = 1; i <= number; i++){
-      items.push(i);
-    }
-    return items;
-  }
-
-  toggleAdvSearch() {
+  public toggleAdvSearch() {
     this.isHidden = !this.isHidden;
   }
 
-
-  openTorrentModal(title, imageSrc, episode, type, animeId, animeObject) {
+  public openTorrentModal(title, imageSrc, episode, type, animeId, animeObject) {
     const modalRef = this.modelService.open(AnimeModalComponent);
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.imageSrc = imageSrc;
@@ -402,8 +378,7 @@ export class AnimeComponent implements OnInit {
 
   }
 
-
-  openQAModal() {
+  public openQAModal() {
     const modalRef = this.modelService.open(QuestionModalComponent);
     modalRef.componentInstance.title = "TEST";
     modalRef.componentInstance.imageSrc = "TEST";
@@ -413,7 +388,7 @@ export class AnimeComponent implements OnInit {
 
   }
 
-  checkIsNumber(episode) {
+  public checkIsNumber(episode) {
     if(episode > 0) {
       return true;
     } else {
@@ -421,13 +396,13 @@ export class AnimeComponent implements OnInit {
     }
   }
 
-  clearSort() {
+  public clearSort() {
     this.sort_type = 0;
     this.sort_rate = 0;
   }
 
 
-  onPageChange($event) {
+  public onPageChange($event) {
     let startIndex = $event.pageIndex * $event.pageSize;
     let endIndex = startIndex + $event.pageSize;
     if(endIndex > this.pageSize){
@@ -436,21 +411,18 @@ export class AnimeComponent implements OnInit {
     this.aniListShow = this.aniList.slice(startIndex, endIndex);
   }
 
-
-  topAnimeOnPageChange($event) {
+  public topAnimeOnPageChange($event) {
     var idx = $event.pageIndex;
     this.topAnimeIndex = +idx + 1;
     this.getTopAnime(this.topAnimeIndex.toString(), '')
   }
 
-  convertToTitleCase(value:string): string {
+  public convertToTitleCase(value:string): string {
     let first = value.substr(0,1).toUpperCase();
     return first + value.substr(1); 
   }
 
-
-
-  open(content) {
+  public open(content) {
     this.modelService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -458,7 +430,7 @@ export class AnimeComponent implements OnInit {
     });
   }
 
-  modelSaveClick() {
+  public modelSaveClick() {
     if(this.selectedSort !== 'NOTHING') {
       this.sortAniList(this.selectedSort);
     }
@@ -474,7 +446,7 @@ export class AnimeComponent implements OnInit {
     }
   }
 
-  backToTop(event) {
+  public backToTop(event) {
     window.scroll({ 
             top: 0, 
             left: 0, 

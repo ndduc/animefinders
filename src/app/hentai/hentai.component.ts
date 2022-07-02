@@ -124,28 +124,28 @@ export class HentaiComponent implements OnInit {
 
   getTopAnime(page: string, subtype: string) {
     var tmpUrl = this.jikanService.jikan_url_aws + "/hentai/top?page=" + page;
-    if(this.jikanService.respondMap[tmpUrl] != null) {
-      this.jikanService.respondMap[tmpUrl].subscribe(aniTop => {
-        this.setAniTopList(aniTop);
-      });
-    } else {
-      try {
-          this.jikanService.setTopHentai(page);
-          this.jikanService.respondMap[tmpUrl]
-          .subscribe(
-            aniTop => {
-              this.setAniTopList(aniTop);
-            },
-            (error) => {
-              this.setAniTopList(this.aniTop);
-            }
-          );
+    // if(this.jikanService.respondCachedMap[tmpUrl] != null) {
+    //   this.jikanService.respondCachedMap[tmpUrl].subscribe(aniTop => {
+    //     this.setAniTopList(aniTop);
+    //   });
+    // } else {
+    //   try {
+    //       this.jikanService.setTopHentai(page);
+    //       this.jikanService.respondCachedMap[tmpUrl]
+    //       .subscribe(
+    //         aniTop => {
+    //           this.setAniTopList(aniTop);
+    //         },
+    //         (error) => {
+    //           this.setAniTopList(this.aniTop);
+    //         }
+    //       );
         
-      } catch (err) {
-        this.isAniEmpty = true;
-        this.isLoading = false;
-      }
-    }
+    //   } catch (err) {
+    //     this.isAniEmpty = true;
+    //     this.isLoading = false;
+    //   }
+    // }
 
     this.clearSort();
   }
@@ -155,61 +155,61 @@ export class HentaiComponent implements OnInit {
   getSeasonalAnime(season: any, year: any) {
     var tmpUrl = this.jikanService.jikan_url_aws + "/seasonal?year=" + year + "&season=" + season;
 
-    if(this.jikanService.respondMap[tmpUrl] != null) {
-      this.jikanService.respondMap[tmpUrl].subscribe(aniList => {
-        this.setAniList(aniList);
-      });
-    } else {
-      try {
-        if(season != null && year != null) {
-          this.jikanService.setAnimeBySeasonYear(season, year);
-          this.jikanService.respondMap[tmpUrl].subscribe(aniList => {
-            this.setAniList(aniList);
-          });
+    // if(this.jikanService.respondCachedMap[tmpUrl] != null) {
+    //   this.jikanService.respondCachedMap[tmpUrl].subscribe(aniList => {
+    //     this.setAniList(aniList);
+    //   });
+    // } else {
+    //   try {
+    //     if(season != null && year != null) {
+    //       this.jikanService.setAnimeBySeasonYear(season, year);
+    //       this.jikanService.respondCachedMap[tmpUrl].subscribe(aniList => {
+    //         this.setAniList(aniList);
+    //       });
   
-        } else {
-          this.jikanService.getSeasonalAnime()
-          .subscribe(
-            aniList => {
-              this.setAniList(aniList);
-            },
-            (error) => {
-              this.setAniList(this.aniList);
-            }
-          );
-        }
-      } catch (err) {
-        this.isAniEmpty = true;
-        this.isLoading = false;
-      }
-    }
+    //     } else {
+    //       this.jikanService.getSeasonalAnime()
+    //       .subscribe(
+    //         aniList => {
+    //           this.setAniList(aniList);
+    //         },
+    //         (error) => {
+    //           this.setAniList(this.aniList);
+    //         }
+    //       );
+    //     }
+    //   } catch (err) {
+    //     this.isAniEmpty = true;
+    //     this.isLoading = false;
+    //   }
+    // }
 
     this.clearSort();
   }
 
   getAnimeByTitle(title: any) {
     var tmpUrl = this.jikanService.jikan_url_aws + "/search?title=" + title;
-    if(this.jikanService.respondMap[tmpUrl] != null) {
-      this.jikanService.respondMap[tmpUrl].subscribe(aniList => {
-        this.setAniList(aniList);
-      });
-    } else {
-      try {
-        this.jikanService.setAnimeByTitle(title);
-        this.jikanService.respondMap[tmpUrl]
-        .subscribe(aniList => {
-          this.setAniList(aniList);
-          },
-          (error) => {
-            this.setAniList(this.aniList);
-          }
-        );
-      } catch (err) {
-        this.isLoading = false;
-        this.isAniEmpty = true;
-        this.strTitle = '';
-      }
-    }
+    // if(this.jikanService.respondCachedMap[tmpUrl] != null) {
+    //   this.jikanService.respondCachedMap[tmpUrl].subscribe(aniList => {
+    //     this.setAniList(aniList);
+    //   });
+    // } else {
+    //   try {
+    //     this.jikanService.setAnimeByTitle(title);
+    //     this.jikanService.respondCachedMap[tmpUrl]
+    //     .subscribe(aniList => {
+    //       this.setAniList(aniList);
+    //       },
+    //       (error) => {
+    //         this.setAniList(this.aniList);
+    //       }
+    //     );
+    //   } catch (err) {
+    //     this.isLoading = false;
+    //     this.isAniEmpty = true;
+    //     this.strTitle = '';
+    //   }
+    // }
     this.clearSort();
   }
 

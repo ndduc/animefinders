@@ -8,17 +8,19 @@ import { AniEpisodesList } from './animeEpisodes';
 import { AniDetail } from './animeDetail';
 import { AniTop } from './animeTop';
 import { HentaiTop } from './animeTop';
+import { CacheModel } from './model/cache-model.model';
 @Injectable({
   providedIn: 'root'
 })
 
 
 export class JikanService {
- // jikan_url = 'https://api.jikan.moe/v3';
-  jikan_url_aws = 'https://yr8xbnhel0.execute-api.us-west-1.amazonaws.com/Prod/jikan';
-  qa_url_aws = 'https://yr8xbnhel0.execute-api.us-west-1.amazonaws.com/Prod/qa';
-  url;
-  public respondMap = new Map<string, any>();
+  jikan_url_aws = 'https://yr8xbnhel0.execute-api.us-west-1.amazonaws.com/Prod/jikan' as string;
+  qa_url_aws = 'https://yr8xbnhel0.execute-api.us-west-1.amazonaws.com/Prod/qa' as string;
+  url: string | undefined;
+
+  public respondCachedModel = [] as CacheModel[];
+
   public respondMapAnimeDetail = new Map<any, any>();
   constructor(private http: HttpClient) { }
 
@@ -95,9 +97,21 @@ export class JikanService {
       shareReplay(1),
       catchError((this.handleError))
     );
-    this.respondMap[this.url] = respondData;
+    this.respondCachedModel.push(
+      {
+        url: this.url,
+        data: respondData
+      } as CacheModel
+    );
   }
 
+  resetCache() {
+    // reset cache object whenever if contain more than x records
+    if (this.respondCachedModel.length > 6) {
+      console.log("RESET");
+      this.respondCachedModel = [] as CacheModel[];
+    }
+  }
   
   setTopAnime(page: string, subtype: string) {
     if(subtype.length <= 1) {
@@ -114,7 +128,12 @@ export class JikanService {
       shareReplay(1),
       catchError((this.handleError))
     );
-    this.respondMap[this.url] = respondData;
+    this.respondCachedModel.push(
+      {
+        url: this.url,
+        data: respondData
+      } as CacheModel
+    );
   }
 
 
@@ -130,7 +149,12 @@ export class JikanService {
       shareReplay(1),
       catchError((this.handleError))
     );
-    this.respondMap[this.url] = respondData;
+    this.respondCachedModel.push(
+      {
+        url: this.url,
+        data: respondData
+      } as CacheModel
+    );
   }
 
   setAnimeByTitle(title: any) {
@@ -145,7 +169,12 @@ export class JikanService {
       shareReplay(1),
       catchError((this.handleError))
     );
-    this.respondMap[this.url] = respondData;
+    this.respondCachedModel.push(
+      {
+        url: this.url,
+        data: respondData
+      } as CacheModel
+    );
   }
 
 
