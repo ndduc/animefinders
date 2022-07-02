@@ -422,6 +422,12 @@ export class AnimeComponent implements OnInit {
       case "RATE":
         this.selectedSort = sortOptionEnum.RATE;
         break;
+      case "RATE_DESC":
+        this.selectedSort = sortOptionEnum.RATE_DESC;
+        break;
+      case "RATE_ASC":
+        this.selectedSort = sortOptionEnum.RATE_ASC;
+        break;
       default:
         this.selectedSort = sortOptionEnum.NOTHING;
         break;
@@ -440,6 +446,12 @@ export class AnimeComponent implements OnInit {
           this.aniList = this.aniList.sort((a, b) => a.score > b.score ? 1 : -1);
           this.sort_rate = 0;
         }
+        break;
+      case sortOptionEnum.RATE_DESC:
+          this.aniList = this.aniList.sort((a, b) => a.score < b.score ? 1 : -1);
+        break;
+      case sortOptionEnum.RATE_ASC:
+          this.aniList = this.aniList.sort((a, b) => a.score > b.score ? 1 : -1);
         break;
       default:
         this.aniList = this.aniList
