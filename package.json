@@ -26,6 +26,7 @@
     "angular-mgl-timeline": "^0.4.0",
     "aos": "^2.3.4",
     "bootstrap": "^4.5.0",
+    "ng-image-slider": "^2.8.0",
     "ngx-device-detector": "^2.1.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",

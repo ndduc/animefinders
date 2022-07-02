@@ -1,5 +1,5 @@
 <router-outlet></router-outlet>
-<app-navigator></app-navigator>
+<!-- <app-navigator></app-navigator> -->
 
 <div *ngIf="isLoading" class="d-flex justify-content-center">
 	<img style="width: 30%; height: 30%;" class="" src="assets/images/loading-cute.gif" alt="Err">
@@ -12,28 +12,6 @@
 	-->
 
 	<body class="container-xxl">
-
-		<!-- 
-			this is filter section
-			definitely need some work here
-		-->
-		<ng-template #content let-modal>
-			<div class="modal-header">
-				<h4 class="modal-title" id="modal-basic-title">Filter Panel</h4>
-			</div>
-			<div class="modal-body d-flex flex-column">
-				<div>
-					<label for="dateOfBirth">Sort: </label>
-					<select [ngModel]="selectedOptionSort" (ngModelChange)="onSortChange($event)" name="sel3">
-						<option [ngValue]="i" *ngFor="let i of optionSortObject">{{i.name}}</option>
-					</select>
-				</div>
-			</div>
-			<div class="modal-footer">
-			<button type="button" class="btn-advance" (click)="this.modelSaveClick(); modal.close('Save click')">Save</button>
-			</div>
-		</ng-template>
-
 	<!-- 
 		Header section, where the app displays TAG such as 
 		Seasons, search box,etc...
@@ -107,20 +85,20 @@
 						</button>
 					</div>
 				</div>
-					
 			</div>
 
 			<form [formGroup]="searchForm" class="search-form" *ngIf="!isMobile">
+				<mat-form-field >
+					<input matInput formControlName="{{searchName}}" placeholder="Search"  [(ngModel)]="strTitle">
 
-					<mat-form-field >
-						<input matInput formControlName="{{searchName}}" placeholder="Search"  [(ngModel)]="strTitle">
-						<mat-error *ngIf="searchForm.get(searchName)?.hasError('required')">Required</mat-error>
+				</mat-form-field>
 
-					</mat-form-field>
+				<button mat-flat-button class="btn-advance" (click)="clear(); getAnimeByTitle(strTitle);" disabled="{{searchForm.invalid || !searchForm.dirty}}" >
+					Search
+				</button>
 
-					<button mat-flat-button class="btn-advance" (click)="clear(); getAnimeByTitle(strTitle);" disabled="{{searchForm.invalid || !searchForm.dirty}}" >
-						Search
-					</button>
+				<button mat-flat-button class="btn-advance" (click)="enablingFilter()">Filter</button>
+				<button mat-flat-button class="btn-advance" (click)="enablingAdvanceSearch()">ADV</button>
 			</form>
 		</mat-toolbar>
 	</div>
@@ -128,16 +106,16 @@
 	<div *ngIf="!isConnectionError && !isLoading && isMobile">
 		<mat-toolbar class="nav-bar-animelist-mobile">
 			<form [formGroup]="searchForm" class="search-form">
-
-					<mat-form-field >
+					<mat-form-field class="searchNameField-mobile" >
 						<input matInput formControlName="{{searchName}}" placeholder="Search"  [(ngModel)]="strTitle">
-						<mat-error *ngIf="searchForm.get(searchName)?.hasError('required')">Required</mat-error>
-
 					</mat-form-field>
 
 					<button mat-flat-button class="btn-advance" (click)="clear(); getAnimeByTitle(strTitle);" disabled="{{searchForm.invalid || !searchForm.dirty}}" >
 						Search
 					</button>
+
+					<button mat-flat-button class="btn-advance" (click)="enablingFilter()">Filter</button>
+					<button mat-flat-button class="btn-advance" (click)="enablingAdvanceSearch()">ADV</button>
 			</form>
 		</mat-toolbar>
 	</div>
@@ -145,27 +123,51 @@
 	<!-- 
 		This part is for the adv search
 	 -->
-	<div *ngIf="!isConnectionError  && !isLoading">
-		<mat-toolbar class="nav-bar-animelist-2" [hidden] ="isHidden">
-				<mat-form-field class="input-search-adv" floatLabel="never">
-					<input matInput placeholder="Year" [(ngModel)]="strYear">
-				</mat-form-field>
-				<mat-form-field floatLabel="never">
-					<mat-label>Season</mat-label>
+	<div *ngIf="!isConnectionError  && !isLoading && isAdv">
+			<mat-toolbar class="nav-bar-animelist-2">
+				<form [formGroup]="searchYearForm" class="search-form">
+					
+					<mat-form-field class="input-search-adv" floatLabel="never">
+						<input matInput placeholder="Year" [(ngModel)]="strYear" type="number"
+						formControlName="{{searchYearName}}"
+					>
+					</mat-form-field>
+
+					<div class="nav-spacer">
+					</div>
+
+					<mat-form-field floatLabel="never">
+						<mat-label>Season</mat-label>
+						<mat-select [(value)]="selected" formControlName="{{searchSeasonName}}">
+							<mat-option value="spring">Spring</mat-option>
+							<mat-option value="summer">Summer</mat-option>
+							<mat-option value="fall">Fall</mat-option>
+							<mat-option value="winter">Winter</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<button mat-flat-button class="btn-advance" (click)="clear(); getSeasonalAnime(selected, strYear);"
+					disabled="{{searchYearForm.invalid || !searchYearForm.dirty}}" >Advance Search</button>
+				</form>
+		</mat-toolbar>
+	</div>
+
+	<!-- Sort going to be here -->
+	<div *ngIf="!isConnectionError  && !isLoading && isFilter && !isTopAnime">
+		<mat-toolbar class="nav-bar-animelist-2">
+			<form class="search-form">
+				<mat-form-field class="input-search-adv"  floatLabel="never">
+					<mat-label>Sort Option</mat-label>
 					<mat-select [(value)]="selected">
-						<mat-option>None</mat-option>
-						<mat-option value="spring">Spring</mat-option>
-						<mat-option value="summer">Summer</mat-option>
-						<mat-option value="fall">Fall</mat-option>
-						<mat-option value="winter">Winter</mat-option>
+						<mat-option value="NOTHING">Select Sort Option</mat-option>
+						<!-- <mat-option value="RATE">Score</mat-option> -->
+						<mat-option value="RATE_DESC">Score (High)</mat-option>
+						<mat-option value="RATE_ASC">Score (Low)</mat-option>
 					</mat-select>
 				</mat-form-field>
-				<button mat-flat-button class="btn-advance" (click)="clear(); getSeasonalAnime(selected, strYear); ">Adv Search</button>
-				<button mat-flat-button class="btn-advance-sort" (click)="open(content)">Filter</button>
-
+				<button mat-flat-button class="btn-advance"  (click)="onSortChange(selected)"
+				>Save</button>
+			</form>
 		</mat-toolbar>
-
-
 	</div>
 
 

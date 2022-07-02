@@ -1,4 +1,5 @@
 .nav-bar-animelist {
+	overflow-x: auto;
 	background-color: #34c97e;
 	display: flex;
 	flex-direction: row;
@@ -6,6 +7,7 @@
 }
 
 .nav-bar-animelist-mobile {
+	overflow-x: auto;
 	display: flex; 
 	justify-content: flex-end;
 	flex-direction: row;
@@ -35,6 +37,7 @@
 	margin-left: 10px;
 	cursor: pointer;
 }
+
 
 .btn-advance-sort {
 	font-size: 10px;
@@ -219,6 +222,9 @@ button {
 	/* font-family: "Comic Sans MS", "Comic Sans", cursive; */
 }
 
+.search-form {
+	overflow-x: auto;
+}
 .question-container, .question-container-mobile {
   position: -webkit-fixed;
   position: fixed;
@@ -272,7 +278,7 @@ button {
 }
 
 ::ng-deep .nav-bar-animelist {
-	overflow: auto;
+	overflow: hidden;
 }
 
 @media (max-width: 400px) {
@@ -289,4 +295,14 @@ button {
 	::ng-deep .tag {
 		height: 40px;
 	} 
+}
+
+
+.nav-spacer {
+    display:inline-block; 
+    width: 1%;
+}
+
+.searchNameField-mobile {
+	width: 150px !important;
 }

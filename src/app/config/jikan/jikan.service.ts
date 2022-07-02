@@ -3,22 +3,24 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, retry, timeout, shareReplay} from 'rxjs/operators';
-import { AniList } from './animelist';
-import { AniEpisodesList } from './animeEpisodes';
-import { AniDetail } from './animeDetail';
-import { AniTop } from './animeTop';
-import { HentaiTop } from './animeTop';
+import { AniList } from './model/animelist.models';
+import { AniEpisodesList } from './model/animeEpisodes.model';
+import { AniDetail } from './model/animeDetail.model';
+import { AniTop } from './model/animeTop.model';
+import { HentaiTop } from './model/animeTop.model';
+import { CacheModel } from './model/cache-model.model';
 @Injectable({
   providedIn: 'root'
 })
 
 
 export class JikanService {
- // jikan_url = 'https://api.jikan.moe/v3';
-  jikan_url_aws = 'https://yr8xbnhel0.execute-api.us-west-1.amazonaws.com/Prod/jikan';
-  qa_url_aws = 'https://yr8xbnhel0.execute-api.us-west-1.amazonaws.com/Prod/qa';
-  url;
-  public respondMap = new Map<string, any>();
+  jikan_url_aws = 'https://yr8xbnhel0.execute-api.us-west-1.amazonaws.com/Prod/jikan' as string;
+  qa_url_aws = 'https://yr8xbnhel0.execute-api.us-west-1.amazonaws.com/Prod/qa' as string;
+  url: string | undefined;
+  error = false as boolean;
+  public respondCachedModel = [] as CacheModel[];
+
   public respondMapAnimeDetail = new Map<any, any>();
   constructor(private http: HttpClient) { }
 
@@ -95,9 +97,20 @@ export class JikanService {
       shareReplay(1),
       catchError((this.handleError))
     );
-    this.respondMap[this.url] = respondData;
+    this.respondCachedModel.push(
+      {
+        url: this.url,
+        data: respondData
+      } as CacheModel
+    );
   }
 
+  resetCache() {
+    // reset cache object whenever if contain more than x records
+    if (this.respondCachedModel.length > 6) {
+      this.respondCachedModel = [] as CacheModel[];
+    }
+  }
   
   setTopAnime(page: string, subtype: string) {
     if(subtype.length <= 1) {
@@ -114,7 +127,12 @@ export class JikanService {
       shareReplay(1),
       catchError((this.handleError))
     );
-    this.respondMap[this.url] = respondData;
+    this.respondCachedModel.push(
+      {
+        url: this.url,
+        data: respondData
+      } as CacheModel
+    );
   }
 
 
@@ -130,7 +148,12 @@ export class JikanService {
       shareReplay(1),
       catchError((this.handleError))
     );
-    this.respondMap[this.url] = respondData;
+    this.respondCachedModel.push(
+      {
+        url: this.url,
+        data: respondData
+      } as CacheModel
+    );
   }
 
   setAnimeByTitle(title: any) {
@@ -145,23 +168,29 @@ export class JikanService {
       shareReplay(1),
       catchError((this.handleError))
     );
-    this.respondMap[this.url] = respondData;
+    this.respondCachedModel.push(
+      {
+        url: this.url,
+        data: respondData
+      } as CacheModel
+    );
   }
 
 
 
   private handleError(error: HttpErrorResponse) {
-  if (error.status === 0) {
-    // A client-side or network error occurred. Handle it accordingly.
-    console.error('An error occurred:', error.error);
-  } else {
-    // The backend returned an unsuccessful response code.
-    // The response body may contain clues as to what went wrong.
-    console.error(
-      `Backend returned code ${error.status}, body was: `, error.error);
-  }
-  // Return an observable with a user-facing error message.
-  return throwError(
-    'Something bad happened; please try again later.');
-  }
+    location.reload();
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `, error.error);
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(
+      'Something bad happened; please try again later.');
+    }
 }

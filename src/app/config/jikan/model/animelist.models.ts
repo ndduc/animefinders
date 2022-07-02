@@ -1,3 +1,5 @@
+import { AnimeGenre } from "./anime-genre.model";
+
 export interface AniList {
 	mal_id: number;
 	title: string;
@@ -11,6 +13,6 @@ export interface AniList {
 	type: string;
 	score: string;
 	rated: string;
-	genres: any
+	genres: AnimeGenre[];
 
 }
