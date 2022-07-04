@@ -303,6 +303,11 @@ button {
     width: 1%;
 }
 
+.nav-spacer-height {
+    width: 1%;
+	height: 2%;
+}
+
 .searchNameField-mobile {
 	width: 150px !important;
 }

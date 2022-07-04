@@ -343,7 +343,7 @@ export class AnimeComponent implements OnInit {
     this.isHidden = !this.isHidden;
   }
 
-  public openTorrentModal(title, imageSrc, episode, type, animeId, animeObject) {
+  public openTorrentModal(title, imageSrc, episode, type, animeId, animeObject, isStream) {
     const modalRef = this.modelService.open(AnimeModalComponent);
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.imageSrc = imageSrc;
@@ -352,7 +352,8 @@ export class AnimeComponent implements OnInit {
     modalRef.componentInstance.animeId = animeId;
     modalRef.componentInstance.aniObject = animeObject;
     modalRef.componentInstance.isTopAnime = this.isTopAnime;
-
+    modalRef.componentInstance.isStream = isStream;
+    
   }
 
   public openQAModal() {

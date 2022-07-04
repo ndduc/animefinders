@@ -208,9 +208,19 @@
 							<mat-card-content class="anime-content">
 							</mat-card-content>
 							<div class="torrent-button" (click)="openTorrentModal(aniList.title, aniList.image_url, 
-							checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id, aniList);"
+							checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id, aniList, false);"
 							class="torrent-button-grid border rounded d-flex p-2">
 								<span class="find-torrent-text">Find Torrent</span>
+							</div>
+
+							<div class="nav-spacer-height">
+
+							</div>
+
+							<div class="torrent-button"  (click)="openTorrentModal(aniList.title, aniList.image_url, 
+							checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id, aniList, true);"
+							class="torrent-button-grid border rounded d-flex p-2">
+								<span class="find-torrent-text">Find Stream</span>
 							</div>
 						</mat-card>
 
@@ -240,7 +250,7 @@
 							
 							
 							<div class="anime-body-top d-flex" (click)="openTorrentModal(aniList.title, aniList.image_url, 
-							checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id, aniList);">
+							checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id, aniList, false);">
 								
 								<img class="anime-image-top"  src="{{aniList.image_url}}" alt="Photo Content - Error">
 

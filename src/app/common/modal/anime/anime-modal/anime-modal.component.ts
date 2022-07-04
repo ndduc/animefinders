@@ -19,6 +19,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 })
 export class AnimeModalComponent implements OnInit {
 
+  @Input() isStream = false as boolean; 
   @Input() title;
   @Input() imageSrc;
   @Input() episode;
@@ -53,8 +54,8 @@ export class AnimeModalComponent implements OnInit {
     private breakpointObserver: BreakpointObserver ) { }
 
   ngOnInit() {
-    this.getAnimeDetail();
     this.breakpointObserverEvent();
+    this.getAnimeDetail();
   }
 
   
