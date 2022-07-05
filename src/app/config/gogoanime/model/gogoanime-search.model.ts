@@ -4,6 +4,4 @@ export interface GogoAnimeSearchModel {
     animeUrl: string,
     animeImage: string,
     status: string,
-    released: number,
-    source: string // this source indicate the api source
-}
+    released: number}

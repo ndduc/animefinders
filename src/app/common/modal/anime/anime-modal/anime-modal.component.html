@@ -54,9 +54,8 @@
 
             <div *ngIf="!isLoading && isStream">
               <!-- <button mat-flat-button class="btn-advance"  (click)="navigaterToAnimeStream(title)">TEST</button> -->
-              <div *ngFor="let stream of this.gogoAnimeSearchResult">
-                <app-anime-stream-holder [gogoObject]="stream"></app-anime-stream-holder>
-              </div>
+              <app-anime-stream-holder [gogoObjects]="this.gogoAnimeSearchResult" [objectSource]="'Gogo Anime'"></app-anime-stream-holder>
+
             </div>
           </div>
 

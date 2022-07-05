@@ -8,7 +8,8 @@ import { GogoAnimeSearchModel } from 'src/app/config/gogoanime/model/gogoanime-s
   styleUrls: ['./anime-stream-holder.component.css']
 })
 export class AnimeStreamHolderComponent implements OnInit {
-  @Input() gogoObject: GogoAnimeSearchModel | undefined;
+  @Input() gogoObjects: GogoAnimeSearchModel[] | undefined;
+  @Input() objectSource: string | undefined;
   constructor(
     private breakpointObserver: BreakpointObserver
   ) { }
@@ -17,7 +18,9 @@ export class AnimeStreamHolderComponent implements OnInit {
   isMobile: boolean = false;
 
   ngOnInit(): void {
-    console.log(this.gogoObject?.animeId)
+    this.isLoading = false;
+    this.isFound = true;
+    console.log(this.gogoObjects);
     this.breakpointObserverEvent();
   }
 
