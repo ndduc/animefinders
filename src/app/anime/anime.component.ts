@@ -14,6 +14,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AfterViewInit } from '@angular/core';
 import { AnimeSortModel } from './model/anime-sort-model.model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -85,7 +86,8 @@ export class AnimeComponent implements OnInit {
   
   constructor(private jikanService: JikanService, 
     public modelService: NgbModal,
-    private breakpointObserver: BreakpointObserver) { 
+    private breakpointObserver: BreakpointObserver,
+    ) { 
     }
 
   ngOnInit(): void {
@@ -476,4 +478,7 @@ export class AnimeComponent implements OnInit {
             behavior: 'smooth' 
      });
   }
+
+
+
 }
