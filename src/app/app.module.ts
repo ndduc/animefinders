@@ -41,6 +41,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DmcaComponentComponent } from './policy/dmca/dmca-component/dmca-component.component';
 import { MglTimelineModule } from 'angular-mgl-timeline';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { AnimeStreamComponent } from './anime-detail/anime-stream/anime-stream.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
     HentaiComponent,
     ErogeComponent,
     DmcaComponentComponent,
+    AnimeStreamComponent,
   ],
   imports: [
     BrowserModule,
