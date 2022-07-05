@@ -9,6 +9,7 @@ import { AniDetail } from 'src/app/config/jikan/model/animeDetail.model';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 import { GogoanimeService } from 'src/app/config/gogoanime/gogoanime.service';
+import { GogoAnimeSearchModel } from 'src/app/config/gogoanime/model/gogoanime-search.model';
 
 /*
   This modal hold anime's torrent detail
@@ -48,6 +49,8 @@ export class AnimeModalComponent implements OnInit {
 
   isMobile: boolean = false;
   numberOfEpisode: any;
+
+  gogoAnimeSearchResult: GogoAnimeSearchModel[] = [];
 
   constructor(private nyaaService : NyaaService, 
     public activeModal: NgbActiveModal, 
@@ -157,6 +160,7 @@ export class AnimeModalComponent implements OnInit {
     if (this.isStream) {
       this.gogoanime.search$.subscribe(x =>  {
         console.log(x);
+        this.gogoAnimeSearchResult = x;
       })
       this.gogoanime.getAnimeSearch(this.title);
     }

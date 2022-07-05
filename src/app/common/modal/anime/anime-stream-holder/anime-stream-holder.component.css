@@ -1,0 +1,65 @@
+.expan-torrent {
+    /* cursor: pointer; */
+    background-color: #5CDB95; 
+    margin-top: 2%;
+}
+
+.expan-torrent-mobile {
+    width: 100%; 
+    cursor: pointer;
+    background-color: #34c97e; 
+    margin-top: 2%;
+}
+
+.text-torrent {
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+
+.text-torrent-exp-parent {
+    background-color: #8EE4AF;
+    height: 100px;
+}
+
+.torrent-div {
+    color: black;
+    background-color: #EDF5E1;
+    margin: 2%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 15px;
+    -webkit-box-shadow:0px 1px 1px gray;
+    -moz-box-shadow:0px 1px 1px gray;
+    box-shadow:0px 1px 1px gray;
+}
+
+.text-torrent-exp-child {
+    color: black;
+    font-size: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.torrent-div-item-2 {
+    margin-right: 2%;
+}
+
+.side-icon-image {
+    width: 15px;
+    height: 15px;
+    margin-left: 2%;
+}
+
+.torrent-body {
+    /* font-family: "Comic Sans MS", "Comic Sans", cursive; */
+    width: 100%;
+}
+
+::ng-deep .mat-expansion-panel-header:not([aria-disabled=true]) {
+    min-height: 40px;
+    height: auto;
+}
