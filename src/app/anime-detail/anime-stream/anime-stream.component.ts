@@ -15,10 +15,22 @@ export class AnimeStreamComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(x => {
       if (x.id) {
-        this.gogoanime.search$.subscribe(x =>  {
-          console.log(x);
+        this.gogoanime.detail$.subscribe(x =>  {
+          // console.log(x);
+          x.episodesList.forEach(episode => {
+  
+
+            this.gogoanime.streamVIDCDN$.subscribe(vidcdn => {
+              console.log(episode['episodeId']);
+              console.log(vidcdn.sources);
+            })
+
+            this.gogoanime.getStreamVIDCDN(episode['episodeId']);
+          })
         })
-        this.gogoanime.getAnimeSearch(x.id);
+        this.gogoanime.getAnimeDetail(x.id);
+
+
       }
   
     })
