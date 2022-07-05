@@ -180,9 +180,4 @@ export class AnimeModalComponent implements OnInit {
   getClick() {
   }
 
-  public navigaterToAnimeStream(path: string): void {
-    console.log("ADA");
-    // anime/:id/stream
-    this.router.navigate([`anime/${path}/stream`]);
-  }
 }

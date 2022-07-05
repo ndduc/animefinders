@@ -25,7 +25,7 @@
                           </mat-panel-title>
                
                       </mat-expansion-panel-header>
-                      <div class="torrent-div d-flex flex-column">
+                      <div class="torrent-div d-flex flex-column" (click)="navigaterToAnimeStream(item.animeId)">
                         <div class="d-flex justify-content-center">
                           {{item.animeTitle}}
                         </div>
