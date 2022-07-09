@@ -159,7 +159,6 @@ export class AnimeModalComponent implements OnInit {
 
     if (this.isStream) {
       this.gogoanime.search$.subscribe(x =>  {
-        console.log(x);
         this.gogoAnimeSearchResult = x;
       })
       this.gogoanime.getAnimeSearch(this.title);

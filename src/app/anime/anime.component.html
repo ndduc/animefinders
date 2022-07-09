@@ -21,65 +21,69 @@
 			<div>
 				<div class="d-flex" *ngIf="seasonLis">
 					<button class="button-spring" 
-					(click)="clear(); getTopAnime('1', '');" 
+					(click)="clear(); getTopAnime('1', ''); setRow(-1);" 
+					[ngStyle]="{'color' : this.selectedIndex == -1 ? 'white' : 'black' }"
 						mat-flat-button>
 							<div>
 								Top Anime
 							</div>
 					</button>
-					<div *ngFor="let item of seasonLis">
+
+					<!-- [ngStyle]="{'background-color' : this.selectedIndex == 4 ? 'white' : '#c98436' }" -->
+
+					<div *ngFor="let item of seasonLis; let i = index">
 						<button class="button-spring"  *ngIf="item['season'] === 'spring'"
-						(click)="clear(); getSeasonalAnime(item['season'], item['year']);" 
+						(click)="clear(); getSeasonalAnime(item['season'], item['year']); setRow(i);" 
 						mat-flat-button>
-							<div *ngIf="item['opt'] === 'current'">
+							<div *ngIf="item['opt'] === 'current'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
 								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Current)"}}
 							</div>
-							<div *ngIf="item['opt'] === 'future'">
+							<div *ngIf="item['opt'] === 'future'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
 								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Incoming)"}}
 							</div>
-							<div *ngIf="item['opt'] === 'past'">
+							<div *ngIf="item['opt'] === 'past'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
 								{{convertToTitleCase(item["season"]) + " - " + item["year"]}}
 							</div>
 						</button>
 
 						<button class="button-summer"  *ngIf="item['season'] === 'summer'"
-						(click)="clear(); getSeasonalAnime(item['season'], item['year']);" 
+						(click)="clear(); getSeasonalAnime(item['season'], item['year']); setRow(i);" 
 						mat-flat-button>
-							<div *ngIf="item['opt'] === 'current'">
+							<div *ngIf="item['opt'] === 'current'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
 								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Current)"}}
 							</div>
-							<div *ngIf="item['opt'] === 'future'">
+							<div *ngIf="item['opt'] === 'future'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
 								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Incoming)"}}
 							</div>
-							<div *ngIf="item['opt'] === 'past'">
+							<div *ngIf="item['opt'] === 'past'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
 								{{convertToTitleCase(item["season"]) + " - " + item["year"]}}
 							</div>
 						</button>
 
 						<button class="button-winter" *ngIf="item['season'] === 'winter'"
-						(click)="clear(); getSeasonalAnime(item['season'], item['year']);" 
+						(click)="clear(); getSeasonalAnime(item['season'], item['year']); setRow(i);" 
 						mat-flat-button>
-							<div *ngIf="item['opt'] === 'current'">
+							<div *ngIf="item['opt'] === 'current'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
 								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Current)"}}
 							</div>
-							<div *ngIf="item['opt'] === 'future'">
+							<div *ngIf="item['opt'] === 'future'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
 								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Incoming)"}}
 							</div>
-							<div *ngIf="item['opt'] === 'past'">
+							<div *ngIf="item['opt'] === 'past'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
 								{{convertToTitleCase(item["season"]) + " - " + item["year"]}}
 							</div>
 						</button>
 
 						<button class="button-fall"  *ngIf="item['season'] === 'fall'"
-						(click)="clear(); getSeasonalAnime(item['season'], item['year']);" 
+						(click)="clear(); getSeasonalAnime(item['season'], item['year']); setRow(i);" 
 						mat-flat-button>
-							<div *ngIf="item['opt'] === 'current'">
+							<div *ngIf="item['opt'] === 'current'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
 								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Current)"}}
 							</div>
-							<div *ngIf="item['opt'] === 'future'">
+							<div *ngIf="item['opt'] === 'future'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
 								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " - (Incoming)"}}
 							</div>
-							<div *ngIf="item['opt'] === 'past'">
+							<div *ngIf="item['opt'] === 'past'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
 								{{convertToTitleCase(item["season"]) + " - " + item["year"]}}
 							</div>
 						</button>
@@ -213,15 +217,6 @@
 								<span class="find-torrent-text">Find Torrent</span>
 							</div>
 
-							<div class="nav-spacer-height">
-
-							</div>
-
-							<div class="torrent-button"  (click)="openTorrentModal(aniList.title, aniList.image_url, 
-							checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id, aniList, true);"
-							class="torrent-button-grid border rounded d-flex p-2">
-								<span class="find-torrent-text">Find Stream</span>
-							</div>
 						</mat-card>
 
 					</mat-grid-tile>

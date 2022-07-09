@@ -22,7 +22,6 @@ export class AnimeStreamHolderComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = false;
     this.isFound = true;
-    console.log(this.gogoObjects);
     this.breakpointObserverEvent();
   }
 

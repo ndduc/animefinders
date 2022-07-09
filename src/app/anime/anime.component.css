@@ -311,3 +311,8 @@ button {
 .searchNameField-mobile {
 	width: 150px !important;
 }
+
+
+.highlight{ 
+	background-color:  white !important;
+}

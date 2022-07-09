@@ -179,6 +179,13 @@ export class AnimeComponent implements OnInit {
     }
   }
 
+  selectedIndex: number = 1;
+
+
+  public setRow(index: number) {
+    this.selectedIndex = index;
+  }
+
   private setSeasonIntervalHelper(season, year, opt) {
     //var tmpMap: Map<string, number> = new Map<string, number>();
     var tmpMap = {};

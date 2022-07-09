@@ -43,7 +43,6 @@ import { MglTimelineModule } from 'angular-mgl-timeline';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { AnimeStreamComponent } from './anime-detail/anime-stream/anime-stream.component';
 import { AnimeStreamHolderComponent } from './common/modal/anime/anime-stream-holder/anime-stream-holder.component';
-
 @NgModule({
   declarations: [
     AppComponent,
