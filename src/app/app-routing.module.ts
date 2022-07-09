@@ -7,6 +7,7 @@ import { ProjectComponent } from './project/project.component';
 import { ConfigComponent } from './config/myaws/config.component';
 import { JikanComponent } from './config/jikan/jikan.component';
 import { DmcaComponentComponent } from './policy/dmca/dmca-component/dmca-component.component';
+import { AnimeStreamComponent } from './anime-detail/anime-stream/anime-stream.component';
 const routes: Routes = [
   {
     path: '',
@@ -24,6 +25,10 @@ const routes: Routes = [
   {
     path: 'anime',
     component: AnimeComponent
+  },
+  {
+    path: 'anime/:id/stream',
+    component: AnimeStreamComponent
   },
   {
     path: 'project',

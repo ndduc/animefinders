@@ -37,7 +37,8 @@
             <div *ngIf="isLoading" class="d-flex justify-content-center">
               <img style="width: 50%; height: 100%;" class="" src="assets/images/loading-cute.gif" alt="Err">
             </div>
-            <div *ngIf="!isLoading">
+
+            <div *ngIf="!isLoading && !isStream">
               <app-anime-torrent-holder-custom [title]=title [episode]=-3></app-anime-torrent-holder-custom>
 
               <div *ngIf="this.numberOfEpisode == 1 || this.numberOfEpisode >= 100">
@@ -49,6 +50,12 @@
                   <app-anime-torrent-holder [title]=title [episode]=episode></app-anime-torrent-holder>
                 </div>
               </div>
+            </div>
+
+            <div *ngIf="!isLoading && isStream">
+              <!-- <button mat-flat-button class="btn-advance"  (click)="navigaterToAnimeStream(title)">TEST</button> -->
+              <app-anime-stream-holder [gogoObjects]="this.gogoAnimeSearchResult" [objectSource]="'Gogo Anime'"></app-anime-stream-holder>
+
             </div>
           </div>
 

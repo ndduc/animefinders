@@ -14,6 +14,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AfterViewInit } from '@angular/core';
 import { AnimeSortModel } from './model/anime-sort-model.model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -85,7 +86,8 @@ export class AnimeComponent implements OnInit {
   
   constructor(private jikanService: JikanService, 
     public modelService: NgbModal,
-    private breakpointObserver: BreakpointObserver) { 
+    private breakpointObserver: BreakpointObserver,
+    ) { 
     }
 
   ngOnInit(): void {
@@ -175,6 +177,13 @@ export class AnimeComponent implements OnInit {
       this.setSeasonIntervalHelper("spring", year, "past");
       this.setSeasonIntervalHelper("winter", year, "past");
     }
+  }
+
+  selectedIndex: number = 1;
+
+
+  public setRow(index: number) {
+    this.selectedIndex = index;
   }
 
   private setSeasonIntervalHelper(season, year, opt) {
@@ -343,7 +352,7 @@ export class AnimeComponent implements OnInit {
     this.isHidden = !this.isHidden;
   }
 
-  public openTorrentModal(title, imageSrc, episode, type, animeId, animeObject) {
+  public openTorrentModal(title, imageSrc, episode, type, animeId, animeObject, isStream) {
     const modalRef = this.modelService.open(AnimeModalComponent);
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.imageSrc = imageSrc;
@@ -352,7 +361,8 @@ export class AnimeComponent implements OnInit {
     modalRef.componentInstance.animeId = animeId;
     modalRef.componentInstance.aniObject = animeObject;
     modalRef.componentInstance.isTopAnime = this.isTopAnime;
-
+    modalRef.componentInstance.isStream = isStream;
+    
   }
 
   public openQAModal() {
@@ -475,4 +485,7 @@ export class AnimeComponent implements OnInit {
             behavior: 'smooth' 
      });
   }
+
+
+
 }

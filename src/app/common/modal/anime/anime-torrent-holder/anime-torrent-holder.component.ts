@@ -19,7 +19,10 @@ export class AnimeTorrentHolderComponent implements OnInit, PipeTransform  {
   @Input() episode;
   @Input() longrun;
   searchList : searchList[] = [];
-  constructor(private nyaaService : NyaaService, private deviceService: DeviceDetectorService, private sanitizer:DomSanitizer,
+  constructor(
+    private nyaaService : NyaaService, 
+    private deviceService: DeviceDetectorService, 
+    private sanitizer:DomSanitizer,
     private breakpointObserver: BreakpointObserver) { }
 
   isLoading: boolean = true;

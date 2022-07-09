@@ -7,6 +7,9 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { JikanService } from 'src/app/config/jikan/jikan.service';
 import { AniDetail } from 'src/app/config/jikan/model/animeDetail.model';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Router } from '@angular/router';
+import { GogoanimeService } from 'src/app/config/gogoanime/gogoanime.service';
+import { GogoAnimeSearchModel } from 'src/app/config/gogoanime/model/gogoanime-search.model';
 
 /*
   This modal hold anime's torrent detail
@@ -19,6 +22,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 })
 export class AnimeModalComponent implements OnInit {
 
+  @Input() isStream = false as boolean; 
   @Input() title;
   @Input() imageSrc;
   @Input() episode;
@@ -46,15 +50,19 @@ export class AnimeModalComponent implements OnInit {
   isMobile: boolean = false;
   numberOfEpisode: any;
 
+  gogoAnimeSearchResult: GogoAnimeSearchModel[] = [];
+
   constructor(private nyaaService : NyaaService, 
     public activeModal: NgbActiveModal, 
     private deviceService: DeviceDetectorService,
     private jikanService: JikanService,
-    private breakpointObserver: BreakpointObserver ) { }
+    private breakpointObserver: BreakpointObserver,
+    private router: Router,
+    private gogoanime: GogoanimeService ) { }
 
   ngOnInit() {
-    this.getAnimeDetail();
     this.breakpointObserverEvent();
+    this.getAnimeDetail();
   }
 
   
@@ -147,6 +155,14 @@ export class AnimeModalComponent implements OnInit {
         }
       });
     }
+
+
+    if (this.isStream) {
+      this.gogoanime.search$.subscribe(x =>  {
+        this.gogoAnimeSearchResult = x;
+      })
+      this.gogoanime.getAnimeSearch(this.title);
+    }
   }
 
 
@@ -162,4 +178,5 @@ export class AnimeModalComponent implements OnInit {
 
   getClick() {
   }
+
 }
