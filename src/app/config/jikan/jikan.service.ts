@@ -3,12 +3,12 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, retry, timeout, shareReplay} from 'rxjs/operators';
-import { AniList } from './model/animelist.models';
 import { AniEpisodesList } from './model/animeEpisodes.model';
 import { AniDetail } from './model/animeDetail.model';
 import { AniTop } from './model/animeTop.model';
 import { HentaiTop } from './model/animeTop.model';
 import { CacheModel } from './model/cache-model.model';
+import { AnimeListWithPagination } from './model/animelist.models';
 @Injectable({
   providedIn: 'root'
 })
@@ -37,11 +37,13 @@ export class JikanService {
   }
 
 
-  getSeasonalAnime(): Observable<AniList[]> {
+  getSeasonalAnime(page: number): Observable<AnimeListWithPagination> {
     var currentYear = new Date().getFullYear();
     var currentMonth = new Date().getMonth() - 1;
-      return this.http.get<AniList[]>(this.jikan_url_aws + "/seasonal?year=" + currentYear + "&season=" + this.getCurrentSeason(currentMonth)).pipe(
-      map((data:any) => data.anime), 
+      return this.http.get<AnimeListWithPagination>(this.jikan_url_aws + "/seasonal?year=" + currentYear + "&season=" + this.getCurrentSeason(currentMonth) + "&page=" + page).pipe(
+      map(
+        (data:AnimeListWithPagination) => data
+      ), 
       catchError(this.handleError)
     );
   }
@@ -76,7 +78,7 @@ export class JikanService {
 
   }
 
-  setAnimeBySeasonYear(season: any, year: any) {
+  setAnimeBySeasonYear(season: any, year: any, page: number) {
     var _season = "";
     var _year = "";
     if(season != null || season != "") {
@@ -86,13 +88,13 @@ export class JikanService {
     if (year != null || year != "") {
       _year = year
     }
-    var tmpUrl = this.jikan_url_aws + "/seasonal?year=" + _year + "&season=" + _season;
+    var tmpUrl = this.jikan_url_aws + "/seasonal?year=" + _year + "&season=" + _season + "&page=" + page;
     this.url = tmpUrl;
-    var respondData = this.http.get<AniList[]>(tmpUrl).pipe(
+    var respondData = this.http.get<AnimeListWithPagination>(tmpUrl).pipe(
       map(
-        (data:any) => 
+        (data:AnimeListWithPagination) => 
         {
-          return data.anime;
+          return data;
         }), 
       shareReplay(1),
       catchError((this.handleError))
@@ -156,15 +158,15 @@ export class JikanService {
     );
   }
 
-  setAnimeByTitle(title: any) {
+  setAnimeByTitle(title: any, page: number) {
     var _title = "";
     if(title != null || title != "") {
       _title = title
     }
-    var tmpUrl = this.jikan_url_aws + "/search?title=" + _title;
+    var tmpUrl = this.jikan_url_aws + "/search?title=" + _title + "&page=" + page;
     this.url = tmpUrl;
-    var respondData = this.http.get<AniList[]>(tmpUrl).pipe(
-      map((data:any) => data.results), 
+    var respondData = this.http.get<AnimeListWithPagination>(tmpUrl).pipe(
+      map((data:AnimeListWithPagination) => data), 
       shareReplay(1),
       catchError((this.handleError))
     );
@@ -179,7 +181,7 @@ export class JikanService {
 
 
   private handleError(error: HttpErrorResponse) {
-    location.reload();
+   // location.reload();
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error);

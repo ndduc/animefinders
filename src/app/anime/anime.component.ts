@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AniList } from '../config/jikan/model/animelist.models';
 import { JikanService } from '../config/jikan/jikan.service';
 import { ConfigService } from '../config/myaws/config.service';
 import { Search } from '../config/myaws/search';
@@ -15,6 +14,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AfterViewInit } from '@angular/core';
 import { AnimeSortModel } from './model/anime-sort-model.model';
 import { Router } from '@angular/router';
+import { AnimeModel } from '../config/jikan/model/anime.model';
 
 
 @Component({
@@ -35,8 +35,8 @@ export class AnimeComponent implements OnInit {
   strTitle: string = '';
   isHidden: boolean = true;
   selected = '';
-  aniList: AniList[] = [];
-  aniListShow: AniList[] = [];
+  aniList: AnimeModel[] = [];
+  aniListShow: AnimeModel[] = [];
   aniTop: AniTop[] = [];
   aniTopShow: AniTop[] = [];
   searchList: Search[] = [];
@@ -92,7 +92,7 @@ export class AnimeComponent implements OnInit {
 
   ngOnInit(): void {
     this.setSeasonInterval();
-    this.getSeasonalAnime(null,null);
+    this.getSeasonalAnime(null,null, 1);
     this.setUpForm();
     this.breakpointObserverEvent();
   }
@@ -222,7 +222,7 @@ export class AnimeComponent implements OnInit {
     this.clearSort();
   }
 
-  public getSeasonalAnime(season: any, year: any) {
+  public getSeasonalAnime(season: any, year: any, page: number) {
     var tmpUrl = this.jikanService.jikan_url_aws + "/seasonal?year=" + year + "&season=" + season;
     this.jikanService.resetCache();
     var foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
@@ -233,16 +233,17 @@ export class AnimeComponent implements OnInit {
     } else {
       try {
         if(season != null && year != null) {
-          this.jikanService.setAnimeBySeasonYear(season, year);
+          this.jikanService.setAnimeBySeasonYear(season, year, page);
           foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
           foundObservable?.data.subscribe(x => {
             this.setAniList(x);
           });
         } else {
-          this.jikanService.getSeasonalAnime()
+          this.jikanService.getSeasonalAnime(page)
           .subscribe(
             x => {
-              this.setAniList(x);
+              console.log(x);
+              this.setAniList(x.data);
             },
             (error) => {
               this.setAniList(this.aniList);
@@ -256,7 +257,7 @@ export class AnimeComponent implements OnInit {
     this.clearSort();
   }
 
-  public getAnimeByTitle(title: any) {
+  public getAnimeByTitle(title: any, page:number) {
     var tmpUrl = this.jikanService.jikan_url_aws + "/search?title=" + title;
     this.jikanService.resetCache();
     var foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
@@ -266,7 +267,7 @@ export class AnimeComponent implements OnInit {
       });
     } else {
       try {
-        this.jikanService.setAnimeByTitle(title);
+        this.jikanService.setAnimeByTitle(title, page);
         foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
         foundObservable?.data.subscribe(x => {
           this.setAniList(x);
@@ -289,7 +290,7 @@ export class AnimeComponent implements OnInit {
     this.isAniEmpty = true;
   }
 
-  private setAniList(lst: AniList[]) {
+  private setAniList(lst: AnimeModel[]) {
     if(lst == null || lst.length === 0) {
       this.isConnectionError = false;
       this.isAniEmpty = true;
@@ -297,7 +298,7 @@ export class AnimeComponent implements OnInit {
     } else {
       this.isConnectionError = false;
       this.isAniEmpty = false;
-      this.aniList = this.recurRemoveHentai(lst);
+      this.aniList = lst;
       this.isLoading = false;
       if(this.isMobile) {
         this.aniListShow = this.aniList.slice(0, 5);
@@ -326,27 +327,27 @@ export class AnimeComponent implements OnInit {
     // this.strTitle = '';
   }
 
-  private recurRemoveHentai(lst: AniList[]) {
-    if(lst[0].genres == undefined) {
-      for(var i = 0; i < lst.length; i++) {
-          if(lst[i].rated === "Rx") {
-            lst.splice(i,1);
-            this.recurRemoveHentai(lst);
-          }
-      }
-    } else {
-      for(var i = 0; i < lst.length; i++) {
-        for(var j = 0; j < lst[i].genres.length; j++) {
-          if(lst[i].genres[j]["mal_id"] === 12) {
-            lst.splice(i,1);
-            this.recurRemoveHentai(lst);
-          }
-        }
-      }
-    }
+  // private recurRemoveHentai(lst: AnimeModel[]) {
+  //   if(lst[0].genres == undefined) {
+  //     for(var i = 0; i < lst.length; i++) {
+  //         if(lst[i].rated === "Rx") {
+  //           lst.splice(i,1);
+  //           this.recurRemoveHentai(lst);
+  //         }
+  //     }
+  //   } else {
+  //     for(var i = 0; i < lst.length; i++) {
+  //       for(var j = 0; j < lst[i].genres.length; j++) {
+  //         if(lst[i].genres[j]["mal_id"] === 12) {
+  //           lst.splice(i,1);
+  //           this.recurRemoveHentai(lst);
+  //         }
+  //       }
+  //     }
+  //   }
 
-    return lst;
-  }
+  //   return lst;
+  // }
 
   public toggleAdvSearch() {
     this.isHidden = !this.isHidden;
