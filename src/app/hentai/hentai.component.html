@@ -229,14 +229,14 @@
 						</div>
 						
 						<div class="anime-body d-flex">
-							<img class="anime-image"  src="{{aniList.image_url}}" alt="Photo Content - Error">
+							<img class="anime-image"  src="{{aniList.images.jpg.image_url}}" alt="Photo Content - Error">
 							<div class="anime-body-desc">
 								<p>{{aniList.synopsis}}</p>
 							</div>
 						</div>
 						<mat-card-content class="anime-content">
 						</mat-card-content>
-						<div class="torrent-button" (click)="openTorrentModal(aniList.title, aniList.image_url, 
+						<div class="torrent-button" (click)="openTorrentModal(aniList.title, aniList.images.jpg.image_url, 
 						checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id);"
 						 class="border rounded d-flex p-2" style="cursor: pointer; background-color: #34c97e;">
 							<span style="font-size: 20px;">Torrent</span>
@@ -271,14 +271,14 @@
 						</div>
 						
 						<div class="anime-body-anime d-flex">
-							<img class="anime-image-mobile"  src="{{aniList.image_url}}" alt="Photo Content - Error">
+							<img class="anime-image-mobile"  src="{{aniList.images.jpg.image_url}}" alt="Photo Content - Error">
 							<div class="anime-body-desc">
 								<p>{{aniList.synopsis}}</p>
 							</div>
 						</div>
 						<mat-card-content class="anime-content">
 						</mat-card-content>
-						<div (click)="openTorrentModal(aniList.title, aniList.image_url, 
+						<div (click)="openTorrentModal(aniList.title, aniList.images.jpg.image_url, 
 						checkIsNumber(aniList.episodes) ? aniList.episodes : 24, 
 						aniList.type, aniList.mal_id);" class="border rounded d-flex p-2" style="cursor: pointer; background-color: #5CDB95;">
 							<span style="font-size: 20px;">Torrent</span>

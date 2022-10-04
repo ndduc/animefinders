@@ -33,7 +33,7 @@
 
 					<div *ngFor="let item of seasonLis; let i = index">
 						<button class="button-spring"  *ngIf="item['season'] === 'spring'"
-						(click)="clear(); getSeasonalAnime(item['season'], item['year']); setRow(i);" 
+						(click)="clear(); getSeasonalAnime(item['season'], item['year'], 1); setRow(i);" 
 						mat-flat-button>
 							<div *ngIf="item['opt'] === 'current'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
 								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Current)"}}
@@ -47,7 +47,7 @@
 						</button>
 
 						<button class="button-summer"  *ngIf="item['season'] === 'summer'"
-						(click)="clear(); getSeasonalAnime(item['season'], item['year']); setRow(i);" 
+						(click)="clear(); getSeasonalAnime(item['season'], item['year'], 1); setRow(i);" 
 						mat-flat-button>
 							<div *ngIf="item['opt'] === 'current'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
 								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Current)"}}
@@ -61,7 +61,7 @@
 						</button>
 
 						<button class="button-winter" *ngIf="item['season'] === 'winter'"
-						(click)="clear(); getSeasonalAnime(item['season'], item['year']); setRow(i);" 
+						(click)="clear(); getSeasonalAnime(item['season'], item['year'], 1); setRow(i);" 
 						mat-flat-button>
 							<div *ngIf="item['opt'] === 'current'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
 								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Current)"}}
@@ -75,7 +75,7 @@
 						</button>
 
 						<button class="button-fall"  *ngIf="item['season'] === 'fall'"
-						(click)="clear(); getSeasonalAnime(item['season'], item['year']); setRow(i);" 
+						(click)="clear(); getSeasonalAnime(item['season'], item['year'], 1); setRow(i);" 
 						mat-flat-button>
 							<div *ngIf="item['opt'] === 'current'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
 								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Current)"}}
@@ -97,7 +97,7 @@
 
 				</mat-form-field>
 
-				<button mat-flat-button class="btn-advance" (click)="clear(); getAnimeByTitle(strTitle);" disabled="{{searchForm.invalid || !searchForm.dirty}}" >
+				<button mat-flat-button class="btn-advance" (click)="clear(); getAnimeByTitle(strTitle, 1);" disabled="{{searchForm.invalid || !searchForm.dirty}}" >
 					Search
 				</button>
 
@@ -114,7 +114,7 @@
 						<input matInput formControlName="{{searchName}}" placeholder="Search"  [(ngModel)]="strTitle">
 					</mat-form-field>
 
-					<button mat-flat-button class="btn-advance" (click)="clear(); getAnimeByTitle(strTitle);" disabled="{{searchForm.invalid || !searchForm.dirty}}" >
+					<button mat-flat-button class="btn-advance" (click)="clear(); getAnimeByTitle(strTitle, 1);" disabled="{{searchForm.invalid || !searchForm.dirty}}" >
 						Search
 					</button>
 
@@ -149,7 +149,7 @@
 							<mat-option value="winter">Winter</mat-option>
 						</mat-select>
 					</mat-form-field>
-					<button mat-flat-button class="btn-advance" (click)="clear(); getSeasonalAnime(selected, strYear);"
+					<button mat-flat-button class="btn-advance" (click)="clear(); getSeasonalAnime(selected, strYear, 1);"
 					disabled="{{searchYearForm.invalid || !searchYearForm.dirty}}" >Advance Search</button>
 				</form>
 		</mat-toolbar>
@@ -204,14 +204,14 @@
 							</div>
 							
 							<div class="anime-body d-flex">
-								<img class="anime-image"  src="{{aniList.image_url}}" alt="Photo Content - Error">
+								<img class="anime-image"  src="{{aniList.images.jpg.image_url}}" alt="Photo Content - Error">
 								<div class="anime-body-desc">
 									<p>{{aniList.synopsis}}</p>
 								</div>
 							</div>
 							<mat-card-content class="anime-content">
 							</mat-card-content>
-							<div class="torrent-button" (click)="openTorrentModal(aniList.title, aniList.image_url, 
+							<div class="torrent-button" (click)="openTorrentModal(aniList.title, aniList.images.jpg.image_url, 
 							checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id, aniList, false);"
 							class="torrent-button-grid border rounded d-flex p-2">
 								<span class="find-torrent-text">Find Torrent</span>
@@ -293,7 +293,7 @@
 
 		<div class="d-flex justify-content-center" style="margin-top: 5%;" *ngIf="isAniEmpty && !isConnectionError">
 			<div class="d-flex flex-column" style="text-align: center;">
-				<div style="font-size: 20px; font-weight: bold;  margin-bottom: 5%;">Couldn't Find Anything....! Maybe Try Again.</div>
+				<div style="font-size: 20px; font-weight: bold;  margin-bottom: 5%;">Maintenance in progress...<br> There was an issue with third-party API, It might take me sometime to implement the newer version. <br> If have any questions, feel free to submit a comment.</div>
 				<img src="assets/images/not_found.gif" alt="Photo Content - Error" >
 			
 			</div>

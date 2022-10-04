@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AniList } from '../config/jikan/model/animelist.models';
 import { JikanService } from '../config/jikan/jikan.service';
 import { ConfigService } from '../config/myaws/config.service';
 import { Search } from '../config/myaws/search';
@@ -12,6 +11,7 @@ import { sortOptionEnum } from '../common/enum/enum-option/enum-option';
 import { AniTop } from '../config/jikan/model/animeTop.model';
 import { HentaiTop } from '../config/jikan/model/animeTop.model';
 import { QuestionModalComponent } from '../common/modal/question/question-modal/question-modal.component';
+import { AnimeModel } from '../config/jikan/model/anime.model';
 @Component({
   selector: 'app-hentai',
   templateUrl: './hentai.component.html',
@@ -26,9 +26,9 @@ export class HentaiComponent implements OnInit {
   strTitle: string = '';
   isHidden = true;
   selected = '';
-  aniList: AniList[] = [];
-  hentaiAniList: AniList[] = [];
-  aniListShow: AniList[] = [];
+  aniList: AnimeModel[] = [];
+  hentaiAniList: AnimeModel[] = [];
+  aniListShow: AnimeModel[] = [];
   aniTop: HentaiTop[] = [];
   aniTopShow: HentaiTop[] = [];
   searchList: Search[] = [];
@@ -259,13 +259,12 @@ export class HentaiComponent implements OnInit {
     this.pageSize = this.aniList.length;  
   }
 
-  setAniList(lst: AniList[]) {
+  setAniList(lst: AnimeModel[]) {
     if(lst == null || lst.length === 0) {
       this.isAniEmpty = true;
       this.isLoading = false;
     } else {
       this.isAniEmpty = false;
-      this.recurRemoveHentai(lst);
       this.aniList = this.hentaiAniList;
       this.isLoading = false;
       if(this.screen === 1) {
@@ -293,19 +292,19 @@ export class HentaiComponent implements OnInit {
     this.strTitle = '';
   }
 
-  recurRemoveHentai(lst: AniList[]) {
-      for(var i = 0; i < lst.length; i++) {
-        for(var j = 0; j < lst[i].genres.length; j++) {
-          if(lst[i].genres[j]["mal_id"] === 12) {
-            this.hentaiAniList.push(lst[i])
-            lst.splice(i,1);
-            this.recurRemoveHentai(lst);
-          }
-        }
-      }
+  // recurRemoveHentai(lst: AnimeModel[]) {
+  //     for(var i = 0; i < lst.length; i++) {
+  //       for(var j = 0; j < lst[i].genres.length; j++) {
+  //         if(lst[i].genres[j]["mal_id"] === 12) {
+  //           this.hentaiAniList.push(lst[i])
+  //           lst.splice(i,1);
+  //           this.recurRemoveHentai(lst);
+  //         }
+  //       }
+  //     }
 
-    return lst;
-  }
+  //   return lst;
+  // }
 
 
 
