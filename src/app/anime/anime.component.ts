@@ -15,6 +15,7 @@ import { AfterViewInit } from '@angular/core';
 import { AnimeSortModel } from './model/anime-sort-model.model';
 import { Router } from '@angular/router';
 import { AnimeModel } from '../config/jikan/model/anime.model';
+import { AnimePaginationModel } from '../config/jikan/model/anime-pagination.model';
 
 
 @Component({
@@ -74,6 +75,8 @@ export class AnimeComponent implements OnInit {
   seasonAnimeNumberOfColumn: number = 4;
   isMobile: boolean = false;
 
+  paginationObject: AnimePaginationModel = {} as AnimePaginationModel ;
+
   public searchForm = new FormGroup({});
   public searchName: string = 'searchName';
   public searchControl = new FormControl(null, Validators.required);
@@ -84,6 +87,11 @@ export class AnimeComponent implements OnInit {
   public searchSeasonName: string = 'searchSeason';
   public searchSeasonControl = new FormControl(null, Validators.required);
   
+  selectedYear: number = new Date().getFullYear();
+  selectedSeason: string = "";
+  currentPage: number = 1;
+  isSearchByTitleActivated: boolean = false;
+  searchTitle: string = "";
   constructor(private jikanService: JikanService, 
     public modelService: NgbModal,
     private breakpointObserver: BreakpointObserver,
@@ -177,6 +185,14 @@ export class AnimeComponent implements OnInit {
       this.setSeasonIntervalHelper("spring", year, "past");
       this.setSeasonIntervalHelper("winter", year, "past");
     }
+
+    this.seasonLis.find(x => {
+      if (x["opt"] == "current") {
+        this.selectedSeason = x["season"];
+      }
+    })
+
+    console.log(this.selectedSeason);
   }
 
   selectedIndex: number = 1;
@@ -195,93 +211,139 @@ export class AnimeComponent implements OnInit {
     this.seasonLis.push(tmpMap);
   }
 
-  public getTopAnime(page: string, subtype: string) {
-    var tmpUrl = this.jikanService.jikan_url_aws + "/anime/top?page=" + page + "&subtype=" + subtype;
-    this.jikanService.resetCache();
-    var foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
-    if(foundObservable && foundObservable.url == tmpUrl) {
-      foundObservable.data.subscribe(x => {
-        this.setAniTopList(x);
-      });
-    } else {
-      try {
-          this.jikanService.setTopAnime(page, subtype);
-          foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
-          foundObservable?.data.subscribe(
-            x => {
-              this.setAniTopList(x);
-            },
-            (error) => {
-              this.setAniTopList(this.aniTop);
-            }
-          );
-      } catch (err) {
-        this.animeSubcriptionErrorHandler();
-      }
-    }
+  public getTopAnime(page: number, subtype: string) {
+    // var tmpUrl = this.jikanService.jikan_url_aws + "/anime/top?page=" + page + "&subtype=" + subtype;
+    // this.jikanService.resetCache();
+    // var foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
+    // if(foundObservable && foundObservable.url == tmpUrl) {
+    //   foundObservable.data.subscribe(x => {
+    //     this.setAniTopList(x);
+    //   });
+    // } else {
+    //   try {
+    //       this.jikanService.setTopAnime(page, subtype);
+    //       foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
+    //       foundObservable?.data.subscribe(
+    //         x => {
+    //           this.setAniTopList(x);
+    //         },
+    //         (error) => {
+    //           this.setAniTopList(this.aniTop);
+    //         }
+    //       );
+    //   } catch (err) {
+    //     this.animeSubcriptionErrorHandler();
+    //   }
+    // }
+
+    this.currentPage = 1;
+    this.isSearchByTitleActivated = false;
+    this.getTopAnimeHelper(page, subtype);
     this.clearSort();
+  }
+
+  public getTopAnimeHelper(page: number, subtype: string) {
+    this.jikanService.getTopAnime(page, subtype).subscribe(
+      x => {
+        console.log(x);
+        this.setAniTopList(x.data, x.pagination);
+      }
+    );
   }
 
   public getSeasonalAnime(season: any, year: any, page: number) {
-    var tmpUrl = this.jikanService.jikan_url_aws + "/seasonal?year=" + year + "&season=" + season;
-    this.jikanService.resetCache();
-    var foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
-    if(foundObservable && foundObservable.url == tmpUrl) {
-      foundObservable.data.subscribe(x => {
-        this.setAniList(x);
-      });
+    // var tmpUrl = this.jikanService.jikan_url_aws + "/seasonal?year=" + year + "&season=" + season;
+    // this.jikanService.resetCache();
+    // var foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
+    // if(foundObservable && foundObservable.url == tmpUrl) {
+    //   foundObservable.data.subscribe(x => {
+    //     console.log("1");
+    //     this.setAniList(x, undefined);
+    //   });
+    // } else {
+    //   try {
+    //     if(season != null && year != null) {
+    //       this.jikanService.setAnimeBySeasonYear(season, year, page);
+    //       foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
+    //       foundObservable?.data.subscribe(x => {
+    //         console.log("2");
+    //         this.setAniList(x, undefined);
+    //       });
+    //     } else {
+    //       // this.jikanService.getSeasonalAnime(page)
+    //       this.getAnimeSesasonal(season, year, page);
+    //     }
+    //   } catch (err) {
+    //     this.animeSubcriptionErrorHandler();
+    //   }
+    // }
+
+    this.isSearchByTitleActivated = false
+    this.currentPage = 1;
+    if(season != null && year != null) {
+      this.selectedSeason = season;
+      this.selectedYear = year;
+      this.getAnimeSesasonalHelper(season,year, page);
     } else {
-      try {
-        if(season != null && year != null) {
-          this.jikanService.setAnimeBySeasonYear(season, year, page);
-          foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
-          foundObservable?.data.subscribe(x => {
-            this.setAniList(x);
-          });
-        } else {
-          this.jikanService.getSeasonalAnime(page)
-          .subscribe(
-            x => {
-              console.log(x);
-              this.setAniList(x.data);
-            },
-            (error) => {
-              this.setAniList(this.aniList);
-            }
-          );
-        }
-      } catch (err) {
-        this.animeSubcriptionErrorHandler();
-      }
+      // this.jikanService.getSeasonalAnime(page)
+      this.getAnimeSesasonalHelper(this.selectedSeason,this.selectedYear, page);
     }
     this.clearSort();
   }
 
-  public getAnimeByTitle(title: any, page:number) {
-    var tmpUrl = this.jikanService.jikan_url_aws + "/search?title=" + title;
-    this.jikanService.resetCache();
-    var foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
-    if(foundObservable && foundObservable.url == tmpUrl) {
-      foundObservable.data.subscribe(x => {
-        this.setAniList(x);
-      });
-    } else {
-      try {
-        this.jikanService.setAnimeByTitle(title, page);
-        foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
-        foundObservable?.data.subscribe(x => {
-          this.setAniList(x);
-          },
-          (error) => {
-            this.setAniList(this.aniList);
-          }
-        );
-      } catch (err) {
-        this.animeSubcriptionErrorHandler();
-        // this.strTitle = '';
-      }
-    }
+  public getAnimeSesasonalHelper(season: any, year: any, page: number) {
+    this.jikanService.getSeasonalAnimeBySeasonYear(season,year, page)
+          .subscribe(
+            x => {
+              this.setAniList(x.data, x.pagination);
+            },
+            (error) => {
+              this.setAniList(this.aniList, this.paginationObject);
+            }
+          );
+  }
+
+  public getAnimeByTitle(title: string, page:number) {
+    // var tmpUrl = this.jikanService.jikan_url_aws + "/search?title=" + title;
+    // this.jikanService.resetCache();
+    // var foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
+    // if(foundObservable && foundObservable.url == tmpUrl) {
+    //   foundObservable.data.subscribe(x => {
+    //     this.setAniList(x, undefined);
+    //   });
+    // } else {
+    //   try {
+    //     this.jikanService.setAnimeByTitle(title, page);
+    //     foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
+    //     foundObservable?.data.subscribe(x => {
+    //       this.setAniList(x, undefined);
+    //       },
+    //       (error) => {
+    //         this.setAniList(this.aniList, undefined);
+    //       }
+    //     );
+    //   } catch (err) {
+    //     this.animeSubcriptionErrorHandler();
+    //     // this.strTitle = '';
+    //   }
+    // }
+
+    this.searchTitle = title;
+    this.isSearchByTitleActivated = true;
+    this.currentPage = 1;
+    this.getAnimeByTitleHelper(title, page);
     this.clearSort();
+  }
+
+  public getAnimeByTitleHelper(title: string, page:number) {
+    this.jikanService.getAnimeByTitle(title, page).subscribe(
+      x => {
+        this.setAniList(x.data, x.pagination);
+      },
+      (error) => {
+        this.setAniList(this.aniList, this.paginationObject);
+      }
+    );
   }
 
   private animeSubcriptionErrorHandler() {
@@ -290,7 +352,8 @@ export class AnimeComponent implements OnInit {
     this.isAniEmpty = true;
   }
 
-  private setAniList(lst: AnimeModel[]) {
+  private setAniList(lst: AnimeModel[], originalList: AnimePaginationModel) {
+
     if(lst == null || lst.length === 0) {
       this.isConnectionError = false;
       this.isAniEmpty = true;
@@ -300,27 +363,39 @@ export class AnimeComponent implements OnInit {
       this.isAniEmpty = false;
       this.aniList = lst;
       this.isLoading = false;
-      if(this.isMobile) {
-        this.aniListShow = this.aniList.slice(0, 5);
-      } else {
-        this.aniListShow = this.aniList.slice(0, 48);
-      }
-      this.pageSize = this.aniList.length;  
+      // if(this.isMobile) {
+      //   this.aniListShow = this.aniList.slice(0, 5);
+      // } else {
+      //   this.aniListShow = this.aniList.slice(0, 48);
+      // }
+
+      this.paginationObject = originalList;
+      this.aniListShow = this.aniList;
+      this.pageSize = this.paginationObject.items.total;  
+      this.currentPage = this.paginationObject.current_page;
+      console.log(this.paginationObject);
     }
     // this.strTitle = '';
     this.isTopAnime = false;
   }
 
-  private setAniTopList(lst: AniTop[]) {
+  private setAniTopList(lst: AnimeModel[], originalList: AnimePaginationModel) {
     if(lst == null || lst.length === 0) {
       this.isConnectionError = false;
       this.isAniEmpty = true;
       this.isLoading = false;
     } else {
+      console.log("HIT");
       this.isConnectionError = false;
       this.isAniEmpty = false;
-      this.aniTop = lst;
+      this.aniList = lst;
       this.isLoading = false;
+
+      this.paginationObject = originalList;
+      this.aniListShow = this.aniList;
+      this.pageSize = this.paginationObject.items.total;  
+      this.currentPage = this.paginationObject.current_page;
+
       this.aniTopShow = this.aniTop;
     }
     this.isTopAnime = true;
@@ -390,18 +465,27 @@ export class AnimeComponent implements OnInit {
   }
 
   public onPageChange($event) {
-    let startIndex = $event.pageIndex * $event.pageSize;
-    let endIndex = startIndex + $event.pageSize;
-    if(endIndex > this.pageSize){
-      endIndex = this.pageSize;
+    this.currentPage = $event.pageIndex + 1;
+    console.log("onPageChange");
+    console.log("Next page  " + this.currentPage);
+    console.log("Selected Season  " + this.selectedSeason);
+    console.log("Selected Year  " + this.selectedYear)
+
+    if (this.isSearchByTitleActivated) {
+      this.getAnimeByTitleHelper(this.searchTitle, this.currentPage);
+    } else {
+      this.getAnimeSesasonalHelper(this.selectedSeason, this.selectedYear, this.currentPage);
     }
-    this.aniListShow = this.aniList.slice(startIndex, endIndex);
   }
 
   public topAnimeOnPageChange($event) {
-    var idx = $event.pageIndex;
-    this.topAnimeIndex = +idx + 1;
-    this.getTopAnime(this.topAnimeIndex.toString(), '')
+    // var idx = $event.pageIndex;
+    // this.topAnimeIndex = +idx + 1;
+    // this.getTopAnime(this.topAnimeIndex.toString(), '')
+
+    this.currentPage = $event.pageIndex + 1;
+
+    this.getTopAnimeHelper(this.currentPage, "");
   }
 
   public convertToTitleCase(value:string): string {

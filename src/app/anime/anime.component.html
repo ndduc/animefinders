@@ -21,7 +21,7 @@
 			<div>
 				<div class="d-flex" *ngIf="seasonLis">
 					<button class="button-spring" 
-					(click)="clear(); getTopAnime('1', ''); setRow(-1);" 
+					(click)="clear(); getTopAnime(1, ''); setRow(-1);" 
 					[ngStyle]="{'color' : this.selectedIndex == -1 ? 'white' : 'black' }"
 						mat-flat-button>
 							<div>
@@ -101,8 +101,8 @@
 					Search
 				</button>
 
-				<button mat-flat-button class="btn-advance" (click)="enablingFilter()">Filter</button>
-				<button mat-flat-button class="btn-advance" (click)="enablingAdvanceSearch()">ADV</button>
+				<!-- <button mat-flat-button class="btn-advance" (click)="enablingFilter()">Filter</button>
+				<button mat-flat-button class="btn-advance" (click)="enablingAdvanceSearch()">ADV</button> -->
 			</form>
 		</mat-toolbar>
 	</div>
@@ -118,8 +118,8 @@
 						Search
 					</button>
 
-					<button mat-flat-button class="btn-advance" (click)="enablingFilter()">Filter</button>
-					<button mat-flat-button class="btn-advance" (click)="enablingAdvanceSearch()">ADV</button>
+					<!-- <button mat-flat-button class="btn-advance" (click)="enablingFilter()">Filter</button>
+					<button mat-flat-button class="btn-advance" (click)="enablingAdvanceSearch()">ADV</button> -->
 			</form>
 		</mat-toolbar>
 	</div>
@@ -223,13 +223,12 @@
 				</div>
 			</mat-grid-list>
 			<mat-paginator class="paginator-mobile"  [length]="pageSize" *ngIf="!isMobile"
-			[pageSize]="48"
-			[pageSizeOptions]="[48 , 96]"
+			[pageSize]="25"
 			aria-label="Select page" (page)="onPageChange($event)">
 			</mat-paginator>
 
 			<mat-paginator class="paginator-mobile" *ngIf="isMobile"  [length]="pageSize"
-			[pageSize]="5"
+			[pageSize]="25"
 			aria-label="Select page" (page)="onPageChange($event)">
 			</mat-paginator>
 
@@ -239,15 +238,15 @@
 		<!--TOP ANIME DESKTOP REGION START-->
 		<div *ngIf="!isAniEmpty && isTopAnime">
 			<mat-grid-list cols="{{this.topAnimeNumberOfColumn}}" rowHeight="6:3">
-				<div *ngFor="let aniList of aniTopShow">
+				<div *ngFor="let aniList of aniListShow">
 					<mat-grid-tile class="anime-grid-tile" >
 						<mat-card class="anime-card-top" >
 							
 							
-							<div class="anime-body-top d-flex" (click)="openTorrentModal(aniList.title, aniList.image_url, 
+							<div class="anime-body-top d-flex" (click)="openTorrentModal(aniList.title, aniList.images.jpg.image_url,
 							checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id, aniList, false);">
 								
-								<img class="anime-image-top"  src="{{aniList.image_url}}" alt="Photo Content - Error">
+								<img class="anime-image-top"  src="{{aniList.images.jpg.image_url}}" alt="Photo Content - Error">
 
 								<div class="anime-detail-top">
 									<div class="anime-header">
@@ -274,8 +273,8 @@
 				</div>
 			</mat-grid-list>
 			<!-- The Paginator here is fucking broken, fix needed -->
-			<mat-paginator class="paginator-mobile" *ngIf="isTopAnime"  [length]="100"
-			[pageSize]="1"
+			<mat-paginator class="paginator-mobile" *ngIf="isTopAnime"  [length]="pageSize"
+			[pageSize]="25"
 			aria-label="Select page" (page)="topAnimeOnPageChange($event)">
 			</mat-paginator>
 	

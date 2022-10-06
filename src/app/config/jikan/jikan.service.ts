@@ -78,6 +78,16 @@ export class JikanService {
 
   }
 
+  getSeasonalAnimeBySeasonYear(season: string, year: number, page: number): Observable<AnimeListWithPagination> {
+      return this.http.get<AnimeListWithPagination>(this.jikan_url_aws + "/seasonal?year=" + year + "&season=" + season + "&page=" + page).pipe(
+      map(
+        (data:AnimeListWithPagination) => data
+      ), 
+      catchError(this.handleError)
+    );
+  }
+
+  // Deprecated
   setAnimeBySeasonYear(season: any, year: any, page: number) {
     var _season = "";
     var _year = "";
@@ -114,6 +124,7 @@ export class JikanService {
     }
   }
   
+  //Deprecated
   setTopAnime(page: string, subtype: string) {
     if(subtype.length <= 1) {
       subtype = "";
@@ -134,6 +145,15 @@ export class JikanService {
         url: this.url,
         data: respondData
       } as CacheModel
+    );
+  }
+
+  getTopAnime(page: number, subtype: string) {
+    return this.http.get<AnimeListWithPagination>(this.jikan_url_aws + "/anime/top?page=" + page + "&subtype=" + subtype).pipe(
+      map(
+        (data:AnimeListWithPagination) => data
+      ), 
+      catchError(this.handleError)
     );
   }
 
@@ -158,6 +178,7 @@ export class JikanService {
     );
   }
 
+  //Deprecated
   setAnimeByTitle(title: any, page: number) {
     var _title = "";
     if(title != null || title != "") {
@@ -175,6 +196,19 @@ export class JikanService {
         url: this.url,
         data: respondData
       } as CacheModel
+    );
+  }
+
+  getAnimeByTitle(title: string, page: number): Observable<AnimeListWithPagination> {
+      var _title = "";
+      if(title != null || title != "") {
+        _title = title
+      }
+      return this.http.get<AnimeListWithPagination>(this.jikan_url_aws + "/search?title=" + _title + "&page=" + page).pipe(
+      map(
+        (data:AnimeListWithPagination) => data
+      ), 
+      catchError(this.handleError)
     );
   }
 
