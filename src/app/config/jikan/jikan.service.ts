@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map, retry, timeout, shareReplay} from 'rxjs/operators';
+import { catchError, map, retry, timeout, shareReplay, tap} from 'rxjs/operators';
 import { AniEpisodesList } from './model/animeEpisodes.model';
 import { AniDetail } from './model/animeDetail.model';
 import { AniTop } from './model/animeTop.model';
@@ -204,6 +204,7 @@ export class JikanService {
       if(title != null || title != "") {
         _title = title
       }
+      
       return this.http.get<AnimeListWithPagination>(this.jikan_url_aws + "/search?title=" + _title + "&page=" + page).pipe(
       map(
         (data:AnimeListWithPagination) => data
@@ -211,6 +212,7 @@ export class JikanService {
       catchError(this.handleError)
     );
   }
+
 
 
 

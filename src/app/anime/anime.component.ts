@@ -192,7 +192,6 @@ export class AnimeComponent implements OnInit {
       }
     })
 
-    console.log(this.selectedSeason);
   }
 
   selectedIndex: number = 1;
@@ -245,7 +244,6 @@ export class AnimeComponent implements OnInit {
   public getTopAnimeHelper(page: number, subtype: string) {
     this.jikanService.getTopAnime(page, subtype).subscribe(
       x => {
-        console.log(x);
         this.setAniTopList(x.data, x.pagination);
       }
     );
@@ -373,7 +371,6 @@ export class AnimeComponent implements OnInit {
       this.aniListShow = this.aniList;
       this.pageSize = this.paginationObject.items.total;  
       this.currentPage = this.paginationObject.current_page;
-      console.log(this.paginationObject);
     }
     // this.strTitle = '';
     this.isTopAnime = false;
@@ -385,7 +382,6 @@ export class AnimeComponent implements OnInit {
       this.isAniEmpty = true;
       this.isLoading = false;
     } else {
-      console.log("HIT");
       this.isConnectionError = false;
       this.isAniEmpty = false;
       this.aniList = lst;
@@ -466,11 +462,6 @@ export class AnimeComponent implements OnInit {
 
   public onPageChange($event) {
     this.currentPage = $event.pageIndex + 1;
-    console.log("onPageChange");
-    console.log("Next page  " + this.currentPage);
-    console.log("Selected Season  " + this.selectedSeason);
-    console.log("Selected Year  " + this.selectedYear)
-
     if (this.isSearchByTitleActivated) {
       this.getAnimeByTitleHelper(this.searchTitle, this.currentPage);
     } else {
