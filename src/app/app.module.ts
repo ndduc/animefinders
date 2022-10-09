@@ -12,7 +12,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatIconModule} from '@angular/material/icon';
 import { AnimeComponent } from './anime/anime.component';
 import { NavigatorComponent } from './common/navigator/navigator.component';
-import { ConfigComponent } from './config/myaws/config.component';
 import { JikanComponent } from './config/jikan/jikan.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
@@ -36,15 +35,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DmcaComponentComponent } from './policy/dmca/dmca-component/dmca-component.component';
 import { MglTimelineModule } from 'angular-mgl-timeline';
 import { NgImageSliderModule } from 'ng-image-slider';
-import { AnimeStreamComponent } from './anime-detail/anime-stream/anime-stream.component';
-import { AnimeStreamHolderComponent } from './common/modal/anime/anime-stream-holder/anime-stream-holder.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     AnimeComponent,
     NavigatorComponent,
-    ConfigComponent,
     JikanComponent,
     AnimeModalComponent,
     AnimeTorrentHolderComponent,
@@ -53,8 +49,6 @@ import { AnimeStreamHolderComponent } from './common/modal/anime/anime-stream-ho
     AnimeTorrentHolderCustomComponent,
     QuestionModalComponent,
     DmcaComponentComponent,
-    AnimeStreamComponent,
-    AnimeStreamHolderComponent,
   ],
   imports: [
     BrowserModule,

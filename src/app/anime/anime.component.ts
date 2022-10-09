@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { JikanService } from '../config/jikan/jikan.service';
-import { ConfigService } from '../config/myaws/config.service';
-import { Search } from '../config/myaws/search';
 import { NyaaService } from '../config/nyaaaws/nyaa.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { DeviceDetectorService } from 'ngx-device-detector';
@@ -40,7 +38,6 @@ export class AnimeComponent implements OnInit {
   aniListShow: AnimeModel[] = [];
   aniTop: AniTop[] = [];
   aniTopShow: AniTop[] = [];
-  searchList: Search[] = [];
   error: any;
   headers: string[] = [];
   seasonLis: Array<{}> = [];
