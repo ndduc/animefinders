@@ -26,8 +26,6 @@ export class AnimeTopComponent implements OnInit {
   aniListShow: AnimeModel[] = [];
   isLoading: boolean = true;
   selected = '';
-  aniTop: AniTop[] = [];
-  aniTopShow: AniTop[] = [];
   error: any;
   headers: string[] = [];
   panelOpenState: boolean = false;
@@ -58,15 +56,10 @@ export class AnimeTopComponent implements OnInit {
   topAnimeIndex: any;
   
   topAnimeNumberOfColumn: number = 4;
-  seasonAnimeNumberOfColumn: number = 4;
   isMobile: boolean = false;
 
   paginationObject: AnimePaginationModel = {} as AnimePaginationModel ;
-  seasonLis: Array<{}> = [];
 
-  public searchForm = new FormGroup({});
-  public searchName: string = 'searchName';
-  public searchControl = new FormControl(null, Validators.required);
 
   public searchYearForm = new FormGroup({});
   public searchYearName: string = 'searchYear';
@@ -89,7 +82,6 @@ export class AnimeTopComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.setSeasonInterval();
     this.getTopAnime(1, '');
     this.setUpForm();
     this.breakpointObserverEvent();
@@ -105,82 +97,25 @@ export class AnimeTopComponent implements OnInit {
     ]).subscribe(result => {
       if (result.breakpoints[Breakpoints.XLarge]) {
         this.topAnimeNumberOfColumn = 4;
-        this.seasonAnimeNumberOfColumn = 4;
         this.isMobile = false;
       } else if (result.breakpoints[Breakpoints.Large]) {
         this.topAnimeNumberOfColumn = 4;
-        this.seasonAnimeNumberOfColumn = 4;
         this.isMobile = false;
       } else if (result.breakpoints[Breakpoints.Medium]) {
         this.topAnimeNumberOfColumn = 3;
-        this.seasonAnimeNumberOfColumn = 3;
         this.isMobile = false;
       } else if (result.breakpoints[Breakpoints.Small]) {
         this.topAnimeNumberOfColumn = 2;
-        this.seasonAnimeNumberOfColumn = 2;
         this.isMobile = true;
       } else {
         this.topAnimeNumberOfColumn = 1;
-        this.seasonAnimeNumberOfColumn = 1;
         this.isMobile = true;
       }
     });
   }
   
-  public setSeasonInterval() {
-    var year = new Date().getFullYear();
-    var month = new Date().getMonth() + 1;
-    /**
-     * Winter == 1st quarter == JAN to MARCH
-     * Spring == 2nd quarter == APR to JUN
-     * Summer == 3rd quarter == JUL to SEP
-     * Fall == 4th quarter == Oct to Dec
-    */
-    if(month >= 1 && month <= 3 ) {
-      this.setSeasonIntervalHelper("spring", year, "future"); //up coming
-      this.setSeasonIntervalHelper("winter", year, "current");
-      this.setSeasonIntervalHelper("fall", year-1, "past");
-      this.setSeasonIntervalHelper("summer", year-1, "past");
-      this.setSeasonIntervalHelper("spring", year-1, "past");
-    } else if (month >= 4 && month <= 6) {
-      this.setSeasonIntervalHelper("summer", year, "future"); //up coming
-      this.setSeasonIntervalHelper("spring", year, "current");
-      this.setSeasonIntervalHelper("winter", year, "past");
-      this.setSeasonIntervalHelper("fall", year-1, "past");
-      this.setSeasonIntervalHelper("summer", year-1, "past");
-    } else if (month >= 7 && month <= 9) {
-      this.setSeasonIntervalHelper("fall", year, "future"); //up coming
-      this.setSeasonIntervalHelper("summer", year, "current");
-      this.setSeasonIntervalHelper("spring", year, "past");
-      this.setSeasonIntervalHelper("winter", year, "past");
-      this.setSeasonIntervalHelper("fall", year-1, "past");
-    } else {
-      this.setSeasonIntervalHelper("winter", year+1, "future"); //up coming
-      this.setSeasonIntervalHelper("fall", year, "current");
-      this.setSeasonIntervalHelper("summer", year, "past");
-      this.setSeasonIntervalHelper("spring", year, "past");
-      this.setSeasonIntervalHelper("winter", year, "past");
-    }
-
-    this.seasonLis.find(x => {
-      if (x["opt"] == "current") {
-        this.selectedSeason = x["season"];
-      }
-    })
-
-  }
-
-  private setSeasonIntervalHelper(season, year, opt) {
-    //var tmpMap: Map<string, number> = new Map<string, number>();
-    var tmpMap = {};
-    tmpMap["season"] = season;
-    tmpMap["year"] = year;
-    tmpMap["opt"] = opt;
-    this.seasonLis.push(tmpMap);
-  }
 
   private setUpForm(): void {
-    this.searchForm.addControl(this.searchName, this.searchControl);
     this.searchYearForm.addControl(this.searchYearName, this.searchAdvControl);
     this.searchYearForm.addControl(this.searchSeasonName, this.searchSeasonControl);
   }
@@ -193,9 +128,6 @@ export class AnimeTopComponent implements OnInit {
     this.isConnectionError = false;
   }
 
-  public setRow(index: number) {
-    this.selectedIndex = index;
-  }
 
   public getTopAnime(page: number, subtype: string) {
 
@@ -213,45 +145,6 @@ export class AnimeTopComponent implements OnInit {
     );
   }
 
-  public getAnimeByTitle(title: string, page:number) {
-    this.searchTitle = title;
-    this.isSearchByTitleActivated = true;
-    this.currentPage = 1;
-    this.getAnimeByTitleHelper(title, page);
-    this.clearSort();
-  }
-
-  public getAnimeByTitleHelper(title: string, page:number) {
-    this.jikanService.getAnimeByTitle(title, page).subscribe(
-      x => {
-        this.setAniList(x.data, x.pagination);
-      },
-      (error) => {
-        this.setAniList(this.aniList, this.paginationObject);
-      }
-    );
-  }
-
-
-  private setAniList(lst: AnimeModel[], originalList: AnimePaginationModel) {
-
-    if(lst == null || lst.length === 0) {
-      this.isConnectionError = false;
-      this.isAniEmpty = true;
-      this.isLoading = false;
-    } else {
-      this.isConnectionError = false;
-      this.isAniEmpty = false;
-      this.aniList = lst;
-      this.isLoading = false;
-
-      this.paginationObject = originalList;
-      this.aniListShow = this.aniList;
-      this.pageSize = this.paginationObject.items.total;  
-      this.currentPage = this.paginationObject.current_page;
-    }
-    this.isTopAnime = true;
-  }
 
   private setAniTopList(lst: AnimeModel[], originalList: AnimePaginationModel) {
     if(lst == null || lst.length === 0) {
@@ -268,8 +161,6 @@ export class AnimeTopComponent implements OnInit {
       this.aniListShow = this.aniList;
       this.pageSize = this.paginationObject.items.total;  
       this.currentPage = this.paginationObject.current_page;
-
-      this.aniTopShow = this.aniTop;
     }
     this.isTopAnime = true;
   }
@@ -312,12 +203,6 @@ export class AnimeTopComponent implements OnInit {
     this.sort_rate = 0;
   }
 
-  public onPageChange($event) {
-    this.currentPage = $event.pageIndex + 1;
-    if (this.isSearchByTitleActivated) {
-      this.getAnimeByTitleHelper(this.searchTitle, this.currentPage);
-    }
-  }
 
   public topAnimeOnPageChange($event) {
     this.currentPage = $event.pageIndex + 1;
