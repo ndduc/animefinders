@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { AnimeModalComponent } from '../dialog/anime/anime-modal/anime-modal.component';
-import { QuestionModalComponent } from '../dialog/question/question/question-modal/question-modal.component';
+import { AnimeModalComponent } from '../../dialog/anime/anime-modal/anime-modal.component';
+import { QuestionModalComponent } from '../../dialog/question/question/question-modal/question-modal.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AfterViewInit } from '@angular/core';
-import { AnimeSortModel } from '../model/anime-sort-model.model';
+import { AnimeSortModel } from '../../model/anime-sort-model.model';
 import { Router } from '@angular/router';
-import { sortOptionEnum } from '../enum/enum-option/enum-option';
-import { AnimePaginationModel } from '../model/anime-pagination.model';
-import { AnimeModel } from '../model/anime.model';
-import { AniTop } from '../model/animeTop.model';
-import { JikanService } from '../service/jikan/jikan.service';
-import { NyaaService } from '../service/nyaa/nyaa.service';
+import { sortOptionEnum } from '../../enum/enum-option/enum-option';
+import { AnimePaginationModel } from '../../model/anime-pagination.model';
+import { AnimeModel } from '../../model/anime.model';
+import { AniTop } from '../../model/animeTop.model';
+import { JikanService } from '../../service/jikan/jikan.service';
+import { NyaaService } from '../../service/nyaa/nyaa.service';
 
 
 @Component({

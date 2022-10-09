@@ -3,14 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatIconModule} from '@angular/material/icon';
-import { AnimeComponent } from './anime/anime.component';
+import { AnimeComponent } from './module/anime/anime.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
@@ -26,7 +25,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { AnimeTorrentHolderCustomComponent } from './dialog/anime/anime-torrent-holder-custom/anime-torrent-holder-custom.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DmcaComponentComponent } from './policy/dmca/dmca-component/dmca-component.component';
+import { DmcaComponentComponent } from './module/dmca-component/dmca-component.component';
 import { MglTimelineModule } from 'angular-mgl-timeline';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { AnimeTorrentHolderComponent } from './dialog/anime/anime-torrent-holder/anime-torrent-holder.component';
@@ -35,7 +34,6 @@ import { NavigatorComponent } from './navigator/navigator.component';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     AnimeComponent,
     NavigatorComponent,
     AnimeModalComponent,
