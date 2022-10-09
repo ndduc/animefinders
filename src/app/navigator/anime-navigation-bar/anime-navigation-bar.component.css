@@ -1,9 +1,13 @@
-.nav-bar-animelist {
+.nav-bar-animelist, .nav-bar-animelist-2nd {
 	overflow-x: auto;
 	background-color: #34c97e;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+}
+
+.nav-bar-animelist-2nd  {
+	background-color: #B3DAF1 !important;
 }
 
 .nav-bar-animelist-mobile {
@@ -66,7 +70,7 @@
 
 
 
-::ng-deep .nav-bar-animelist {
+::ng-deep .nav-bar-animelist, .nav-bar-animelist-2nd {
 	overflow: hidden;
 }
 

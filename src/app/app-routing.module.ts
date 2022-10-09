@@ -8,7 +8,7 @@ import { AnimeSearchComponent } from './module/anime-search/anime-search.compone
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'anime/top', 
+    redirectTo: 'anime/top/type/all', 
     pathMatch: 'full'
   },
   {
@@ -24,7 +24,7 @@ const routes: Routes = [
     component: AnimeSearchComponent,
   },
   {
-    path: 'anime/top',
+    path: 'anime/top/:cat/:select',
     component: AnimeTopComponent
   }
 

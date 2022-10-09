@@ -12,15 +12,20 @@ export class AnimeNavigationBarComponent implements OnInit {
 
   isConnectionError: boolean = false;
   seasonLis: Array<{}> = [];
+  topList: string[] = ['All', 'TV', 'Movie', 'OVA', 'ONA', 'Special', 'Airing'];
+  topSelected: string = '';
   selectedSeason: string = "";
   isMobile: boolean = false;
   isLoading: boolean = true;
   selectedIndex: number = -1;
+  selectedIndex2nd: number = 0;
   
   public searchForm = new FormGroup({});
   public searchName: string = 'searchName';
   public searchControl = new FormControl(null, Validators.required);
   strTitle: string = '';
+
+  isTopSelected = false;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -37,6 +42,12 @@ export class AnimeNavigationBarComponent implements OnInit {
         this.selectedIndex = -2;
       }
     });
+
+    if(this.selectedIndex == -1) {
+      this.isTopSelected = true;
+    } else {
+      this.isTopSelected = false;
+    }
     this.setSeasonInterval();
     this.setUpForm();
     this.breakpointObserverEvent();
@@ -121,6 +132,22 @@ export class AnimeNavigationBarComponent implements OnInit {
     this.seasonLis.push(tmpMap);
   }
 
+  public setRow2nd(index: number, path: string) {
+    this.selectedIndex2nd = index;
+    if (path === '/anime/top') {
+
+      var filtered = this.topList[this.selectedIndex2nd].toLocaleLowerCase();
+      if (filtered === "tv" || filtered === "movie" || filtered === "ova" || filtered === "special" || filtered === "ona" ) {
+        path = path + "/type/" + filtered; 
+      } else {
+        path = path + "/filter/" + filtered;
+      }
+
+    }
+    this.navigateToComponent(path, this.selectedIndex);
+
+  }
+
   public setRow(index: number, path: string) {
     this.selectedIndex = index;
     if (path === '/anime/season') {
@@ -128,6 +155,8 @@ export class AnimeNavigationBarComponent implements OnInit {
       path = path + "/" + this.selectedIndex + "/" + selectedSeason['season'] + "/" + selectedSeason['year']
     } else if (path === '/anime/search') {
       path = path + "/" + this.strTitle;
+    } else if (path === '/anime/top') {
+      path = path + "/type/" + "all"
     }
     this.navigateToComponent(path, this.selectedIndex);
   }
