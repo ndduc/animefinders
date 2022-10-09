@@ -1,14 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { NyaaService } from 'src/app/config/nyaaaws/nyaa.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { JikanService } from 'src/app/config/jikan/jikan.service';
 import { importExpr } from '@angular/compiler/src/output/output_ast';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ModalServiceService } from 'src/app/service/question/model-service.service';
 import { AniDetail } from 'src/app/model/animeDetail.model';
 import { AniEpisodesList } from 'src/app/model/animeEpisodes.model';
 import { searchList } from 'src/app/model/searchList';
+import { JikanService } from 'src/app/service/jikan/jikan.service';
+import { NyaaService } from 'src/app/service/nyaa/nyaa.service';
 
 @Component({
   selector: 'app-question-modal',

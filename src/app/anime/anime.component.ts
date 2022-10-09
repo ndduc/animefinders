@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { JikanService } from '../config/jikan/jikan.service';
-import { NyaaService } from '../config/nyaaaws/nyaa.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { AnimeModalComponent } from '../dialog/anime/anime-modal/anime-modal.component';
@@ -14,6 +12,8 @@ import { sortOptionEnum } from '../enum/enum-option/enum-option';
 import { AnimePaginationModel } from '../model/anime-pagination.model';
 import { AnimeModel } from '../model/anime.model';
 import { AniTop } from '../model/animeTop.model';
+import { JikanService } from '../service/jikan/jikan.service';
+import { NyaaService } from '../service/nyaa/nyaa.service';
 
 
 @Component({
