@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AnimeComponent } from './module/anime/anime.component';
 import { DmcaComponentComponent } from './module/dmca-component/dmca-component.component';
+import { AnimeTopComponent } from './module/anime-top/anime-top.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -15,6 +17,10 @@ const routes: Routes = [
   {
     path: 'anime',
     component: AnimeComponent
+  },
+  {
+    path: 'anime/top',
+    component: AnimeTopComponent
   }
 
 ];

@@ -31,6 +31,8 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { AnimeTorrentHolderComponent } from './dialog/anime/anime-torrent-holder/anime-torrent-holder.component';
 import { QuestionModalComponent } from './dialog/question/question/question-modal/question-modal.component';
 import { NavigatorComponent } from './navigator/navigator.component';
+import { AnimeTopComponent } from './module/anime-top/anime-top.component';
+import { AnimeNavigationBarComponent } from './navigator/anime-navigation-bar/anime-navigation-bar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +43,8 @@ import { NavigatorComponent } from './navigator/navigator.component';
     AnimeTorrentHolderCustomComponent,
     QuestionModalComponent,
     DmcaComponentComponent,
+    AnimeTopComponent,
+    AnimeNavigationBarComponent,
   ],
   imports: [
     BrowserModule,
