@@ -1,27 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { AnimeModalComponent } from '../../dialog/anime/anime-modal/anime-modal.component';
 import { QuestionModalComponent } from '../../dialog/question/question/question-modal/question-modal.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { AfterViewInit } from '@angular/core';
 import { AnimeSortModel } from '../../model/anime-sort-model.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { sortOptionEnum } from '../../enum/enum-option/enum-option';
 import { AnimePaginationModel } from '../../model/anime-pagination.model';
 import { AnimeModel } from '../../model/anime.model';
+import { AniTop } from '../../model/animeTop.model';
 import { JikanService } from '../../service/jikan/jikan.service';
 import { NyaaService } from '../../service/nyaa/nyaa.service';
 
 
 @Component({
-  selector: 'app-anime',
-  templateUrl: './anime.component.html',
-  providers: [NyaaService],
-  styleUrls: ['./anime.component.css']
+  selector: 'app-anime-search',
+  templateUrl: './anime-search.component.html',
+  styleUrls: ['./anime-search.component.css']
 })
 
 
-export class AnimeComponent implements OnInit {
+export class AnimeSearchComponent implements OnInit {
   
   sortOption = sortOptionEnum;
   isLoading: boolean = true;
@@ -66,7 +68,6 @@ export class AnimeComponent implements OnInit {
 
   paginationObject: AnimePaginationModel = {} as AnimePaginationModel ;
 
-
   public searchYearForm = new FormGroup({});
   public searchYearName: string = 'searchYear';
   public searchAdvControl = new FormControl(null, Validators.required);
@@ -76,7 +77,7 @@ export class AnimeComponent implements OnInit {
   selectedYear: number = new Date().getFullYear();
   selectedSeason: string = "";
   currentPage: number = 1;
-  isSearchByTitleActivated: boolean = false;
+  isSearchByTitleActivated: boolean = true;
   searchTitle: string = "";
 
   navigationIndex: any;
@@ -88,15 +89,13 @@ export class AnimeComponent implements OnInit {
     }
 
   ngOnInit(): void {
+   
     this.route.paramMap.subscribe(params => {
       this.navigationIndex = params.get('index');
       this.isLoading = true;
-      if (params.get('season') && params.get('year')) {
-        this.getSeasonalAnime(params.get('season'),params.get('year'), 1);
-      } else {
-        this.getSeasonalAnime(null,null, 1);
-      }
+      this.getAnimeByTitle(String(params.get('title')), 1);
     });
+
     this.setUpForm();
     this.breakpointObserverEvent();
   }
@@ -141,32 +140,23 @@ export class AnimeComponent implements OnInit {
     this.isConnectionError = false;
   }
 
-
-
-
-  public getSeasonalAnime(season: any, year: any, page: number) {
-    this.isSearchByTitleActivated = false
+  public getAnimeByTitle(title: string, page:number) {
+    this.searchTitle = title;
+    this.isSearchByTitleActivated = true;
     this.currentPage = 1;
-    if(season != null && year != null) {
-      this.selectedSeason = season;
-      this.selectedYear = year;
-      this.getAnimeSesasonalHelper(season,year, page);
-    } else {
-      this.getAnimeSesasonalHelper(this.selectedSeason,this.selectedYear, page);
-    }
+    this.getAnimeByTitleHelper(title, page);
     this.clearSort();
   }
 
-  public getAnimeSesasonalHelper(season: any, year: any, page: number) {
-    this.jikanService.getSeasonalAnimeBySeasonYear(season,year, page)
-          .subscribe(
-            x => {
-              this.setAniList(x.data, x.pagination);
-            },
-            (error) => {
-              this.setAniList(this.aniList, this.paginationObject);
-            }
-          );
+  public getAnimeByTitleHelper(title: string, page:number) {
+    this.jikanService.getAnimeByTitle(title, page).subscribe(
+      x => {
+        this.setAniList(x.data, x.pagination);
+      },
+      (error) => {
+        this.setAniList(this.aniList, this.paginationObject);
+      }
+    );
   }
 
 
@@ -233,9 +223,11 @@ export class AnimeComponent implements OnInit {
 
   public onPageChange($event) {
     this.currentPage = $event.pageIndex + 1;
-    this.getAnimeSesasonalHelper(this.selectedSeason, this.selectedYear, this.currentPage);
-    
+    if (this.isSearchByTitleActivated) {
+      this.getAnimeByTitleHelper(this.searchTitle, this.currentPage);
+    }
   }
+
 
   public convertToTitleCase(value:string): string {
     let first = value.substr(0,1).toUpperCase();

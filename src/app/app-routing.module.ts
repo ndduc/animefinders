@@ -2,10 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AnimeComponent } from './module/anime/anime.component';
 import { DmcaComponentComponent } from './module/dmca-component/dmca-component.component';
+import { AnimeTopComponent } from './module/anime-top/anime-top.component';
+import { AnimeSearchComponent } from './module/anime-search/anime-search.component';
+
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'anime', 
+    redirectTo: 'anime/top', 
     pathMatch: 'full'
   },
   {
@@ -13,8 +16,16 @@ const routes: Routes = [
     component: DmcaComponentComponent
   },
   {
-    path: 'anime',
-    component: AnimeComponent
+    path: 'anime/season/:index/:season/:year',
+    component: AnimeComponent,
+  },
+  {
+    path: 'anime/search/:title',
+    component: AnimeSearchComponent,
+  },
+  {
+    path: 'anime/top',
+    component: AnimeTopComponent
   }
 
 ];

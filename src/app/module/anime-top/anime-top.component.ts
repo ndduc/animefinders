@@ -5,37 +5,31 @@ import { QuestionModalComponent } from '../../dialog/question/question/question-
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AnimeSortModel } from '../../model/anime-sort-model.model';
-import { ActivatedRoute } from '@angular/router';
 import { sortOptionEnum } from '../../enum/enum-option/enum-option';
 import { AnimePaginationModel } from '../../model/anime-pagination.model';
 import { AnimeModel } from '../../model/anime.model';
+import { AniTop } from '../../model/animeTop.model';
 import { JikanService } from '../../service/jikan/jikan.service';
-import { NyaaService } from '../../service/nyaa/nyaa.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-anime',
-  templateUrl: './anime.component.html',
-  providers: [NyaaService],
-  styleUrls: ['./anime.component.css']
+  selector: 'app-anime-top',
+  templateUrl: './anime-top.component.html',
+  styleUrls: ['./anime-top.component.css']
 })
 
 
-export class AnimeComponent implements OnInit {
+export class AnimeTopComponent implements OnInit {
   
-  sortOption = sortOptionEnum;
-  isLoading: boolean = true;
-  isAdv: boolean = false;
-  isFilter: boolean = false;
-  strYear: string = '';
-  strTitle: string = '';
-  isHidden: boolean = true;
-  selected = '';
   aniList: AnimeModel[] = [];
   aniListShow: AnimeModel[] = [];
+  isLoading: boolean = true;
+  selected = '';
   error: any;
   headers: string[] = [];
   panelOpenState: boolean = false;
+  isTopAnime: boolean = false;
   isAniEmpty : boolean = true;
   isConnectionError: boolean = false;
   screen: number = 0;
@@ -61,7 +55,7 @@ export class AnimeComponent implements OnInit {
   closeResult = '';
   topAnimeIndex: any;
   
-  seasonAnimeNumberOfColumn: number = 4;
+  topAnimeNumberOfColumn: number = 4;
   isMobile: boolean = false;
 
   paginationObject: AnimePaginationModel = {} as AnimePaginationModel ;
@@ -73,30 +67,22 @@ export class AnimeComponent implements OnInit {
   public searchSeasonName: string = 'searchSeason';
   public searchSeasonControl = new FormControl(null, Validators.required);
   
+  selectedIndex: number = 1;
+  strTitle: string = '';
   selectedYear: number = new Date().getFullYear();
   selectedSeason: string = "";
   currentPage: number = 1;
   isSearchByTitleActivated: boolean = false;
   searchTitle: string = "";
-
-  navigationIndex: any;
   constructor(private jikanService: JikanService, 
     public modelService: NgbModal,
     private breakpointObserver: BreakpointObserver,
-    private route: ActivatedRoute
+    private route:Router 
     ) { 
     }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      this.navigationIndex = params.get('index');
-      this.isLoading = true;
-      if (params.get('season') && params.get('year')) {
-        this.getSeasonalAnime(params.get('season'),params.get('year'), 1);
-      } else {
-        this.getSeasonalAnime(null,null, 1);
-      }
-    });
+    this.getTopAnime(1, '');
     this.setUpForm();
     this.breakpointObserverEvent();
   }
@@ -110,24 +96,25 @@ export class AnimeComponent implements OnInit {
       Breakpoints.XLarge
     ]).subscribe(result => {
       if (result.breakpoints[Breakpoints.XLarge]) {
-        this.seasonAnimeNumberOfColumn = 4;
+        this.topAnimeNumberOfColumn = 4;
         this.isMobile = false;
       } else if (result.breakpoints[Breakpoints.Large]) {
-        this.seasonAnimeNumberOfColumn = 4;
+        this.topAnimeNumberOfColumn = 4;
         this.isMobile = false;
       } else if (result.breakpoints[Breakpoints.Medium]) {
-        this.seasonAnimeNumberOfColumn = 3;
+        this.topAnimeNumberOfColumn = 3;
         this.isMobile = false;
       } else if (result.breakpoints[Breakpoints.Small]) {
-        this.seasonAnimeNumberOfColumn = 2;
+        this.topAnimeNumberOfColumn = 2;
         this.isMobile = true;
       } else {
-        this.seasonAnimeNumberOfColumn = 1;
+        this.topAnimeNumberOfColumn = 1;
         this.isMobile = true;
       }
     });
   }
   
+
   private setUpForm(): void {
     this.searchYearForm.addControl(this.searchYearName, this.searchAdvControl);
     this.searchYearForm.addControl(this.searchSeasonName, this.searchSeasonControl);
@@ -142,37 +129,24 @@ export class AnimeComponent implements OnInit {
   }
 
 
+  public getTopAnime(page: number, subtype: string) {
 
-
-  public getSeasonalAnime(season: any, year: any, page: number) {
-    this.isSearchByTitleActivated = false
     this.currentPage = 1;
-    if(season != null && year != null) {
-      this.selectedSeason = season;
-      this.selectedYear = year;
-      this.getAnimeSesasonalHelper(season,year, page);
-    } else {
-      this.getAnimeSesasonalHelper(this.selectedSeason,this.selectedYear, page);
-    }
+    this.isSearchByTitleActivated = false;
+    this.getTopAnimeHelper(page, subtype);
     this.clearSort();
   }
 
-  public getAnimeSesasonalHelper(season: any, year: any, page: number) {
-    this.jikanService.getSeasonalAnimeBySeasonYear(season,year, page)
-          .subscribe(
-            x => {
-              this.setAniList(x.data, x.pagination);
-            },
-            (error) => {
-              this.setAniList(this.aniList, this.paginationObject);
-            }
-          );
+  public getTopAnimeHelper(page: number, subtype: string) {
+    this.jikanService.getTopAnime(page, subtype).subscribe(
+      x => {
+        this.setAniTopList(x.data, x.pagination);
+      }
+    );
   }
 
 
-
-  private setAniList(lst: AnimeModel[], originalList: AnimePaginationModel) {
-
+  private setAniTopList(lst: AnimeModel[], originalList: AnimePaginationModel) {
     if(lst == null || lst.length === 0) {
       this.isConnectionError = false;
       this.isAniEmpty = true;
@@ -182,19 +156,16 @@ export class AnimeComponent implements OnInit {
       this.isAniEmpty = false;
       this.aniList = lst;
       this.isLoading = false;
+
       this.paginationObject = originalList;
       this.aniListShow = this.aniList;
       this.pageSize = this.paginationObject.items.total;  
       this.currentPage = this.paginationObject.current_page;
     }
+    this.isTopAnime = true;
   }
 
 
-
-
-  public toggleAdvSearch() {
-    this.isHidden = !this.isHidden;
-  }
 
   public openTorrentModal(title, imageSrc, episode, type, animeId, animeObject, isStream) {
     const modalRef = this.modelService.open(AnimeModalComponent);
@@ -204,6 +175,7 @@ export class AnimeComponent implements OnInit {
     modalRef.componentInstance.type = type;
     modalRef.componentInstance.animeId = animeId;
     modalRef.componentInstance.aniObject = animeObject;
+    modalRef.componentInstance.isTopAnime = this.isTopAnime;
     modalRef.componentInstance.isStream = isStream;
     
   }
@@ -231,85 +203,15 @@ export class AnimeComponent implements OnInit {
     this.sort_rate = 0;
   }
 
-  public onPageChange($event) {
+
+  public topAnimeOnPageChange($event) {
     this.currentPage = $event.pageIndex + 1;
-    this.getAnimeSesasonalHelper(this.selectedSeason, this.selectedYear, this.currentPage);
-    
+    this.getTopAnimeHelper(this.currentPage, "");
   }
 
   public convertToTitleCase(value:string): string {
     let first = value.substr(0,1).toUpperCase();
     return first + value.substr(1); 
-  }
-
-  public enablingAdvanceSearch() {
-    if (this.isAdv) {
-      this.isAdv = false;
-      this.isFilter = false;
-    } else {
-      this.isAdv = true;
-      this.isFilter = false;
-    }
-  }
-
-  public enablingFilter() {
-    if (this.isFilter) {
-      this.isFilter = false;
-      this.isAdv = false;
-    } else {
-      this.isFilter = true;
-      this.isAdv = false;
-    }
-  }
-
-  public onSortChange(value) {
-    this.selectedSort = sortOptionEnum.NOTHING;
-
-    switch(value) {
-      case "RATE":
-        this.selectedSort = sortOptionEnum.RATE;
-        break;
-      case "RATE_DESC":
-        this.selectedSort = sortOptionEnum.RATE_DESC;
-        break;
-      case "RATE_ASC":
-        this.selectedSort = sortOptionEnum.RATE_ASC;
-        break;
-      default:
-        this.selectedSort = sortOptionEnum.NOTHING;
-        break;
-    }
-    this.sortAniList(this.selectedSort);
-  }
-  
-  private sortAniList(opt: sortOptionEnum) {
-    switch(opt) {
-      case sortOptionEnum.RATE:
-        if(this.sort_rate == 0) {
-          this.aniList = this.aniList.sort((a, b) => a.score < b.score ? 1 : -1);
-          this.sort_rate = 1;
-        } else {
-          this.aniList = this.aniList.sort((a, b) => a.score > b.score ? 1 : -1);
-          this.sort_rate = 0;
-        }
-        break;
-      case sortOptionEnum.RATE_DESC:
-          this.aniList = this.aniList.sort((a, b) => a.score < b.score ? 1 : -1);
-        break;
-      case sortOptionEnum.RATE_ASC:
-          this.aniList = this.aniList.sort((a, b) => a.score > b.score ? 1 : -1);
-        break;
-      default:
-        this.aniList = this.aniList
-        break;
-    };
-
-    if(this.isMobile) {
-      this.aniListShow = this.aniList.slice(0, 5);
-    } else {
-      this.aniListShow = this.aniList.slice(0, 48);
-    }
-    this.pageSize = this.aniList.length;  
   }
 
   public backToTop(event) {

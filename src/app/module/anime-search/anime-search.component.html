@@ -1,5 +1,4 @@
 <router-outlet></router-outlet>
-<!-- <app-navigator></app-navigator> -->
 <app-anime-navigation-bar></app-anime-navigation-bar>
 <div *ngIf="isLoading" class="d-flex justify-content-center">
 	<img style="width: 30%; height: 30%;" class="" src="assets/images/loading-cute.gif" alt="Err">
@@ -13,11 +12,11 @@
 
 	<body class="container-xxl">
 
-
 	<!-- 
-		This part is for the adv search -- GOING TO EXTEND THIS TO OTHER COMPONENT. LEAVE IT BE FOR NOW
+		This part is for the adv search
 	 -->
-	<div *ngIf="!isConnectionError  && !isLoading && isAdv">
+     
+	<!-- <div *ngIf="!isConnectionError  && !isLoading && isAdv">
 			<mat-toolbar class="nav-bar-animelist-2">
 				<form [formGroup]="searchYearForm" class="search-form">
 					
@@ -43,17 +42,17 @@
 					disabled="{{searchYearForm.invalid || !searchYearForm.dirty}}" >Advance Search</button>
 				</form>
 		</mat-toolbar>
-	</div>
+	</div> -->
 
 	<!-- Sort going to be here -->
-	<div *ngIf="!isConnectionError  && !isLoading && isFilter">
+    
+	<!-- <div *ngIf="!isConnectionError  && !isLoading && isFilter && !isTopAnime">
 		<mat-toolbar class="nav-bar-animelist-2">
 			<form class="search-form">
 				<mat-form-field class="input-search-adv"  floatLabel="never">
 					<mat-label>Sort Option</mat-label>
 					<mat-select [(value)]="selected">
 						<mat-option value="NOTHING">Select Sort Option</mat-option>
-						<!-- <mat-option value="RATE">Score</mat-option> -->
 						<mat-option value="RATE_DESC">Score (High)</mat-option>
 						<mat-option value="RATE_ASC">Score (Low)</mat-option>
 					</mat-select>
@@ -62,7 +61,7 @@
 				>Save</button>
 			</form>
 		</mat-toolbar>
-	</div>
+	</div> -->
 
 
 
@@ -72,7 +71,7 @@
 	-->
 	<div *ngIf="!isLoading">
 
-		<!--SEASONAL & SEARCH ANIME DESKTOP REGION START-->
+		<!--SEARCH ANIME DESKTOP REGION START-->
 		<div *ngIf="!isAniEmpty">
 			<!-- 
 				Grid display anime info
@@ -123,7 +122,10 @@
 			</mat-paginator>
 
 		</div>
-		<!--SEASONAL & SEARCH ANIME DESKTOP REGION END-->	
+		<!--SEARCH ANIME DESKTOP REGION END-->	
+
+
+		<!--TOP ANIME DESKTOP REGION END-->
 
 		<div class="d-flex justify-content-center" style="margin-top: 5%;" *ngIf="isAniEmpty && isConnectionError">
 			<div class="d-flex flex-column" style="text-align: center;">
