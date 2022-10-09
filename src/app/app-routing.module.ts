@@ -8,16 +8,12 @@ import { AnimeSearchComponent } from './module/anime-search/anime-search.compone
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'anime', 
+    redirectTo: 'anime/top', 
     pathMatch: 'full'
   },
   {
     path: 'dmca',
     component: DmcaComponentComponent
-  },
-  {
-    path: 'anime',
-    component: AnimeComponent
   },
   {
     path: 'anime/season/:index/:season/:year',
