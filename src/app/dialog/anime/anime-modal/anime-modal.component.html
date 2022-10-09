@@ -1,0 +1,63 @@
+<div class="anime-modal-body">
+  <div>
+    <div class="modal-body">
+      <div class="d-flex justify-content-center flex-column">
+          
+          <div class="title d-flex justify-content-center">
+            <h2>{{title}}</h2>
+          </div>
+
+          <div class="chip-container">
+            <mat-chip-list>
+              <mat-chip class="tag">EP: {{episode}}</mat-chip>
+              <mat-chip class="tag">Score: {{aniObject.score}}</mat-chip>
+            </mat-chip-list>
+          </div>
+          <div *ngIf="!isTopAnime" class="anime-container d-flex justify-content-center">
+            
+            <div class="anime-image-modal-container">
+              <img class="anime-image-modal"  src="{{imageSrc}}" alt="Photo Content - Error">
+            </div>
+  
+            <div class="anime-div">
+                  {{aniObject.synopsis}}
+            </div>
+            
+          </div>
+
+
+          <div *ngIf="isTopAnime" class="anime-container d-flex justify-content-center">
+            <div class="anime-image-modal-container">
+              <img class="anime-image-modal"  src="{{imageSrc}}" alt="Photo Content - Error">
+            </div>
+          </div>
+
+          
+          <div class="torrent-detail-container">
+            <div *ngIf="isLoading" class="d-flex justify-content-center">
+              <img style="width: 50%; height: 100%;" class="" src="assets/images/loading-cute.gif" alt="Err">
+            </div>
+
+            <div *ngIf="!isLoading && !isStream">
+              <app-anime-torrent-holder-custom [title]=title [episode]=-3></app-anime-torrent-holder-custom>
+
+              <div *ngIf="this.numberOfEpisode == 1 || this.numberOfEpisode >= 100">
+                <app-anime-torrent-holder [title]=title [episode]=-2></app-anime-torrent-holder>
+              </div>
+
+              <div *ngIf="this.numberOfEpisode > 1 && this.numberOfEpisode < 100">
+                <div *ngFor="let episode of createRange(this.numberOfEpisode)">
+                  <app-anime-torrent-holder [title]=title [episode]=episode></app-anime-torrent-holder>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+      </div>		
+    </div>
+    <div class="close">
+      <img class="close-image" src="assets/images/close_icon.png" alt='image' (click)="activeModal.close('Close click')">
+    </div>
+  </div>
+</div>

@@ -1,0 +1,320 @@
+<router-outlet></router-outlet>
+<!-- <app-navigator></app-navigator> -->
+
+<div *ngIf="isLoading" class="d-flex justify-content-center">
+	<img style="width: 30%; height: 30%;" class="" src="assets/images/loading-cute.gif" alt="Err">
+</div>
+
+
+<div class="anime-body-container">
+	<!-- 
+		If Loading display a GIF object, otherwise display whatever the app suppose to display
+	-->
+
+	<body class="container-xxl">
+	<!-- 
+		Header section, where the app displays TAG such as 
+		Seasons, search box,etc...
+	-->
+	<div *ngIf="!isConnectionError && !isLoading">
+		<mat-toolbar class="nav-bar-animelist">
+			<div>
+				<div class="d-flex" *ngIf="seasonLis">
+					<button class="button-spring" 
+					(click)="clear(); getTopAnime(1, ''); setRow(-1);" 
+					[ngStyle]="{'color' : this.selectedIndex == -1 ? 'white' : 'black' }"
+						mat-flat-button>
+							<div>
+								Top Anime
+							</div>
+					</button>
+
+					<!-- [ngStyle]="{'background-color' : this.selectedIndex == 4 ? 'white' : '#c98436' }" -->
+
+					<div *ngFor="let item of seasonLis; let i = index">
+						<button class="button-spring"  *ngIf="item['season'] === 'spring'"
+						(click)="clear(); getSeasonalAnime(item['season'], item['year'], 1); setRow(i);" 
+						mat-flat-button>
+							<div *ngIf="item['opt'] === 'current'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Current)"}}
+							</div>
+							<div *ngIf="item['opt'] === 'future'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Incoming)"}}
+							</div>
+							<div *ngIf="item['opt'] === 'past'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+								{{convertToTitleCase(item["season"]) + " - " + item["year"]}}
+							</div>
+						</button>
+
+						<button class="button-summer"  *ngIf="item['season'] === 'summer'"
+						(click)="clear(); getSeasonalAnime(item['season'], item['year'], 1); setRow(i);" 
+						mat-flat-button>
+							<div *ngIf="item['opt'] === 'current'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Current)"}}
+							</div>
+							<div *ngIf="item['opt'] === 'future'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Incoming)"}}
+							</div>
+							<div *ngIf="item['opt'] === 'past'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+								{{convertToTitleCase(item["season"]) + " - " + item["year"]}}
+							</div>
+						</button>
+
+						<button class="button-winter" *ngIf="item['season'] === 'winter'"
+						(click)="clear(); getSeasonalAnime(item['season'], item['year'], 1); setRow(i);" 
+						mat-flat-button>
+							<div *ngIf="item['opt'] === 'current'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Current)"}}
+							</div>
+							<div *ngIf="item['opt'] === 'future'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Incoming)"}}
+							</div>
+							<div *ngIf="item['opt'] === 'past'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+								{{convertToTitleCase(item["season"]) + " - " + item["year"]}}
+							</div>
+						</button>
+
+						<button class="button-fall"  *ngIf="item['season'] === 'fall'"
+						(click)="clear(); getSeasonalAnime(item['season'], item['year'], 1); setRow(i);" 
+						mat-flat-button>
+							<div *ngIf="item['opt'] === 'current'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Current)"}}
+							</div>
+							<div *ngIf="item['opt'] === 'future'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+								{{convertToTitleCase(item["season"]) + " - " + item["year"] + " - (Incoming)"}}
+							</div>
+							<div *ngIf="item['opt'] === 'past'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+								{{convertToTitleCase(item["season"]) + " - " + item["year"]}}
+							</div>
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<form [formGroup]="searchForm" class="search-form" *ngIf="!isMobile">
+				<mat-form-field >
+					<input matInput formControlName="{{searchName}}" placeholder="Search"  [(ngModel)]="strTitle">
+
+				</mat-form-field>
+
+				<button mat-flat-button class="btn-advance" (click)="clear(); getAnimeByTitle(strTitle, 1);" disabled="{{searchForm.invalid || !searchForm.dirty}}" >
+					Search
+				</button>
+
+				<!-- <button mat-flat-button class="btn-advance" (click)="enablingFilter()">Filter</button>
+				<button mat-flat-button class="btn-advance" (click)="enablingAdvanceSearch()">ADV</button> -->
+			</form>
+		</mat-toolbar>
+	</div>
+
+	<div *ngIf="!isConnectionError && !isLoading && isMobile">
+		<mat-toolbar class="nav-bar-animelist-mobile">
+			<form [formGroup]="searchForm" class="search-form">
+					<mat-form-field class="searchNameField-mobile" >
+						<input matInput formControlName="{{searchName}}" placeholder="Search"  [(ngModel)]="strTitle">
+					</mat-form-field>
+
+					<button mat-flat-button class="btn-advance" (click)="clear(); getAnimeByTitle(strTitle, 1);" disabled="{{searchForm.invalid || !searchForm.dirty}}" >
+						Search
+					</button>
+
+					<!-- <button mat-flat-button class="btn-advance" (click)="enablingFilter()">Filter</button>
+					<button mat-flat-button class="btn-advance" (click)="enablingAdvanceSearch()">ADV</button> -->
+			</form>
+		</mat-toolbar>
+	</div>
+
+	<!-- 
+		This part is for the adv search
+	 -->
+	<div *ngIf="!isConnectionError  && !isLoading && isAdv">
+			<mat-toolbar class="nav-bar-animelist-2">
+				<form [formGroup]="searchYearForm" class="search-form">
+					
+					<mat-form-field class="input-search-adv" floatLabel="never">
+						<input matInput placeholder="Year" [(ngModel)]="strYear" type="number"
+						formControlName="{{searchYearName}}"
+					>
+					</mat-form-field>
+
+					<div class="nav-spacer">
+					</div>
+
+					<mat-form-field floatLabel="never">
+						<mat-label>Season</mat-label>
+						<mat-select [(value)]="selected" formControlName="{{searchSeasonName}}">
+							<mat-option value="spring">Spring</mat-option>
+							<mat-option value="summer">Summer</mat-option>
+							<mat-option value="fall">Fall</mat-option>
+							<mat-option value="winter">Winter</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<button mat-flat-button class="btn-advance" (click)="clear(); getSeasonalAnime(selected, strYear, 1);"
+					disabled="{{searchYearForm.invalid || !searchYearForm.dirty}}" >Advance Search</button>
+				</form>
+		</mat-toolbar>
+	</div>
+
+	<!-- Sort going to be here -->
+	<div *ngIf="!isConnectionError  && !isLoading && isFilter && !isTopAnime">
+		<mat-toolbar class="nav-bar-animelist-2">
+			<form class="search-form">
+				<mat-form-field class="input-search-adv"  floatLabel="never">
+					<mat-label>Sort Option</mat-label>
+					<mat-select [(value)]="selected">
+						<mat-option value="NOTHING">Select Sort Option</mat-option>
+						<!-- <mat-option value="RATE">Score</mat-option> -->
+						<mat-option value="RATE_DESC">Score (High)</mat-option>
+						<mat-option value="RATE_ASC">Score (Low)</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<button mat-flat-button class="btn-advance"  (click)="onSortChange(selected)"
+				>Save</button>
+			</form>
+		</mat-toolbar>
+	</div>
+
+
+
+	<!-- 
+		Main Component is here,
+		shall display after isloading is set to false
+	-->
+	<div *ngIf="!isLoading">
+
+		<!--SEASONAL & SEARCH ANIME DESKTOP REGION START-->
+		<div *ngIf="!isAniEmpty && !isTopAnime">
+			<!-- 
+				Grid display anime info
+			-->
+			<mat-grid-list cols="{{this.seasonAnimeNumberOfColumn}}" rowHeight="2.7:3">
+				<div *ngFor="let aniList of aniListShow">
+					<mat-grid-tile class="anime-grid-tile" >
+						<mat-card class="anime-card" >
+							<div class="anime-header">
+								<h2>{{aniList.title}}</h2>
+								</div>
+							<div class="anime-top-chip">
+								<mat-chip-list >
+									<!-- This bull shit need to be updated -->
+									<mat-chip class="tag">EP: {{checkIsNumber(aniList.episodes) ? aniList.episodes : 24}}</mat-chip>
+									<mat-chip class="tag">Type: {{aniList.type}}</mat-chip>
+									<mat-chip class="tag">Score: {{aniList.score}}</mat-chip>
+								</mat-chip-list>
+							</div>
+							
+							<div class="anime-body d-flex">
+								<img class="anime-image"  src="{{aniList.images.jpg.image_url}}" alt="Photo Content - Error">
+								<div class="anime-body-desc">
+									<p>{{aniList.synopsis}}</p>
+								</div>
+							</div>
+							<mat-card-content class="anime-content">
+							</mat-card-content>
+							<div class="torrent-button" (click)="openTorrentModal(aniList.title, aniList.images.jpg.image_url, 
+							checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id, aniList, false);"
+							class="torrent-button-grid border rounded d-flex p-2">
+								<span class="find-torrent-text">Find Torrent</span>
+							</div>
+
+						</mat-card>
+
+					</mat-grid-tile>
+				</div>
+			</mat-grid-list>
+			<mat-paginator class="paginator-mobile"  [length]="pageSize" *ngIf="!isMobile"
+			[pageSize]="25"
+			aria-label="Select page" (page)="onPageChange($event)">
+			</mat-paginator>
+
+			<mat-paginator class="paginator-mobile" *ngIf="isMobile"  [length]="pageSize"
+			[pageSize]="25"
+			aria-label="Select page" (page)="onPageChange($event)">
+			</mat-paginator>
+
+		</div>
+		<!--SEASONAL & SEARCH ANIME DESKTOP REGION END-->	
+
+		<!--TOP ANIME DESKTOP REGION START-->
+		<div *ngIf="!isAniEmpty && isTopAnime">
+			<mat-grid-list cols="{{this.topAnimeNumberOfColumn}}" rowHeight="6:3">
+				<div *ngFor="let aniList of aniListShow">
+					<mat-grid-tile class="anime-grid-tile" >
+						<mat-card class="anime-card-top" >
+							
+							
+							<div class="anime-body-top d-flex" (click)="openTorrentModal(aniList.title, aniList.images.jpg.image_url,
+							checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id, aniList, false);">
+								
+								<img class="anime-image-top"  src="{{aniList.images.jpg.image_url}}" alt="Photo Content - Error">
+
+								<div class="anime-detail-top">
+									<div class="anime-header">
+										<h3>{{aniList.title}}</h3>
+									</div>
+
+									<div class="anime-top-chip">
+										<mat-chip-list >
+											<mat-chip class="tag">EP: {{checkIsNumber(aniList.episodes) ? aniList.episodes : 24}}</mat-chip>
+											<mat-chip class="tag">Type: {{aniList.type}}</mat-chip>
+											<mat-chip class="tag">Score: {{aniList.score}}</mat-chip>
+										</mat-chip-list>
+									</div>
+									
+								</div>
+								
+							</div>
+							<mat-card-content class="anime-content">
+							</mat-card-content>
+							
+						</mat-card>
+
+					</mat-grid-tile>
+				</div>
+			</mat-grid-list>
+			<!-- The Paginator here is fucking broken, fix needed -->
+			<mat-paginator class="paginator-mobile" *ngIf="isTopAnime"  [length]="pageSize"
+			[pageSize]="25"
+			aria-label="Select page" (page)="topAnimeOnPageChange($event)">
+			</mat-paginator>
+	
+
+		</div>
+		<!--TOP ANIME DESKTOP REGION END-->
+
+		<div class="d-flex justify-content-center" style="margin-top: 5%;" *ngIf="isAniEmpty && isConnectionError">
+			<div class="d-flex flex-column" style="text-align: center;">
+				<div style="font-size: 20px; font-weight: bold;  margin-bottom: 5%;">Connection Issue! Please Come Back Later</div>
+				<img src="assets/images/error-404.png" alt="Photo Content - Error" >
+			
+			</div>
+		</div>
+
+		<div class="d-flex justify-content-center" style="margin-top: 5%;" *ngIf="isAniEmpty && !isConnectionError">
+			<div class="d-flex flex-column" style="text-align: center;">
+				<div style="font-size: 20px; font-weight: bold;  margin-bottom: 5%;">Found Nothing</div>
+				<img src="assets/images/not_found.gif" alt="Photo Content - Error" >
+			
+			</div>
+		</div>
+	</div>
+	<p *ngIf="error" class="error">{{error | json}}</p>
+
+	</body>
+
+	<div *ngIf="!isMobile" class ="question-container">
+		<button mat-flat-button class="btn-qa-sticky" (click)="openQAModal(); ">Question/Comment</button>
+		<button mat-flat-button class="btn-qa-sticky-back-to-top" (click)="backToTop($event); ">Back To Top</button>
+	</div>
+
+	<div *ngIf="isMobile"  class ="question-container-mobile">
+		<div class="d-flex flex-column">
+			<button mat-flat-button class="btn-qa-sticky-mobile" (click)="openQAModal(); ">Question</button>
+			<button mat-flat-button class="btn-qa-sticky-back-to-top-mobile" (click)="backToTop($event); ">Top</button>
+		</div>
+
+	</div>
+
+
+
+</div>
