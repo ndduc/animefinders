@@ -1,12 +1,12 @@
 import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { NyaaService } from 'src/app/config/nyaaaws/nyaa.service';
-import { searchList } from 'src/app/config/nyaaaws/searchList';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Validators } from '@angular/forms';
 import {DomSanitizer} from '@angular/platform-browser';
 import { Pipe, PipeTransform } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { searchList } from 'src/app/model/searchList';
 
 @Component({
   selector: 'app-anime-torrent-holder-custom',

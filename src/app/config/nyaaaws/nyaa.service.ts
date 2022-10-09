@@ -3,7 +3,7 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, retry, shareReplay } from 'rxjs/operators';
-import {searchList} from './searchList';
+import { searchList } from 'src/app/model/searchList';
 
 @Injectable({
   providedIn: 'root'

@@ -11,7 +11,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatIconModule} from '@angular/material/icon';
 import { AnimeComponent } from './anime/anime.component';
-import { JikanComponent } from './config/jikan/jikan.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
@@ -39,7 +38,6 @@ import { NavigatorComponent } from './navigator/navigator.component';
     HomeComponent,
     AnimeComponent,
     NavigatorComponent,
-    JikanComponent,
     AnimeModalComponent,
     AnimeTorrentHolderComponent,
     AnimeTorrentHolderCustomComponent,
