@@ -15,19 +15,8 @@
 }
 
 
-.nav-bar-animelist-2 {
-	display: flex; 
-	justify-content: flex-end;
-	flex-direction: row;
-	background-color: #5CDB95;
-}
 
-.input-search-container-mobile {
-	width: 100%;
-}
-.input-search-mobile {
-	width: 100%;
-}
+
 
 .btn-advance {
 	background-color: #F3A8BC;
@@ -38,14 +27,6 @@
 	cursor: pointer;
 }
 
-
-.btn-advance-sort {
-	font-size: 10px;
-	text-align: center;
-	width: 2%;
-	border-radius: 5px;
-	margin-left: 10px;
-}
 
 
 
