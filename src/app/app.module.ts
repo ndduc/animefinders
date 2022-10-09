@@ -11,7 +11,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatIconModule} from '@angular/material/icon';
 import { AnimeComponent } from './anime/anime.component';
-import { NavigatorComponent } from './common/navigator/navigator.component';
 import { JikanComponent } from './config/jikan/jikan.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
@@ -22,19 +21,18 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { AnimeModalComponent } from './common/modal/anime/anime-modal/anime-modal.component';
+import { AnimeModalComponent } from './dialog/anime/anime-modal/anime-modal.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import { AnimeTorrentHolderComponent } from './common/modal/anime/anime-torrent-holder/anime-torrent-holder.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import { NavigatorCategoryComponent } from './common/navigator-category/navigator-category.component';
-import { EnumOptionComponent } from './common/enum/enum-option/enum-option.component';
-import { AnimeTorrentHolderCustomComponent } from './common/modal/anime/anime-torrent-holder-custom/anime-torrent-holder-custom.component';
-import { QuestionModalComponent } from './common/modal/question/question-modal/question-modal.component';
+import { AnimeTorrentHolderCustomComponent } from './dialog/anime/anime-torrent-holder-custom/anime-torrent-holder-custom.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DmcaComponentComponent } from './policy/dmca/dmca-component/dmca-component.component';
 import { MglTimelineModule } from 'angular-mgl-timeline';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { AnimeTorrentHolderComponent } from './dialog/anime/anime-torrent-holder/anime-torrent-holder.component';
+import { QuestionModalComponent } from './dialog/question/question/question-modal/question-modal.component';
+import { NavigatorComponent } from './navigator/navigator.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,8 +42,6 @@ import { NgImageSliderModule } from 'ng-image-slider';
     JikanComponent,
     AnimeModalComponent,
     AnimeTorrentHolderComponent,
-    NavigatorCategoryComponent,
-    EnumOptionComponent,
     AnimeTorrentHolderCustomComponent,
     QuestionModalComponent,
     DmcaComponentComponent,

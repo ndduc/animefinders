@@ -3,12 +3,12 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, retry, timeout, shareReplay, tap} from 'rxjs/operators';
-import { AniEpisodesList } from './model/animeEpisodes.model';
-import { AniDetail } from './model/animeDetail.model';
-import { AniTop } from './model/animeTop.model';
-import { HentaiTop } from './model/animeTop.model';
-import { CacheModel } from './model/cache-model.model';
-import { AnimeListWithPagination } from './model/animelist.models';
+import { AniDetail } from 'src/app/model/animeDetail.model';
+import { AnimeListWithPagination } from 'src/app/model/animelist.models';
+import { HentaiTop } from 'src/app/model/animeTop.model';
+import { CacheModel } from 'src/app/model/cache-model.model';
+
+
 @Injectable({
   providedIn: 'root'
 })
