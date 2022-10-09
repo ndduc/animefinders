@@ -11,7 +11,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatIconModule} from '@angular/material/icon';
 import { AnimeComponent } from './anime/anime.component';
-import { ProjectComponent } from './project/project.component';
 import { NavigatorComponent } from './common/navigator/navigator.component';
 import { ConfigComponent } from './config/myaws/config.component';
 import { JikanComponent } from './config/jikan/jikan.component';
@@ -30,13 +29,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { AnimeTorrentHolderComponent } from './common/modal/anime/anime-torrent-holder/anime-torrent-holder.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { NavigatorCategoryComponent } from './common/navigator-category/navigator-category.component';
-import { MangaComponent } from './manga/manga.component';
-import { LightNovelComponent } from './light-novel/light-novel.component';
 import { EnumOptionComponent } from './common/enum/enum-option/enum-option.component';
 import { AnimeTorrentHolderCustomComponent } from './common/modal/anime/anime-torrent-holder-custom/anime-torrent-holder-custom.component';
 import { QuestionModalComponent } from './common/modal/question/question-modal/question-modal.component';
-import { HentaiComponent } from './hentai/hentai.component';
-import { ErogeComponent } from './eroge/eroge.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DmcaComponentComponent } from './policy/dmca/dmca-component/dmca-component.component';
 import { MglTimelineModule } from 'angular-mgl-timeline';
@@ -48,20 +43,15 @@ import { AnimeStreamHolderComponent } from './common/modal/anime/anime-stream-ho
     AppComponent,
     HomeComponent,
     AnimeComponent,
-    ProjectComponent,
     NavigatorComponent,
     ConfigComponent,
     JikanComponent,
     AnimeModalComponent,
     AnimeTorrentHolderComponent,
     NavigatorCategoryComponent,
-    MangaComponent,
-    LightNovelComponent,
     EnumOptionComponent,
     AnimeTorrentHolderCustomComponent,
     QuestionModalComponent,
-    HentaiComponent,
-    ErogeComponent,
     DmcaComponentComponent,
     AnimeStreamComponent,
     AnimeStreamHolderComponent,

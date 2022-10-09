@@ -87,66 +87,9 @@ export class JikanService {
     );
   }
 
-  // Deprecated
-  setAnimeBySeasonYear(season: any, year: any, page: number) {
-    var _season = "";
-    var _year = "";
-    if(season != null || season != "") {
-      _season = season;
-    }
 
-    if (year != null || year != "") {
-      _year = year
-    }
-    var tmpUrl = this.jikan_url_aws + "/seasonal?year=" + _year + "&season=" + _season + "&page=" + page;
-    this.url = tmpUrl;
-    var respondData = this.http.get<AnimeListWithPagination>(tmpUrl).pipe(
-      map(
-        (data:AnimeListWithPagination) => 
-        {
-          return data;
-        }), 
-      shareReplay(1),
-      catchError((this.handleError))
-    );
-    this.respondCachedModel.push(
-      {
-        url: this.url,
-        data: respondData
-      } as CacheModel
-    );
-  }
 
-  resetCache() {
-    // reset cache object whenever if contain more than x records
-    if (this.respondCachedModel.length > 6) {
-      this.respondCachedModel = [] as CacheModel[];
-    }
-  }
-  
-  //Deprecated
-  setTopAnime(page: string, subtype: string) {
-    if(subtype.length <= 1) {
-      subtype = "";
-    }
-    var tmpUrl = this.jikan_url_aws + "/anime/top?page=" + page + "&subtype=" + subtype;
-    this.url = tmpUrl;
-    var respondData = this.http.get<AniTop[]>(tmpUrl).pipe(
-      map(
-        (data:any) => 
-        {
-          return data.top;
-        }), 
-      shareReplay(1),
-      catchError((this.handleError))
-    );
-    this.respondCachedModel.push(
-      {
-        url: this.url,
-        data: respondData
-      } as CacheModel
-    );
-  }
+
 
   getTopAnime(page: number, subtype: string) {
     return this.http.get<AnimeListWithPagination>(this.jikan_url_aws + "/anime/top?page=" + page + "&subtype=" + subtype).pipe(
@@ -178,26 +121,6 @@ export class JikanService {
     );
   }
 
-  //Deprecated
-  setAnimeByTitle(title: any, page: number) {
-    var _title = "";
-    if(title != null || title != "") {
-      _title = title
-    }
-    var tmpUrl = this.jikan_url_aws + "/search?title=" + _title + "&page=" + page;
-    this.url = tmpUrl;
-    var respondData = this.http.get<AnimeListWithPagination>(tmpUrl).pipe(
-      map((data:AnimeListWithPagination) => data), 
-      shareReplay(1),
-      catchError((this.handleError))
-    );
-    this.respondCachedModel.push(
-      {
-        url: this.url,
-        data: respondData
-      } as CacheModel
-    );
-  }
 
   getAnimeByTitle(title: string, page: number): Observable<AnimeListWithPagination> {
       var _title = "";
