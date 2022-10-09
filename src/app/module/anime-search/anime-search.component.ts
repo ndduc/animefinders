@@ -98,7 +98,13 @@ export class AnimeSearchComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.getAnimeByTitle("fate zero", 1);
+   
+    this.route.paramMap.subscribe(params => {
+      this.navigationIndex = params.get('index');
+      this.isLoading = true;
+      this.getAnimeByTitle(String(params.get('title')), 1);
+    });
+
     this.setUpForm();
     this.breakpointObserverEvent();
   }
@@ -148,11 +154,6 @@ export class AnimeSearchComponent implements OnInit {
     this.isAniEmpty = true;
     this.isConnectionError = false;
   }
-
-
-
-
-
 
   public getAnimeByTitle(title: string, page:number) {
     this.searchTitle = title;

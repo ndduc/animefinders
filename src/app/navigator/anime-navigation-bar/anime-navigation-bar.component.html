@@ -86,7 +86,7 @@
 
             </mat-form-field>
 
-            <button mat-flat-button class="btn-advance" disabled="{{searchForm.invalid || !searchForm.dirty}}" >
+            <button mat-flat-button class="btn-advance" disabled="{{searchForm.invalid || !searchForm.dirty}}" (click)="setRow(-1, '/anime/search')">
                 Search
             </button>
 

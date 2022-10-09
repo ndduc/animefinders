@@ -30,11 +30,11 @@ export class AnimeNavigationBarComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    console.log("HIT2");
-    console.log(this.router.url);
     this.route.paramMap.subscribe(params => {
       if (params.get('index')) {
         this.selectedIndex = Number(params.get('index'));
+      } else if (params.get('title')) {
+        this.selectedIndex = -2;
       }
     });
     this.setSeasonInterval();
@@ -123,9 +123,11 @@ export class AnimeNavigationBarComponent implements OnInit {
 
   public setRow(index: number, path: string) {
     this.selectedIndex = index;
-    if (index !== -1) {
+    if (path === '/anime/season') {
       let selectedSeason = this.seasonLis[this.selectedIndex];
       path = path + "/" + this.selectedIndex + "/" + selectedSeason['season'] + "/" + selectedSeason['year']
+    } else if (path === '/anime/search') {
+      path = path + "/" + this.strTitle;
     }
     this.navigateToComponent(path, this.selectedIndex);
   }
