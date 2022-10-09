@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AnimeComponent } from './module/anime/anime.component';
 import { DmcaComponentComponent } from './module/dmca-component/dmca-component.component';
 import { AnimeTopComponent } from './module/anime-top/anime-top.component';
+import { AnimeSearchComponent } from './module/anime-search/anime-search.component';
 
 const routes: Routes = [
   {
@@ -21,9 +22,10 @@ const routes: Routes = [
   {
     path: 'anime/season/:index/:season/:year',
     component: AnimeComponent,
-    data: {
-      
-    }
+  },
+  {
+    path: 'anime/search/:index/:title',
+    component: AnimeSearchComponent,
   },
   {
     path: 'anime/top',

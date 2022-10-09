@@ -33,6 +33,7 @@ import { QuestionModalComponent } from './dialog/question/question/question-moda
 import { NavigatorComponent } from './navigator/navigator.component';
 import { AnimeTopComponent } from './module/anime-top/anime-top.component';
 import { AnimeNavigationBarComponent } from './navigator/anime-navigation-bar/anime-navigation-bar.component';
+import { AnimeSearchComponent } from './module/anime-search/anime-search.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +46,7 @@ import { AnimeNavigationBarComponent } from './navigator/anime-navigation-bar/an
     DmcaComponentComponent,
     AnimeTopComponent,
     AnimeNavigationBarComponent,
+    AnimeSearchComponent,
   ],
   imports: [
     BrowserModule,
