@@ -1,17 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { DeviceDetectorService } from 'ngx-device-detector';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AnimeModalComponent } from '../../dialog/anime/anime-modal/anime-modal.component';
 import { QuestionModalComponent } from '../../dialog/question/question/question-modal/question-modal.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { AfterViewInit } from '@angular/core';
 import { AnimeSortModel } from '../../model/anime-sort-model.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { sortOptionEnum } from '../../enum/enum-option/enum-option';
 import { AnimePaginationModel } from '../../model/anime-pagination.model';
 import { AnimeModel } from '../../model/anime.model';
-import { AniTop } from '../../model/animeTop.model';
 import { JikanService } from '../../service/jikan/jikan.service';
 import { NyaaService } from '../../service/nyaa/nyaa.service';
 
@@ -36,13 +33,9 @@ export class AnimeComponent implements OnInit {
   selected = '';
   aniList: AnimeModel[] = [];
   aniListShow: AnimeModel[] = [];
-  aniTop: AniTop[] = [];
-  aniTopShow: AniTop[] = [];
   error: any;
   headers: string[] = [];
-  seasonLis: Array<{}> = [];
   panelOpenState: boolean = false;
-  isTopAnime: boolean = false;
   isAniEmpty : boolean = true;
   isConnectionError: boolean = false;
   screen: number = 0;
@@ -68,15 +61,11 @@ export class AnimeComponent implements OnInit {
   closeResult = '';
   topAnimeIndex: any;
   
-  topAnimeNumberOfColumn: number = 4;
   seasonAnimeNumberOfColumn: number = 4;
   isMobile: boolean = false;
 
   paginationObject: AnimePaginationModel = {} as AnimePaginationModel ;
 
-  public searchForm = new FormGroup({});
-  public searchName: string = 'searchName';
-  public searchControl = new FormControl(null, Validators.required);
 
   public searchYearForm = new FormGroup({});
   public searchYearName: string = 'searchYear';
@@ -99,7 +88,6 @@ export class AnimeComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.setSeasonInterval();
     this.route.paramMap.subscribe(params => {
       this.navigationIndex = params.get('index');
       this.isLoading = true;
@@ -122,23 +110,18 @@ export class AnimeComponent implements OnInit {
       Breakpoints.XLarge
     ]).subscribe(result => {
       if (result.breakpoints[Breakpoints.XLarge]) {
-        this.topAnimeNumberOfColumn = 4;
         this.seasonAnimeNumberOfColumn = 4;
         this.isMobile = false;
       } else if (result.breakpoints[Breakpoints.Large]) {
-        this.topAnimeNumberOfColumn = 4;
         this.seasonAnimeNumberOfColumn = 4;
         this.isMobile = false;
       } else if (result.breakpoints[Breakpoints.Medium]) {
-        this.topAnimeNumberOfColumn = 3;
         this.seasonAnimeNumberOfColumn = 3;
         this.isMobile = false;
       } else if (result.breakpoints[Breakpoints.Small]) {
-        this.topAnimeNumberOfColumn = 2;
         this.seasonAnimeNumberOfColumn = 2;
         this.isMobile = true;
       } else {
-        this.topAnimeNumberOfColumn = 1;
         this.seasonAnimeNumberOfColumn = 1;
         this.isMobile = true;
       }
@@ -146,7 +129,6 @@ export class AnimeComponent implements OnInit {
   }
   
   private setUpForm(): void {
-    this.searchForm.addControl(this.searchName, this.searchControl);
     this.searchYearForm.addControl(this.searchYearName, this.searchAdvControl);
     this.searchYearForm.addControl(this.searchSeasonName, this.searchSeasonControl);
   }
@@ -159,131 +141,10 @@ export class AnimeComponent implements OnInit {
     this.isConnectionError = false;
   }
 
-  public setSeasonInterval() {
-    var year = new Date().getFullYear();
-    var month = new Date().getMonth() + 1;
-    /**
-     * Winter == 1st quarter == JAN to MARCH
-     * Spring == 2nd quarter == APR to JUN
-     * Summer == 3rd quarter == JUL to SEP
-     * Fall == 4th quarter == Oct to Dec
-    */
-    if(month >= 1 && month <= 3 ) {
-      this.setSeasonIntervalHelper("spring", year, "future"); //up coming
-      this.setSeasonIntervalHelper("winter", year, "current");
-      this.setSeasonIntervalHelper("fall", year-1, "past");
-      this.setSeasonIntervalHelper("summer", year-1, "past");
-      this.setSeasonIntervalHelper("spring", year-1, "past");
-    } else if (month >= 4 && month <= 6) {
-      this.setSeasonIntervalHelper("summer", year, "future"); //up coming
-      this.setSeasonIntervalHelper("spring", year, "current");
-      this.setSeasonIntervalHelper("winter", year, "past");
-      this.setSeasonIntervalHelper("fall", year-1, "past");
-      this.setSeasonIntervalHelper("summer", year-1, "past");
-    } else if (month >= 7 && month <= 9) {
-      this.setSeasonIntervalHelper("fall", year, "future"); //up coming
-      this.setSeasonIntervalHelper("summer", year, "current");
-      this.setSeasonIntervalHelper("spring", year, "past");
-      this.setSeasonIntervalHelper("winter", year, "past");
-      this.setSeasonIntervalHelper("fall", year-1, "past");
-    } else {
-      this.setSeasonIntervalHelper("winter", year+1, "future"); //up coming
-      this.setSeasonIntervalHelper("fall", year, "current");
-      this.setSeasonIntervalHelper("summer", year, "past");
-      this.setSeasonIntervalHelper("spring", year, "past");
-      this.setSeasonIntervalHelper("winter", year, "past");
-    }
-
-    this.seasonLis.find(x => {
-      if (x["opt"] == "current") {
-        this.selectedSeason = x["season"];
-      }
-    })
-
-  }
-
-  selectedIndex: number = 1;
 
 
-  public setRow(index: number) {
-    this.selectedIndex = index;
-  }
-
-  private setSeasonIntervalHelper(season, year, opt) {
-    //var tmpMap: Map<string, number> = new Map<string, number>();
-    var tmpMap = {};
-    tmpMap["season"] = season;
-    tmpMap["year"] = year;
-    tmpMap["opt"] = opt;
-    this.seasonLis.push(tmpMap);
-  }
-
-  public getTopAnime(page: number, subtype: string) {
-    // var tmpUrl = this.jikanService.jikan_url_aws + "/anime/top?page=" + page + "&subtype=" + subtype;
-    // this.jikanService.resetCache();
-    // var foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
-    // if(foundObservable && foundObservable.url == tmpUrl) {
-    //   foundObservable.data.subscribe(x => {
-    //     this.setAniTopList(x);
-    //   });
-    // } else {
-    //   try {
-    //       this.jikanService.setTopAnime(page, subtype);
-    //       foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
-    //       foundObservable?.data.subscribe(
-    //         x => {
-    //           this.setAniTopList(x);
-    //         },
-    //         (error) => {
-    //           this.setAniTopList(this.aniTop);
-    //         }
-    //       );
-    //   } catch (err) {
-    //     this.animeSubcriptionErrorHandler();
-    //   }
-    // }
-
-    this.currentPage = 1;
-    this.isSearchByTitleActivated = false;
-    this.getTopAnimeHelper(page, subtype);
-    this.clearSort();
-  }
-
-  public getTopAnimeHelper(page: number, subtype: string) {
-    this.jikanService.getTopAnime(page, subtype).subscribe(
-      x => {
-        this.setAniTopList(x.data, x.pagination);
-      }
-    );
-  }
 
   public getSeasonalAnime(season: any, year: any, page: number) {
-    // var tmpUrl = this.jikanService.jikan_url_aws + "/seasonal?year=" + year + "&season=" + season;
-    // this.jikanService.resetCache();
-    // var foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
-    // if(foundObservable && foundObservable.url == tmpUrl) {
-    //   foundObservable.data.subscribe(x => {
-    //     console.log("1");
-    //     this.setAniList(x, undefined);
-    //   });
-    // } else {
-    //   try {
-    //     if(season != null && year != null) {
-    //       this.jikanService.setAnimeBySeasonYear(season, year, page);
-    //       foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
-    //       foundObservable?.data.subscribe(x => {
-    //         console.log("2");
-    //         this.setAniList(x, undefined);
-    //       });
-    //     } else {
-    //       // this.jikanService.getSeasonalAnime(page)
-    //       this.getAnimeSesasonal(season, year, page);
-    //     }
-    //   } catch (err) {
-    //     this.animeSubcriptionErrorHandler();
-    //   }
-    // }
-
     this.isSearchByTitleActivated = false
     this.currentPage = 1;
     if(season != null && year != null) {
@@ -291,7 +152,6 @@ export class AnimeComponent implements OnInit {
       this.selectedYear = year;
       this.getAnimeSesasonalHelper(season,year, page);
     } else {
-      // this.jikanService.getSeasonalAnime(page)
       this.getAnimeSesasonalHelper(this.selectedSeason,this.selectedYear, page);
     }
     this.clearSort();
@@ -309,54 +169,7 @@ export class AnimeComponent implements OnInit {
           );
   }
 
-  public getAnimeByTitle(title: string, page:number) {
-    // var tmpUrl = this.jikanService.jikan_url_aws + "/search?title=" + title;
-    // this.jikanService.resetCache();
-    // var foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
-    // if(foundObservable && foundObservable.url == tmpUrl) {
-    //   foundObservable.data.subscribe(x => {
-    //     this.setAniList(x, undefined);
-    //   });
-    // } else {
-    //   try {
-    //     this.jikanService.setAnimeByTitle(title, page);
-    //     foundObservable = this.jikanService.respondCachedModel.find(x => x.url == tmpUrl);
-    //     foundObservable?.data.subscribe(x => {
-    //       this.setAniList(x, undefined);
-    //       },
-    //       (error) => {
-    //         this.setAniList(this.aniList, undefined);
-    //       }
-    //     );
-    //   } catch (err) {
-    //     this.animeSubcriptionErrorHandler();
-    //     // this.strTitle = '';
-    //   }
-    // }
 
-    this.searchTitle = title;
-    this.isSearchByTitleActivated = true;
-    this.currentPage = 1;
-    this.getAnimeByTitleHelper(title, page);
-    this.clearSort();
-  }
-
-  public getAnimeByTitleHelper(title: string, page:number) {
-    this.jikanService.getAnimeByTitle(title, page).subscribe(
-      x => {
-        this.setAniList(x.data, x.pagination);
-      },
-      (error) => {
-        this.setAniList(this.aniList, this.paginationObject);
-      }
-    );
-  }
-
-  private animeSubcriptionErrorHandler() {
-    this.isConnectionError = true;
-    this.isLoading = false;
-    this.isAniEmpty = true;
-  }
 
   private setAniList(lst: AnimeModel[], originalList: AnimePaginationModel) {
 
@@ -369,64 +182,15 @@ export class AnimeComponent implements OnInit {
       this.isAniEmpty = false;
       this.aniList = lst;
       this.isLoading = false;
-      // if(this.isMobile) {
-      //   this.aniListShow = this.aniList.slice(0, 5);
-      // } else {
-      //   this.aniListShow = this.aniList.slice(0, 48);
-      // }
-
       this.paginationObject = originalList;
       this.aniListShow = this.aniList;
       this.pageSize = this.paginationObject.items.total;  
       this.currentPage = this.paginationObject.current_page;
     }
-    // this.strTitle = '';
-    this.isTopAnime = false;
   }
 
-  private setAniTopList(lst: AnimeModel[], originalList: AnimePaginationModel) {
-    if(lst == null || lst.length === 0) {
-      this.isConnectionError = false;
-      this.isAniEmpty = true;
-      this.isLoading = false;
-    } else {
-      this.isConnectionError = false;
-      this.isAniEmpty = false;
-      this.aniList = lst;
-      this.isLoading = false;
 
-      this.paginationObject = originalList;
-      this.aniListShow = this.aniList;
-      this.pageSize = this.paginationObject.items.total;  
-      this.currentPage = this.paginationObject.current_page;
 
-      this.aniTopShow = this.aniTop;
-    }
-    this.isTopAnime = true;
-    // this.strTitle = '';
-  }
-
-  // private recurRemoveHentai(lst: AnimeModel[]) {
-  //   if(lst[0].genres == undefined) {
-  //     for(var i = 0; i < lst.length; i++) {
-  //         if(lst[i].rated === "Rx") {
-  //           lst.splice(i,1);
-  //           this.recurRemoveHentai(lst);
-  //         }
-  //     }
-  //   } else {
-  //     for(var i = 0; i < lst.length; i++) {
-  //       for(var j = 0; j < lst[i].genres.length; j++) {
-  //         if(lst[i].genres[j]["mal_id"] === 12) {
-  //           lst.splice(i,1);
-  //           this.recurRemoveHentai(lst);
-  //         }
-  //       }
-  //     }
-  //   }
-
-  //   return lst;
-  // }
 
   public toggleAdvSearch() {
     this.isHidden = !this.isHidden;
@@ -440,7 +204,6 @@ export class AnimeComponent implements OnInit {
     modalRef.componentInstance.type = type;
     modalRef.componentInstance.animeId = animeId;
     modalRef.componentInstance.aniObject = animeObject;
-    modalRef.componentInstance.isTopAnime = this.isTopAnime;
     modalRef.componentInstance.isStream = isStream;
     
   }
@@ -470,21 +233,8 @@ export class AnimeComponent implements OnInit {
 
   public onPageChange($event) {
     this.currentPage = $event.pageIndex + 1;
-    if (this.isSearchByTitleActivated) {
-      this.getAnimeByTitleHelper(this.searchTitle, this.currentPage);
-    } else {
-      this.getAnimeSesasonalHelper(this.selectedSeason, this.selectedYear, this.currentPage);
-    }
-  }
-
-  public topAnimeOnPageChange($event) {
-    // var idx = $event.pageIndex;
-    // this.topAnimeIndex = +idx + 1;
-    // this.getTopAnime(this.topAnimeIndex.toString(), '')
-
-    this.currentPage = $event.pageIndex + 1;
-
-    this.getTopAnimeHelper(this.currentPage, "");
+    this.getAnimeSesasonalHelper(this.selectedSeason, this.selectedYear, this.currentPage);
+    
   }
 
   public convertToTitleCase(value:string): string {

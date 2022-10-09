@@ -46,7 +46,7 @@
 	</div>
 
 	<!-- Sort going to be here -->
-	<div *ngIf="!isConnectionError  && !isLoading && isFilter && !isTopAnime">
+	<div *ngIf="!isConnectionError  && !isLoading && isFilter">
 		<mat-toolbar class="nav-bar-animelist-2">
 			<form class="search-form">
 				<mat-form-field class="input-search-adv"  floatLabel="never">
@@ -73,7 +73,7 @@
 	<div *ngIf="!isLoading">
 
 		<!--SEASONAL & SEARCH ANIME DESKTOP REGION START-->
-		<div *ngIf="!isAniEmpty && !isTopAnime">
+		<div *ngIf="!isAniEmpty">
 			<!-- 
 				Grid display anime info
 			-->
@@ -124,53 +124,6 @@
 
 		</div>
 		<!--SEASONAL & SEARCH ANIME DESKTOP REGION END-->	
-
-		<!--TOP ANIME DESKTOP REGION START-->
-		<div *ngIf="!isAniEmpty && isTopAnime">
-			<mat-grid-list cols="{{this.topAnimeNumberOfColumn}}" rowHeight="6:3">
-				<div *ngFor="let aniList of aniListShow">
-					<mat-grid-tile class="anime-grid-tile" >
-						<mat-card class="anime-card-top" >
-							
-							
-							<div class="anime-body-top d-flex" (click)="openTorrentModal(aniList.title, aniList.images.jpg.image_url,
-							checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id, aniList, false);">
-								
-								<img class="anime-image-top"  src="{{aniList.images.jpg.image_url}}" alt="Photo Content - Error">
-
-								<div class="anime-detail-top">
-									<div class="anime-header">
-										<h3>{{aniList.title}}</h3>
-									</div>
-
-									<div class="anime-top-chip">
-										<mat-chip-list >
-											<mat-chip class="tag">EP: {{checkIsNumber(aniList.episodes) ? aniList.episodes : 24}}</mat-chip>
-											<mat-chip class="tag">Type: {{aniList.type}}</mat-chip>
-											<mat-chip class="tag">Score: {{aniList.score}}</mat-chip>
-										</mat-chip-list>
-									</div>
-									
-								</div>
-								
-							</div>
-							<mat-card-content class="anime-content">
-							</mat-card-content>
-							
-						</mat-card>
-
-					</mat-grid-tile>
-				</div>
-			</mat-grid-list>
-			<!-- The Paginator here is fucking broken, fix needed -->
-			<mat-paginator class="paginator-mobile" *ngIf="isTopAnime"  [length]="pageSize"
-			[pageSize]="25"
-			aria-label="Select page" (page)="topAnimeOnPageChange($event)">
-			</mat-paginator>
-	
-
-		</div>
-		<!--TOP ANIME DESKTOP REGION END-->
 
 		<div class="d-flex justify-content-center" style="margin-top: 5%;" *ngIf="isAniEmpty && isConnectionError">
 			<div class="d-flex flex-column" style="text-align: center;">
