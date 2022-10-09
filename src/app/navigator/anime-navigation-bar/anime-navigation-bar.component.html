@@ -1,1 +1,107 @@
-<p>anime-navigation-bar works!</p>
+<div>
+    <mat-toolbar class="nav-bar-animelist">
+        <div>
+            <div class="d-flex" *ngIf="seasonLis">
+                <button class="button-spring" 
+                (click)="setRow(-1);" 
+                [ngStyle]="{'color' : this.selectedIndex == -1 ? 'white' : 'black' }"
+                    mat-flat-button>
+                        <div>
+                            Top Anime
+                        </div>
+                </button>
+
+                <!-- [ngStyle]="{'background-color' : this.selectedIndex == 4 ? 'white' : '#c98436' }" -->
+
+                <div *ngFor="let item of seasonLis; let i = index">
+                    <button class="button-spring"  *ngIf="item['season'] === 'spring'"
+                    (click)="setRow(i);" 
+                    mat-flat-button>
+                        <div *ngIf="item['opt'] === 'current'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+                            {{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Current)"}}
+                        </div>
+                        <div *ngIf="item['opt'] === 'future'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+                            {{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Incoming)"}}
+                        </div>
+                        <div *ngIf="item['opt'] === 'past'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+                            {{convertToTitleCase(item["season"]) + " - " + item["year"]}}
+                        </div>
+                    </button>
+
+                    <button class="button-summer"  *ngIf="item['season'] === 'summer'"
+                    (click)="setRow(i);" 
+                    mat-flat-button>
+                        <div *ngIf="item['opt'] === 'current'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+                            {{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Current)"}}
+                        </div>
+                        <div *ngIf="item['opt'] === 'future'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+                            {{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Incoming)"}}
+                        </div>
+                        <div *ngIf="item['opt'] === 'past'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+                            {{convertToTitleCase(item["season"]) + " - " + item["year"]}}
+                        </div>
+                    </button>
+
+                    <button class="button-winter" *ngIf="item['season'] === 'winter'"
+                    (click)="setRow(i);" 
+                    mat-flat-button>
+                        <div *ngIf="item['opt'] === 'current'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+                            {{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Current)"}}
+                        </div>
+                        <div *ngIf="item['opt'] === 'future'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+                            {{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Incoming)"}}
+                        </div>
+                        <div *ngIf="item['opt'] === 'past'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+                            {{convertToTitleCase(item["season"]) + " - " + item["year"]}}
+                        </div>
+                    </button>
+
+                    <button class="button-fall"  *ngIf="item['season'] === 'fall'"
+                    (click)="setRow(i);" 
+                    mat-flat-button>
+                        <div *ngIf="item['opt'] === 'current'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+                            {{convertToTitleCase(item["season"]) + " - " + item["year"] + " (Current)"}}
+                        </div>
+                        <div *ngIf="item['opt'] === 'future'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+                            {{convertToTitleCase(item["season"]) + " - " + item["year"] + " - (Incoming)"}}
+                        </div>
+                        <div *ngIf="item['opt'] === 'past'" [ngStyle]="{'color' : this.selectedIndex == i ? 'white' : 'black' }">
+                            {{convertToTitleCase(item["season"]) + " - " + item["year"]}}
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <form [formGroup]="searchForm" class="search-form" *ngIf="!isMobile">
+            <mat-form-field >
+                <input matInput formControlName="{{searchName}}" placeholder="Search"  [(ngModel)]="strTitle">
+
+            </mat-form-field>
+
+            <button mat-flat-button class="btn-advance" disabled="{{searchForm.invalid || !searchForm.dirty}}" >
+                Search
+            </button>
+
+            <!-- <button mat-flat-button class="btn-advance" (click)="enablingFilter()">Filter</button>
+            <button mat-flat-button class="btn-advance" (click)="enablingAdvanceSearch()">ADV</button> -->
+        </form>
+    </mat-toolbar>
+</div>
+
+<div *ngIf="!isConnectionError && !isLoading && isMobile">
+    <mat-toolbar class="nav-bar-animelist-mobile">
+        <form [formGroup]="searchForm" class="search-form">
+                <mat-form-field class="searchNameField-mobile" >
+                    <input matInput formControlName="{{searchName}}" placeholder="Search"  [(ngModel)]="strTitle">
+                </mat-form-field>
+
+                <button mat-flat-button class="btn-advance" disabled="{{searchForm.invalid || !searchForm.dirty}}" >
+                    Search
+                </button>
+
+                <!-- <button mat-flat-button class="btn-advance" (click)="enablingFilter()">Filter</button>
+                <button mat-flat-button class="btn-advance" (click)="enablingAdvanceSearch()">ADV</button> -->
+        </form>
+    </mat-toolbar>
+</div>
