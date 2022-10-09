@@ -1,6 +1,7 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-anime-navigation-bar',
@@ -14,19 +15,36 @@ export class AnimeNavigationBarComponent implements OnInit {
   selectedSeason: string = "";
   isMobile: boolean = false;
   isLoading: boolean = true;
-  selectedIndex: number = 1;
+  selectedIndex: number = -1;
   
   public searchForm = new FormGroup({});
   public searchName: string = 'searchName';
   public searchControl = new FormControl(null, Validators.required);
   strTitle: string = '';
-  
-  constructor(private breakpointObserver: BreakpointObserver) { }
+
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private router: Router,
+    private route: ActivatedRoute
+    ) { 
+    }
 
   ngOnInit(): void {
+    console.log("HIT2");
+    console.log(this.router.url);
+    this.route.paramMap.subscribe(params => {
+      if (params.get('index')) {
+        this.selectedIndex = Number(params.get('index'));
+      }
+    });
     this.setSeasonInterval();
+    this.setUpForm();
     this.breakpointObserverEvent();
 
+  }
+
+  private setUpForm(): void {
+    this.searchForm.addControl(this.searchName, this.searchControl);
   }
 
   private breakpointObserverEvent() {
@@ -103,8 +121,13 @@ export class AnimeNavigationBarComponent implements OnInit {
     this.seasonLis.push(tmpMap);
   }
 
-  public setRow(index: number) {
+  public setRow(index: number, path: string) {
     this.selectedIndex = index;
+    if (index !== -1) {
+      let selectedSeason = this.seasonLis[this.selectedIndex];
+      path = path + "/" + this.selectedIndex + "/" + selectedSeason['season'] + "/" + selectedSeason['year']
+    }
+    this.navigateToComponent(path, this.selectedIndex);
   }
 
   public convertToTitleCase(value:string): string {
@@ -112,5 +135,8 @@ export class AnimeNavigationBarComponent implements OnInit {
     return first + value.substr(1); 
   }
 
+  public navigateToComponent(path: string, selectedIndex: number) {
+    this.router.navigateByUrl(path, { state: { index: selectedIndex} });
+  }
 
 }

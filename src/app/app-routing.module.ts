@@ -19,6 +19,13 @@ const routes: Routes = [
     component: AnimeComponent
   },
   {
+    path: 'anime/season/:index/:season/:year',
+    component: AnimeComponent,
+    data: {
+      
+    }
+  },
+  {
     path: 'anime/top',
     component: AnimeTopComponent
   }

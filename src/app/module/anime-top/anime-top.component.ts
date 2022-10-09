@@ -10,6 +10,7 @@ import { AnimePaginationModel } from '../../model/anime-pagination.model';
 import { AnimeModel } from '../../model/anime.model';
 import { AniTop } from '../../model/animeTop.model';
 import { JikanService } from '../../service/jikan/jikan.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -83,6 +84,7 @@ export class AnimeTopComponent implements OnInit {
   constructor(private jikanService: JikanService, 
     public modelService: NgbModal,
     private breakpointObserver: BreakpointObserver,
+    private route:Router 
     ) { 
     }
 

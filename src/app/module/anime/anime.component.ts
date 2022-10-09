@@ -7,7 +7,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AfterViewInit } from '@angular/core';
 import { AnimeSortModel } from '../../model/anime-sort-model.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { sortOptionEnum } from '../../enum/enum-option/enum-option';
 import { AnimePaginationModel } from '../../model/anime-pagination.model';
 import { AnimeModel } from '../../model/anime.model';
@@ -89,15 +89,26 @@ export class AnimeComponent implements OnInit {
   currentPage: number = 1;
   isSearchByTitleActivated: boolean = false;
   searchTitle: string = "";
+
+  navigationIndex: any;
   constructor(private jikanService: JikanService, 
     public modelService: NgbModal,
     private breakpointObserver: BreakpointObserver,
+    private route: ActivatedRoute
     ) { 
     }
 
   ngOnInit(): void {
     this.setSeasonInterval();
-    this.getSeasonalAnime(null,null, 1);
+    this.route.paramMap.subscribe(params => {
+      this.navigationIndex = params.get('index');
+      this.isLoading = true;
+      if (params.get('season') && params.get('year')) {
+        this.getSeasonalAnime(params.get('season'),params.get('year'), 1);
+      } else {
+        this.getSeasonalAnime(null,null, 1);
+      }
+    });
     this.setUpForm();
     this.breakpointObserverEvent();
   }
