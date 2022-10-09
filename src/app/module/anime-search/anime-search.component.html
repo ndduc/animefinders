@@ -1,5 +1,4 @@
 <router-outlet></router-outlet>
-<!-- <app-navigator></app-navigator> -->
 <app-anime-navigation-bar></app-anime-navigation-bar>
 <div *ngIf="isLoading" class="d-flex justify-content-center">
 	<img style="width: 30%; height: 30%;" class="" src="assets/images/loading-cute.gif" alt="Err">
@@ -72,8 +71,8 @@
 	-->
 	<div *ngIf="!isLoading">
 
-		<!--SEASONAL & SEARCH ANIME DESKTOP REGION START-->
-		<div *ngIf="!isAniEmpty && !isTopAnime">
+		<!--SEARCH ANIME DESKTOP REGION START-->
+		<div *ngIf="!isAniEmpty">
 			<!-- 
 				Grid display anime info
 			-->
@@ -123,7 +122,7 @@
 			</mat-paginator>
 
 		</div>
-		<!--SEASONAL & SEARCH ANIME DESKTOP REGION END-->	
+		<!--SEARCH ANIME DESKTOP REGION END-->	
 
 
 		<!--TOP ANIME DESKTOP REGION END-->

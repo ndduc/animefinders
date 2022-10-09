@@ -35,13 +35,9 @@ export class AnimeSearchComponent implements OnInit {
   selected = '';
   aniList: AnimeModel[] = [];
   aniListShow: AnimeModel[] = [];
-  aniTop: AniTop[] = [];
-  aniTopShow: AniTop[] = [];
   error: any;
   headers: string[] = [];
-  seasonLis: Array<{}> = [];
   panelOpenState: boolean = false;
-  isTopAnime: boolean = false;
   isAniEmpty : boolean = true;
   isConnectionError: boolean = false;
   screen: number = 0;
@@ -67,15 +63,10 @@ export class AnimeSearchComponent implements OnInit {
   closeResult = '';
   topAnimeIndex: any;
   
-  topAnimeNumberOfColumn: number = 4;
   seasonAnimeNumberOfColumn: number = 4;
   isMobile: boolean = false;
 
   paginationObject: AnimePaginationModel = {} as AnimePaginationModel ;
-
-  public searchForm = new FormGroup({});
-  public searchName: string = 'searchName';
-  public searchControl = new FormControl(null, Validators.required);
 
   public searchYearForm = new FormGroup({});
   public searchYearName: string = 'searchYear';
@@ -118,23 +109,18 @@ export class AnimeSearchComponent implements OnInit {
       Breakpoints.XLarge
     ]).subscribe(result => {
       if (result.breakpoints[Breakpoints.XLarge]) {
-        this.topAnimeNumberOfColumn = 4;
         this.seasonAnimeNumberOfColumn = 4;
         this.isMobile = false;
       } else if (result.breakpoints[Breakpoints.Large]) {
-        this.topAnimeNumberOfColumn = 4;
         this.seasonAnimeNumberOfColumn = 4;
         this.isMobile = false;
       } else if (result.breakpoints[Breakpoints.Medium]) {
-        this.topAnimeNumberOfColumn = 3;
         this.seasonAnimeNumberOfColumn = 3;
         this.isMobile = false;
       } else if (result.breakpoints[Breakpoints.Small]) {
-        this.topAnimeNumberOfColumn = 2;
         this.seasonAnimeNumberOfColumn = 2;
         this.isMobile = true;
       } else {
-        this.topAnimeNumberOfColumn = 1;
         this.seasonAnimeNumberOfColumn = 1;
         this.isMobile = true;
       }
@@ -142,7 +128,6 @@ export class AnimeSearchComponent implements OnInit {
   }
   
   private setUpForm(): void {
-    this.searchForm.addControl(this.searchName, this.searchControl);
     this.searchYearForm.addControl(this.searchYearName, this.searchAdvControl);
     this.searchYearForm.addControl(this.searchSeasonName, this.searchSeasonControl);
   }
@@ -187,19 +172,11 @@ export class AnimeSearchComponent implements OnInit {
       this.isAniEmpty = false;
       this.aniList = lst;
       this.isLoading = false;
-      // if(this.isMobile) {
-      //   this.aniListShow = this.aniList.slice(0, 5);
-      // } else {
-      //   this.aniListShow = this.aniList.slice(0, 48);
-      // }
-
       this.paginationObject = originalList;
       this.aniListShow = this.aniList;
       this.pageSize = this.paginationObject.items.total;  
       this.currentPage = this.paginationObject.current_page;
     }
-    // this.strTitle = '';
-    this.isTopAnime = false;
   }
 
 
@@ -217,7 +194,6 @@ export class AnimeSearchComponent implements OnInit {
     modalRef.componentInstance.type = type;
     modalRef.componentInstance.animeId = animeId;
     modalRef.componentInstance.aniObject = animeObject;
-    modalRef.componentInstance.isTopAnime = this.isTopAnime;
     modalRef.componentInstance.isStream = isStream;
     
   }
