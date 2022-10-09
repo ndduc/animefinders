@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"path": "..\\..\\..\\..\\..\\..\\..\\..\\Anime Hooker\\NyaaAPI_PY\\nyaasi-api"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\.."
+		},
+		{
+			"path": "E:\\Gearfire Legacy\\DevDocker\\docker-env"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\..\\..\\..\\..\\Gearfire\\Web\\CusEcommer\\ECommmer\\V4\\CustomerEComm_Web"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\..\\..\\..\\..\\Gearfire\\LOI\\unittestrepo\\angular-starting-project"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\..\\..\\resume-flex"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\..\\..\\..\\..\\Gearfire\\Web\\Cust_Admin_Web\\CustomerAdmin_Web_Direct_Clone\\CustomerAdmin_Web"
+		}
+	],
+	"settings": {}
+}
