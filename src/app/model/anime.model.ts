@@ -8,6 +8,7 @@ export interface AnimeModel {
 	synopsis: string;
 	type: string;
 	score: string;
+	rating: string;
 }
 
 export interface AnimeImage {

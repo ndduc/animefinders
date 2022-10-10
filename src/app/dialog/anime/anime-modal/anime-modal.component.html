@@ -39,13 +39,13 @@
             </div>
 
             <div *ngIf="!isLoading && !isStream">
-              <app-anime-torrent-holder-custom [title]=title [episode]=-3></app-anime-torrent-holder-custom>
+              <app-anime-torrent-holder-custom [title]=title [episode]=-3 [isHentai]="this.isHentai"></app-anime-torrent-holder-custom>
 
-              <div *ngIf="this.numberOfEpisode == 1 || this.numberOfEpisode >= 100">
+              <div *ngIf="this.numberOfEpisode == 1 || this.numberOfEpisode >= 100  && !this.isHentai">
                 <app-anime-torrent-holder [title]=title [episode]=-2></app-anime-torrent-holder>
               </div>
 
-              <div *ngIf="this.numberOfEpisode > 1 && this.numberOfEpisode < 100">
+              <div *ngIf="this.numberOfEpisode > 1 && this.numberOfEpisode < 100 && !this.isHentai">
                 <div *ngFor="let episode of createRange(this.numberOfEpisode)">
                   <app-anime-torrent-holder [title]=title [episode]=episode></app-anime-torrent-holder>
                 </div>

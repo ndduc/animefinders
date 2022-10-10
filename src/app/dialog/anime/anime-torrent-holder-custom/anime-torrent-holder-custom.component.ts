@@ -18,6 +18,7 @@ export class AnimeTorrentHolderCustomComponent implements OnInit, PipeTransform 
   @Input() title;
   @Input() episode;
   @Input() longrun;
+  @Input() isHentai : boolean = false;
   searchList : searchList[] = [];
   constructor(private nyaaService : NyaaService, private deviceService: DeviceDetectorService, private sanitizer:DomSanitizer,
     private breakpointObserver: BreakpointObserver) { }
@@ -59,8 +60,10 @@ export class AnimeTorrentHolderCustomComponent implements OnInit, PipeTransform 
     this.searchList = [];
   }
   getSearch(name: string, ep: number) {
-    if(ep == -1) {
-      this.nyaaService.getSearchByName(name).subscribe(
+
+    console.log("HENTAI  " + this.isHentai);
+    if (this.isHentai) {
+      this.nyaaService.GetSearchNyaaSukebeiAnime(name).subscribe(
         searchList => {
         this.setSearchList(searchList);
         },
@@ -69,30 +72,42 @@ export class AnimeTorrentHolderCustomComponent implements OnInit, PipeTransform 
         }
       );
     } else {
-      var str;
-      if(ep == -2) {
-        str = name;
-      } else {
-        str = name + ep;
-      }
-
-      if (this.nyaaService.respondMapAnimeEpisode[str] != null) {
-        this.nyaaService.respondMapAnimeEpisode[str].subscribe(searchList => {
-            this.setSearchList(searchList);
-          },
-          (error)=> {
-            this.setSearchList(this.searchList);
-        });
-      } else {
-        this.nyaaService.setSearchByNameEp(name, ep);
-        this.nyaaService.respondMapAnimeEpisode[str].subscribe(searchList => {
+      if(ep == -1) {
+        this.nyaaService.getSearchByName(name).subscribe(
+          searchList => {
           this.setSearchList(searchList);
           },
-          (error)=> {
+          (error) => {
             this.setSearchList(this.searchList);
-        });
+          }
+        );
+      } else {
+        var str;
+        if(ep == -2) {
+          str = name;
+        } else {
+          str = name + ep;
+        }
+  
+        if (this.nyaaService.respondMapAnimeEpisode[str] != null) {
+          this.nyaaService.respondMapAnimeEpisode[str].subscribe(searchList => {
+              this.setSearchList(searchList);
+            },
+            (error)=> {
+              this.setSearchList(this.searchList);
+          });
+        } else {
+          this.nyaaService.setSearchByNameEp(name, ep);
+          this.nyaaService.respondMapAnimeEpisode[str].subscribe(searchList => {
+            this.setSearchList(searchList);
+            },
+            (error)=> {
+              this.setSearchList(this.searchList);
+          });
+        }
       }
     }
+
   }
 
 

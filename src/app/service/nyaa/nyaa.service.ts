@@ -18,6 +18,7 @@ export class NyaaService {
   param_ep = "e=";
 
   search_url = this.aws_url + this.aws_env + this.aws_search;
+  search_url_sukebei = this.aws_url + this.aws_env + "/sukebei/search/anime";
   url;
   public respondMapAnimeEpisode = new Map<any, any>();
 
@@ -25,9 +26,18 @@ export class NyaaService {
 
   }
 
+  GetSearchNyaaSukebeiAnime(name: string)  : Observable<searchList[]> {
+    var _url = this.search_url_sukebei;
+    if(name != null || name != "") {
+      _url = _url + "?" + this.param_name + name;
+    }
+
+    return this.http.get<searchList[]>(_url).pipe(
+      map((data:any) => data), catchError(this.handleError)
+    );
+  }
 
   getSearchByName(name: any) : Observable<searchList[]> {
-    // return this.http.get<searchList[]>
     var _url = this.search_url;
     if(name != null || name != "") {
       _url = _url + "?" + this.param_name + name;
@@ -36,7 +46,6 @@ export class NyaaService {
     return this.http.get<searchList[]>(_url).pipe(
       map((data:any) => data), catchError(this.handleError)
     );
-
   }
 
   setSearchByNameEp(name: any, episode: any){

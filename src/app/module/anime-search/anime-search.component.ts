@@ -186,7 +186,7 @@ export class AnimeSearchComponent implements OnInit {
     this.isHidden = !this.isHidden;
   }
 
-  public openTorrentModal(title, imageSrc, episode, type, animeId, animeObject, isStream) {
+  public openTorrentModal(title, imageSrc, episode, type, animeId, animeObject, isStream, rating) {
     const modalRef = this.modelService.open(AnimeModalComponent);
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.imageSrc = imageSrc;
@@ -195,6 +195,14 @@ export class AnimeSearchComponent implements OnInit {
     modalRef.componentInstance.animeId = animeId;
     modalRef.componentInstance.aniObject = animeObject;
     modalRef.componentInstance.isStream = isStream;
+
+    console.log(rating);
+
+    if (rating === "Rx - Hentai") {
+      modalRef.componentInstance.isHentai = true;
+    } else  {
+      modalRef.componentInstance.isHentai = false;
+    }
     
   }
 

@@ -29,6 +29,7 @@ export class AnimeModalComponent implements OnInit {
   // This can either be, aniList, aniTop, etc ..etc
   @Input() aniObject;
   @Input() isTopAnime;
+  @Input() isHentai = false as boolean;
 
 
   
@@ -57,6 +58,7 @@ export class AnimeModalComponent implements OnInit {
     private router: Router ) { }
 
   ngOnInit() {
+    console.log(this.isHentai);
     this.breakpointObserverEvent();
     this.getAnimeDetail();
   }

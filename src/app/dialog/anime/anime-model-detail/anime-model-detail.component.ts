@@ -25,6 +25,7 @@ export class AnimeModelDetailComponent implements OnInit {
   // This can either be, aniList, aniTop, etc ..etc
   @Input() aniObject;
   @Input() isTopAnime;
+  @Input() isHentai = false as boolean;
 
 
   
@@ -53,6 +54,7 @@ export class AnimeModelDetailComponent implements OnInit {
     private router: Router ) { }
 
   ngOnInit() {
+    console.log("HENTAI  " + this.isHentai);
     this.breakpointObserverEvent();
     this.getAnimeDetail();
   }

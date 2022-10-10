@@ -185,7 +185,7 @@ export class AnimeTopComponent implements OnInit {
 
 
 
-  public openTorrentModal(title, imageSrc, episode, type, animeId, animeObject, isStream) {
+  public openTorrentModal(title, imageSrc, episode, type, animeId, animeObject, isStream, rating) {
     const modalRef = this.modelService.open(AnimeModelDetailComponent);
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.imageSrc = imageSrc;
@@ -195,6 +195,12 @@ export class AnimeTopComponent implements OnInit {
     modalRef.componentInstance.aniObject = animeObject;
     modalRef.componentInstance.isTopAnime = this.isTopAnime;
     modalRef.componentInstance.isStream = isStream;
+
+    if (rating === "Rx - Hentai") {
+      modalRef.componentInstance.isHental = true;
+    } else  {
+      modalRef.componentInstance.isHental = false;
+    }
     
   }
 
