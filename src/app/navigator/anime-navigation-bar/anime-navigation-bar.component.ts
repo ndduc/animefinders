@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -10,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AnimeNavigationBarComponent implements OnInit {
 
+  @Output() SideNavToggle = new EventEmitter();  
+  
   isConnectionError: boolean = false;
   seasonLis: Array<{}> = [];
   topList: string[] = ['All', 'TV', 'Movie', 'OVA', 'ONA', 'Special', 'Airing'];
@@ -168,6 +170,12 @@ export class AnimeNavigationBarComponent implements OnInit {
 
   public navigateToComponent(path: string, selectedIndex: number) {
     this.router.navigateByUrl(path, { state: { index: selectedIndex} });
+  }
+
+
+
+  openSidenav() {
+    this.SideNavToggle.emit();
   }
 
 }

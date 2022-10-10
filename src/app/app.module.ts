@@ -34,6 +34,9 @@ import { NavigatorComponent } from './navigator/navigator.component';
 import { AnimeTopComponent } from './module/anime-top/anime-top.component';
 import { AnimeNavigationBarComponent } from './navigator/anime-navigation-bar/anime-navigation-bar.component';
 import { AnimeSearchComponent } from './module/anime-search/anime-search.component';
+import { SideNavigationComponent } from './navigator/side-navigation/side-navigation.component';
+import {MatListModule} from '@angular/material/list';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +50,7 @@ import { AnimeSearchComponent } from './module/anime-search/anime-search.compone
     AnimeTopComponent,
     AnimeNavigationBarComponent,
     AnimeSearchComponent,
+    SideNavigationComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,7 +76,8 @@ import { AnimeSearchComponent } from './module/anime-search/anime-search.compone
     MatPaginatorModule,
     ReactiveFormsModule,
     MglTimelineModule,
-    NgImageSliderModule
+    NgImageSliderModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

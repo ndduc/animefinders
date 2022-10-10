@@ -1,7 +1,16 @@
 <div>
     <mat-toolbar class="nav-bar-animelist">
         <div>
+
             <div class="d-flex" *ngIf="seasonLis">
+
+                <div>
+                    <button mat-icon-button class="icon-color" (click)="openSidenav()">
+                      <mat-icon>menu</mat-icon>
+                    </button>
+                  </div>
+    
+
                 <button class="button-spring" 
                 (click)="setRow(-1, '/anime/top');" 
                 [ngStyle]="{'color' : this.selectedIndex == -1 ? 'white' : 'black' }"
