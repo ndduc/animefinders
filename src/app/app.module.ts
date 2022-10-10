@@ -35,6 +35,7 @@ import { AnimeNavigationBarComponent } from './navigator/anime-navigation-bar/an
 import { AnimeSearchComponent } from './module/anime-search/anime-search.component';
 import { SideNavigationComponent } from './navigator/side-navigation/side-navigation.component';
 import {MatListModule} from '@angular/material/list';
+import { AnimeModelDetailComponent } from './dialog/anime/anime-model-detail/anime-model-detail.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import {MatListModule} from '@angular/material/list';
     AnimeNavigationBarComponent,
     AnimeSearchComponent,
     SideNavigationComponent,
+    AnimeModelDetailComponent,
   ],
   imports: [
     BrowserModule,

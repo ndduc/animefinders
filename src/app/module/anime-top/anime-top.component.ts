@@ -11,6 +11,7 @@ import { AnimeModel } from '../../model/anime.model';
 import { AniTop } from '../../model/animeTop.model';
 import { JikanService } from '../../service/jikan/jikan.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AnimeModelDetailComponent } from 'src/app/dialog/anime/anime-model-detail/anime-model-detail.component';
 
 
 @Component({
@@ -185,7 +186,7 @@ export class AnimeTopComponent implements OnInit {
 
 
   public openTorrentModal(title, imageSrc, episode, type, animeId, animeObject, isStream) {
-    const modalRef = this.modelService.open(AnimeModalComponent);
+    const modalRef = this.modelService.open(AnimeModelDetailComponent);
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.imageSrc = imageSrc;
     modalRef.componentInstance.episode = episode;
