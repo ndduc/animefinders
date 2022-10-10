@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output  } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-side-navigation',
@@ -8,7 +9,11 @@ import { Component, OnInit, EventEmitter, Output  } from '@angular/core';
 export class SideNavigationComponent implements OnInit {
   @Output() closeSideNav = new EventEmitter();
 
-  constructor() { }
+  constructor(
+    private router: Router
+    ) {
+
+  }
   
   onToggleClose() {
     this.closeSideNav.emit();
@@ -16,4 +21,9 @@ export class SideNavigationComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  public navigateToComponent(path: string) {
+    this.router.navigateByUrl(path);
+  }
+
 }
