@@ -99,7 +99,7 @@
         <div>
             <div class="d-flex" *ngIf="seasonLis">
                 <div *ngFor="let item of topList; let i = index"> 
-                    <button class="button-spring" 
+                    <button class="button-type" 
                     (click)="setRow2nd(i, '/anime/top');" 
                     [ngStyle]="{'color' : this.selectedIndex2nd == i ? 'white' : 'black' }"
                         mat-flat-button>

@@ -1,4 +1,4 @@
-.nav-bar-animelist, .nav-bar-animelist-2nd {
+.nav-bar-animelist{
 	overflow-x: auto;
 	background-color: #34c97e;
 	display: flex;
@@ -6,9 +6,16 @@
 	justify-content: space-between;
 }
 
-.nav-bar-animelist-2nd  {
+.nav-bar-animelist-2nd {
+	overflow-x: auto;
 	background-color: #B3DAF1 !important;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	height: 50px !important;
 }
+
+
 
 .nav-bar-animelist-mobile {
 	overflow-x: auto;
@@ -34,7 +41,11 @@
 
 
 
-
+.button-type {
+	background-color:#d9ba4c; 
+	border-radius: 5px; 
+	margin-left: 10px;
+}
 .button-spring {
 	background-color:#F3A8BC; 
 	border-radius: 25px; 
