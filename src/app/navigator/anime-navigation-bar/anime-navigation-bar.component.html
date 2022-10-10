@@ -93,7 +93,7 @@
 
             </mat-form-field>
 
-            <button mat-flat-button class="btn-advance" disabled="{{searchForm.invalid || !searchForm.dirty}}" (click)="setRow(-1, '/anime/search')">
+            <button mat-flat-button class="btn-advance" disabled="{{searchForm.invalid || !searchForm.dirty}}" (click)="setRow(-2, '/anime/search')">
                 Search
             </button>
 
@@ -103,7 +103,7 @@
     </mat-toolbar>
 </div>
 
-<div *ngIf="isTopSelected">
+<div *ngIf="this.selectedIndex === -1">
     <mat-toolbar class="nav-bar-animelist-2nd">
         <div>
             <div class="d-flex" *ngIf="seasonLis">

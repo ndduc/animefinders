@@ -27,7 +27,6 @@ export class AnimeNavigationBarComponent implements OnInit {
   public searchControl = new FormControl(null, Validators.required);
   strTitle: string = '';
 
-  isTopSelected = false;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -37,6 +36,7 @@ export class AnimeNavigationBarComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    console.log("ON INIT");
     this.route.paramMap.subscribe(params => {
       if (params.get('index')) {
         this.selectedIndex = Number(params.get('index'));
@@ -45,11 +45,6 @@ export class AnimeNavigationBarComponent implements OnInit {
       }
     });
 
-    if(this.selectedIndex == -1) {
-      this.isTopSelected = true;
-    } else {
-      this.isTopSelected = false;
-    }
     this.setSeasonInterval();
     this.setUpForm();
     this.breakpointObserverEvent();
