@@ -88,6 +88,10 @@ button, .tag {
     overflow: auto;
 }
 
+::ng-deep .mat-tab-list {
+    width: 100% !important;
+}
+
 
 ::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
     color: black !important;
@@ -133,8 +137,8 @@ button, .tag {
 }
 
 ::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
-    min-width: 0!important;
+    min-width: 25px!important;
     padding: 3px!important;
-    margin: 10px!important;
+    margin: 3px!important;
     /* border: 1px solid black !important; */
    }

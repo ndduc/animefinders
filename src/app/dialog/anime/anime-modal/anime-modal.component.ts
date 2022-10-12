@@ -57,6 +57,8 @@ export class AnimeModalComponent implements OnInit {
   isMobile: boolean = false;
   numberOfEpisode: any;
 
+  // handle episode array on ui
+  items:  number[] = [];
 
   constructor(private nyaaService : NyaaService, 
     public activeModal: NgbActiveModal, 
@@ -99,11 +101,14 @@ export class AnimeModalComponent implements OnInit {
   }
 
   createRange(number){
-    var items: number[] = [];
-    for(var i = 1; i <= number; i++){
-      items.push(i);
+    if (number) {
+      for(var i = 1; i <= number; i++){
+        this.items.push(i);
+      }
+    } else {
+      this.items = [];
     }
-    return items;
+
   }
 
   parentTabClick(event) {
@@ -226,11 +231,13 @@ export class AnimeModalComponent implements OnInit {
         this.aniDetail = item;
         if(item.status === "Not yet aired") {
           this.numberOfEpisode = undefined;
+          this.createRange(this.numberOfEpisode);
           this.isLoading = false;
         } else if (item.status === "Currently Airing") {
           this.getDifferenceInDays(item);
         } else {
           this.numberOfEpisode = this.episode;
+          this.createRange(this.numberOfEpisode);
           this.isLoading = false;
         }
       });
@@ -240,15 +247,19 @@ export class AnimeModalComponent implements OnInit {
         this.aniDetail = item;
         if(item.status === "Not yet aired") {
           this.numberOfEpisode = undefined;
+          this.createRange(this.numberOfEpisode);
           this.isLoading = false;
         } else if (item.status === "Currently Airing") {
           this.getDifferenceInDays(item);
         } else {
           this.numberOfEpisode = this.episode;
+          this.createRange(this.numberOfEpisode);
           this.isLoading = false;
         }
       });
     }
+
+
 
 
 
@@ -282,3 +293,4 @@ export class AnimeModalComponent implements OnInit {
 
   
 }
+

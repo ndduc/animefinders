@@ -33,9 +33,7 @@
           </div>
 
 
-
-
-          <mat-tab-group (selectedTabChange)="parentTabClick($event)">
+          <mat-tab-group (selectedTabChange)="parentTabClick($event)" #tabs>
 
             <mat-tab label="Custom (You decide the search string)"> 
               <app-anime-torrent-holder-custom [title]=title [episode]=-3 [isHentai]="this.isHentai"></app-anime-torrent-holder-custom>
@@ -43,8 +41,7 @@
 
             <mat-tab label="Episode"> 
               <mat-tab-group label="First" (selectedTabChange)="episodeTabLick($event)">  
-                <div *ngIf="this.numberOfEpisode > 1 && this.numberOfEpisode < 100 && !this.isHentai">
-                  <div *ngFor="let episode of createRange(this.numberOfEpisode)">
+                  <div *ngFor="let episode of items">
                     <mat-tab label={{episode}}> 
 
                       <div *ngIf="isLoading" style="text-align:center;">
@@ -56,6 +53,7 @@
                           <div class="torrent-div d-flex flex-column">
                             <div class="d-flex justify-content-start flex-column">
                               <div class="torrent-div-item-2">{{ item["name"]}}</div>
+                              <div class="torrent-div-item-2">{{ item["size"]}}</div>
                               <div class="torrent-div-item-3">{{ "Seeders: " + item["seeders"]}}</div>
                               <div class="torrent-div-item-4">{{ "Leechers: " + item["leechers"]}}</div>
                               <div class="torrent-div-item-2">{{ "Category: " + item["category"]}}</div>
@@ -76,7 +74,6 @@
                         </div>
                       </div>
                     </mat-tab>
-                  </div>
                 </div>
 
               </mat-tab-group>
@@ -93,6 +90,7 @@
                   <div class="torrent-div d-flex flex-column">
                     <div class="d-flex justify-content-start flex-column">
                       <div class="torrent-div-item-2">{{ item["name"]}}</div>
+                      <div class="torrent-div-item-2">{{ item["size"]}}</div>
                       <div class="torrent-div-item-3">{{ "Seeders: " + item["seeders"]}}</div>
                       <div class="torrent-div-item-4">{{ "Leechers: " + item["leechers"]}}</div>
                       <div class="torrent-div-item-2">{{ "Category: " + item["category"]}}</div>
@@ -118,8 +116,7 @@
             <mat-tab label="English Dub"> 
 
               <mat-tab-group label="First" (selectedTabChange)="episodeDubTabLick($event)">
-                <div *ngIf="this.numberOfEpisode > 1 && this.numberOfEpisode < 100 && !this.isHentai">
-                  <div *ngFor="let episode of createRange(this.numberOfEpisode)">
+                  <div *ngFor="let episode of items">
                     <mat-tab label={{episode}}> 
 
                       <div *ngIf="isLoading" style="text-align:center;">
@@ -131,6 +128,7 @@
                           <div class="torrent-div d-flex flex-column">
                             <div class="d-flex justify-content-start flex-column">
                               <div class="torrent-div-item-2">{{ item["name"]}}</div>
+                              <div class="torrent-div-item-2">{{ item["size"]}}</div>
                               <div class="torrent-div-item-3">{{ "Seeders: " + item["seeders"]}}</div>
                               <div class="torrent-div-item-4">{{ "Leechers: " + item["leechers"]}}</div>
                               <div class="torrent-div-item-2">{{ "Category: " + item["category"]}}</div>
@@ -153,7 +151,6 @@
                       
                     </mat-tab>
                   </div>
-                </div>
               </mat-tab-group>
             </mat-tab>
 
