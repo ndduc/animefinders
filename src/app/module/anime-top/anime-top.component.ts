@@ -186,7 +186,7 @@ export class AnimeTopComponent implements OnInit {
 
 
   public openTorrentModal(title, imageSrc, episode, type, animeId, animeObject, isStream, rating) {
-    const modalRef = this.modelService.open(AnimeModelDetailComponent);
+    const modalRef = this.modelService.open(AnimeModalComponent, {size:'lg'})
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.imageSrc = imageSrc;
     modalRef.componentInstance.episode = episode;

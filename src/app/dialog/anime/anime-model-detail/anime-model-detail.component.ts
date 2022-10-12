@@ -54,7 +54,6 @@ export class AnimeModelDetailComponent implements OnInit {
     private router: Router ) { }
 
   ngOnInit() {
-    console.log("HENTAI  " + this.isHentai);
     this.breakpointObserverEvent();
     this.getAnimeDetail();
   }

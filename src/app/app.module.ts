@@ -36,6 +36,7 @@ import { AnimeSearchComponent } from './module/anime-search/anime-search.compone
 import { SideNavigationComponent } from './navigator/side-navigation/side-navigation.component';
 import {MatListModule} from '@angular/material/list';
 import { AnimeModelDetailComponent } from './dialog/anime/anime-model-detail/anime-model-detail.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { AnimeModelDetailComponent } from './dialog/anime/anime-model-detail/ani
     ReactiveFormsModule,
     MglTimelineModule,
     NgImageSliderModule,
-    MatListModule
+    MatListModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

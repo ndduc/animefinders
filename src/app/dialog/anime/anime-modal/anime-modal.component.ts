@@ -8,6 +8,7 @@ import { AniEpisodesList } from 'src/app/model/animeEpisodes.model';
 import { searchList } from 'src/app/model/searchList';
 import { JikanService } from 'src/app/service/jikan/jikan.service';
 import { NyaaService } from 'src/app/service/nyaa/nyaa.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 /*
   This modal hold anime's torrent detail
@@ -36,7 +37,14 @@ export class AnimeModalComponent implements OnInit {
   panelOpenState = false;
   param_name:string = "";
   param_ep: string = "";
+
   searchList : searchList[] = [];
+
+  searchListEpisode: searchList [] = [];
+  searchListBatch: searchList [] = [];
+  searchListDub: searchList [] = [];
+  searchListCustom: searchList [] = [];
+
   aniEpList: AniEpisodesList[] = [];
   aniDetail: AniDetail | undefined;
   screen: number = 0;
@@ -52,13 +60,12 @@ export class AnimeModalComponent implements OnInit {
 
   constructor(private nyaaService : NyaaService, 
     public activeModal: NgbActiveModal, 
-    private deviceService: DeviceDetectorService,
     private jikanService: JikanService,
     private breakpointObserver: BreakpointObserver,
-    private router: Router ) { }
+    private sanitizer:DomSanitizer
+    ) { }
 
   ngOnInit() {
-    console.log(this.isHentai);
     this.breakpointObserverEvent();
     this.getAnimeDetail();
   }
@@ -99,27 +106,116 @@ export class AnimeModalComponent implements OnInit {
     return items;
   }
 
-  getSearch(name: any, ep: any) {
-    if(ep != null) {
-      this.nyaaService.getSearchByName(name).subscribe(searchList => {
-        this.searchList = searchList;
-        this.isLoading = false;
-      });
-    } else {
+  parentTabClick(event) {
+    let searchStr;
 
-      if (this.nyaaService.respondMapAnimeEpisode[name + ep] != null) {
-        this.nyaaService.respondMapAnimeEpisode[name + ep].subscribe(searchList => {
-          this.searchList = searchList;
-          this.isLoading = false;
-        });
+    switch (event.index) {
+      case 0: 
+        break;
+      case 1:
+        searchStr = this.title + " batch"
+        this.getSearch(searchStr, -1, 'batch');
+        break;
+      case 2:
+        break;
+      case 3:
+        break;
+      default:
+        break;
+    }
+
+  }
+
+  episodeTabLick(event) {
+    this.getSearch(this.title, event.index + 1, 'episode');
+  }
+
+  episodeDubTabLick(event) {
+    this.getSearch(this.title + " dub", event.index + 1, 'dub');
+  }
+
+  getSearch(name: string, ep: number, type: string) {
+
+    this.isLoading = true;
+    if (this.isHentai) {
+      this.nyaaService.GetSearchNyaaSukebeiAnime(name).subscribe(
+        searchList => {
+        this.setSearchList(searchList, type);
+        },
+        (error) => {
+          this.setSearchList(this.searchList, type);
+        }
+      );
+    } else {
+      if(ep == -1) {
+        this.nyaaService.getSearchByName(name).subscribe(
+          searchList => {
+          this.setSearchList(searchList, type);
+          },
+          (error) => {
+            this.setSearchList(this.searchList, type);
+          }
+        );
       } else {
-        this.nyaaService.setSearchByNameEp(name, ep);
-        this.nyaaService.respondMapAnimeEpisode[name + ep].subscribe(searchList => {
-          this.searchList = searchList;
-          this.isLoading = false;
-        });
+        var str;
+        if(ep == -2) {
+          str = name;
+        } else {
+          str = name + ep;
+        }
+  
+        if (this.nyaaService.respondMapAnimeEpisode[str] != null) {
+          this.nyaaService.respondMapAnimeEpisode[str].subscribe(searchList => {
+              this.setSearchList(searchList, type);
+            },
+            (error)=> {
+              this.setSearchList(this.searchList, type);
+          });
+        } else {
+          this.nyaaService.setSearchByNameEp(name, ep);
+          this.nyaaService.respondMapAnimeEpisode[str].subscribe(searchList => {
+            this.setSearchList(searchList, type);
+            },
+            (error)=> {
+              this.setSearchList(this.searchList, type);
+          });
+        }
       }
     }
+
+  }
+
+  setSearchList(lst: searchList[], type: string) {
+
+    if(lst == null || lst.length === 0) {
+      this.isFound = false;
+
+      if  (type == 'dub') {
+        this.searchListDub = [];
+      } else if (type == 'batch') {
+        this.searchListBatch = [];
+      } else if (type == 'episode') {
+        this.searchListEpisode = [];
+      } else {
+        this.searchList = [];
+      }
+
+    } else {
+      this.isFound = true;
+
+      if  (type == 'dub') {
+        this.searchListDub = lst;
+      } else if (type == 'batch') {
+        this.searchListBatch = lst;
+      } else if (type == 'episode') {
+        this.searchListEpisode = lst;
+      } else {
+        this.searchList = lst;
+      }
+    }
+
+    this.isLoading = false;
+
   }
 
 
@@ -172,4 +268,17 @@ export class AnimeModalComponent implements OnInit {
   getClick() {
   }
 
+  
+  getDownloadLink(url_path: string) {
+    return url_path.replace('http:','https:');
+  }
+
+  processMagnet(magnet: string) {
+
+    var mag = magnet.replace('&', '&amp;');
+    return this.sanitizer.bypassSecurityTrustUrl (mag);
+    //return this.transform(mag);
+  }
+
+  
 }

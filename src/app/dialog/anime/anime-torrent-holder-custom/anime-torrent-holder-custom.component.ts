@@ -61,7 +61,6 @@ export class AnimeTorrentHolderCustomComponent implements OnInit, PipeTransform 
   }
   getSearch(name: string, ep: number) {
 
-    console.log("HENTAI  " + this.isHentai);
     if (this.isHentai) {
       this.nyaaService.GetSearchNyaaSukebeiAnime(name).subscribe(
         searchList => {

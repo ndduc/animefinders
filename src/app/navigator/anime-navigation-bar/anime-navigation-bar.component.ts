@@ -36,7 +36,6 @@ export class AnimeNavigationBarComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    console.log("ON INIT");
     this.route.paramMap.subscribe(params => {
       if (params.get('index')) {
         this.selectedIndex = Number(params.get('index'));

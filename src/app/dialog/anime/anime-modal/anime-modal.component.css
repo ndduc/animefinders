@@ -87,3 +87,54 @@ button, .tag {
 ::ng-deep .modal-content {
     overflow: auto;
 }
+
+
+::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
+    color: black !important;
+}
+
+::ng-deep .mat-tab-label .mat-tab-label-content {
+    color: black !important;
+}
+
+.torrent-div {
+    background-color: #34c97e;
+    margin: 2%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 15px;
+    -webkit-box-shadow:0px 1px 1px gray;
+    -moz-box-shadow:0px 1px 1px gray;
+    box-shadow:0px 1px 1px gray;
+}
+
+
+.torrent-div-item-2 {
+    margin-right: 2%;
+}
+
+.torrent-div-item-3 {
+    margin-right: 2%;
+    color: red;
+}
+
+.torrent-div-item-4 {
+    margin-right: 2%;
+    color: blue;
+}
+
+.torrent-div {
+    color: black;
+    font-size: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
+    min-width: 0!important;
+    padding: 3px!important;
+    margin: 10px!important;
+    /* border: 1px solid black !important; */
+   }
