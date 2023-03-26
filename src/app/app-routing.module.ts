@@ -4,6 +4,7 @@ import { AnimeComponent } from './module/anime/anime.component';
 import { DmcaComponentComponent } from './module/dmca-component/dmca-component.component';
 import { AnimeTopComponent } from './module/anime-top/anime-top.component';
 import { AnimeSearchComponent } from './module/anime-search/anime-search.component';
+import { VisualNovelComponent } from './module/visual-novel/visual-novel.component';
 
 const routes: Routes = [
   {
@@ -26,7 +27,11 @@ const routes: Routes = [
   {
     path: 'anime/top/:cat/:select',
     component: AnimeTopComponent
-  }
+  },
+  {
+    path: 'vn/top',
+    component: VisualNovelComponent,
+  },
 
 ];
 

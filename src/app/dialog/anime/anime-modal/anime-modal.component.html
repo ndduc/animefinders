@@ -32,7 +32,6 @@
             </div>
           </div>
 
-
           <mat-tab-group (selectedTabChange)="parentTabClick($event)" #tabs>
 
             <mat-tab label="Custom (You decide the search string)"> 
@@ -49,7 +48,7 @@
                       </div>    
 
                       <div *ngIf="!isLoading">
-                        <div *ngFor="let item of searchListEpisode">
+                        <div *ngFor="let item of searchListEpisodeCurrent">
                           <div class="torrent-div d-flex flex-column">
                             <div class="d-flex justify-content-start flex-column">
                               <div class="torrent-div-item-2">{{ item["name"]}}</div>
@@ -72,6 +71,14 @@
                             </div> 
                           </div>
                         </div>
+                        <!-- EPISODE PAGINATE -->
+                        <mat-paginator 
+                        [length]="this.searchListEpisodeCount"
+                        [pageSize]="25"
+                        (page)="onPageChange($event, 'EP')"
+                        [pageIndex]="searchListEpisodeCurrentIndex"
+                        >
+                        </mat-paginator>
                       </div>
                     </mat-tab>
                 </div>
@@ -86,7 +93,7 @@
               </div>
 
               <div *ngIf="!isLoading">
-                <div *ngFor="let item of searchListBatch">
+                <div *ngFor="let item of searchListBatchCurrent">
                   <div class="torrent-div d-flex flex-column">
                     <div class="d-flex justify-content-start flex-column">
                       <div class="torrent-div-item-2">{{ item["name"]}}</div>
@@ -109,6 +116,14 @@
                     </div> 
                   </div>
                 </div>
+                <!-- BATCH PAGINATE -->
+                <mat-paginator 
+                [length]="this.searchListBatchCount"
+                [pageSize]="25"
+                (page)="onPageChange($event, 'BATCH')"
+                [pageIndex]="searchListBatchCurrentIndex"
+                >
+                </mat-paginator>
               </div>
              
             </mat-tab>
@@ -124,7 +139,7 @@
                       </div>
 
                       <div *ngIf="!isLoading">
-                        <div *ngFor="let item of searchListDub">
+                        <div *ngFor="let item of searchListDubCurrent">
                           <div class="torrent-div d-flex flex-column">
                             <div class="d-flex justify-content-start flex-column">
                               <div class="torrent-div-item-2">{{ item["name"]}}</div>
@@ -147,6 +162,14 @@
                             </div> 
                           </div>
                         </div>
+                        <!-- BATCH PAGINATE -->
+                        <mat-paginator 
+                        [length]="this.searchListDubCount"
+                        [pageSize]="25"
+                        (page)="onPageChange($event, 'DUB')"
+                        [pageIndex]="searchListDubCurrentIndex"
+                        >
+                        </mat-paginator>
                       </div>
                       
                     </mat-tab>

@@ -31,67 +31,73 @@
     
           <div *ngIf="!isLoading">
               <div *ngIf="isFound">
-                  <div *ngFor="let item of searchList">
-                    
-                    <mat-expansion-panel class="expan-torrent" hideToggle  >
-                      <mat-expansion-panel-header class="text-torrent-exp-parent">
-              
-                        <mat-panel-title class="text-torrent-exp-child row">
-                          <div class="col-8">
-                            {{item["name"]}} 
-                            <!-- {{this.stringValidation(item["name"].replace('1080p','').replace('60fps','')
-                            .replace('x265','').replace('10bit','').replace(' ',''))}} -->
+                <div *ngFor="let item of searchListCurrent">
+                  <mat-expansion-panel class="expan-torrent" hideToggle  >
+                    <mat-expansion-panel-header class="text-torrent-exp-parent">
+            
+                      <mat-panel-title class="text-torrent-exp-child row">
+                        <div class="col-8">
+                          {{item["name"]}} 
+                        </div>
+                        <div class="col-4" style="text-align: start;">
+                          <div class="row justify-content-start">
+                            <div class="col-4">{{item["size"].replace(' ', '').replace('i', '')}}</div>
+                            <div class="col-4"></div>
                           </div>
-                          <div class="col-4" style="text-align: start;">
-                            <div class="row justify-content-start">
-                              <div class="col-4">{{item["size"].replace(' ', '').replace('i', '')}}</div>
-                              <div class="col-4"></div>
-                            </div>
-                            <div class="row justify-content-start">
-                              <div class="col-4" style="text-align: start; color: blue;">S:{{item["seeders"]}}</div>
-                            </div>
-  
-                            <div class="row justify-content-start">
-                              <div class="col-4" style="text-align: start; color: red;">L:{{item["leechers"]}}</div>
-                            </div>
-              
+                          <div class="row justify-content-start">
+                            <div class="col-4" style="text-align: start; color: blue;">S:{{item["seeders"]}}</div>
                           </div>
-                        </mat-panel-title>
-               
-                      </mat-expansion-panel-header>
-                      <div class="torrent-div d-flex flex-column">
-                        <div class="d-flex justify-content-center">
-                          {{this.itemTitle}}
+
+                          <div class="row justify-content-start">
+                            <div class="col-4" style="text-align: start; color: red;">L:{{item["leechers"]}}</div>
+                          </div>
+            
                         </div>
-                        <div>
-                          {{this.itemCategory}} 
-                        </div>
-                        <div>
-                          {{this.itemCategoryRound}}
-                        </div>
-                        <div class="d-flex justify-content-start flex-column">
-                          <div class="torrent-div-item-2">{{ "Category: " + item["category"]}}</div>
-                          <div class="torrent-div-item-2">{{ "Completed Downloads: " + item["completed_downloads"]}}</div>
-                          <div class="torrent-div-item-2">{{ "Date: " + item["date"]}}</div>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                          <a href='{{getDownloadLink(item["download_url"])}}' target="_self" rel="torrent" download>
-                            Torrent File
-                          </a>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                          <a [href]="processMagnet(item.magnet)" class="card-footer-item">
-                            <i class="fa fa-magnet fa-fw"></i>Magnet
-                          </a>
-                        </div> 
-    
+                      </mat-panel-title>
+              
+                    </mat-expansion-panel-header>
+                    <div class="torrent-div d-flex flex-column">
+                      <div class="d-flex justify-content-center">
+                        {{this.itemTitle}}
                       </div>
-                    </mat-expansion-panel>
-                  </div>
+                      <div>
+                        {{this.itemCategory}} 
+                      </div>
+                      <div>
+                        {{this.itemCategoryRound}}
+                      </div>
+                      <div class="d-flex justify-content-start flex-column">
+                        <div class="torrent-div-item-2">{{ "Category: " + item["category"]}}</div>
+                        <div class="torrent-div-item-2">{{ "Completed Downloads: " + item["completed_downloads"]}}</div>
+                        <div class="torrent-div-item-2">{{ "Date: " + item["date"]}}</div>
+                      </div>
+                      <div class="d-flex justify-content-center">
+                        <a href='{{getDownloadLink(item["download_url"])}}' target="_self" rel="torrent" download>
+                          Torrent File
+                        </a>
+                      </div>
+                      <div class="d-flex justify-content-center">
+                        <a [href]="processMagnet(item.magnet)" class="card-footer-item">
+                          <i class="fa fa-magnet fa-fw"></i>Magnet
+                        </a>
+                      </div> 
+  
+                    </div>
+                  </mat-expansion-panel>
+                </div>
+                <mat-paginator 
+                [length]="this.searchListCount"
+                [pageSize]="25"
+                (page)="onPageChange($event)"
+                [pageIndex]="currentIndex"
+                >
+                </mat-paginator>
               </div>
               <div class="no-result" *ngIf="!isFound">
                   <a>No Result Found</a>
               </div>
+
+
           </div>
         </mat-expansion-panel>
     </mat-accordion>

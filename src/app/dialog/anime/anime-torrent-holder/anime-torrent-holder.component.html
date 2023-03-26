@@ -27,7 +27,7 @@
 
       <div *ngIf="!isLoading">
           <div *ngIf="isFound">
-              <div *ngFor="let item of searchList">
+              <div *ngFor="let item of searchListCurrent">
                 
                 <mat-expansion-panel class="expan-torrent" (click)="getSearch(title, episode)" hideToggle  >
                   <mat-expansion-panel-header class="text-torrent-exp-parent">
@@ -84,6 +84,13 @@
                   </div>
                 </mat-expansion-panel>
               </div>
+              <mat-paginator 
+                [length]="this.searchListCount"
+                [pageSize]="25"
+                (page)="onPageChange($event)"
+                [pageIndex]="currentIndex"
+                >
+                </mat-paginator>
           </div>
           <div *ngIf="!isFound">
               <a>No Results Found, Try Custom Search</a>

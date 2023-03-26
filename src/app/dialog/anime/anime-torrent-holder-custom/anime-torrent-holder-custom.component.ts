@@ -1,4 +1,4 @@
-import { Input } from '@angular/core';
+import { AfterViewInit, Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -19,7 +19,17 @@ export class AnimeTorrentHolderCustomComponent implements OnInit, PipeTransform 
   @Input() episode;
   @Input() longrun;
   @Input() isHentai : boolean = false;
+  
   searchList : searchList[] = [];
+  // store current index
+  searchListCurrent : searchList[] = [];
+  // store first index, as we have to tweak the pagination
+  searchListFirstIndex : searchList[] = [];
+  searchListCount :  number = 0;
+  currentIndex: number = 0;
+
+  pageSize: number = 25;
+
   constructor(private nyaaService : NyaaService, private deviceService: DeviceDetectorService, private sanitizer:DomSanitizer,
     private breakpointObserver: BreakpointObserver) { }
 
@@ -32,6 +42,8 @@ export class AnimeTorrentHolderCustomComponent implements OnInit, PipeTransform 
     this.strSearch = this.title;
     this.breakpointObserverEvent();
   }
+
+  
 
   breakpointObserverEvent() {
     this.breakpointObserver.observe([
@@ -58,6 +70,9 @@ export class AnimeTorrentHolderCustomComponent implements OnInit, PipeTransform 
   clear() {
     this.isLoading = true;
     this.searchList = [];
+    this.searchListCurrent = [];
+    this.searchListFirstIndex = [];
+    this.searchListCount = 0;
   }
   getSearch(name: string, ep: number) {
 
@@ -118,6 +133,11 @@ export class AnimeTorrentHolderCustomComponent implements OnInit, PipeTransform 
       this.isLoading = false;
       this.isFound = true;
       this.searchList = lst;
+      this.searchListCurrent = this.searchList;
+      this.searchListFirstIndex =  this.searchList.slice(0, this.pageSize);
+      this.searchListCount = this.searchListCurrent.length;
+      let $event = { pageIndex: 0, pageSize: this.searchListCount };
+      this.onPageChange($event);
     }
   }
 
@@ -163,7 +183,7 @@ export class AnimeTorrentHolderCustomComponent implements OnInit, PipeTransform 
   }
 
   regexExtractionTypeNoSpace(title: string, reg: RegExp) {
-    this.itemType = this.itemType + title.match(reg);;
+    this.itemType = this.itemType + title.match(reg);
   }
   
 
@@ -176,6 +196,18 @@ export class AnimeTorrentHolderCustomComponent implements OnInit, PipeTransform 
 
   transform(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  onPageChange($event: { pageIndex: number; pageSize: number; }) {
+
+    if($event.pageSize == this.searchList.length) {
+      this.searchListCurrent = this.searchList.slice(0, this.pageSize);
+    } else {
+      this.searchListCurrent = this.searchList.slice($event.pageIndex*$event.pageSize, $event.pageIndex*$event.pageSize + $event.pageSize);
+
+    }
+    this.currentIndex = $event.pageIndex;
+    this.pageSize = $event.pageSize;
   }
 
 

@@ -37,6 +37,11 @@ import { SideNavigationComponent } from './navigator/side-navigation/side-naviga
 import {MatListModule} from '@angular/material/list';
 import { AnimeModelDetailComponent } from './dialog/anime/anime-model-detail/anime-model-detail.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import {MatTableModule} from '@angular/material/table';
+import { VisualNovelComponent } from './module/visual-novel/visual-novel.component';
+import { VisualNovelModalComponent } from './dialog/visual-novel/visual-novel-modal/visual-novel-modal.component';
+import { VisualNovelTorrentHolderComponent } from './dialog/visual-novel/visual-novel-torrent-holder/visual-novel-torrent-holder.component';
+import { VisualNovelTorrentHolderCustomComponent } from './dialog/visual-novel/visual-novel-torrent-holder-custom/visual-novel-torrent-holder-custom.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +57,10 @@ import { MatTabsModule } from '@angular/material/tabs';
     AnimeSearchComponent,
     SideNavigationComponent,
     AnimeModelDetailComponent,
+    VisualNovelComponent,
+    VisualNovelModalComponent,
+    VisualNovelTorrentHolderComponent,
+    VisualNovelTorrentHolderCustomComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,7 +88,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MglTimelineModule,
     NgImageSliderModule,
     MatListModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

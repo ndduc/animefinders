@@ -12,7 +12,7 @@ export class NyaaService {
 
   aws_url = "https://yr8xbnhel0.execute-api.us-west-1.amazonaws.com";
   aws_env = "/Prod";
-  aws_search = "/search";
+  aws_search = "/search-hapi";
   aws_episode = "/episode";
   param_name = "q=";
   param_ep = "e=";

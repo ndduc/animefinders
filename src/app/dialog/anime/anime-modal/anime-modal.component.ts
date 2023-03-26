@@ -39,10 +39,35 @@ export class AnimeModalComponent implements OnInit {
   param_ep: string = "";
 
   searchList : searchList[] = [];
+  pageSize: number = 25;
 
   searchListEpisode: searchList [] = [];
+  // store current index
+  searchListEpisodeCurrent : searchList[] = [];
+  // store first index, as we have to tweak the pagination
+  searchListEpisodeFirstIndex : searchList[] = [];
+  searchListEpisodeCount :  number = 0;
+  searchListEpisodeCurrentIndex: number = 0;
+
+
+
   searchListBatch: searchList [] = [];
+  // store current index
+  searchListBatchCurrent : searchList[] = [];
+  // store first index, as we have to tweak the pagination
+  searchListBatchFirstIndex : searchList[] = [];
+  searchListBatchCount :  number = 0;
+  searchListBatchCurrentIndex: number = 0;
+
   searchListDub: searchList [] = [];
+  // store current index
+  searchListDubCurrent : searchList[] = [];
+  // store first index, as we have to tweak the pagination
+  searchListDubFirstIndex : searchList[] = [];
+  searchListDubCount :  number = 0;
+  searchListDubCurrentIndex: number = 0;
+
+
   searchListCustom: searchList [] = [];
 
   aniEpList: AniEpisodesList[] = [];
@@ -118,10 +143,10 @@ export class AnimeModalComponent implements OnInit {
       case 0: 
         break;
       case 1:
-        searchStr = this.title + " batch"
-        this.getSearch(searchStr, -1, 'batch');
         break;
       case 2:
+        searchStr = this.title + " batch"
+        this.getSearch(searchStr, -1, 'batch');
         break;
       case 3:
         break;
@@ -197,11 +222,21 @@ export class AnimeModalComponent implements OnInit {
 
       if  (type == 'dub') {
         this.searchListDub = [];
+        this.searchListDubCurrent = [];
+        this.searchListDubFirstIndex =  [];
+        this.searchListDubCount = 0;
       } else if (type == 'batch') {
         this.searchListBatch = [];
+        this.searchListBatchCurrent = [];
+        this.searchListBatchFirstIndex =  [];
+        this.searchListBatchCount = 0;
       } else if (type == 'episode') {
         this.searchListEpisode = [];
+        this.searchListEpisodeCurrent = [];
+        this.searchListEpisodeFirstIndex =  [];
+        this.searchListEpisodeCount = 0;
       } else {
+        // no use
         this.searchList = [];
       }
 
@@ -210,10 +245,27 @@ export class AnimeModalComponent implements OnInit {
 
       if  (type == 'dub') {
         this.searchListDub = lst;
+        this.searchListDubCurrent = this.searchListDub;
+        this.searchListDubFirstIndex =  this.searchListDub.slice(0, this.pageSize);
+        this.searchListDubCount = this.searchListDub.length;
+        let $event = { pageIndex: 0, pageSize: this.searchListDubCount };
+        this.onPageChange($event, "DUB");
+
+
       } else if (type == 'batch') {
         this.searchListBatch = lst;
+        this.searchListBatchCurrent = this.searchListBatch;
+        this.searchListBatchFirstIndex =  this.searchListBatch.slice(0, this.pageSize);
+        this.searchListBatchCount = this.searchListBatch.length;
+        let $event = { pageIndex: 0, pageSize: this.searchListBatchCount };
+        this.onPageChange($event, "BATCH");
       } else if (type == 'episode') {
         this.searchListEpisode = lst;
+        this.searchListEpisodeCurrent = this.searchListEpisode;
+        this.searchListEpisodeFirstIndex =  this.searchListEpisode.slice(0, this.pageSize);
+        this.searchListEpisodeCount = this.searchListEpisode.length;
+        let $event = { pageIndex: 0, pageSize: this.searchListEpisodeCount };
+        this.onPageChange($event, "EP");
       } else {
         this.searchList = lst;
       }
@@ -223,9 +275,45 @@ export class AnimeModalComponent implements OnInit {
 
   }
 
+  onPageChange($event: { pageIndex: number; pageSize: number; }, type: string) {
+
+    if (type === 'DUB') {
+      if($event.pageSize == this.searchListDub.length) {
+        this.searchListDubCurrent = this.searchListDub.slice(0, this.pageSize);
+      } else {
+        this.searchListDubCurrent = this.searchListDub.slice($event.pageIndex*$event.pageSize, $event.pageIndex*$event.pageSize + $event.pageSize);
+  
+      }
+      this.searchListDubCurrentIndex = $event.pageIndex;
+      this.pageSize = $event.pageSize;
+    } 
+    else if (type === 'EP') 
+    {
+      if($event.pageSize == this.searchListEpisode.length) {
+        this.searchListEpisodeCurrent = this.searchListEpisode.slice(0, this.pageSize);
+      } else {
+        this.searchListEpisodeCurrent = this.searchListEpisode.slice($event.pageIndex*$event.pageSize, $event.pageIndex*$event.pageSize + $event.pageSize);
+  
+      }
+      this.searchListEpisodeCurrentIndex = $event.pageIndex;
+      this.pageSize = $event.pageSize;
+    } 
+    else if (type === 'BATCH') 
+    {
+      if($event.pageSize == this.searchListBatch.length) {
+        this.searchListBatchCurrent = this.searchListBatch.slice(0, this.pageSize);
+      } else {
+        this.searchListBatchCurrent = this.searchListBatch.slice($event.pageIndex*$event.pageSize, $event.pageIndex*$event.pageSize + $event.pageSize);
+  
+      }
+      this.searchListBatchCurrentIndex = $event.pageIndex;
+      this.pageSize = $event.pageSize;
+    }
+
+  }
+
 
   getAnimeDetail() {
-    var tmpUrl = this.jikanService.jikan_url_aws + "/anime/detail?animeid=" + this.animeId;
     if(this.jikanService.respondMapAnimeDetail[this.animeId] != null) {
       this.jikanService.respondMapAnimeDetail[this.animeId].subscribe(item => {
         this.aniDetail = item;
