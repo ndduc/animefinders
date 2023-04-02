@@ -8,13 +8,16 @@
         </mat-sidenav>
       
         <mat-sidenav-content>
-          <app-anime-navigation-bar class="sticky-top" (SideNavToggle)="sidenav.toggle()"></app-anime-navigation-bar>
-
+          <app-anime-navigation-bar *ngIf="pageTitle === 'anime'" class="sticky-top" (SideNavToggle)="sidenav.toggle()"></app-anime-navigation-bar>
+          <app-visual-novel-navigation-bar *ngIf="pageTitle === 'visual-novel'" class="sticky-top" (SideNavToggle)="sidenav.toggle()"></app-visual-novel-navigation-bar>
         <main>
-                <div [@routeAnimations]="prepareRoute(outlet)">
-                        <router-outlet #outlet="outlet"></router-outlet>
+                <div   [@routeAnimations]="prepareRoute(outlet)">
+                        <router-outlet (activate)="eventEventCheckpage($event)" #outlet="outlet"></router-outlet>
                 </div>
         </main>
           
         </mat-sidenav-content>
 </mat-sidenav-container>
+
+
+<!-- (backToStepOne)="backToStepOneFromFffInfo($event)"  -->

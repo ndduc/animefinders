@@ -22,7 +22,7 @@ import { AnimeModelDetailComponent } from 'src/app/dialog/anime/anime-model-deta
 
 
 export class AnimeTopComponent implements OnInit {
-  
+  pageTitle: string = "anime";
   aniList: AnimeModel[] = [];
   aniListShow: AnimeModel[] = [];
   isLoading: boolean = true;

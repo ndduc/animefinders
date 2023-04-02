@@ -10,7 +10,7 @@ export interface VnDetailModel {
     popularity: string;
     released: string;
     languages: string[];
-    image: VnImageModel[];
+    image: VnImageModel;
     tags: VnTagModel[];
-    screenshoots: VnScreenshootModel[];
+    screenshots: VnScreenshootModel[];
 }

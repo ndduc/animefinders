@@ -24,7 +24,7 @@ import { NyaaService } from '../../service/nyaa/nyaa.service';
 
 
 export class AnimeSearchComponent implements OnInit {
-  
+  pageTitle: string = "anime";
   sortOption = sortOptionEnum;
   isLoading: boolean = true;
   isAdv: boolean = false;

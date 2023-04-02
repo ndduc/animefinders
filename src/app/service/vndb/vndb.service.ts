@@ -35,6 +35,15 @@ export class VndbService {
     );
   }
 
+  getVnByRating(): Observable<VnSearchResultModel> {
+    return this.http.post<VnSearchResultModel>(this.vndb_url_aws + "/search-by-rating", {}).pipe(
+    map(
+      (results:VnSearchResultModel) => results
+    ), 
+    catchError(this.handleError)
+  );
+}
+
   getVnDetailById(id: string) : Observable<VnDetailResultModel> {
     return this.http.post<VnDetailResultModel>(this.vndb_url_aws + "/search-by-id", {
       "filters" : ["id", "=", id]

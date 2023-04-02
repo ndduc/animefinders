@@ -18,13 +18,13 @@
 
 
 		<!--TOP ANIME DESKTOP REGION START-->
-		<div *ngIf="vnSearchFound && isTopAnime">
+		<div *ngIf="vnSearchFound && isTopVisualNovel">
 			<mat-grid-list cols="{{this.topAnimeNumberOfColumn}}" rowHeight="6:3">
 				<div *ngFor="let visualNovel of vnSearchLists">
 					<mat-grid-tile class="anime-grid-tile" >
 						<mat-card class="anime-card-top" >
 							
-							<div class="anime-body-top d-flex" (click)="openTorrentModal(visualNovel.id);">
+							<div class="anime-body-top d-flex" (click)="openTorrentModal(visualNovel);">
 								
 							<!-- <div class="anime-body-top d-flex" > -->
 								<img class="anime-image-top"  src="{{visualNovel.image.url}}" alt="Photo Content - Error">
@@ -62,7 +62,7 @@
 		</div>
 		<!--TOP ANIME DESKTOP REGION END-->
 
-		<div class="d-flex justify-content-center" style="margin-top: 5%;" *ngIf="isAniEmpty && isConnectionError">
+		<div class="d-flex justify-content-center" style="margin-top: 5%;" *ngIf="isVisualNovelEmpty && isConnectionError">
 			<div class="d-flex flex-column" style="text-align: center;">
 				<div style="font-size: 20px; font-weight: bold;  margin-bottom: 5%;">Connection Issue! Please Come Back Later</div>
 				<img src="assets/images/error-404.png" alt="Photo Content - Error" >
@@ -70,7 +70,7 @@
 			</div>
 		</div>
 
-		<div class="d-flex justify-content-center" style="margin-top: 5%;" *ngIf="isAniEmpty && !isConnectionError">
+		<div class="d-flex justify-content-center" style="margin-top: 5%;" *ngIf="isVisualNovelEmpty && !isConnectionError">
 			<div class="d-flex flex-column" style="text-align: center;">
 				<div style="font-size: 20px; font-weight: bold;  margin-bottom: 5%;">Found Nothing</div>
 				<img src="assets/images/not_found.gif" alt="Photo Content - Error" >

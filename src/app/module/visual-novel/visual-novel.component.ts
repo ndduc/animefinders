@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AnimeModalComponent } from '../../dialog/anime/anime-modal/anime-modal.component';
 import { QuestionModalComponent } from '../../dialog/question/question/question-modal/question-modal.component';
@@ -16,6 +16,7 @@ import { VndbService } from 'src/app/service/vndb/vndb.service';
 import { VnSearchModel } from 'src/app/model/vn-search.model';
 import { VnImageModel } from 'src/app/model/vn-image.model';
 import { VisualNovelModalComponent } from 'src/app/dialog/visual-novel/visual-novel-modal/visual-novel-modal.component';
+import { EventEmitter } from '@angular/core';
 
 
 @Component({
@@ -25,37 +26,16 @@ import { VisualNovelModalComponent } from 'src/app/dialog/visual-novel/visual-no
 })
 
 export class VisualNovelComponent implements OnInit {
-  
-  aniList: AnimeModel[] = [];
-  aniListShow: AnimeModel[] = [];
-  isLoading: boolean = true;
+  pageTitle: string = "visual-novel";
   selected = '';
   error: any;
   headers: string[] = [];
   panelOpenState: boolean = false;
-  isTopAnime: boolean = false;
-  isAniEmpty : boolean = true;
+  isTopVisualNovel: boolean = false;
+  isVisualNovelEmpty : boolean = true;
   isConnectionError: boolean = false;
   screen: number = 0;
   pageSize: any;
-  sortOptionObject = [
-    {
-      name: "Select Sort Option",
-      type: "NOTHING"
-    } as AnimeSortModel,
-    {
-      name: "Sort By Rate",
-      type: "RATE"
-    } as AnimeSortModel,
-    {
-      name: "Sort By Type",
-      type: "TYPE"
-    } as AnimeSortModel
-  ] as AnimeSortModel[];
-  selectedOptionSort = this.sortOptionObject[0];
-  sort_type: number = 0;
-  sort_rate: number = 0;
-  selectedSort: any;
   closeResult = '';
   topAnimeIndex: any;
   
@@ -76,7 +56,6 @@ export class VisualNovelComponent implements OnInit {
   selectedYear: number = new Date().getFullYear();
   selectedSeason: string = "";
   currentPage: number = 1;
-  selectedType: string = '';
   selectedFilter: string = '';
   isSearchByTitleActivated: boolean = false;
   searchTitle: string = "";
@@ -90,7 +69,6 @@ export class VisualNovelComponent implements OnInit {
 
   constructor(
     private vndbService: VndbService,
-    private jikanService: JikanService, 
     public modelService: NgbModal,
     private breakpointObserver: BreakpointObserver,
     private router:Router ,
@@ -99,22 +77,26 @@ export class VisualNovelComponent implements OnInit {
     }
 
   ngOnInit(): void {
-
     this.route.paramMap.subscribe(params => {
-      this.isLoading = true;
-      if(params.get('cat') === 'type') {
-        this.selectedType = String(params.get('select'));
-        this.selectedFilter = '';
-        this.getTopAnime(1, this.selectedType, '');
+      this.vnSearchLoading = true;
+      if(params.get('filter') === 'popularity') {
+        console.log("1");
+        this.selectedFilter =  String(params.get('filter'));
+        this.getTopVisualNovel(this.selectedFilter);
+      } else if(params.get('filter') === 'rating') {
+        console.log("2");
+        this.selectedFilter =  String(params.get('filter'));
+        this.getTopVisualNovel(this.selectedFilter);
       } else {
-        this.selectedType = '';
-        this.selectedFilter = String(params.get('select'));
-        this.getTopAnime(1, '', this.selectedFilter);
+        console.log("3");
+        this.selectedFilter =  String(params.get('filter'));
+        this.getTopVisualNovel(this.selectedFilter);
       }
+
     });
 
 
-    this.getTopVnByPopularity();
+    //this.getTopVnByPopularity();
 
     this.setUpForm();
     this.breakpointObserverEvent();
@@ -155,27 +137,10 @@ export class VisualNovelComponent implements OnInit {
 
   public clear() {
     this.error = undefined;
-    this.isLoading = true;
-    this.headers = [];
-    this.isAniEmpty = true;
-    this.isConnectionError = false;
-  }
-
-  public getTopVnByPopularity() {
     this.vnSearchLoading = true;
-    this.vndbService.getVnByPopularity().subscribe(x => {
-      this.vnSearchLists = x.results;
-      // console.log(this.vnSearchLists);
-
-      if (!x.Error && x.results) {
-        this.vnSearchFound = true;
-      } 
-      else {
-        this.vnSearchFound = false;
-      }
-
-      this.vnSearchLoading = false;
-    });
+    this.headers = [];
+    this.isVisualNovelEmpty = true;
+    this.isConnectionError = false;
   }
 
   // public getVnTitleImage(image: VnImageModel) {
@@ -183,47 +148,61 @@ export class VisualNovelComponent implements OnInit {
   //   return image[0];
   // }
 
-  public getTopAnime(page: number, type: string, filter: string) {
-
+  public getTopVisualNovel(filter: string) {
+    this.vnSearchLoading = true;
     this.currentPage = 1;
     this.isSearchByTitleActivated = false;
-    this.getTopAnimeHelper(page, type, filter);
+    this.getTopVisualNovelHelper(filter);
     this.clearSort();
   }
 
-  public getTopAnimeHelper(page: number, type: string, filter: string) {
-    this.jikanService.getTopAnime(page, type, filter).subscribe(
-      x => {
-        this.setAniTopList(x.data, x.pagination);
-      }
-    );
+  public getTopVisualNovelHelper(filter: string) {
+
+    if (filter === "popularity") {
+      this.vndbService.getVnByPopularity().subscribe(
+        x => {
+          if (!x.Error && x.results) {
+            this.vnSearchFound = true;
+          } 
+          this.vnSearchLists = x.results;
+          this.setAniVisualNovelList(x.results);
+        }
+      );
+    } else if (filter === "rating") {
+      this.vndbService.getVnByRating().subscribe(
+        x => {
+          if (!x.Error && x.results) {
+            this.vnSearchFound = true;
+          } 
+          this.vnSearchLists = x.results;
+          this.setAniVisualNovelList(x.results);
+        }
+      );
+    }
   }
 
 
-  private setAniTopList(lst: AnimeModel[], originalList: AnimePaginationModel) {
+
+  private setAniVisualNovelList(lst: VnSearchModel[]) {
     if(lst == null || lst.length === 0) {
       this.isConnectionError = false;
-      this.isAniEmpty = true;
-      this.isLoading = false;
+      this.isVisualNovelEmpty = true;
+      this.vnSearchLoading = false;
+      this.vnSearchFound = false;
     } else {
       this.isConnectionError = false;
-      this.isAniEmpty = false;
-      this.aniList = lst;
-      this.isLoading = false;
-
-      this.paginationObject = originalList;
-      this.aniListShow = this.aniList;
-      this.pageSize = this.paginationObject.items.total;  
-      this.currentPage = this.paginationObject.current_page;
+      this.isVisualNovelEmpty = false;
+      this.vnSearchLoading = false;
+      this.vnSearchFound = true;
     }
-    this.isTopAnime = true;
+    this.isTopVisualNovel = true;
   }
 
 
 
-  public openTorrentModal(id) {
+  public openTorrentModal(vnSearchModel) {
     const modalRef = this.modelService.open(VisualNovelModalComponent, {size:'lg'})
-    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.vnSearchModel = vnSearchModel;
     
   }
 
@@ -246,14 +225,14 @@ export class VisualNovelComponent implements OnInit {
   }
 
   public clearSort() {
-    this.sort_type = 0;
-    this.sort_rate = 0;
+    // this.sort_type = 0;
+    // this.sort_rate = 0;
   }
 
 
   public topAnimeOnPageChange($event) {
     this.currentPage = $event.pageIndex + 1;
-    this.getTopAnimeHelper(this.currentPage, this.selectedType, this.selectedFilter);
+   // this.getTopVisualNovelHelper(this.currentPage, this.selectedType, this.selectedFilter);
   }
 
   public convertToTitleCase(value:string): string {

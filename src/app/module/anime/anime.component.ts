@@ -22,7 +22,7 @@ import { NyaaService } from '../../service/nyaa/nyaa.service';
 
 
 export class AnimeComponent implements OnInit {
-  
+  pageTitle: string = "anime";
   sortOption = sortOptionEnum;
   isLoading: boolean = true;
   isAdv: boolean = false;

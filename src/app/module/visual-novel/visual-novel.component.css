@@ -146,13 +146,12 @@ button {
 }
 
 @media (max-width: 1750px) {
-	::ng-deep .mat-chip-list-wrapper {
+	:host ::ng-deep .mat-chip-list-wrapper {
 		flex-wrap: unset !important;
-		overflow-x: scroll;
-	
+		overflow-x: auto;
 	}
 
-	::ng-deep .tag {
+	:host ::ng-deep .tag {
 		height: 40px;
 	} 
 

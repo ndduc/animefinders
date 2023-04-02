@@ -21,7 +21,7 @@ import * as AOS from 'aos';
   ]
 })
 export class AppComponent {
-  title = 'ani-hook';
+  pageTitle: string = "anime";
   constructor() {
   }
 
@@ -32,6 +32,11 @@ export class AppComponent {
   /// Transition Animation
   prepareRoute(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
+  }
+
+  eventEventCheckpage($event) {
+    this.pageTitle = $event.pageTitle;
+    console.log(this.pageTitle);
   }
 
 }

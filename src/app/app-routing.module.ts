@@ -29,7 +29,7 @@ const routes: Routes = [
     component: AnimeTopComponent
   },
   {
-    path: 'vn/top',
+    path: 'vn/top/:filter',
     component: VisualNovelComponent,
   },
 

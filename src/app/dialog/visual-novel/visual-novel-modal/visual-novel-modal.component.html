@@ -1,1 +1,170 @@
-<p>visual-novel-modal works!</p>
+<div class="anime-modal-body">
+    <div>
+      <div class="modal-body">
+        <div class="">
+            
+            <div class="title d-flex justify-content-center">
+              <h2>{{vnSearchModel.title}}</h2>
+            </div>
+
+            <div class="anime-container d-flex justify-content-center">
+              
+              <div class="anime-image-modal-container">
+                <img class="anime-image-modal"  src="{{vnSearchModel.image.url}}" alt="Photo Content - Error">
+              </div>
+    
+              <div class="anime-div">
+                <div class="vn-div-info">
+                  <div class="vn-div-title d-flex">
+                    <div class="vn-div-title-header">
+                      Tittle:
+                    </div>
+                    <div>
+                      <div>{{vnSearchModel.title}}</div>
+                      <div>{{vnSearchModel.alttitle}}</div>
+                    </div>
+                  </div>
+
+                  <div class="d-flex">
+                    <div>
+                      Rating:
+                    </div>
+                    <div>
+                      {{vnSearchModel.rating}}
+                    </div>
+                  </div>
+
+                  <div class="d-flex">
+                    <div>
+                      Popularity:
+                    </div>
+                    <div>
+                      {{vnSearchModel.popularity}}
+                    </div>
+                  </div>
+
+                  <div class="d-flex">
+                    <div>
+                      Released Date:
+                    </div>
+                    <div>
+                      {{vnSearchModel.released}}
+                    </div>
+                  </div>
+                </div>
+                <div class="vn-div-description">
+                  {{vnSearchModel.description}}
+                </div>
+              </div>
+            </div>
+
+            <div>
+              Popular Tag:
+            </div>
+            <div class="container">
+              <mat-chip-list>
+                <mat-chip class="tag"  *ngFor="let tag of vnSearchModel.tags | slice:0:20; let i = index"> {{tag.name}}</mat-chip>
+              </mat-chip-list>
+            </div>
+            
+            <div>
+              Screenshots:
+            </div>
+            <div class="sc-container">
+              <div class="vn-demo-image-modal-container">
+                <img  *ngFor="let sc of vnSearchModel.screenshots" class="vn-demo-image-modal mr-2 mb-2"  src="{{sc.url}}" alt="Photo Content - Error">
+              </div>
+            </div>
+
+
+            <mat-tab-group (selectedTabChange)="parentTabClick($event)" #tabs>
+              <mat-tab label="Search By Title"> 
+  
+                <div *ngIf="isLoading" style="text-align:center;">
+                  <img style="width: 20%; height: 20%;" class="" src="assets/images/loading-cute.gif" alt="Err">
+                </div>
+  
+                <div *ngIf="!isLoading">
+                  <div *ngFor="let item of searchListTitleCurrent">
+                    <div class="torrent-div d-flex flex-column">
+                      <div class="d-flex justify-content-start flex-column">
+                        <div class="torrent-div-item-2">{{ item["name"]}}</div>
+                        <div class="torrent-div-item-2">{{ item["size"]}}</div>
+                        <div class="torrent-div-item-3">{{ "Seeders: " + item["seeders"]}}</div>
+                        <div class="torrent-div-item-4">{{ "Leechers: " + item["leechers"]}}</div>
+                        <div class="torrent-div-item-2">{{ "Category: " + item["category"]}}</div>
+                        <div class="torrent-div-item-2">{{ "Completed Downloads: " + item["completed_downloads"]}}</div>
+                        <div class="torrent-div-item-2">{{ "Date: " + item["date"]}}</div>
+                      </div>
+                      <div class="d-flex justify-content-center">
+                        <a href='{{getDownloadLink(item["download_url"])}}' target="_self" rel="torrent" download>
+                          Torrent File
+                        </a>
+                      </div>
+                      <div class="d-flex justify-content-center">
+                        <a [href]="processMagnet(item.magnet)" class="card-footer-item">
+                          <i class="fa fa-magnet fa-fw"></i>Magnet
+                        </a>
+                      </div> 
+                    </div>
+                  </div>
+                  <mat-paginator 
+                  [length]="this.searchListTitleCount"
+                  [pageSize]="25"
+                  (page)="onPageChange($event, 'title')"
+                  [pageIndex]="searchListTitleCurrentIndex"
+                  >
+                  </mat-paginator>
+                </div>
+               
+              </mat-tab>
+
+              <mat-tab label="Search by Alter Title (Possibly Original Title)" *ngIf="this.alterTitleExist"> 
+  
+                <div *ngIf="isLoading" style="text-align:center;">
+                  <img style="width: 20%; height: 20%;" class="" src="assets/images/loading-cute.gif" alt="Err">
+                </div>
+  
+                <div *ngIf="!isLoading">
+                  <div *ngFor="let item of searchListAlterCurrent">
+                    <div class="torrent-div d-flex flex-column">
+                      <div class="d-flex justify-content-start flex-column">
+                        <div class="torrent-div-item-2">{{ item["name"]}}</div>
+                        <div class="torrent-div-item-2">{{ item["size"]}}</div>
+                        <div class="torrent-div-item-3">{{ "Seeders: " + item["seeders"]}}</div>
+                        <div class="torrent-div-item-4">{{ "Leechers: " + item["leechers"]}}</div>
+                        <div class="torrent-div-item-2">{{ "Category: " + item["category"]}}</div>
+                        <div class="torrent-div-item-2">{{ "Completed Downloads: " + item["completed_downloads"]}}</div>
+                        <div class="torrent-div-item-2">{{ "Date: " + item["date"]}}</div>
+                      </div>
+                      <div class="d-flex justify-content-center">
+                        <a href='{{getDownloadLink(item["download_url"])}}' target="_self" rel="torrent" download>
+                          Torrent File
+                        </a>
+                      </div>
+                      <div class="d-flex justify-content-center">
+                        <a [href]="processMagnet(item.magnet)" class="card-footer-item">
+                          <i class="fa fa-magnet fa-fw"></i>Magnet
+                        </a>
+                      </div> 
+                    </div>
+                  </div>
+                  <mat-paginator 
+                  [length]="this.searchListAlterCount"
+                  [pageSize]="25"
+                  (page)="onPageChange($event, 'alter')"
+                  [pageIndex]="searchListAlterCurrentIndex"
+                  >
+                  </mat-paginator>
+                </div>
+               
+              </mat-tab>
+
+            </mat-tab-group>
+        </div>		
+      </div>
+      <div class="close">
+        <img class="close-image" src="assets/images/close_icon.png" alt='image' (click)="activeModal.close('Close click')">
+      </div>
+    </div>
+  </div>

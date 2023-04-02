@@ -1,7 +1,9 @@
 import { VnImageModel } from "./vn-image.model";
+import { VnScreenshootModel } from "./vn-screenshoot.model";
+import { VnTagModel } from "./vn-tag.model";
 
 export interface VnSearchModel {
-	id: string;
+    id: string;
     title: string;
     alttitle: string;
     rating: string;
@@ -9,4 +11,7 @@ export interface VnSearchModel {
     released: string;
     languages: string[];
     image: VnImageModel;
+    tags: VnTagModel[];
+    screenshots: VnScreenshootModel[];
+    description: string;
 }
