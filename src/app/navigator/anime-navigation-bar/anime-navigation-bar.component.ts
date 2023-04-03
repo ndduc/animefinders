@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -10,17 +10,23 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AnimeNavigationBarComponent implements OnInit {
 
+  @Output() SideNavToggle = new EventEmitter();  
+  
   isConnectionError: boolean = false;
   seasonLis: Array<{}> = [];
+  topList: string[] = ['All', 'TV', 'Movie', 'OVA', 'ONA', 'Special', 'Airing'];
+  topSelected: string = '';
   selectedSeason: string = "";
   isMobile: boolean = false;
   isLoading: boolean = true;
   selectedIndex: number = -1;
+  selectedIndex2nd: number = 0;
   
   public searchForm = new FormGroup({});
   public searchName: string = 'searchName';
   public searchControl = new FormControl(null, Validators.required);
   strTitle: string = '';
+
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -37,6 +43,7 @@ export class AnimeNavigationBarComponent implements OnInit {
         this.selectedIndex = -2;
       }
     });
+
     this.setSeasonInterval();
     this.setUpForm();
     this.breakpointObserverEvent();
@@ -121,6 +128,22 @@ export class AnimeNavigationBarComponent implements OnInit {
     this.seasonLis.push(tmpMap);
   }
 
+  public setRow2nd(index: number, path: string) {
+    this.selectedIndex2nd = index;
+    if (path === '/anime/top') {
+
+      var filtered = this.topList[this.selectedIndex2nd].toLocaleLowerCase();
+      if (filtered === "tv" || filtered === "movie" || filtered === "ova" || filtered === "special" || filtered === "ona" ) {
+        path = path + "/type/" + filtered; 
+      } else {
+        path = path + "/filter/" + filtered;
+      }
+
+    }
+    this.navigateToComponent(path, this.selectedIndex);
+
+  }
+
   public setRow(index: number, path: string) {
     this.selectedIndex = index;
     if (path === '/anime/season') {
@@ -128,6 +151,8 @@ export class AnimeNavigationBarComponent implements OnInit {
       path = path + "/" + this.selectedIndex + "/" + selectedSeason['season'] + "/" + selectedSeason['year']
     } else if (path === '/anime/search') {
       path = path + "/" + this.strTitle;
+    } else if (path === '/anime/top') {
+      path = path + "/type/" + "all"
     }
     this.navigateToComponent(path, this.selectedIndex);
   }
@@ -139,6 +164,12 @@ export class AnimeNavigationBarComponent implements OnInit {
 
   public navigateToComponent(path: string, selectedIndex: number) {
     this.router.navigateByUrl(path, { state: { index: selectedIndex} });
+  }
+
+
+
+  openSidenav() {
+    this.SideNavToggle.emit();
   }
 
 }

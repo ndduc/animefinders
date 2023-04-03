@@ -91,8 +91,8 @@ export class JikanService {
 
 
 
-  getTopAnime(page: number, subtype: string) {
-    return this.http.get<AnimeListWithPagination>(this.jikan_url_aws + "/anime/top?page=" + page + "&subtype=" + subtype).pipe(
+  getTopAnime(page: number, type: string, filter: string) {
+    return this.http.get<AnimeListWithPagination>(this.jikan_url_aws + "/anime/top?page=" + page + "&type=" + type + "&filter=" + filter).pipe(
       map(
         (data:AnimeListWithPagination) => data
       ), 

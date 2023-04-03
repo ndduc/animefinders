@@ -30,15 +30,28 @@ import { MglTimelineModule } from 'angular-mgl-timeline';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { AnimeTorrentHolderComponent } from './dialog/anime/anime-torrent-holder/anime-torrent-holder.component';
 import { QuestionModalComponent } from './dialog/question/question/question-modal/question-modal.component';
-import { NavigatorComponent } from './navigator/navigator.component';
 import { AnimeTopComponent } from './module/anime-top/anime-top.component';
 import { AnimeNavigationBarComponent } from './navigator/anime-navigation-bar/anime-navigation-bar.component';
 import { AnimeSearchComponent } from './module/anime-search/anime-search.component';
+import { SideNavigationComponent } from './navigator/side-navigation/side-navigation.component';
+import {MatListModule} from '@angular/material/list';
+import { AnimeModelDetailComponent } from './dialog/anime/anime-model-detail/anime-model-detail.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import {MatTableModule} from '@angular/material/table';
+import { VisualNovelComponent } from './module/visual-novel/visual-novel.component';
+import { VisualNovelModalComponent } from './dialog/visual-novel/visual-novel-modal/visual-novel-modal.component';
+import { VisualNovelTorrentHolderComponent } from './dialog/visual-novel/visual-novel-torrent-holder/visual-novel-torrent-holder.component';
+import { VisualNovelTorrentHolderCustomComponent } from './dialog/visual-novel/visual-novel-torrent-holder-custom/visual-novel-torrent-holder-custom.component';
+import { VisualNovelNavigationBarComponent } from './navigator/visual-novel-navigation-bar/visual-novel-navigation-bar.component';
+import { VisualNovelReleaseComponent } from './module/visual-novel-release/visual-novel-release.component';
+import { VisualNovelProducerComponent } from './module/visual-novel-producer/visual-novel-producer.component';
+import { VisualNovelCharacterComponent } from './module/visual-novel-character/visual-novel-character.component';
+import { VisualNovelSearchComponent } from './module/visual-novel-search/visual-novel-search.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     AnimeComponent,
-    NavigatorComponent,
     AnimeModalComponent,
     AnimeTorrentHolderComponent,
     AnimeTorrentHolderCustomComponent,
@@ -47,6 +60,17 @@ import { AnimeSearchComponent } from './module/anime-search/anime-search.compone
     AnimeTopComponent,
     AnimeNavigationBarComponent,
     AnimeSearchComponent,
+    SideNavigationComponent,
+    AnimeModelDetailComponent,
+    VisualNovelComponent,
+    VisualNovelModalComponent,
+    VisualNovelTorrentHolderComponent,
+    VisualNovelTorrentHolderCustomComponent,
+    VisualNovelNavigationBarComponent,
+    VisualNovelReleaseComponent,
+    VisualNovelProducerComponent,
+    VisualNovelCharacterComponent,
+    VisualNovelSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,7 +96,10 @@ import { AnimeSearchComponent } from './module/anime-search/anime-search.compone
     MatPaginatorModule,
     ReactiveFormsModule,
     MglTimelineModule,
-    NgImageSliderModule
+    NgImageSliderModule,
+    MatListModule,
+    MatTabsModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

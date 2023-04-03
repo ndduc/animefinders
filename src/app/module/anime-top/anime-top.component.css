@@ -32,10 +32,14 @@ button {
 
 .anime-detail-top {
 	text-align: center;
+	align-items: center;
+	justify-content: center;
 	width: 100%;
 	overflow: auto;
 	margin-left: 5px;
 	margin-right: 5px;
+	display: flex;
+	flex-direction: column;
 }
 .anime-bot-top {
 	margin-top: 5%;
@@ -135,8 +139,10 @@ button {
 	overflow: hidden;
 }
 
-@media (max-width: 400px) {
-
+@media (max-width: 500px) {
+	.tag {
+		font-size: 10px !important;
+	}
 }
 
 @media (max-width: 1750px) {
@@ -149,6 +155,10 @@ button {
 	::ng-deep .tag {
 		height: 40px;
 	} 
+
+	.tag {
+		font-size: 12px !important;
+	}
 }
 
 

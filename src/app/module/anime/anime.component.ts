@@ -22,7 +22,7 @@ import { NyaaService } from '../../service/nyaa/nyaa.service';
 
 
 export class AnimeComponent implements OnInit {
-  
+  pageTitle: string = "anime";
   sortOption = sortOptionEnum;
   isLoading: boolean = true;
   isAdv: boolean = false;
@@ -196,8 +196,8 @@ export class AnimeComponent implements OnInit {
     this.isHidden = !this.isHidden;
   }
 
-  public openTorrentModal(title, imageSrc, episode, type, animeId, animeObject, isStream) {
-    const modalRef = this.modelService.open(AnimeModalComponent);
+  public openTorrentModal(title, imageSrc, episode, type, animeId, animeObject, isStream, rating) {
+    const modalRef = this.modelService.open(AnimeModalComponent, {size:'lg'});
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.imageSrc = imageSrc;
     modalRef.componentInstance.episode = episode;
@@ -205,6 +205,12 @@ export class AnimeComponent implements OnInit {
     modalRef.componentInstance.animeId = animeId;
     modalRef.componentInstance.aniObject = animeObject;
     modalRef.componentInstance.isStream = isStream;
+
+    if (rating === "Rx - Hentai") {
+      modalRef.componentInstance.isHental = true;
+    } else  {
+      modalRef.componentInstance.isHental = false;
+    }
     
   }
 

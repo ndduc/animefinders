@@ -11,6 +11,7 @@ import { AnimeModel } from '../../model/anime.model';
 import { AniTop } from '../../model/animeTop.model';
 import { JikanService } from '../../service/jikan/jikan.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AnimeModelDetailComponent } from 'src/app/dialog/anime/anime-model-detail/anime-model-detail.component';
 
 
 @Component({
@@ -21,7 +22,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 
 export class AnimeTopComponent implements OnInit {
-  
+  pageTitle: string = "anime";
   aniList: AnimeModel[] = [];
   aniListShow: AnimeModel[] = [];
   isLoading: boolean = true;
@@ -72,17 +73,34 @@ export class AnimeTopComponent implements OnInit {
   selectedYear: number = new Date().getFullYear();
   selectedSeason: string = "";
   currentPage: number = 1;
+  selectedType: string = '';
+  selectedFilter: string = '';
   isSearchByTitleActivated: boolean = false;
   searchTitle: string = "";
   constructor(private jikanService: JikanService, 
     public modelService: NgbModal,
     private breakpointObserver: BreakpointObserver,
-    private route:Router 
+    private router:Router ,
+    private route: ActivatedRoute
     ) { 
     }
 
   ngOnInit(): void {
-    this.getTopAnime(1, '');
+
+    this.route.paramMap.subscribe(params => {
+      this.isLoading = true;
+      if(params.get('cat') === 'type') {
+        this.selectedType = String(params.get('select'));
+        this.selectedFilter = '';
+        this.getTopAnime(1, this.selectedType, '');
+      } else {
+        this.selectedType = '';
+        this.selectedFilter = String(params.get('select'));
+        this.getTopAnime(1, '', this.selectedFilter);
+      }
+    });
+
+
     this.setUpForm();
     this.breakpointObserverEvent();
   }
@@ -129,16 +147,16 @@ export class AnimeTopComponent implements OnInit {
   }
 
 
-  public getTopAnime(page: number, subtype: string) {
+  public getTopAnime(page: number, type: string, filter: string) {
 
     this.currentPage = 1;
     this.isSearchByTitleActivated = false;
-    this.getTopAnimeHelper(page, subtype);
+    this.getTopAnimeHelper(page, type, filter);
     this.clearSort();
   }
 
-  public getTopAnimeHelper(page: number, subtype: string) {
-    this.jikanService.getTopAnime(page, subtype).subscribe(
+  public getTopAnimeHelper(page: number, type: string, filter: string) {
+    this.jikanService.getTopAnime(page, type, filter).subscribe(
       x => {
         this.setAniTopList(x.data, x.pagination);
       }
@@ -167,8 +185,8 @@ export class AnimeTopComponent implements OnInit {
 
 
 
-  public openTorrentModal(title, imageSrc, episode, type, animeId, animeObject, isStream) {
-    const modalRef = this.modelService.open(AnimeModalComponent);
+  public openTorrentModal(title, imageSrc, episode, type, animeId, animeObject, isStream, rating) {
+    const modalRef = this.modelService.open(AnimeModalComponent, {size:'lg'})
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.imageSrc = imageSrc;
     modalRef.componentInstance.episode = episode;
@@ -177,6 +195,12 @@ export class AnimeTopComponent implements OnInit {
     modalRef.componentInstance.aniObject = animeObject;
     modalRef.componentInstance.isTopAnime = this.isTopAnime;
     modalRef.componentInstance.isStream = isStream;
+
+    if (rating === "Rx - Hentai") {
+      modalRef.componentInstance.isHental = true;
+    } else  {
+      modalRef.componentInstance.isHental = false;
+    }
     
   }
 
@@ -206,7 +230,7 @@ export class AnimeTopComponent implements OnInit {
 
   public topAnimeOnPageChange($event) {
     this.currentPage = $event.pageIndex + 1;
-    this.getTopAnimeHelper(this.currentPage, "");
+    this.getTopAnimeHelper(this.currentPage, this.selectedType, this.selectedFilter);
   }
 
   public convertToTitleCase(value:string): string {

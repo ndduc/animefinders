@@ -18,7 +18,17 @@ export class AnimeTorrentHolderComponent implements OnInit, PipeTransform  {
   @Input() title;
   @Input() episode;
   @Input() longrun;
+
   searchList : searchList[] = [];
+  // store current index
+  searchListCurrent : searchList[] = [];
+  // store first index, as we have to tweak the pagination
+  searchListFirstIndex : searchList[] = [];
+  searchListCount :  number = 0;
+  currentIndex: number = 0;
+
+  pageSize: number = 25;
+
   constructor(
     private nyaaService : NyaaService, 
     private deviceService: DeviceDetectorService, 
@@ -54,6 +64,7 @@ export class AnimeTorrentHolderComponent implements OnInit, PipeTransform  {
       }
     });
   }
+  
 
   getSearch(name: string, ep: number) {
     if(ep == -1) {
@@ -101,6 +112,12 @@ export class AnimeTorrentHolderComponent implements OnInit, PipeTransform  {
       this.isLoading = false;
       this.isFound = true;
       this.searchList = lst;
+      this.searchListCurrent = this.searchList;
+      this.searchListFirstIndex =  this.searchList.slice(0, this.pageSize);
+      this.searchListCount = this.searchListCurrent.length;
+      let $event = { pageIndex: 0, pageSize: this.searchListCount };
+      this.onPageChange($event);
+      console.log("HIT");
     }
 
   }
@@ -162,5 +179,16 @@ export class AnimeTorrentHolderComponent implements OnInit, PipeTransform  {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
+  onPageChange($event: { pageIndex: number; pageSize: number; }) {
+
+    if($event.pageSize == this.searchList.length) {
+      this.searchListCurrent = this.searchList.slice(0, this.pageSize);
+    } else {
+      this.searchListCurrent = this.searchList.slice($event.pageIndex*$event.pageSize, $event.pageIndex*$event.pageSize + $event.pageSize);
+
+    }
+    this.currentIndex = $event.pageIndex;
+    this.pageSize = $event.pageSize;
+  }
 
 }

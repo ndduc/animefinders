@@ -1,7 +1,4 @@
-<router-outlet></router-outlet>
-<!-- <app-navigator></app-navigator> -->
-<app-anime-navigation-bar></app-anime-navigation-bar>
-<div *ngIf="isLoading" class="d-flex justify-content-center">
+<div *ngIf="isLoading" class="d-flex justify-content-center" style="background-color: white !important;">
 	<img style="width: 30%; height: 30%;" class="" src="assets/images/loading-cute.gif" alt="Err">
 </div>
 
@@ -102,7 +99,7 @@
 							<mat-card-content class="anime-content">
 							</mat-card-content>
 							<div class="torrent-button" (click)="openTorrentModal(aniList.title, aniList.images.jpg.image_url, 
-							checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id, aniList, false);"
+							checkIsNumber(aniList.episodes) ? aniList.episodes : 24, aniList.type, aniList.mal_id, aniList, false, aniList.rating);"
 							class="torrent-button-grid border rounded d-flex p-2">
 								<span class="find-torrent-text">Find Torrent</span>
 							</div>

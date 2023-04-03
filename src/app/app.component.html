@@ -1,14 +1,23 @@
 
-        <!-- <button (click)="goDown1()">Scroll to Red DIV</button>
-        <button (click)="goDown2()">Scroll to Green DIV</button>
-        <button (click)="goDown3()">Scroll to Blue DIV</button> -->
-        <!-- <button type="button" class="btn btn-primary-outline pull-right" (click)="btnClick();"><i class="fa fa-plus"></i> Add</button>     -->
-        <!-- <a routerLink="/home" routerLinkActive="active">Home</a> 
-        <a routerLink="/anime" routerLinkActive="active">Anime</a>  -->
-
-        <div [@routeAnimations]="prepareRoute(outlet)">
-                <router-outlet #outlet="outlet"></router-outlet>
-        </div>
 
 
 
+<mat-sidenav-container>
+        <mat-sidenav #sidenav>
+          <app-side-navigation (closeSideNav)="sidenav.close()"></app-side-navigation>
+        </mat-sidenav>
+      
+        <mat-sidenav-content>
+          <app-anime-navigation-bar *ngIf="pageTitle === 'anime'" class="sticky-top" (SideNavToggle)="sidenav.toggle()"></app-anime-navigation-bar>
+          <app-visual-novel-navigation-bar *ngIf="pageTitle === 'visual-novel'" class="sticky-top" (SideNavToggle)="sidenav.toggle()"></app-visual-novel-navigation-bar>
+        <main>
+                <div   [@routeAnimations]="prepareRoute(outlet)">
+                        <router-outlet (activate)="eventEventCheckpage($event)" #outlet="outlet"></router-outlet>
+                </div>
+        </main>
+          
+        </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+<!-- (backToStepOne)="backToStepOneFromFffInfo($event)"  -->

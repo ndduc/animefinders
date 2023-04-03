@@ -1,0 +1,152 @@
+.modal-body, .modal-footer,.modal-footer-mobile, .modal-body-mobile {
+    background-color: #EDF5E1;
+}
+
+.modal-body, .modal-body-mobile {
+    border-radius: 15px;
+}
+
+.modal-body, .modal-footer {
+    width: 100%;
+}
+
+.modal-body {
+    height: 100%;
+    display: block;
+}
+
+button, .tag {
+	background-color: #F3A8BC;
+    color: black;
+}
+
+
+.close {
+    background-color: #EDF5E1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    line-height: 14px;
+    min-width: auto;
+    text-align: right;
+}
+
+.close-image {
+    width: 60%;
+}
+
+/* 
+.anime-div {
+    margin-top: 5%;
+    margin-bottom: 5%;
+} */
+
+.anime-div {
+    width: 50%;
+    /* height: 80%; */
+    margin-left: 5px;
+    margin-right: 5px; 
+    overflow-y: auto;
+}
+
+.vn-div-description {
+    overflow-y: auto;
+}
+
+.vn-div-title-header {
+    align-items: center;
+    display: flex;
+}
+
+.anime-image-modal {
+    border-radius: 15px;
+    height: 100%;
+}
+
+.vn-demo-image-modal {
+    height: 170px;
+}
+
+.anime-image-modal-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.vn-demo-image-modal-container {
+    padding-left: 8%;
+
+}
+
+.sc-container {
+    height: 360px;
+    overflow-y: auto;
+}
+
+.chip-container {
+    display: flex;
+    justify-content: center;
+}
+
+.anime-container {
+    margin-top: 5%;
+    overflow: auto;
+    height: 300px;
+}
+
+.anime-modal-body {
+    color: black;
+}
+
+::ng-deep .modal-content {
+    overflow: auto;
+}
+
+::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
+    color: black !important;
+}
+
+::ng-deep .mat-tab-label .mat-tab-label-content {
+    color: black !important;
+}
+
+.torrent-div {
+    background-color: #34c97e;
+    margin: 2%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 15px;
+    -webkit-box-shadow:0px 1px 1px gray;
+    -moz-box-shadow:0px 1px 1px gray;
+    box-shadow:0px 1px 1px gray;
+}
+
+
+.torrent-div-item-2 {
+    margin-right: 2%;
+}
+
+.torrent-div-item-3 {
+    margin-right: 2%;
+    color: red;
+}
+
+.torrent-div-item-4 {
+    margin-right: 2%;
+    color: blue;
+}
+
+.torrent-div {
+    color: black;
+    font-size: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
+    min-width: 25px!important;
+    padding: 3px!important;
+    margin: 3px!important;
+}

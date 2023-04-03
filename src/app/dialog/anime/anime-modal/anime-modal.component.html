@@ -32,27 +32,175 @@
             </div>
           </div>
 
-          
+          <mat-tab-group (selectedTabChange)="parentTabClick($event)" #tabs>
+
+            <mat-tab label="Custom (You decide the search string)"> 
+              <app-anime-torrent-holder-custom [title]=title [episode]=-3 [isHentai]="this.isHentai"></app-anime-torrent-holder-custom>
+            </mat-tab>
+
+            <mat-tab label="Episode"> 
+              <mat-tab-group label="First" (selectedTabChange)="episodeTabLick($event)">  
+                  <div *ngFor="let episode of items">
+                    <mat-tab label={{episode}}> 
+
+                      <div *ngIf="isLoading" style="text-align:center;">
+                        <img style="width: 20%; height: 20%;" class="" src="assets/images/loading-cute.gif" alt="Err">
+                      </div>    
+
+                      <div *ngIf="!isLoading">
+                        <div *ngFor="let item of searchListEpisodeCurrent">
+                          <div class="torrent-div d-flex flex-column">
+                            <div class="d-flex justify-content-start flex-column">
+                              <div class="torrent-div-item-2">{{ item["name"]}}</div>
+                              <div class="torrent-div-item-2">{{ item["size"]}}</div>
+                              <div class="torrent-div-item-3">{{ "Seeders: " + item["seeders"]}}</div>
+                              <div class="torrent-div-item-4">{{ "Leechers: " + item["leechers"]}}</div>
+                              <div class="torrent-div-item-2">{{ "Category: " + item["category"]}}</div>
+                              <div class="torrent-div-item-2">{{ "Completed Downloads: " + item["completed_downloads"]}}</div>
+                              <div class="torrent-div-item-2">{{ "Date: " + item["date"]}}</div>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                              <a href='{{getDownloadLink(item["download_url"])}}' target="_self" rel="torrent" download>
+                                Torrent File
+                              </a>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                              <a [href]="processMagnet(item.magnet)" class="card-footer-item">
+                                <i class="fa fa-magnet fa-fw"></i>Magnet
+                              </a>
+                            </div> 
+                          </div>
+                        </div>
+                        <!-- EPISODE PAGINATE -->
+                        <mat-paginator 
+                        [length]="this.searchListEpisodeCount"
+                        [pageSize]="25"
+                        (page)="onPageChange($event, 'EP')"
+                        [pageIndex]="searchListEpisodeCurrentIndex"
+                        >
+                        </mat-paginator>
+                      </div>
+                    </mat-tab>
+                </div>
+
+              </mat-tab-group>
+            </mat-tab>
+
+            <mat-tab label="Batch"> 
+
+              <div *ngIf="isLoading" style="text-align:center;">
+                <img style="width: 20%; height: 20%;" class="" src="assets/images/loading-cute.gif" alt="Err">
+              </div>
+
+              <div *ngIf="!isLoading">
+                <div *ngFor="let item of searchListBatchCurrent">
+                  <div class="torrent-div d-flex flex-column">
+                    <div class="d-flex justify-content-start flex-column">
+                      <div class="torrent-div-item-2">{{ item["name"]}}</div>
+                      <div class="torrent-div-item-2">{{ item["size"]}}</div>
+                      <div class="torrent-div-item-3">{{ "Seeders: " + item["seeders"]}}</div>
+                      <div class="torrent-div-item-4">{{ "Leechers: " + item["leechers"]}}</div>
+                      <div class="torrent-div-item-2">{{ "Category: " + item["category"]}}</div>
+                      <div class="torrent-div-item-2">{{ "Completed Downloads: " + item["completed_downloads"]}}</div>
+                      <div class="torrent-div-item-2">{{ "Date: " + item["date"]}}</div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                      <a href='{{getDownloadLink(item["download_url"])}}' target="_self" rel="torrent" download>
+                        Torrent File
+                      </a>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                      <a [href]="processMagnet(item.magnet)" class="card-footer-item">
+                        <i class="fa fa-magnet fa-fw"></i>Magnet
+                      </a>
+                    </div> 
+                  </div>
+                </div>
+                <!-- BATCH PAGINATE -->
+                <mat-paginator 
+                [length]="this.searchListBatchCount"
+                [pageSize]="25"
+                (page)="onPageChange($event, 'BATCH')"
+                [pageIndex]="searchListBatchCurrentIndex"
+                >
+                </mat-paginator>
+              </div>
+             
+            </mat-tab>
+
+            <mat-tab label="English Dub"> 
+
+              <mat-tab-group label="First" (selectedTabChange)="episodeDubTabLick($event)">
+                  <div *ngFor="let episode of items">
+                    <mat-tab label={{episode}}> 
+
+                      <div *ngIf="isLoading" style="text-align:center;">
+                        <img style="width: 20%; height: 20%;" class="" src="assets/images/loading-cute.gif" alt="Err">
+                      </div>
+
+                      <div *ngIf="!isLoading">
+                        <div *ngFor="let item of searchListDubCurrent">
+                          <div class="torrent-div d-flex flex-column">
+                            <div class="d-flex justify-content-start flex-column">
+                              <div class="torrent-div-item-2">{{ item["name"]}}</div>
+                              <div class="torrent-div-item-2">{{ item["size"]}}</div>
+                              <div class="torrent-div-item-3">{{ "Seeders: " + item["seeders"]}}</div>
+                              <div class="torrent-div-item-4">{{ "Leechers: " + item["leechers"]}}</div>
+                              <div class="torrent-div-item-2">{{ "Category: " + item["category"]}}</div>
+                              <div class="torrent-div-item-2">{{ "Completed Downloads: " + item["completed_downloads"]}}</div>
+                              <div class="torrent-div-item-2">{{ "Date: " + item["date"]}}</div>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                              <a href='{{getDownloadLink(item["download_url"])}}' target="_self" rel="torrent" download>
+                                Torrent File
+                              </a>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                              <a [href]="processMagnet(item.magnet)" class="card-footer-item">
+                                <i class="fa fa-magnet fa-fw"></i>Magnet
+                              </a>
+                            </div> 
+                          </div>
+                        </div>
+                        <!-- BATCH PAGINATE -->
+                        <mat-paginator 
+                        [length]="this.searchListDubCount"
+                        [pageSize]="25"
+                        (page)="onPageChange($event, 'DUB')"
+                        [pageIndex]="searchListDubCurrentIndex"
+                        >
+                        </mat-paginator>
+                      </div>
+                      
+                    </mat-tab>
+                  </div>
+              </mat-tab-group>
+            </mat-tab>
+
+
+
+          </mat-tab-group>
+<!--           
           <div class="torrent-detail-container">
             <div *ngIf="isLoading" class="d-flex justify-content-center">
               <img style="width: 50%; height: 100%;" class="" src="assets/images/loading-cute.gif" alt="Err">
             </div>
 
             <div *ngIf="!isLoading && !isStream">
-              <app-anime-torrent-holder-custom [title]=title [episode]=-3></app-anime-torrent-holder-custom>
+              <app-anime-torrent-holder-custom [title]=title [episode]=-3 [isHentai]="this.isHentai"></app-anime-torrent-holder-custom>
 
-              <div *ngIf="this.numberOfEpisode == 1 || this.numberOfEpisode >= 100">
+              <div *ngIf="this.numberOfEpisode == 1 || this.numberOfEpisode >= 100  && !this.isHentai">
                 <app-anime-torrent-holder [title]=title [episode]=-2></app-anime-torrent-holder>
               </div>
 
-              <div *ngIf="this.numberOfEpisode > 1 && this.numberOfEpisode < 100">
+              <div *ngIf="this.numberOfEpisode > 1 && this.numberOfEpisode < 100 && !this.isHentai">
                 <div *ngFor="let episode of createRange(this.numberOfEpisode)">
                   <app-anime-torrent-holder [title]=title [episode]=episode></app-anime-torrent-holder>
                 </div>
               </div>
             </div>
 
-          </div>
+          </div> -->
 
       </div>		
     </div>

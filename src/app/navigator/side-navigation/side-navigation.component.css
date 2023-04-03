@@ -1,0 +1,13 @@
+.sidenav-list span {
+    padding-left: 8px;
+  }
+
+
+
+::ng-deep .mat-drawer {
+  background-color: #5CDB95;
+}
+
+.sidenav-list a {
+  color: black !important;
+}
