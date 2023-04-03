@@ -43,6 +43,10 @@ import { VisualNovelModalComponent } from './dialog/visual-novel/visual-novel-mo
 import { VisualNovelTorrentHolderComponent } from './dialog/visual-novel/visual-novel-torrent-holder/visual-novel-torrent-holder.component';
 import { VisualNovelTorrentHolderCustomComponent } from './dialog/visual-novel/visual-novel-torrent-holder-custom/visual-novel-torrent-holder-custom.component';
 import { VisualNovelNavigationBarComponent } from './navigator/visual-novel-navigation-bar/visual-novel-navigation-bar.component';
+import { VisualNovelReleaseComponent } from './module/visual-novel-release/visual-novel-release.component';
+import { VisualNovelProducerComponent } from './module/visual-novel-producer/visual-novel-producer.component';
+import { VisualNovelCharacterComponent } from './module/visual-novel-character/visual-novel-character.component';
+import { VisualNovelSearchComponent } from './module/visual-novel-search/visual-novel-search.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +67,10 @@ import { VisualNovelNavigationBarComponent } from './navigator/visual-novel-navi
     VisualNovelTorrentHolderComponent,
     VisualNovelTorrentHolderCustomComponent,
     VisualNovelNavigationBarComponent,
+    VisualNovelReleaseComponent,
+    VisualNovelProducerComponent,
+    VisualNovelCharacterComponent,
+    VisualNovelSearchComponent,
   ],
   imports: [
     BrowserModule,

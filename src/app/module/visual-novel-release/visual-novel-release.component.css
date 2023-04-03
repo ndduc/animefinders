@@ -1,0 +1,181 @@
+
+button {
+	background-color: #05386B;
+}
+
+.tag {
+	background-color: #F3A8BC;
+}
+
+
+.anime-card-top {
+	/* overflow: auto; */
+	margin-left: 1%;
+	margin-right: 1%;
+	width: 100%;
+	height: 98%;
+	/* text-align: center; */
+	background-color: #EDF5E1;
+}
+
+
+
+
+.anime-header {
+	display: flex;
+	justify-content: center;
+}
+
+.anime-header h3{
+	font-weight: bold;
+}
+
+.anime-detail-top {
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	overflow: auto;
+	margin-left: 5px;
+	margin-right: 5px;
+	display: flex;
+	flex-direction: column;
+}
+.anime-bot-top {
+	margin-top: 5%;
+}
+
+
+.anime-body-top {
+	width: 100%;
+	height: 100%;
+	/* border-radius: 15px;
+	border-style: outset; */
+	cursor: pointer;
+	/* overflow: auto; */
+}
+
+.anime-image-top {
+	width: 50%;
+	border-radius: 15px;
+	/* border-style: outset; */
+}
+
+
+.anime-top-chip {
+	display: flex;
+	justify-content: center;
+	padding-bottom: 2%;
+}
+
+
+.paginator-mobile {
+	background-color: #34c97e;
+}
+
+
+
+.option-sort,::ng-deep .mat-select-value, .paginator-mobile,
+.search-form, .find-torrent-text, .anime-body p,.anime-body-anime p, .anime-content h2, .anime-header h2,.anime-header h3, 
+.btn-advance, .tag, .btn-qa-sticky, .btn-qa-sticky-back-to-top  {
+	color: black;
+	/* font-family: "Comic Sans MS", "Comic Sans", cursive; */
+}
+
+
+.question-container, .question-container-mobile {
+  position: -webkit-fixed;
+  position: fixed;
+  bottom: 0;
+  font-size: 20px;
+  border-radius: 5px; 
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.question-container {
+	left: 0;
+}
+
+.question-container-mobile {
+	margin-bottom: 50px;
+	right: 0;
+}
+
+.btn-qa-sticky, .btn-qa-sticky-mobile {
+	background-color: #F3872F;
+}
+
+.btn-qa-sticky-back-to-top, .btn-qa-sticky-back-to-top-mobile {
+	background-color: #B3DAF1;
+}
+
+.btn-qa-sticky, .btn-qa-sticky-back-to-top, .btn-qa-sticky-mobile, .btn-qa-sticky-back-to-top-mobile  {
+	margin-right: 5px;
+}
+
+.btn-qa-sticky-back-to-top-mobile {
+	margin-top: 2px;
+}
+
+.btn-qa-sticky-mobile, .btn-qa-sticky-back-to-top-mobile {
+	width: 100px;
+	text-align: center;
+}
+
+.torrent-button-grid {
+	cursor: pointer; 
+	background-color: #34c97e;
+	height: 40px;
+	align-items: center;
+}
+
+.find-torrent-text {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+::ng-deep .nav-bar-animelist {
+	overflow: hidden;
+}
+
+@media (max-width: 500px) {
+	.tag {
+		font-size: 10px !important;
+	}
+}
+
+@media (max-width: 1750px) {
+	:host ::ng-deep .mat-chip-list-wrapper {
+		flex-wrap: unset !important;
+		overflow-x: auto;
+	}
+
+	:host ::ng-deep .tag {
+		height: 40px;
+	} 
+
+	.tag {
+		font-size: 12px !important;
+	}
+}
+
+
+.nav-spacer {
+    display:inline-block; 
+    width: 1%;
+}
+
+.nav-spacer-height {
+    width: 1%;
+	height: 2%;
+}
+
+.searchNameField-mobile {
+	width: 150px !important;
+}
+
+
+.highlight{ 
+	background-color:  white !important;
+}

@@ -1,0 +1,88 @@
+<div *ngIf="isLoading" class="d-flex justify-content-center"  style="background-color: white !important;">
+	<img style="width: 30%; height: 30%;" class="" src="assets/images/loading-cute.gif" alt="Err">
+</div>
+
+
+<div class="anime-body-container">
+	<body class="container-xxl">
+	<div *ngIf="!isLoading">
+
+
+
+		<!--TOP ANIME DESKTOP REGION START-->
+		<div *ngIf="isProducerFound">
+			<mat-grid-list cols="{{this.resultColumn}}" rowHeight="6:3">
+				<div *ngFor="let producer of producerList">
+
+					<mat-grid-tile>
+						<mat-card class="anime-card-top" >
+							<div class="d-flex" >
+								<div class="anime-detail-top">
+									<div class="anime-header">
+										<h3>{{producer.name}}</h3>
+									</div>
+      	
+								</div>
+								
+							</div>
+							<mat-card-content class="producer-content">
+                                <div>
+                                    Original Title: {{producer.original}}
+                                </div>
+                                <div>
+                                    Producer/Developer Language: {{producer.lang}}
+                                </div>
+                                <div *ngIf="producer.description">
+                                    Description: {{producer.description}}
+                                </div>
+                                
+							</mat-card-content>
+							
+                            
+						</mat-card>
+
+					</mat-grid-tile>
+				</div>
+			</mat-grid-list>
+
+	
+
+		</div>
+		<!--TOP ANIME DESKTOP REGION END-->
+
+		<!-- <div class="d-flex justify-content-center" style="margin-top: 5%;" *ngIf="isVisualNovelEmpty && isConnectionError">
+			<div class="d-flex flex-column" style="text-align: center;">
+				<div style="font-size: 20px; font-weight: bold;  margin-bottom: 5%;">Connection Issue! Please Come Back Later</div>
+				<img src="assets/images/error-404.png" alt="Photo Content - Error" >
+			
+			</div>
+		</div>
+
+		<div class="d-flex justify-content-center" style="margin-top: 5%;" *ngIf="isVisualNovelEmpty && !isConnectionError">
+			<div class="d-flex flex-column" style="text-align: center;">
+				<div style="font-size: 20px; font-weight: bold;  margin-bottom: 5%;">Found Nothing</div>
+				<img src="assets/images/not_found.gif" alt="Photo Content - Error" >
+			
+			</div>
+		</div> -->
+	</div>
+	<!-- <p *ngIf="error" class="error">{{error | json}}</p> -->
+
+	</body>
+
+	<!-- <div *ngIf="!isMobile" class ="question-container">
+		<button mat-flat-button class="btn-qa-sticky" (click)="openQAModal(); ">Question/Comment</button>
+		<button mat-flat-button class="btn-qa-sticky-back-to-top" (click)="backToTop($event); ">Back To Top</button>
+	</div>
+
+	<div *ngIf="isMobile"  class ="question-container-mobile">
+		<div class="d-flex flex-column">
+			<button mat-flat-button class="btn-qa-sticky-mobile" (click)="openQAModal(); ">Question</button>
+			<button mat-flat-button class="btn-qa-sticky-back-to-top-mobile" (click)="backToTop($event); ">Top</button>
+		</div>
+
+	</div> -->
+
+
+
+</div>

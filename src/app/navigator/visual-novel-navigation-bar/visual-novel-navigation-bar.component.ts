@@ -59,15 +59,15 @@ export class VisualNovelNavigationBarComponent implements OnInit {
       },
       {
         "name" : "New Releases",
-        "path" : "/vn/top"
+        "path" : "/vn/release"
       },
       {
         "name" : "Producers",
-        "path" : "/vn/top"
+        "path" : "/vn/producer"
       },
       {
         "name" : "Characters",
-        "path" : "/vn/top"
+        "path" : "/vn/character"
       }
     );
   }
@@ -106,11 +106,7 @@ export class VisualNovelNavigationBarComponent implements OnInit {
       var filtered = this.topList[this.selectedIndex2nd].toLocaleLowerCase();
       if (filtered === "popularity" || filtered === "rating") {
         path = path + "/" + filtered; 
-        console.log("FULL PATH:  " + path);
-      } else {
-       // path = path + "/filter/" + filtered;
       }
-
     }
     this.navigateToComponent(path, this.selectedIndex);
 
@@ -119,12 +115,14 @@ export class VisualNovelNavigationBarComponent implements OnInit {
   public setRow(index: number, path: string) {
     console.log(path);
     this.selectedIndex = index;
-    if (path === '/anime/season') {
-      let selectedSeason = this.seasonLis[this.selectedIndex];
-      path = path + "/" + this.selectedIndex + "/" + selectedSeason['season'] + "/" + selectedSeason['year']
-    } else if (path === '/anime/search') {
-      path = path + "/" + this.strTitle;
-    } else if (path === '/vn/top') {
+    // if (path === '/anime/season') {
+    //   let selectedSeason = this.seasonLis[this.selectedIndex];
+    //   path = path + "/" + this.selectedIndex + "/" + selectedSeason['season'] + "/" + selectedSeason['year']
+    // } else if (path === '/anime/search') {
+    //   path = path + "/" + this.strTitle;
+    // } else 
+    
+    if (path === '/vn/top') {
       path = path + "/popularity";
     }
     this.navigateToComponent(path, this.selectedIndex);

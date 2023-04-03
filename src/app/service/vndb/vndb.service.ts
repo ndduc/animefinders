@@ -9,6 +9,8 @@ import { HentaiTop } from 'src/app/model/animeTop.model';
 import { CacheModel } from 'src/app/model/cache-model.model';
 import { VnSearchResultModel } from 'src/app/model/vn-search-result.model';
 import { VnDetailResultModel } from 'src/app/model/vn-detail-result.model';
+import { VnReleaseResultModel } from 'src/app/model/vn-release-result.model';
+import { VnProducerResultModel } from 'src/app/model/vn-producer-result.model';
 
 
 @Injectable({
@@ -25,6 +27,23 @@ export class VndbService {
   public respondMapAnimeDetail = new Map<any, any>();
   constructor(private http: HttpClient) { }
 
+  getProducers(): Observable<VnProducerResultModel> {
+    return this.http.post<VnProducerResultModel>(this.vndb_url_aws + "/search-producers", {}).pipe(
+      map(
+        (results:VnProducerResultModel) => results
+      ), 
+      catchError(this.handleError)
+    );
+  }
+
+  getVnByRelease(): Observable<VnReleaseResultModel> {
+    return this.http.post<VnReleaseResultModel>(this.vndb_url_aws + "/search-vn-by-released", {}).pipe(
+      map(
+        (results:VnReleaseResultModel) => results
+      ), 
+      catchError(this.handleError)
+    );
+  }
 
   getVnByPopularity(): Observable<VnSearchResultModel> {
       return this.http.post<VnSearchResultModel>(this.vndb_url_aws + "/search-by-popularity", {}).pipe(
