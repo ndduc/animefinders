@@ -11,7 +11,7 @@
 
 		<!--TOP ANIME DESKTOP REGION START-->
 		<div *ngIf="isProducerFound">
-			<mat-grid-list cols="{{this.resultColumn}}" rowHeight="6:3">
+			<mat-grid-list cols="{{this.resultColumn}}" rowHeight="200px">
 				<div *ngFor="let producer of producerList">
 
 					<mat-grid-tile>
@@ -26,15 +26,17 @@
 								
 							</div>
 							<mat-card-content class="producer-content">
-                                <div>
-                                    Original Title: {{producer.original}}
+                                <div *ngIf="producer.original;">
+                                    Original Name: {{producer.original}}
                                 </div>
-                                <div>
-                                    Producer/Developer Language: {{producer.lang}}
+                                <div *ngIf="producer.description; else noDescription">
+                                   <div>Description: {{cleanProducerDescription(producer.description)}}</div> 
+								   <div *ngIf="getUrlFromProducerDescription(producer.description).length > 0">External Link: <a href="{{getUrlFromProducerDescription(producer.description)}}" target="_blank">{{getUrlFromProducerDescription(producer.description)}}</a></div>
                                 </div>
-                                <div *ngIf="producer.description">
-                                    Description: {{producer.description}}
-                                </div>
+
+								<ng-template #noDescription>
+									<div>No Description Found</div>
+								</ng-template>
                                 
 							</mat-card-content>
 							
@@ -45,7 +47,11 @@
 				</div>
 			</mat-grid-list>
 
-	
+			<!-- LIMIT leng to 500 -->
+			<mat-paginator class="paginator-mobile"  [length]="this.pageSize" *ngIf="!isMobile"
+			[pageSize]="100"
+			aria-label="Select page" (page)="onPageChange($event)">
+			</mat-paginator>
 
 		</div>
 		<!--TOP ANIME DESKTOP REGION END-->
