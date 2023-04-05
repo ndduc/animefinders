@@ -1,1 +1,54 @@
-<p>visual-novel-character works!</p>
+<div *ngIf="isLoading" class="d-flex justify-content-center"  style="background-color: white !important;">
+	<img style="width: 30%; height: 30%;" class="" src="assets/images/loading-cute.gif" alt="Err">
+</div>
+
+
+<div class="anime-body-container">
+	<body class="container-xxl">
+	<div *ngIf="!isLoading">
+
+		<div *ngIf="isCharacterFound">
+			<mat-grid-list cols="{{this.resultColumn}}" rowHeight="6:3">
+				<div *ngFor="let character of characterList">
+					<mat-grid-tile class="anime-grid-tile" >
+						<mat-card class="anime-card-top" >
+							
+							<div class="anime-body-top d-flex">
+
+                            <!-- (click)="openTorrentModal(visualNovel);" -->
+								
+								<img class="anime-image-top"  src="{{character.image.url}}" alt="Photo Content - Error">
+					
+								<div class="anime-detail-top">
+									<div class="anime-header">
+										<h3>{{character.name}}</h3>
+									</div>
+
+									<div class="anime-top-chip">
+										<mat-chip-list >
+											<!-- <mat-chip class="tag">Rating: {{visualNovel.rating}}</mat-chip>
+											<mat-chip class="tag">Popularity: {{visualNovel.popularity}}</mat-chip> -->
+										</mat-chip-list>
+									</div>
+									
+								</div>
+								
+							</div>
+							<mat-card-content class="anime-content">
+							</mat-card-content>
+							
+						</mat-card>
+
+					</mat-grid-tile>
+				</div>
+			</mat-grid-list>
+
+            <mat-paginator class="paginator-mobile"  [length]="this.pageSize" *ngIf="!isMobile"
+			[pageSize]="100"
+			aria-label="Select page" (page)="onPageChange($event)">
+			</mat-paginator>
+
+		</div>
+	</div>
+	</body>
+</div>

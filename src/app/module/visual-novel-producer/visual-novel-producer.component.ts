@@ -58,6 +58,7 @@ export class VisualNovelProducerComponent implements OnInit {
           this.isProducerFound = true;
         } 
         this.producerList = x.results;
+
         this.pageSize = x.count;
         this.produceProcesser(this.producerList);
       }
