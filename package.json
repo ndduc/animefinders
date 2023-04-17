@@ -21,7 +21,7 @@
     "@angular/platform-browser": "~13.4.0",
     "@angular/platform-browser-dynamic": "~13.4.0",
     "@angular/router": "~13.4.0",
-    "@ng-bootstrap/ng-bootstrap": "^10.0.0",
+    "@ng-bootstrap/ng-bootstrap": "^12.1.2",
     "@types/jwplayer": "^8.2.10",
     "angular-in-memory-web-api": "^0.11.0",
     "angular-mgl-timeline": "^0.4.0",
