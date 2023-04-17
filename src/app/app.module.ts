@@ -27,7 +27,6 @@ import { AnimeTorrentHolderCustomComponent } from './dialog/anime/anime-torrent-
 import { ReactiveFormsModule } from '@angular/forms';
 import { DmcaComponentComponent } from './module/dmca-component/dmca-component.component';
 import { MglTimelineModule } from 'angular-mgl-timeline';
-import { NgImageSliderModule } from 'ng-image-slider';
 import { AnimeTorrentHolderComponent } from './dialog/anime/anime-torrent-holder/anime-torrent-holder.component';
 import { QuestionModalComponent } from './dialog/question/question/question-modal/question-modal.component';
 import { AnimeTopComponent } from './module/anime-top/anime-top.component';
@@ -96,7 +95,6 @@ import { VisualNovelSearchComponent } from './module/visual-novel-search/visual-
     MatPaginatorModule,
     ReactiveFormsModule,
     MglTimelineModule,
-    NgImageSliderModule,
     MatListModule,
     MatTabsModule,
     MatTableModule

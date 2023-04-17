@@ -28,7 +28,6 @@
     "aos": "^2.3.4",
     "bootstrap": "^4.5.0",
     "jwplayer": "^1.0.3",
-    "ng-image-slider": "^2.8.0",
     "ngx-device-detector": "^2.1.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
@@ -39,16 +38,16 @@
     "@angular/cli": "~12.1.3",
     "@angular/compiler-cli": "~12.1.0-",
     "@types/jasmine": "~3.8.0",
+    "@types/jwplayer": "^8.2.10",
     "@types/node": "^12.11.1",
     "angular-ide": "^0.9.77",
     "jasmine-core": "~3.8.0",
+    "jwplayer": "^1.0.3",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
-    "typescript": "~4.3.2",
-    "@types/jwplayer": "^8.2.10",
-    "jwplayer": "^1.0.3"
+    "typescript": "~4.3.2"
   }
 }
