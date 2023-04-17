@@ -11,6 +11,8 @@ import { VnSearchResultModel } from 'src/app/model/vn-search-result.model';
 import { VnDetailResultModel } from 'src/app/model/vn-detail-result.model';
 import { VnReleaseResultModel } from 'src/app/model/vn-release-result.model';
 import { VnProducerResultModel } from 'src/app/model/vn-producer-result.model';
+import { VnPayloadPagination } from 'src/app/model/vn-payload-pagination.mode';
+import { VnCharacterResultModel } from 'src/app/model/vn-character-result.model';
 
 
 @Injectable({
@@ -27,8 +29,44 @@ export class VndbService {
   public respondMapAnimeDetail = new Map<any, any>();
   constructor(private http: HttpClient) { }
 
-  getProducers(): Observable<VnProducerResultModel> {
-    return this.http.post<VnProducerResultModel>(this.vndb_url_aws + "/search-producers", {}).pipe(
+  getCharacters(pagId: string): Observable<VnCharacterResultModel> {
+    let payload = {} as VnPayloadPagination;
+    if(pagId != "-1") {
+      payload.paginationId = pagId;
+    }
+    return this.http.post<VnCharacterResultModel>(this.vndb_url_aws + "/get-characters", payload).pipe(
+      map(
+        (results:VnCharacterResultModel) => results
+      ), 
+      catchError(this.handleError)
+    );
+  }
+
+  getCharactersByName(pagId: string, characterName: string): Observable<VnCharacterResultModel> {
+    let payload = {} as VnPayloadPagination;
+    if(pagId != "-1") {
+      payload.paginationId = pagId;
+    }
+    if(characterName.length > 0) {
+      payload.characterName = characterName;
+    }
+    return this.http.post<VnCharacterResultModel>(this.vndb_url_aws + "/search-character-by-name", payload).pipe(
+      map(
+        (results:VnCharacterResultModel) => results
+      ), 
+      catchError(this.handleError)
+    );
+  }
+
+
+  getProducers(pagId: string): Observable<VnProducerResultModel> {
+    let payload = {};
+    if (pagId != "-1") {
+      payload = {
+        paginationId: pagId
+      } as VnPayloadPagination;
+    }
+    return this.http.post<VnProducerResultModel>(this.vndb_url_aws + "/search-producers", payload).pipe(
       map(
         (results:VnProducerResultModel) => results
       ), 

@@ -24,7 +24,17 @@ export class VisualNovelProducerComponent implements OnInit {
   public searchSeasonName: string = 'searchSeason';
   public searchSeasonControl = new UntypedFormControl(null, Validators.required);
 
+  pattern1 = /(?<=\[url=https:\/\/).*?(?=\])/; 
+  pattern2 = /(?<=\[url=http:\/\/).*?(?=\])/; 
+
+  patternForRemoval = /\[(.*?)\]/g;
+  patternForRemoval2 =  /\.\s*[\w\s]+]/g;
+
   producerList: VnProducerModel[] = [];
+
+  pageSize: number = 100;
+
+  paginationId: string = "-1";
 
 
   constructor( 
@@ -37,20 +47,38 @@ export class VisualNovelProducerComponent implements OnInit {
   ngOnInit(): void {
     this.breakpointObserverEvent();
     this.setUpForm();
-    this.getProducers();
+    this.getProducers(this.paginationId);
   }
 
-  getProducers() {
+  getProducers(paginationId: string) {
     this.isLoading = true;
-    this.vndbService.getProducers().subscribe(
+    this.vndbService.getProducers(paginationId).subscribe(
       x => {
         if (!x.Error && x.results) {
           this.isProducerFound = true;
         } 
         this.producerList = x.results;
+
+        this.pageSize = x.count;
         this.produceProcesser(this.producerList);
       }
     );
+  }
+
+  getUrlFromProducerDescription(description: string) : string {
+    const match1 = this.pattern1.exec(description);
+    const match2 = this.pattern2.exec(description);
+    if (match1) {
+      return match1[0];
+    } else if (match2) {
+      return match2[0];
+    } else {
+      return "";
+    }
+  }
+
+  cleanProducerDescription(description: string): string {
+    return description.replace(this.patternForRemoval, '').replace(this.patternForRemoval2, '');
   }
 
   private produceProcesser(lst: VnProducerModel[]) {
@@ -61,6 +89,14 @@ export class VisualNovelProducerComponent implements OnInit {
     }
     this.isLoading = false;
   }
+
+  public onPageChange($event) {
+    let newestIndex = this.producerList.length - 1;
+    this.paginationId = this.producerList[newestIndex].id;
+    console.log(this.paginationId);
+    this.getProducers(this.paginationId);
+  }
+
 
   private setUpForm(): void {
     this.searchYearForm.addControl(this.searchYearName, this.searchAdvControl);
