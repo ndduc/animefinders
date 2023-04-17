@@ -1,6 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { VnProducerModel } from 'src/app/model/vn-producer.model';
@@ -18,11 +18,11 @@ export class VisualNovelProducerComponent implements OnInit {
   isLoading: boolean = false;
   isProducerFound: boolean = false;
 
-  public searchYearForm = new FormGroup({});
+  public searchYearForm = new UntypedFormGroup({});
   public searchYearName: string = 'searchYear';
-  public searchAdvControl = new FormControl(null, Validators.required);
+  public searchAdvControl = new UntypedFormControl(null, Validators.required);
   public searchSeasonName: string = 'searchSeason';
-  public searchSeasonControl = new FormControl(null, Validators.required);
+  public searchSeasonControl = new UntypedFormControl(null, Validators.required);
 
   producerList: VnProducerModel[] = [];
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AnimeModalComponent } from '../../dialog/anime/anime-modal/anime-modal.component';
 import { QuestionModalComponent } from '../../dialog/question/question/question-modal/question-modal.component';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AnimeSortModel } from '../../model/anime-sort-model.model';
 import { sortOptionEnum } from '../../enum/enum-option/enum-option';
@@ -62,11 +62,11 @@ export class AnimeTopComponent implements OnInit {
   paginationObject: AnimePaginationModel = {} as AnimePaginationModel ;
 
 
-  public searchYearForm = new FormGroup({});
+  public searchYearForm = new UntypedFormGroup({});
   public searchYearName: string = 'searchYear';
-  public searchAdvControl = new FormControl(null, Validators.required);
+  public searchAdvControl = new UntypedFormControl(null, Validators.required);
   public searchSeasonName: string = 'searchSeason';
-  public searchSeasonControl = new FormControl(null, Validators.required);
+  public searchSeasonControl = new UntypedFormControl(null, Validators.required);
   
   selectedIndex: number = 1;
   strTitle: string = '';
