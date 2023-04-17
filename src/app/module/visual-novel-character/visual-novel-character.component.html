@@ -10,32 +10,90 @@
 		<div *ngIf="isCharacterFound">
 			<mat-grid-list cols="{{this.resultColumn}}" rowHeight="6:3">
 				<div *ngFor="let character of characterList">
-					<mat-grid-tile class="anime-grid-tile" >
+					<mat-grid-tile >
 						<mat-card class="anime-card-top" >
-							
 							<div class="anime-body-top d-flex">
-
-                            <!-- (click)="openTorrentModal(visualNovel);" -->
-								
 								<img class="anime-image-top"  src="{{character.image.url}}" alt="Photo Content - Error">
-					
-								<div class="anime-detail-top">
+								<div class="anime-detail-top d-flex flex-column">
 									<div class="anime-header">
 										<h3>{{character.name}}</h3>
 									</div>
+									<div class="character-info d-flex flex-column">
+										<div class="d-flex justify-content-start ml-1">
+											Gender: Gender goes here
+										</div>
+										<div class="d-flex justify-content-start mt-1 ml-1">
+											Aliases: {{getCharacterAlias(character.aliases)}}
+										</div>
+										<div class="d-flex justify-content-start mt-1 ml-1">
+											<div>
+												Visual Novels:
+											</div>
+											<div *ngFor="let vn of character.vns">
+												<div>
+													{{vn.title}}
+												</div>
+											</div>
+										</div>
+										<div class="mt-1 ml-1">
+											<div class="d-flex justify-content-start">Detail Bio:</div>
+											<div class="row mt-1 mb-1 ml-1">
+												<div class="col">
+													<div class="d-flex justify-content-start">
+														Blood Type: {{character.blood_type}}
+													</div>
+													<div class="d-flex justify-content-start">
+														Age: {{character.age}}
+													</div>
+													<div class="d-flex justify-content-start">
+														Height: {{character.height}}
+													</div>
+													<div class="d-flex justify-content-start">
+														Weight: {{character.weight}}
+													</div>
+												</div>
+												<div class="col">
+													<div class="d-flex justify-content-start">
+														Bust: {{character.bust}}
+													</div>
+													<div class="d-flex justify-content-start">
+														Waist: {{character.waist}}
+													</div>
+													<div class="d-flex justify-content-start">
+														Hips: {{character.hips}}
+													</div>
+													<div class="d-flex justify-content-start">
+														Cup: {{character.cup}}
+													</div>
+												</div>
+											</div>
+											
 
-									<div class="anime-top-chip">
-										<mat-chip-list >
-											<!-- <mat-chip class="tag">Rating: {{visualNovel.rating}}</mat-chip>
-											<mat-chip class="tag">Popularity: {{visualNovel.popularity}}</mat-chip> -->
-										</mat-chip-list>
+										</div>
+										
+										<div class="mt-1 ml-1">
+											<div class="d-flex justify-content-start">
+												Description: 
+											</div>
+											<div class="d-flex justify-content-start ml-1">
+												{{character.description}}
+											</div>
+										</div>
+										<div class="mt-1 ml-1">
+											<div class="d-flex justify-content-start">
+												Character Trait
+											</div>
+											<div *ngFor="let trait of character.traits">
+												<div>
+													{{trait.name}}
+												</div>
+											</div>
+										</div>
+
+		
 									</div>
-									
 								</div>
-								
 							</div>
-							<mat-card-content class="anime-content">
-							</mat-card-content>
 							
 						</mat-card>
 

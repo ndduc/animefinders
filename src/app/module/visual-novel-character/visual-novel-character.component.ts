@@ -13,7 +13,7 @@ import { VndbService } from 'src/app/service/vndb/vndb.service';
 })
 export class VisualNovelCharacterComponent implements OnInit {
   pageTitle: string = "visual-novel";
-  resultColumn: number = 4;
+  resultColumn: number = 3;
   isMobile: boolean = false;
   isLoading: boolean = false;
   isCharacterFound: boolean = false;
@@ -84,10 +84,10 @@ export class VisualNovelCharacterComponent implements OnInit {
       Breakpoints.XLarge
     ]).subscribe(result => {
       if (result.breakpoints[Breakpoints.XLarge]) {
-        this.resultColumn = 4;
+        this.resultColumn = 3;
         this.isMobile = false;
       } else if (result.breakpoints[Breakpoints.Large]) {
-        this.resultColumn = 4;
+        this.resultColumn = 3;
         this.isMobile = false;
       } else if (result.breakpoints[Breakpoints.Medium]) {
         this.resultColumn = 3;
@@ -100,6 +100,14 @@ export class VisualNovelCharacterComponent implements OnInit {
         this.isMobile = true;
       }
     });
+  }
+
+  getCharacterAlias(aliases: string[]) : string{
+    if (aliases.length > 0) {
+      return aliases.join(', ');
+    } else {
+      return "";
+    }
   }
 
 }
