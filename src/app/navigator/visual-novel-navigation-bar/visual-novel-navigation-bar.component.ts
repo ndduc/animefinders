@@ -1,6 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -23,9 +23,9 @@ export class VisualNovelNavigationBarComponent implements OnInit {
   selectedIndex: number = 0;
   selectedIndex2nd: number = 0;
   
-  public searchForm = new FormGroup({});
+  public searchForm = new UntypedFormGroup({});
   public searchName: string = 'searchName';
-  public searchControl = new FormControl(null, Validators.required);
+  public searchControl = new UntypedFormControl(null, Validators.required);
   strTitle: string = '';
 
 

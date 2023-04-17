@@ -1,6 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { VnReleaseModel } from 'src/app/model/vn-release.model';
@@ -18,11 +18,11 @@ export class VisualNovelReleaseComponent implements OnInit {
   isLoading: boolean = false;
   isVnFound: boolean = false;
 
-  public searchYearForm = new FormGroup({});
+  public searchYearForm = new UntypedFormGroup({});
   public searchYearName: string = 'searchYear';
-  public searchAdvControl = new FormControl(null, Validators.required);
+  public searchAdvControl = new UntypedFormControl(null, Validators.required);
   public searchSeasonName: string = 'searchSeason';
-  public searchSeasonControl = new FormControl(null, Validators.required);
+  public searchSeasonControl = new UntypedFormControl(null, Validators.required);
   
   releaseList: VnReleaseModel[] = [];
   constructor(    

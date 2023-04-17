@@ -30,9 +30,9 @@ button {
 }
 
 .anime-detail-top {
-	text-align: center;
-	align-items: center;
-	justify-content: center;
+	/* text-align: center; */
+	align-items: start;
+	/* justify-content: center; */
 	width: 100%;
 	overflow: auto;
 	margin-left: 5px;
@@ -132,7 +132,7 @@ button {
 	overflow-y: auto;
 	height: 100%;
 	color: black !important;
-	font-size: 10px;
+	font-size: 12px;
 }
 
 @media (max-width: 500px) {
